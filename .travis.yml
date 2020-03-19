@@ -8,5 +8,5 @@ os:
 
 r_github_packages:
   - SticsRPacks/SticsRFiles
-  - SticsRPacks/SticOnR
+  - SticsRPacks/SticsOnR
   - SticsRPacks/CroptimizR

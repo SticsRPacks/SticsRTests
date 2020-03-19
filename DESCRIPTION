@@ -20,10 +20,11 @@ LazyData: true
 RoxygenNote: 7.1.0
 Imports: 
     SticsRFiles,
-    SticsOnR
+    SticsOnR,
+    CroptimizR
 Remotes: 
     github::SticsRPacks/SticsRFiles,
-    github::SticsRPacks/SticOnR,
+    github::SticsRPacks/SticsOnR,
     github::SticsRPacks/CroptimizR
 Suggests:
     testthat,
