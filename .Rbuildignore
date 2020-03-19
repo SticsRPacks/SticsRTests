@@ -4,3 +4,4 @@
 ^JavaSTICS
 ^README\.Rmd$
 docs
+^\.travis\.yml$
