@@ -3,4 +3,5 @@
 ^data$
 ^JavaSTICS
 ^README\.Rmd$
-^stics
+stics
+docs
