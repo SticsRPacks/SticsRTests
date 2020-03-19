@@ -7,6 +7,12 @@ A package to make integration tests for the SticsRPacks packages
 
 -----
 
+<!-- badges: start -->
+
+[![Travis build
+status](https://travis-ci.org/SticsRPacks/SticsRTests.svg?branch=master)](https://travis-ci.org/SticsRPacks/SticsRTests)
+<!-- badges: end -->
+
 This package is used to test the functions from all the distributed R
 packages from SticsRPacks for tests that cannot be integrated directly
 in the packages because they have to use external programs such as STICS
