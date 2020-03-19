@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<fichierparamgen>
+    <formalisme nom="spécificité des sorties">
+        <option choix="6" nom="ecritures specifiques" nomParam="codeoutsti">
+            <choix code="1" nom="sti.par.defaut"/>
+            <choix code="2" nom="psibase.a.la.place.de.Hmax"/>
+            <choix code="3" nom="Qfix.a.la.place.de.Hmax"/>
+            <choix code="4" nom="psibase,mabois,H2Orec"/>
+            <choix code="5" nom="matuber.a.la.place.de.Hmax"/>
+            <choix code="6" nom="sorties climator"/>
+        </option>
+        <option choix="2" nom="epitaf" nomParam="codepitaf">
+            <choix code="1" nom="oui"/>
+            <choix code="2" nom="non"/>
+        </option>
+        <param format="integer" max="52" min="0" nom="codebet">0</param>
+        <param format="real" max="1.0" min="1.0E-4" nom="remobfruit(1)">6.47</param>
+        <param format="real" max="1.0" min="1.0E-4" nom="remobfruit(2)">6.47</param>
+        <param format="real" max="1.0" min="1.0E-4" nom="seuiltustress(1)">0.04</param>
+        <param format="real" max="1.0" min="1.0E-4" nom="seuiltustress(2)">0.04</param>
+        <param format="real" max="1.0" min="1.0E-4" nom="seuilsp(1)">0.0</param>
+        <param format="real" max="1.0" min="1.0E-4" nom="seuilsp(2)">0.0</param>
+        <param format="real" max="1.0" min="-1.0" nom="splaiminmoins(1)">0.0</param>
+        <param format="real" max="1.0" min="-1.0" nom="splaiminmoins(2)">0.0</param>
+        <param format="real" max="1.0" min="-1.0" nom="splaiminplus(1)">0.0</param>
+        <param format="real" max="1.0" min="-1.0" nom="splaiminplus(2)">0.0</param>
+    </formalisme>
+    <formalisme nom="specificités cultures fauchées">
+        <option choix="1" nom="calcul de la temp des fauches en somme de" nomParam="codetempfauche">
+            <choix code="1" nom="en upvt"/>
+            <choix code="2" nom="en udevair"/>
+        </option>
+        <param format="real" max="50.0" min="10.0" nom="coefracoupe(1)">0.5</param>
+        <param format="real" max="50.0" min="10.0" nom="coefracoupe(2)">0.5</param>
+        <option choix="2" nom="pluies --&gt; irrigations" nomParam="codepluiepoquet">
+            <choix code="1" nom="oui">
+                <param format="integer" nom="nbjoursrrversirrig">15</param>
+            </choix>
+            <choix code="2" nom="non"/>
+        </option>
+        <param format="real" max="0.0" min="1.0E-4" nom="resplmax">0.66</param>
+        <option choix="2" nom="activation" nomParam="codedlaimin">
+            <choix code="1" nom="oui">
+                <param format="real" nom="dlaimin(1)">0.0</param>
+            </choix>
+            <choix code="2" nom="non"/>
+        </option>
+        <param format="real" nom="dlaimin(2)">0.0</param>
+        <param format="real" nom="swfacmin">0.1</param>
+        <option choix="2" nom="activation" nomParam="codedyntalle">
+            <choix code="1" nom="oui">
+                <param nom="SurfApex(1)">5e-6</param>
+                <param nom="SurfApex(2)">0.0</param>
+                <param nom="SeuilMorTalle(1)">0.02</param>
+                <param nom="SeuilMorTalle(2)">0.0</param>
+                <param nom="SigmaDisTalle(1)">0.1</param>
+                <param nom="SigmaDisTalle(2)">0.0</param>
+                <param nom="VitReconsPeupl(1)">1e-5</param>
+                <param nom="VitReconsPeupl(2)">0.0</param>
+                <param nom="SeuilReconsPeupl(1)">800.0</param>
+                <param nom="SeuilReconsPeupl(2)">0.0</param>
+                <param nom="MaxTalle(1)">4000.0</param>
+                <param nom="MaxTalle(2)">0.0</param>
+            </choix>
+            <choix code="2" nom="non"/>
+        </option>
+        <param format="integer" max="2" min="1" nom="codetranspitalle">2</param>
+    </formalisme>
+    <formalisme nom="Prise en compte du CC sur les matieres organiques">
+        <option choix="1" nom="calcul des series historiques" nomParam="code_adapt_MO_CC">
+            <choix code="1" nom="serie_incluse">
+                <param format="integer" nom="periode_adapt_CC">10</param>
+                <param format="integer" nom="an_debut_serie_histo">1950</param>
+                <param format="integer" nom="an_fin_serie_histo">1970</param>
+            </choix>
+            <choix code="2" nom="serie_non_incluse">
+                <param format="real" nom="param_tmoy_histo">10.0</param>
+            </choix>
+        </option>
+        <option choix="2" nom="minéralisation" nomParam="code_adaptCC_miner">
+            <choix code="1" nom="oui">
+                <option choix="2" nom="nitrification" nomParam="code_adaptCC_nit">
+                    <choix code="1" nom="oui">
+                        <option choix="2" nom="dénitrification" nomParam="code_adaptCC_denit">
+                            <choix code="1" nom="oui">
+                                <param format="real" max="20.0" min="-10.0" nom="TREFdenit1">11</param>
+                                <param format="real" max="20.0" min="-10.0" nom="TREFdenit2">20</param>
+                            </choix>
+                            <choix code="2" nom="non"/>
+                        </option>
+                    </choix>
+                    <choix code="2" nom="non"/>
+                </option>
+            </choix>
+            <choix code="2" nom="non"/>
+        </option>
+        <param format="integer" max="50" min="1" nom="nbj_pr_apres_semis">3</param>
+        <param format="integer" max="90" min="0" nom="eau_mini_decisemis">10</param>
+        <param format="real" max="1.0" min="1.0E-4" nom="humirac_decisemis">0.75</param>
+    </formalisme>
+</fichierparamgen>

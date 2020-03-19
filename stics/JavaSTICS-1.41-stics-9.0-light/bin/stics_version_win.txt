@@ -1,0 +1,5 @@
+Informations about Stics model build version 
+Build date : 2018-10-19 (11:34:23,22) 
+Version : 9.0_r2089 
+Version date : 2018-10-19 
+OS name : Windows (32bits) 

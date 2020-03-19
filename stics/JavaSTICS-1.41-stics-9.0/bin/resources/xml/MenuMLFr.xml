@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?> 
+<!DOCTYPE MENUBAR SYSTEM "MenuML.dtd">
+
+<MENUBAR>
+    <MENU name="Répertoire">
+        <MENU-ITEM name="Ouvrir / Créer" image="stics/resources/shared/images/menu/file/Open16.gif" action="repertoire" />
+        <MENU-ITEM name="Quitter" action="quitter" />
+    </MENU>
+    <MENU name="Entrées">
+        <MENU-ITEM name="Paramètres" action="parametres" />
+        <MENU-ITEM name="Initialisations" action="initialisations" />
+        <MENU-ITEM name="Sols" action="sols" />
+        <MENU-ITEM name="LAI" action="lai" />
+        <MENU-ITEM name="Climatiques" action="climat" />
+        <MENU-ITEM name="Observés" action="obs" />
+    </MENU>
+    <MENU name="Modèles">
+        <MENU-ITEM name="Modèles (choisir / ajouter)" action="choixmodele" />
+        <MENU-ITEM name="Fichiers d'exécution USM (Cultures pures / associées)" action="choixusm" />
+        <MENU name="Choix des Sorties">
+        	<MENU-ITEM name="Sorties Journalières" action="choixsorties" />
+        	<MENU-ITEM name="Rapport" action="rapport" />
+        	<MENU-ITEM name="Profil" action="profil" />
+        </MENU>
+        <MENU-ITEM name="Exécuter" action="executer" />
+        <MENU-ITEM name="Optimiser" action="optimiser" />
+        <MENU-ITEM name="Grouper plusieurs USM" action="grouper" />
+        <MENU-ITEM name="Enchainer plusieurs USM" action="enchainer" />
+    </MENU>
+    <MENU name="Sorties">
+        <MENU-ITEM name="Visualiser Variables" action="visuvars" />
+        <MENU-ITEM name="Visualiser Profil" action="visuprofil" />
+        <MENU-ITEM name="Statistiques" action="statistiques" />
+    </MENU>
+     <MENU name="Fichier">
+        <MENU-ITEM name="Ouvrir" image="stics/resources/shared/images/menu/file/Open16.gif" action="fichier_ouvrir" />
+        <MENU-ITEM name="Fermer" image="stics/resources/shared/images/menu/file/Delete16.gif" action="fichier_fermer" />
+        <MENU-ITEM name="Enregistrer sous" image="stics/resources/shared/images/menu/file/SaveAs16.gif" action="fichier_enregistrer" />
+        <MENU-ITEM name="Mise en page..." image="stics/resources/shared/images/menu/file/PageSetup16.gif" action="fichier_miseenpage" />
+        <MENU-ITEM name="Imprimer" image="stics/resources/shared/images/menu/file/Print16.gif" action="fichier_imprimer" />
+    </MENU>
+    <MENU name="Outils">
+        <MENU name="Mode d'affichage">
+          <MENU-ITEM name="Java" action="style_java" />
+          <MENU-ITEM name="Windows" action="style_windows" />
+          <MENU-ITEM name="Motif" action="style_motif" />
+        </MENU>
+        <MENU-ITEM name="Préférences" action="preferences" />
+        <MENU-ITEM-CHECKBOX name="Barre d'outils" action="barre_outils" groupe="" />
+        <MENU-ITEM-CHECKBOX name="Barre d'etat" action="barre_etat" groupe="" />
+        <MENU name="Outils de mise au format">
+          <MENU-ITEM name="V6.2 -> V7.0 de répertoire(s) ... " action="convertRep2Xml" />
+          <MENU name="V6.2 -> V7.0 de fichier(s) ...">
+          	<MENU-ITEM name="Convertir fichier .plt en .xml" action="convertPlt2Xml" />
+          	<MENU-ITEM name="Convertir fichier .tec en .xml" action="convertTec2Xml" />
+          	<MENU-ITEM name="Convertir fichier paramètres généraux en .xml" action="convertParamGen2Xml" />
+          	<MENU-ITEM name="Convertir fichier de sorties(journalier) en .xml" action="convertTtoXml" />
+          	<MENU-ITEM name="Convertir anciens fichiers usm en .xml" action="convertUSMtoXml" />
+          </MENU> 
+        </MENU>        
+    </MENU>
+    <MENU name="Aide">
+        <MENU-ITEM name="Raccourcis" image="stics/resources/shared/images/menu/help/Help16.gif"/>
+        <MENU-ITEM name="A propos de" image="stics/resources/shared/images/menu/help/About16.gif" action="apropos" />        
+    </MENU>
+</MENUBAR>

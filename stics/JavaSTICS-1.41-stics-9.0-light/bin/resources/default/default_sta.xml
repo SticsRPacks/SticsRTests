@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<fichiersta>
+    <formalisme nom="climat">
+        <param format="real" max="10.0" min="2.0" nom="zr">2.5</param>
+        <param format="real" max="0.0" min="1.0E-4" nom="NH3ref">0.0</param>
+        <param format="real" max="70.0" min="10.0" nom="ra">50.00000</param>
+        <param format="real" max="1.0" min="1.0E-4" nom="aangst">0.18</param>
+        <param format="real" max="1.0" min="1.0E-4" nom="bangst">0.62</param>
+        <param format="real" max="1.0" min="1.0E-4" nom="albveg">0.23</param>
+        <param format="real" max="0.6" min="0.4" nom="parsurrg">0.48000</param>
+        <param format="real" max="0.0" min="1.0E-4" nom="latitude">45.00000</param>
+        <param format="real" max="1500.0" min="1.0E-4" nom="patm">1000.0</param>
+        <param format="real" max="5.0" min="-5.0" nom="corecTrosee">+1.0</param>
+        <option choix="3" nom="calcul etp" nomParam="codeetp">
+            <choix code="1" nom="Penman-forcé"/>
+            <choix code="2" nom="Penman-calculé"/>
+            <choix code="3" nom="Shutwall-et-Wallace"/>
+            <choix code="4" nom="Prestley-Taylor">
+                <param format="real" max="0.0" min="1.0E-4" nom="alphapt">1.26000</param>
+            </choix>
+        </option>
+        <option choix="2" nom="calcul du rayonnement net" nomParam="codernet">
+            <choix code="1" nom="Brunt"/>
+            <choix code="2" nom="Brutsaert"/>
+        </option>
+        <option choix="1" nom="calcul température culture" nomParam="codecaltemp">
+            <choix code="1" nom="relation.simplifiée"/>
+            <choix code="2" nom="bilan.d'énergie"/>
+        </option>
+        <option choix="1" nom="changements climatiques" nomParam="codeclichange">
+            <choix code="1" nom="non"/>
+            <choix code="2" nom="oui"/>
+        </option>
+        <option choix="1" nom="climat en altitude" nomParam="codaltitude">
+            <choix code="1" nom="non"/>
+            <choix code="2" nom="oui">
+                <param format="real" max="2000.0" min="1.0E-4" nom="altistation">440.0</param>
+                <param format="real" max="2000.0" min="200.0" nom="altisimul">800.0</param>
+                <param format="real" max="3.0" min="1.0E-4" nom="gradtn">-0.50</param>
+                <param format="real" max="3.0" min="1.0E-4" nom="gradtx">-0.55</param>
+                <param format="real" max="1000.0" min="1.0E-4" nom="altinversion">500.0</param>
+                <param format="real" max="3.0" min="1.0E-4" nom="gradtninv">+1.3</param>
+                <param format="real" max="1.0" min="1.0E-4" nom="cielclair">0.8</param>
+                <option choix="1" nom="option.adret.ou.ubac" nomParam="codadret">
+                    <choix code="1" nom="adret(sud)"/>
+                    <choix code="2" nom="ubac(nord)">
+                        <param format="real" max="5.0" min="1.0E-4" nom="ombragetx">-1.4</param>
+                    </choix>
+                </option>
+            </choix>
+        </option>
+    </formalisme>
+    <formalisme nom="climat sous abri">
+        <param format="real" max="1.2" min="0.3" nom="coefdevil">0.7</param>
+        <param format="real" max="100.0" min="0.0" nom="aks">6.0</param>
+        <param format="real" max="100.0" min="0.0" nom="bks">0.5</param>
+        <param format="real" max="1.0" min="1.0E-4" nom="cvent">0.16</param>
+        <param format="real" max="1.0E-4" min="0.01" nom="phiv0">4e-3</param>
+        <param format="real" max="1.0" min="1.0E-4" nom="coefrnet">0.59</param>
+    </formalisme>
+</fichiersta>

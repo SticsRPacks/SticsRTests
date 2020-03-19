@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<fichierplt>
+    <formalisme nom="nom plante">
+        <param format="integer" max="2" min="0" nom="codeplante">ble</param>
+        <option choix="1" nom="monocot ou dicot" nomParam="codemonocot">
+            <choix code="1" nom="monocotyledone"/>
+            <choix code="2" nom="dicotyledone"/>
+        </option>
+    </formalisme>
+    <formalisme nom="développement">
+        <param format="real" max="15" min="-10" nom="tdmin">.00000</param>
+        <param format="real" max="40" min="15" nom="tdmax">28.00000</param>
+        <option choix="2" nom="température pilote" nomParam="codetemp">
+            <choix code="1" nom="air">
+                <option choix="1" nom="échelle.de.temps" nomParam="codegdh">
+                    <choix code="1" nom="échelle.journalière"/>
+                    <choix code="2" nom="échelle.horaire"/>
+                </option>
+            </choix>
+            <choix code="2" nom="culture">
+                <param format="real" max="2" min="1" nom="coeflevamf">1.0</param>
+                <param format="real" max="2" min="1" nom="coefamflax">1.0</param>
+                <param format="real" max="2" min="1" nom="coeflaxsen">1.0</param>
+                <param format="real" max="2" min="1" nom="coefsenlan">1.0</param>
+                <param format="real" max="2" min="1" nom="coeflevdrp">1.0</param>
+                <param format="real" max="2" min="1" nom="coefdrpmat">1.0</param>
+                <param format="real" max="2" min="1" nom="coefflodrp">1.0</param>
+            </choix>
+        </option>
+        <option choix="1" nom="plante photopériodique" nomParam="codephot">
+            <choix code="1" nom="oui">
+                <param format="real" max="24" min="0.0001" nom="phobase">6.3</param>
+                <param format="real" max="24" min="0.0001" nom="phosat">20.00000</param>
+            </choix>
+            <choix code="2" nom="non"/>
+        </option>
+        <option choix="1" nom="effet retard stress" nomParam="coderetflo">
+            <choix code="1" nom="oui">
+                <param format="real" max="0.9" min="0.1" nom="stressdev">0.2</param>
+            </choix>
+            <choix code="2" nom="non"/>
+        </option>
+        <option choix="2" nom="besoins en froid" nomParam="codebfroid">
+            <choix code="1" nom="non"/>
+            <choix code="2" nom="vernalisation(herbacées)">
+                <param format="integer" max="20" min="0.0001" nom="jvcmini">7.0</param>
+                <param format="integer" max="288" min="213" nom="julvernal">274</param>
+                <param format="real" max="10" min="-5" nom="tfroid">6.5</param>
+                <param format="real" max="30" min="1" nom="ampfroid">10.0</param>
+            </choix>
+            <choix code="3" nom="dormance(ligneux)">
+                <option choix="3" nom="calcul.dormance" nomParam="codedormance">
+                    <choix code="1" nom="forçage">
+                        <param format="integer" max="730" min="1" nom="ifindorm">70</param>
+                    </choix>
+                    <choix code="2" nom="Richardson"/>
+                    <choix code="3" nom="Bidabe">
+                        <param format="real" max="3.5" min="1.5" nom="q10">3.0</param>
+                        <param format="integer" max="730" min="1" nom="idebdorm">300</param>
+                    </choix>
+                </option>
+                <param format="real" max="500" min="0.0001" nom="stdordebour">100.0</param>
+            </choix>
+        </option>
+    </formalisme>
+    <formalisme nom="début de végétation">
+        <option choix="1" nom="annuelle ou pérenne" nomParam="codeperenne">
+            <choix code="1" nom="annuelle">
+                <option choix="1" nom="germination.ou.démarrage" nomParam="codegermin">
+                    <choix code="1" nom="oui">
+                        <param format="real" max="15" min="-10" nom="tgmin">0.00000</param>
+                        <param format="real" max="100" min="0.0001" nom="stpltger">50.00000</param>
+                    </choix>
+                    <choix code="2" nom="non"/>
+                </option>
+                <option choix="1" nom="croissance.plantule" nomParam="codehypo">
+                    <choix code="1" nom="croissance.hypocotyle">
+                        <param format="real" max="0.02" min="0.005" nom="belong">0.01200</param>
+                        <param format="real" max="5" min="3" nom="celong">3.20000</param>
+                        <param format="real" max="10" min="4" nom="elmax">8.00000</param>
+                        <param nom="nlevlim1">10</param>
+                        <param nom="nlevlim2">50</param>
+                    </choix>
+                    <choix code="2" nom="plantation">
+                        <param format="real" max="8" min="0.0001" nom="laiplantule">0.00000</param>
+                        <param format="integer" max="10" min="0.0001" nom="nbfeuilplant">0</param>
+                    </choix>
+                </option>
+            </choix>
+            <choix code="2" nom="pérenne"/>
+        </option>
+    </formalisme>
+    <formalisme nom="feuillage">
+        <param format="real" max="150" min="10" nom="plastochrone">120.0</param>
+        <param format="real" max="20" min="1" nom="bdens">7.00000</param>
+        <param format="real" max="1" min="0.0001" nom="laicomp">0.304</param>
+        <param format="real" max="1.5" min="0.0001" nom="hautbase">0.00000</param>
+        <param format="real" max="5" min="0.1" nom="hautmax">1.20</param>
+        <option choix="1" nom="fonction foliaire" nomParam="codelaitr">
+            <choix code="1" nom="LAI">
+                <param format="real" max="2.5" min="1.5" nom="vlaimax">2.2</param>
+                <param format="real" max="3" min="0.0001" nom="pentlaimax">5.5</param>
+                <param format="real" max="3" min="1" nom="udlaimax">3.0</param>
+                <param nom="ratiodurvieI">0.8</param>
+                <param format="real" max="15" min="-10" nom="tcmin">0</param>
+                <param format="real" max="50" min="10" nom="tcmax">40.00000</param>
+                <param format="real" max="1" min="0.0001" nom="ratiosen">0.8</param>
+                <param format="real" max="1" min="0.0001" nom="abscission">0.0</param>
+                <param format="real" max="20" min="10" nom="parazofmorte">13.0</param>
+                <param format="real" max="1" min="-2" nom="innturgmin">-0.2</param>
+                <option choix="2" nom="option.calcul.LAI" nomParam="codlainet">
+                    <choix code="1" nom="LAInet.direct">
+                        <param format="real" max="0.5" min="0.0001" nom="dlaimax">4.4e-4</param>
+                        <param format="real" max="1" min="0.3" nom="tustressmin">0.7</param>
+                    </choix>
+                    <choix code="2" nom="LAInet=LAIbrut-senes">
+                        <param format="real" max="0.5" min="0.0001" nom="dlaimaxbrut">4.4e-4</param>
+                        <param format="real" max="1" min="0.0001" nom="durviesupmax">0.4</param>
+                        <param format="real" max="1" min="-2" nom="innsen">0.35</param>
+                        <param format="real" max="1.5" min="0.5" nom="rapsenturg">0.5</param>
+                    </choix>
+                </option>
+            </choix>
+            <choix code="2" nom="taux.de.recouvrement">
+                <param format="real" max="1" min="0.5" nom="tauxrecouvmax">1.0</param>
+                <param format="real" max="1" min="0.5" nom="tauxrecouvkmax">1.0</param>
+                <param format="real" max="10" min="0.0001" nom="pentrecouv">4.5</param>
+                <param format="real" max="3" min="0.0001" nom="infrecouv">0.85</param>
+            </choix>
+        </option>
+    </formalisme>
+    <formalisme nom="interception du rayonnement">
+        <option choix="1" nom="interception du rayonnement" nomParam="codetransrad">
+            <choix code="1" nom="loi.de.Beer">
+                <param format="real" max="1.5" min="0.1" nom="extin">.50000</param>
+            </choix>
+            <choix code="2" nom="transferts">
+                <param format="real" max="2" min="0.2" nom="ktrou">1.00000</param>
+                <param format="real" max="0" min="0.0001" nom="forme">2</param>
+                <param format="real" max="5" min="-5" nom="rapforme">4.0</param>
+                <param format="real" max="2" min="1" nom="adfol">1.0</param>
+                <param format="real" max="10" min="1" nom="dfolbas">5.0</param>
+                <param format="real" max="10" min="1" nom="dfolhaut">5.0</param>
+            </choix>
+        </option>
+    </formalisme>
+    <formalisme nom="croissance en biomasse">
+        <option choix="1" nom="seuils de températures" nomParam="codtefcroi">
+            <choix code="1" nom="idem.LAI"/>
+            <choix code="2" nom="différents.LAI">
+                <param format="real" max="15" min="-10" nom="temin">.00000</param>
+                <param format="real" max="40" min="15" nom="temax">40.00000</param>
+            </choix>
+        </option>
+        <param format="real" max="30" min="10" nom="teopt">12.00000</param>
+        <param format="real" max="30" min="10" nom="teoptbis">17.00000</param>
+        <param format="real" max="7" min="0.0001" nom="efcroijuv">2.2</param>
+        <param format="real" max="7" min="0.0001" nom="efcroiveg">4.250</param>
+        <param format="real" max="7" min="0.0001" nom="efcroirepro">4.25000</param>
+        <param format="real" max="0.5" min="0.0001" nom="remobres">0.2</param>
+        <param format="real" max="50" min="10" nom="coefmshaut">.00000</param>
+    </formalisme>
+    <formalisme nom="repartition entre organes">
+        <param format="real" max="500" min="50" nom="slamax">350</param>
+        <param format="real" max="500" min="50" nom="slamin">180</param>
+        <param format="real" max="3" min="0.0001" nom="tigefeuil">0.5</param>
+        <param format="real" max="0.5" min="0.0001" nom="envfruit">0.10</param>
+        <param format="real" max="300" min="10" nom="sea">0.0</param>
+    </formalisme>
+    <formalisme nom="croissance et rendement">
+        <option choix="1" nom="type de croissance" nomParam="codeindetermin">
+            <choix code="1" nom="déterminée">
+                <param nom="nbjgrains">30</param>
+                <param format="real" max="1000" min="2" nom="cgrain">0.0348</param>
+                <param format="real" max="2000" min="0.0001" nom="cgrainv0">-0.139</param>
+                <param format="integer" max="100000" min="0.0001" nom="nbgrmin">6000</param>
+                <option choix="1" nom="unité.IR" nomParam="codeir">
+                    <choix code="1" nom="jours">
+                        <param format="real" max="0.02" min="0.001" nom="vitircarb">.01100</param>
+                        <param format="real" max="730" min="1" nom="irmax">.55000</param>
+                    </choix>
+                    <choix code="2" nom="degré.jours">
+                        <param format="real" max="0.002" min="0.00005" nom="vitircarbT">.00070</param>
+                    </choix>
+                </option>
+            </choix>
+            <choix code="2" nom="indéterminée">
+                <param format="integer" max="20" min="1" nom="nboite">10</param>
+                <param nom="allocamx">.60000</param>
+                <param format="real" max="1" min="0.0001" nom="afpf">.40000</param>
+                <param format="real" max="5" min="3" nom="bfpf">4.32000</param>
+                <param nom="sdrpnou">300.0</param>
+                <param format="real" max="1" min="0.0001" nom="spfrmin">0.75</param>
+                <param format="real" max="2" min="0.7" nom="spfrmax">1.0</param>
+                <param format="real" max="1" min="0.0001" nom="splaimin">0.2</param>
+                <param format="real" max="2" min="0.7" nom="splaimax">1.0</param>
+                <option choix="2" nom="nombre.inflorescences" nomParam="codcalinflo">
+                    <choix code="1" nom="imposé">
+                        <param format="integer" max="10" min="1" nom="nbinflo">2.0</param>
+                    </choix>
+                    <choix code="2" nom="fonction.état.trophique">
+                        <param format="real" max="30" min="0.0001" nom="inflomax">5.0</param>
+                        <param format="real" max="10" min="0.0001" nom="pentinflores">0.8</param>
+                    </choix>
+                </option>
+            </choix>
+        </option>
+        <option choix="1" nom="contrainte thermique remplissage" nomParam="codetremp">
+            <choix code="1" nom="oui">
+                <param format="real" max="15" min="15" nom="tminremp">.00000</param>
+                <param format="real" max="40" min="0.3" nom="tmaxremp">38.0</param>
+            </choix>
+            <choix code="2" nom="non"/>
+        </option>
+        <param format="real" max="0.01" min="0.0001" nom="vitpropsucre">0.0</param>
+        <param format="real" max="0.01" min="0.0001" nom="vitprophuile">0.0</param>
+        <param format="real" max="0.04" min="0.001" nom="vitirazo">0.01757</param>
+    </formalisme>
+    <formalisme nom="racines">
+        <param format="real" max="1" min="0.0001" nom="sensanox">0.0</param>
+        <param format="real" max="0" min="0.0001" nom="stoprac">sen</param>
+        <param format="real" max="1" min="0.0001" nom="sensrsec">0.0</param>
+        <param format="real" max="1" min="0.0001" nom="contrdamax">0.3</param>
+        <option choix="1" nom="température pilote" nomParam="codetemprac">
+            <choix code="1" nom="culture"/>
+            <choix code="2" nom="sol.(seuil.TGMIN)"/>
+        </option>
+        <option choix="2" nom="densité racinaire" nomParam="coderacine">
+            <choix code="1" nom="profil.optimal.type">
+                <param format="real" max="100" min="0.0001" nom="zlabour">22.0000</param>
+                <param format="real" max="200" min="10" nom="zpente">100.00000</param>
+                <param format="real" max="200" min="10" nom="zprlim">160.00000</param>
+            </choix>
+            <choix code="2" nom="densité.vraie">
+                <param format="real" max="1000" min="5" nom="draclong">80.00</param>
+                <param format="real" max="2000" min="0.0001" nom="debsenrac">1000.00</param>
+                <param format="real" max="0.5" min="0.02" nom="lvfront">5e-2</param>
+                <param format="real" max="1" min="0.0001" nom="longsperac">0.0055</param>
+            </choix>
+        </option>
+    </formalisme>
+    <formalisme nom="gel">
+        <param format="real" max="-1" min="-30" nom="tletale">-25.0</param>
+        <param format="real" max="5" min="-5" nom="tdebgel">-4.0</param>
+        <option choix="2" nom="gel plantule ou levée" nomParam="codgellev">
+            <choix code="1" nom="non"/>
+            <choix code="2" nom="oui">
+                <param format="integer" max="5" min="1" nom="nbfgellev">2</param>
+                <param format="real" max="0" min="-25" nom="tgellev10">-4.0</param>
+                <param format="real" max="0" min="-25" nom="tgellev90">-20.0</param>
+            </choix>
+        </option>
+        <option choix="2" nom="gel feuillage phase juvénile (jusqu'à AMF)" nomParam="codgeljuv">
+            <choix code="1" nom="non"/>
+            <choix code="2" nom="oui">
+                <param format="real" max="0" min="-25" nom="tgeljuv10">-10.0</param>
+                <param format="real" max="0" min="-25" nom="tgeljuv90">-20.0</param>
+            </choix>
+        </option>
+        <option choix="2" nom="gel feuillage phase adulte" nomParam="codgelveg">
+            <choix code="1" nom="non"/>
+            <choix code="2" nom="oui">
+                <param format="real" max="0" min="-25" nom="tgelveg10">-4.5</param>
+                <param format="real" max="0" min="-25" nom="tgelveg90">-10.0</param>
+            </choix>
+        </option>
+        <option choix="2" nom="gel fleurs/fruits (à partir de FLO)" nomParam="codgelflo">
+            <choix code="1" nom="non"/>
+            <choix code="2" nom="oui">
+                <param format="real" max="0" min="-25" nom="tgelflo10">-4.5</param>
+                <param format="real" max="0" min="-25" nom="tgelflo90">-6.5</param>
+            </choix>
+        </option>
+    </formalisme>
+    <formalisme nom="eau">
+        <param format="real" max="25" min="1" nom="psisto">15.00000</param>
+        <param format="real" max="15" min="1" nom="psiturg">4.00000</param>
+        <param format="real" max="1" min="0.5" nom="h2ofeuilverte">0.90</param>
+        <param format="real" max="1" min="0.5" nom="h2ofeuiljaune">0.15</param>
+        <param format="real" max="1" min="0.5" nom="h2otigestruc">0.60</param>
+        <param format="real" max="1" min="0.5" nom="h2oreserve">0.70</param>
+        <param format="real" max="1" min="0.5" nom="h2ofrvert">0.40</param>
+        <param format="real" max="900" min="0.0001" nom="stdrpdes">700.0</param>
+        <param format="real" max="0.02" min="0.0001" nom="deshydbase">0.008</param>
+        <param format="real" max="0.05" min="0.0001" nom="tempdeshyd">0.005</param>
+        <option choix="1" nom="besoins en eau" nomParam="codebeso">
+            <choix code="1" nom="coefficient.cultural">
+                <param format="real" max="4" min="1" nom="kmax">1.00000</param>
+            </choix>
+            <choix code="2" nom="modèle.résistif">
+                <param format="real" max="500" min="20" nom="rsmin">100.00000</param>
+            </choix>
+        </option>
+        <option choix="2" nom="interception de la pluie" nomParam="codeintercept">
+            <choix code="1" nom="oui">
+                <param format="real" max="2" min="0.1" nom="mouillabil">.00000</param>
+                <param format="real" max="1" min="0.0001" nom="stemflowmax">.00000</param>
+                <param format="real" max="2" min="0.2" nom="kstemflow">.00000</param>
+            </choix>
+            <choix code="2" nom="non"/>
+        </option>
+    </formalisme>
+    <formalisme nom="azote">
+        <param format="real" max="0.01" min="0.0002" nom="Vmax1">.00180</param>
+        <param format="real" max="200" min="0.0001" nom="Kmabs1">50.00</param>
+        <param format="real" max="0.1" min="0.002" nom="Vmax2">.05000</param>
+        <param format="real" max="40000" min="10000" nom="Kmabs2">25000.00</param>
+        <param format="real" max="7" min="1" nom="adil">5.35000</param>
+        <param format="real" max="0.6" min="0.1" nom="bdil">.44000</param>
+        <param format="real" max="10" min="3" nom="adilmax">8.50000</param>
+        <param format="real" max="0.5" min="0.1" nom="bdilmax">.44000</param>
+        <param format="real" max="2" min="0.1" nom="masecNmax">1.54000</param>
+        <param format="real" max="0.5" min="0.0001" nom="INNmin">.300</param>
+        <param format="real" max="2" min="0.3" nom="inngrain1">1.0</param>
+        <param format="real" max="2" min="0.3" nom="inngrain2">1.2</param>
+        <option choix="1" nom="legumineuse" nomParam="codelegume">
+            <choix code="1" nom="non"/>
+            <choix code="2" nom="oui">
+                <option choix="2" nom="fixation.symbiotique" nomParam="codesymbiose">
+                    <choix code="1" nom="azote.critique"/>
+                    <choix code="2" nom="activite.nodosite">
+                        <param format="real" max="500" min="0.0001" nom="stlevdno">150.0</param>
+                        <param format="real" max="500" min="0.0001" nom="stdnofno">500.0</param>
+                        <param format="real" max="500" min="0.0001" nom="stfnofvino">300.0</param>
+                        <param format="real" max="0.01" min="0.001" nom="vitno">0.003</param>
+                        <param format="real" max="50" min="10" nom="profnod">40.0</param>
+                        <param format="real" max="2" min="0.0001" nom="concNnodseuil">13.0e-1</param>
+                        <param format="real" max="2" min="0.0001" nom="concNrac0">1.2</param>
+                        <param format="real" max="2" min="0.0001" nom="concNrac100">0.4</param>
+                        <param format="real" max="1" min="0.1" nom="hunod">1.5</param>
+                        <param format="real" max="40" min="-10" nom="tempnod1">0.0</param>
+                        <param format="real" max="40" min="-10" nom="tempnod2">30.0</param>
+                        <param format="real" max="40" min="-10" nom="tempnod3">36.0</param>
+                        <param format="real" max="40" min="-10" nom="tempnod4">50.0</param>
+                    </choix>
+                </option>
+            </choix>
+        </option>
+        <option choix="1" nom="effet azote sur nb fruits" nomParam="codazofruit">
+            <choix code="1" nom="non"/>
+            <choix code="2" nom="oui(inns)"/>
+        </option>
+    </formalisme>
+    <formalisme nom="variétal">
+        <tv nb_varietes="6" nom="les différentes variétés">
+            <variete nom="Arminda">
+                <param format="real" max="6000" min="0.0001" nom="stlevamf">275</param>
+                <param format="real" max="6000" min="0.0001" nom="stamflax">375</param>
+                <param format="real" max="6000" min="0.0001" nom="stlevdrp">837.</param>
+                <param format="real" max="0.5" min="0.003" nom="pgrainmaxi">0.03970</param>
+                <param format="real" max="0" min="-2" nom="adens">-0.6</param>
+                <param format="real" max="0.3" min="0.005" nom="croirac">0.12</param>
+                <param format="real" max="500" min="0.0001" nom="stflodrp">0</param>
+                <param format="real" max="400" min="50" nom="durvieF">200</param>
+                <optionv nom="codebfroid">
+                    <param format="integer" max="70" min="0.0001" nom="jvc">55.</param>
+                </optionv>
+                <optionv nom="codephot">
+                    <param format="real" max="1" min="0.0001" nom="sensiphot">0</param>
+                </optionv>
+                <optionv nom="codlainet">
+                    <param format="real" max="6000" min="0.0001" nom="stlaxsen">675.</param>
+                    <param format="real" max="6000" min="0.0001" nom="stsenlan">110.</param>
+                </optionv>
+                <optionv nom="codeindetermin">
+                    <param format="integer" max="100000" min="0.0001" nom="nbgrmax">30000</param>
+                    <param format="real" max="2000" min="0.0001" nom="stdrpmat">700</param>
+                    <param format="real" max="20" min="0.5" nom="afruitpot">.00000</param>
+                    <param format="real" max="1000" min="100" nom="dureefruit">.00000</param>
+                </optionv>
+                <optionv nom="codelegume">
+                    <param format="real" max="10" min="2" nom="fixmax">6.0</param>
+                </optionv>
+            </variete>
+            <variete nom="Talent">
+                <param format="real" max="6000" min="0.0001" nom="stlevamf">245</param>
+                <param format="real" max="6000" min="0.0001" nom="stamflax">260</param>
+                <param format="real" max="6000" min="0.0001" nom="stlevdrp">692</param>
+                <param format="real" max="0.5" min="0.003" nom="pgrainmaxi">.03880</param>
+                <param format="real" max="0" min="-2" nom="adens">-.60000</param>
+                <param format="real" max="0.3" min="0.005" nom="croirac">.12000</param>
+                <param format="real" max="500" min="0.0001" nom="stflodrp">0</param>
+                <param format="real" max="400" min="50" nom="durvieF">200</param>
+                <optionv nom="codebfroid">
+                    <param format="integer" max="70" min="0.0001" nom="jvc">50</param>
+                </optionv>
+                <optionv nom="codephot">
+                    <param format="real" max="1" min="0.0001" nom="sensiphot">0</param>
+                </optionv>
+                <optionv nom="codlainet">
+                    <param format="real" max="6000" min="0.0001" nom="stlaxsen">675.</param>
+                    <param format="real" max="6000" min="0.0001" nom="stsenlan">110.</param>
+                </optionv>
+                <optionv nom="codeindetermin">
+                    <param format="integer" max="100000" min="0.0001" nom="nbgrmax">30000</param>
+                    <param format="real" max="2000" min="0.0001" nom="stdrpmat">700</param>
+                    <param format="real" max="20" min="0.5" nom="afruitpot">.00000</param>
+                    <param format="real" max="1000" min="100" nom="dureefruit">.00000</param>
+                </optionv>
+                <optionv nom="codelegume">
+                    <param format="real" max="10" min="2" nom="fixmax">6.0</param>
+                </optionv>
+            </variete>
+            <variete nom="Thesee">
+                <param format="real" max="6000" min="0.0001" nom="stlevamf">245</param>
+                <param format="real" max="6000" min="0.0001" nom="stamflax">290</param>
+                <param format="real" max="6000" min="0.0001" nom="stlevdrp">732</param>
+                <param format="real" max="0.5" min="0.003" nom="pgrainmaxi">.0521</param>
+                <param format="real" max="0" min="-2" nom="adens">-.60000</param>
+                <param format="real" max="0.3" min="0.005" nom="croirac">.12000</param>
+                <param format="real" max="500" min="0.0001" nom="stflodrp">0</param>
+                <param format="real" max="400" min="50" nom="durvieF">200</param>
+                <optionv nom="codebfroid">
+                    <param format="integer" max="70" min="0.0001" nom="jvc">38</param>
+                </optionv>
+                <optionv nom="codephot">
+                    <param format="real" max="1" min="0.0001" nom="sensiphot">0</param>
+                </optionv>
+                <optionv nom="codlainet">
+                    <param format="real" max="6000" min="0.0001" nom="stlaxsen">675.</param>
+                    <param format="real" max="6000" min="0.0001" nom="stsenlan">110.</param>
+                </optionv>
+                <optionv nom="codeindetermin">
+                    <param format="integer" max="100000" min="0.0001" nom="nbgrmax">30000</param>
+                    <param format="real" max="2000" min="0.0001" nom="stdrpmat">700</param>
+                    <param format="real" max="20" min="0.5" nom="afruitpot">.00000</param>
+                    <param format="real" max="1000" min="100" nom="dureefruit">.00000</param>
+                </optionv>
+                <optionv nom="codelegume">
+                    <param format="real" max="10" min="2" nom="fixmax">6.0</param>
+                </optionv>
+            </variete>
+            <variete nom="Soissons">
+                <param format="real" max="6000" min="0.0001" nom="stlevamf">245</param>
+                <param format="real" max="6000" min="0.0001" nom="stamflax">375</param>
+                <param format="real" max="6000" min="0.0001" nom="stlevdrp">722</param>
+                <param format="real" max="0.5" min="0.003" nom="pgrainmaxi">.0407</param>
+                <param format="real" max="0" min="-2" nom="adens">-.60000</param>
+                <param format="real" max="0.3" min="0.005" nom="croirac">.12000</param>
+                <param format="real" max="500" min="0.0001" nom="stflodrp">0</param>
+                <param format="real" max="400" min="50" nom="durvieF">200</param>
+                <optionv nom="codebfroid">
+                    <param format="integer" max="70" min="0.0001" nom="jvc">38</param>
+                </optionv>
+                <optionv nom="codephot">
+                    <param format="real" max="1" min="0.0001" nom="sensiphot">0</param>
+                </optionv>
+                <optionv nom="codlainet">
+                    <param format="real" max="6000" min="0.0001" nom="stlaxsen">675.</param>
+                    <param format="real" max="6000" min="0.0001" nom="stsenlan">110.</param>
+                </optionv>
+                <optionv nom="codeindetermin">
+                    <param format="integer" max="100000" min="0.0001" nom="nbgrmax">30000</param>
+                    <param format="real" max="2000" min="0.0001" nom="stdrpmat">700</param>
+                    <param format="real" max="20" min="0.5" nom="afruitpot">.00000</param>
+                    <param format="real" max="1000" min="100" nom="dureefruit">.00000</param>
+                </optionv>
+                <optionv nom="codelegume">
+                    <param format="real" max="10" min="2" nom="fixmax">6.0</param>
+                </optionv>
+            </variete>
+            <variete nom="Promentin">
+                <param format="real" max="6000" min="0.0001" nom="stlevamf">245</param>
+                <param format="real" max="6000" min="0.0001" nom="stamflax">310</param>
+                <param format="real" max="6000" min="0.0001" nom="stlevdrp">762</param>
+                <param format="real" max="0.5" min="0.003" nom="pgrainmaxi">.0401</param>
+                <param format="real" max="0" min="-2" nom="adens">-.60000</param>
+                <param format="real" max="0.3" min="0.005" nom="croirac">.12000</param>
+                <param format="real" max="500" min="0.0001" nom="stflodrp">0</param>
+                <param format="real" max="400" min="50" nom="durvieF">200</param>
+                <optionv nom="codebfroid">
+                    <param format="integer" max="70" min="0.0001" nom="jvc">50</param>
+                </optionv>
+                <optionv nom="codephot">
+                    <param format="real" max="1" min="0.0001" nom="sensiphot">0</param>
+                </optionv>
+                <optionv nom="codlainet">
+                    <param format="real" max="6000" min="0.0001" nom="stlaxsen">675.</param>
+                    <param format="real" max="6000" min="0.0001" nom="stsenlan">110.</param>
+                </optionv>
+                <optionv nom="codeindetermin">
+                    <param format="integer" max="100000" min="0.0001" nom="nbgrmax">30000</param>
+                    <param format="real" max="2000" min="0.0001" nom="stdrpmat">700</param>
+                    <param format="real" max="20" min="0.5" nom="afruitpot">.00000</param>
+                    <param format="real" max="1000" min="100" nom="dureefruit">.00000</param>
+                </optionv>
+                <optionv nom="codelegume">
+                    <param format="real" max="10" min="2" nom="fixmax">6.0</param>
+                </optionv>
+            </variete>
+            <variete nom="Sideral">
+                <param format="real" max="6000" min="0.0001" nom="stlevamf">245</param>
+                <param format="real" max="6000" min="0.0001" nom="stamflax">260</param>
+                <param format="real" max="6000" min="0.0001" nom="stlevdrp">692</param>
+                <param format="real" max="0.5" min="0.003" nom="pgrainmaxi">.04140</param>
+                <param format="real" max="0" min="-2" nom="adens">-.60000</param>
+                <param format="real" max="0.3" min="0.005" nom="croirac">.12000</param>
+                <param format="real" max="500" min="0.0001" nom="stflodrp">0</param>
+                <param format="real" max="400" min="50" nom="durvieF">200</param>
+                <optionv nom="codebfroid">
+                    <param format="integer" max="70" min="0.0001" nom="jvc">38</param>
+                </optionv>
+                <optionv nom="codephot">
+                    <param format="real" max="1" min="0.0001" nom="sensiphot">0</param>
+                </optionv>
+                <optionv nom="codlainet">
+                    <param format="real" max="6000" min="0.0001" nom="stlaxsen">675.</param>
+                    <param format="real" max="6000" min="0.0001" nom="stsenlan">110.</param>
+                </optionv>
+                <optionv nom="codeindetermin">
+                    <param format="integer" max="100000" min="0.0001" nom="nbgrmax">30000</param>
+                    <param format="real" max="2000" min="0.0001" nom="stdrpmat">700</param>
+                    <param format="real" max="20" min="0.5" nom="afruitpot">.00000</param>
+                    <param format="real" max="1000" min="100" nom="dureefruit">.00000</param>
+                </optionv>
+                <optionv nom="codelegume">
+                    <param format="real" max="10" min="2" nom="fixmax">6.0</param>
+                </optionv>
+            </variete>
+        </tv>
+    </formalisme>
+</fichierplt>

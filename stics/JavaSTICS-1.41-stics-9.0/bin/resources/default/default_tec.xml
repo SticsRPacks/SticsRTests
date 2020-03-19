@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<fichiertec>
+    <formalisme nom="travail du sol et apports de r?sidus organiques">
+        <ta nb_interventions="1" nom="interventions">
+            <ta_entete nb_colonnes="9">
+                <colonne nom="jultrav"/>
+                <colonne nom="profres"/>
+                <colonne nom="proftrav"/>
+                <colonne nom="coderes"/>
+                <colonne nom="qres"/>
+                <colonne nom="Crespc"/>
+                <colonne nom="CsurNres"/>
+                <colonne nom="Nminres"/>
+                <colonne nom="eaures"/>
+            </ta_entete>
+            <intervention nb_colonnes="9">
+                <colonne nom="jultrav">112</colonne>
+                <colonne nom="profres">0.00</colonne>
+                <colonne nom="proftrav">25.00</colonne>
+                <colonne nom="coderes">1</colonne>
+                <colonne nom="qres">1.00</colonne>
+                <colonne nom="Crespc">42.00</colonne>
+                <colonne nom="CsurNres">60.00</colonne>
+                <colonne nom="Nminres">0.00</colonne>
+                <colonne nom="eaures">0.00</colonne>
+            </intervention>
+        </ta>
+    </formalisme>
+    <formalisme nom="semis">
+        <param format="integer" max="730" min="1" nom="iplt">117</param>
+        <param format="real" max="10.0" min="1.0E-4" nom="profsem">5.00000</param>
+        <param format="real" max="2000.0" min="0.05" nom="densitesem">9.50000</param>
+        <param format="integer" max="5" min="0" nom="variete">4</param>
+        <option choix="1" nom="structure plantation (si transferts rad)" nomParam="codetradtec">
+            <choix code="1" nom="oui">
+                <param format="real" max="10.0" min="1.0E-4" nom="interrang">2.00000</param>
+                <param format="real" max="3.14" min="1.0E-4" nom="orientrang">0.00000</param>
+            </choix>
+            <choix code="2" nom="non"/>
+        </option>
+        <option choix="2" nom="r?gle de d?cision semis/?tat du sol" nomParam="codedecisemis">
+            <choix code="1" nom="oui">
+                <param format="integer" max="90" min="0" nom="nbjmaxapressemis">30</param>
+                <param format="integer" max="60" min="1" nom="nbjseuiltempref">15</param>
+            </choix>
+            <choix code="2" nom="non"/>
+        </option>
+    </formalisme>
+    <formalisme nom="stades">
+        <option choix="2" nom="For?age" nomParam="codestade">
+            <choix code="1" nom="oui">
+                <param format="integer" max="730" min="1" nom="ilev">999</param>
+                <param format="integer" max="730" min="1" nom="iamf">999</param>
+                <param format="integer" max="730" min="1" nom="ilax">999</param>
+                <param format="integer" max="730" min="1" nom="isen">999</param>
+                <param format="integer" max="730" min="1" nom="ilan">999</param>
+                <param format="integer" max="730" min="1" nom="iflo">999</param>
+                <param format="integer" max="730" min="1" nom="idrp">999</param>
+                <param format="integer" max="730" min="1" nom="imat">999</param>
+            </choix>
+            <choix code="2" nom="non"/>
+        </option>
+        <param format="integer" max="730" min="1" nom="irec">999</param>
+        <param format="integer" max="730" min="1" nom="irecbutoir">300</param>
+    </formalisme>
+    <formalisme nom="irrigation">
+        <param format="real" max="1.0" min="1.0E-4" nom="effirr">1.00000</param>
+        <option choix="2" nom="Dates des apports d'eau" nomParam="codedateappH2O">
+            <choix code="1" nom="en.sommes d'upvt"/>
+            <choix code="2" nom="en jours juliens"/>
+        </option>
+        <ta nb_interventions="16" nom="apports d'eau">
+            <ta_entete nb_colonnes="2">
+                <colonne nom="julapI"/>
+                <colonne nom="qt?"/>
+            </ta_entete>
+            <intervention nb_colonnes="2">
+                <colonne nom="julapI">178</colonne>
+                <colonne nom="qt?">20.00</colonne>
+            </intervention>
+            <intervention nb_colonnes="2">
+                <colonne nom="julapI">185</colonne>
+                <colonne nom="qt?">24.00</colonne>
+            </intervention>
+            <intervention nb_colonnes="2">
+                <colonne nom="julapI">193</colonne>
+                <colonne nom="qt?">29.00</colonne>
+            </intervention>
+            <intervention nb_colonnes="2">
+                <colonne nom="julapI">198</colonne>
+                <colonne nom="qt?">29.00</colonne>
+            </intervention>
+            <intervention nb_colonnes="2">
+                <colonne nom="julapI">200</colonne>
+                <colonne nom="qt?">28.00</colonne>
+            </intervention>
+            <intervention nb_colonnes="2">
+                <colonne nom="julapI">204</colonne>
+                <colonne nom="qt?">31.00</colonne>
+            </intervention>
+            <intervention nb_colonnes="2">
+                <colonne nom="julapI">207</colonne>
+                <colonne nom="qt?">21.00</colonne>
+            </intervention>
+            <intervention nb_colonnes="2">
+                <colonne nom="julapI">211</colonne>
+                <colonne nom="qt?">21.00</colonne>
+            </intervention>
+            <intervention nb_colonnes="2">
+                <colonne nom="julapI">214</colonne>
+                <colonne nom="qt?">23.00</colonne>
+            </intervention>
+            <intervention nb_colonnes="2">
+                <colonne nom="julapI">218</colonne>
+                <colonne nom="qt?">18.00</colonne>
+            </intervention>
+            <intervention nb_colonnes="2">
+                <colonne nom="julapI">221</colonne>
+                <colonne nom="qt?">22.00</colonne>
+            </intervention>
+            <intervention nb_colonnes="2">
+                <colonne nom="julapI">232</colonne>
+                <colonne nom="qt?">16.00</colonne>
+            </intervention>
+            <intervention nb_colonnes="2">
+                <colonne nom="julapI">239</colonne>
+                <colonne nom="qt?">16.00</colonne>
+            </intervention>
+            <intervention nb_colonnes="2">
+                <colonne nom="julapI">249</colonne>
+                <colonne nom="qt?">30.00</colonne>
+            </intervention>
+            <intervention nb_colonnes="2">
+                <colonne nom="julapI">257</colonne>
+                <colonne nom="qt?">29.00</colonne>
+            </intervention>
+            <intervention nb_colonnes="2">
+                <colonne nom="julapI">264</colonne>
+                <colonne nom="qt?">20.00</colonne>
+            </intervention>
+        </ta>
+        <option choix="1" nom="Localisation de l'irrigation" nomParam="codlocirrig">
+            <choix code="1" nom="sur-frondaison"/>
+            <choix code="2" nom="sous-frondaison"/>
+            <choix code="3" nom="en.profondeur.dans.le.sol">
+                <param format="integer" max="0" min="0" nom="locirrig">0</param>
+            </choix>
+        </option>
+        <option choix="2" nom="Calcul automatique des irrigations" nomParam="codecalirrig">
+            <choix code="1" nom="oui">
+                <param format="real" max="1.0" min="1.0E-4" nom="ratiol">0.00000</param>
+                <param format="real" max="100.0" min="10.0" nom="dosimx">40.00000</param>
+                <param format="integer" max="500" min="0" nom="doseirrigmin">20.00000</param>
+            </choix>
+            <choix code="2" nom="non"/>
+        </option>
+        <param format="real" max="1000.0" min="10.0" nom="profmes">120.00000</param>
+    </formalisme>
+    <formalisme nom="fertilisation">
+        <param format="integer" max="8" min="0" nom="engrais">2</param>
+        <param format="real" max="0.2" min="1.0E-4" nom="concirr">0.11000</param>
+        <option choix="1" nom="Dates des apports d'engrais" nomParam="codedateappN">
+            <choix code="1" nom="en.sommes d'upvt"/>
+            <choix code="2" nom="en jours juliens"/>
+        </option>
+        <option choix="1" nom="option de fractionnement des apports d'N" nomParam="codefracappN">
+            <choix code="1" nom="quantit?"/>
+            <choix code="2" nom="en % de la quantit? totale">
+                <param format="integer" max="200" min="0" nom="Qtot_N">100</param>
+            </choix>
+        </option>
+        <ta nb_interventions="1" nom="apports d'engrais">
+            <ta_entete nb_colonnes="2">
+                <colonne nom="julapN"/>
+                <colonne nom="qt?"/>
+            </ta_entete>
+            <intervention nb_colonnes="2">
+                <colonne nom="julapN">112</colonne>
+                <colonne nom="qt?">220.00</colonne>
+            </intervention>
+        </ta>
+        <option choix="1" nom="Localisation des apports d'engrais" nomParam="codlocferti">
+            <choix code="1" nom="?.la.surface.du.sol"/>
+            <choix code="2" nom="en.profondeur.dans.le.sol">
+                <param format="integer" max="0" min="0" nom="locferti">0</param>
+            </choix>
+        </option>
+        <option choix="2" nom="calcul automatique des fertilisations" nomParam="codecalferti">
+            <choix code="1" nom="oui">
+                <param format="real" max="1.0" min="1.0E-4" nom="ratioN">0.00000</param>
+                <param format="real" max="500.0" min="5.0" nom="dosimxN">220.00000</param>
+                <option choix="0" nom="test.humidit?.sol" nomParam="codetesthumN">
+                    <choix code="1" nom="seuil.de.pluie.mini"/>
+                    <choix code="2" nom="humidit?.sol.CC"/>
+                </option>
+            </choix>
+            <choix code="2" nom="non"/>
+        </option>
+        <param format="character" max="0" min="0" nom="ressuite">pailles</param>
+    </formalisme>
+    <formalisme nom="r?colte">
+        <option choix="1" nom="option mode de r?colte" nomParam="codceuille">
+            <choix code="1" nom="moisson"/>
+            <choix code="2" nom="cueillette">
+                <option choix="1" nom="nombre.de.ceuillettes" nomParam="nbceuille">
+                    <choix code="1" nom="une.en.fin.de.cycle"/>
+                    <choix code="2" nom="plusieurs.dans.le.cycle">
+                        <param format="integer" max="30" min="1" nom="cadencerec">7</param>
+                    </choix>
+                </option>
+            </choix>
+        </option>
+        <option choix="1" nom="option d?cision de r?colte" nomParam="codrecolte">
+            <choix code="1" nom="maturit?.physiologique"/>
+            <choix code="2" nom="teneur.en.eau">
+                <option choix="2" nom="minimum.ou.maximum" nomParam="codeaumin">
+                    <choix code="1" nom="minimum">
+                        <param format="real" max="1.0" min="0.5" nom="h2ograinmin">0.80000</param>
+                    </choix>
+                    <choix code="2" nom="maximum">
+                        <param format="real" max="0.5" min="0.05" nom="h2ograinmax">0.32000</param>
+                    </choix>
+                </option>
+            </choix>
+            <choix code="3" nom="teneur.en.sucre">
+                <param format="real" max="0.5" min="1.0E-4" nom="sucrerec">0.25000</param>
+            </choix>
+            <choix code="4" nom="teneur.en.azote">
+                <param format="real" max="10.0" min="1.0E-4" nom="CNgrainrec">0.02000</param>
+            </choix>
+            <choix code="5" nom="teneur.en.huile">
+                <param format="real" max="1.0" min="0.1" nom="huilerec">0.25000</param>
+            </choix>
+        </option>
+        <option choix="2" nom="d?cision de r?colte des cultures associ?es" nomParam="coderecolteassoc">
+            <choix code="1" nom="? maturit? de la plus pr?coce"/>
+            <choix code="2" nom="? maturit? de chacune (2 dates)"/>
+        </option>
+        <option choix="2" nom="r?gle de d?cision r?colte/?tat du sol" nomParam="codedecirecolte">
+            <choix code="1" nom="oui">
+                <param format="integer" max="90" min="0" nom="nbjmaxapresrecolte">15</param>
+            </choix>
+            <choix code="2" nom="non"/>
+        </option>
+    </formalisme>
+    <formalisme nom="Techniques particuli?res">
+        <option choix="2" nom="Culture fauch?e" nomParam="codefauche">
+            <choix code="1" nom="oui">
+                <option choix="1" nom="Modalit?.de.fauche" nomParam="codemodfauche">
+                    <choix code="1" nom="automatique">
+                        <param format="real" max="0.5" min="0.01" nom="hautcoupedefaut">0.00000</param>
+                        <param format="character" max="0" min="0" nom="stadecoupedf">rec</param>
+                    </choix>
+                    <choix code="2" nom="calendrier.en.jours">
+                        <ta nb_interventions="0" nom="gestion.des.coupes">
+                            <ta_entete nb_colonnes="5">
+                                <colonne nom="julfauche"/>
+                                <colonne nom="hautcoupe"/>
+                                <colonne nom="lairesiduel"/>
+                                <colonne nom="msresiduel"/>
+                                <colonne nom="anitcoupe"/>
+                            </ta_entete>
+                        </ta>
+                    </choix>
+                    <choix code="3" nom="calendrier.en.degr?s.j">
+                        <ta nb_interventions="0" nom="gestion.des.coupes">
+                            <ta_entete nb_colonnes="5">
+                                <colonne nom="tempfauche"/>
+                                <colonne nom="hautcoupe"/>
+                                <colonne nom="lairesiduel"/>
+                                <colonne nom="msresiduel"/>
+                                <colonne nom="anitcoupe"/>
+                            </ta_entete>
+                        </ta>
+                    </choix>
+                </option>
+                <param format="real" max="10.0" min="1.0E-4" nom="mscoupemini">0.00000</param>
+            </choix>
+            <choix code="2" nom="non"/>
+        </option>
+        <option choix="1" nom="paillage" nomParam="codepaillage">
+            <choix code="1" nom="non"/>
+            <choix code="2" nom="paillage.v?g?tal">
+                <param format="real" max="10.0" min="1.0E-4" nom="qmulch0">0.00000</param>
+                <param format="integer" max="730" min="1" nom="julappmulch">0</param>
+                <param format="integer" max="0" min="0" nom="typemulch">0</param>
+            </choix>
+            <choix code="3" nom="paillage.plastique">
+                <param format="real" max="1.0" min="1.0E-4" nom="couvermulch">0.00000</param>
+                <param format="real" max="0.8" min="0.05" nom="albedomulch">0.00000</param>
+            </choix>
+        </option>
+        <option choix="1" nom="rognage" nomParam="codrognage">
+            <choix code="1" nom="non"/>
+            <choix code="2" nom="oui">
+                <param format="real" max="2.0" min="1.0E-4" nom="largrogne">0.00000</param>
+                <param format="real" max="1.0" min="1.0E-4" nom="hautrogne">0.00000</param>
+                <param format="real" max="10.0" min="1.0" nom="biorognem">0.00000</param>
+                <option choix="1" nom="option.calcul.rognage" nomParam="codcalrogne">
+                    <choix code="1" nom="date.forc?e">
+                        <param format="integer" max="730" min="1" nom="julrogne">0</param>
+                    </choix>
+                    <choix code="2" nom="calcul.automatique">
+                        <param format="real" max="1.0" min="0.01" nom="margerogne">0.00000</param>
+                    </choix>
+                </option>
+            </choix>
+        </option>
+        <option choix="1" nom="?claircissage" nomParam="codeclaircie">
+            <choix code="1" nom="non"/>
+            <choix code="2" nom="oui">
+                <param format="integer" max="730" min="1" nom="juleclair">0</param>
+                <param format="real" nom="nbinfloecl">0.00000</param>
+            </choix>
+        </option>
+        <option choix="1" nom="effeuillage" nomParam="codeffeuil">
+            <choix code="1" nom="non"/>
+            <choix code="2" nom="oui">
+                <option choix="1" nom="hauteur.effeuillage" nomParam="codhauteff">
+                    <choix code="1" nom="bas"/>
+                    <choix code="2" nom="sommet"/>
+                </option>
+                <option choix="1" nom="option.calcul.effeuillage" nomParam="codcaleffeuil">
+                    <choix code="1" nom="calcul.automatique">
+                        <param format="real" max="10.0" min="2.0" nom="laidebeff">0.00000</param>
+                        <param format="real" max="1.0" min="1.0E-4" nom="effeuil">0.00000</param>
+                    </choix>
+                    <choix code="2" nom="date.forc?e">
+                        <param format="integer" max="730" min="1" nom="juleffeuil">0</param>
+                        <param format="real" max="1.0" min="0.05" nom="laieffeuil">0.00000</param>
+                    </choix>
+                </option>
+            </choix>
+        </option>
+        <option choix="1" nom="taille" nomParam="codetaille">
+            <choix code="1" nom="non"/>
+            <choix code="2" nom="oui">
+                <param format="integer" max="730" min="1" nom="jultaille">0</param>
+            </choix>
+        </option>
+        <option choix="1" nom="palissage" nomParam="codepalissage">
+            <choix code="1" nom="non"/>
+            <choix code="2" nom="oui">
+                <param format="real" max="3.0" min="0.5" nom="hautmaxtec">1.80000</param>
+            </choix>
+        </option>
+        <param format="real" max="1.0" min="0.1" nom="largtec">0.50000</param>
+        <option choix="1" nom="culture sous abri froid" nomParam="codabri">
+            <choix code="1" nom="non"/>
+            <choix code="2" nom="oui">
+                <param format="real" max="0.9" min="0.3" nom="transplastic">0.70000</param>
+                <param format="real" max="0.8" min="0.1" nom="surfouvre1">0.00000</param>
+                <param format="integer" max="730" min="1" nom="julouvre2">0</param>
+                <param format="real" max="0.8" min="0.1" nom="surfouvre2">0.00000</param>
+                <param format="integer" max="730" min="1" nom="julouvre3">0</param>
+                <param format="real" max="0.8" min="0.1" nom="surfouvre3">0.00000</param>
+            </choix>
+        </option>
+    </formalisme>
+    <formalisme nom="modification sol par techniques (detassement-tassement)">
+        <option choix="2" nom="activation detassement" nomParam="codeDST">
+            <choix code="1" nom="oui">
+                <param format="real" max="1.7" min="0.8" nom="dachisel">1.10000</param>
+                <param format="real" max="1.7" min="0.8" nom="dalabour">1.30000</param>
+                <param format="real" max="0.2" min="0.01" nom="rugochisel">0.00500</param>
+                <param format="real" max="0.2" min="0.01" nom="rugolabour">0.05000</param>
+            </choix>
+            <choix code="2" nom="non"/>
+        </option>
+        <option choix="2" nom="activation tassement semis/recolte" nomParam="codeDSTtass">
+            <choix code="1" nom="oui">
+                <param format="real" max="100.0" min="1.0E-4" nom="profhumsemoir">30.00000</param>
+                <param format="real" max="1.7" min="0.8" nom="dasemis">1.60000</param>
+                <param format="real" max="100.0" min="1.0E-4" nom="profhumrecolteuse">30.00000</param>
+                <param format="real" max="1.7" min="0.8" nom="darecolte">1.60000</param>
+            </choix>
+            <choix code="2" nom="non"/>
+        </option>
+        <option choix="2" nom="nb de couches affectes par le tassement" nomParam="codeDSTnbcouche">
+            <choix code="1" nom="1"/>
+            <choix code="2" nom="2"/>
+        </option>
+    </formalisme>
+</fichiertec>

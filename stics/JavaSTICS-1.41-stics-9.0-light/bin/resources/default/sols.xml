@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sols>
+<sol nom="sol2">
+    <param nom="argi">1</param>
+        <param nom="norg">1</param>
+        <param nom="profhum">1</param>
+        <param nom="calc">1</param>
+        <param nom="pH">1</param>
+        <param nom="concseuil">1</param>
+        <param nom="albedo">1</param>
+        <param nom="q0">1</param>
+        <param nom="ruisolnu">1</param>
+        <param nom="obstarac">1</param>
+        <option choix="2" nom="remontées capillaires" nomParam="coderemontcap">
+        <choix code="1" nom="oui">
+            <param nom="humcapil"/>
+                <param nom="capiljour"/>
+            </choix>
+            <choix code="2" nom="non"/>
+        </option>
+        <ta_entete nb_colonnes="8">
+            <colonne nom="epc"/>
+            <colonne nom="HCCF"/>
+            <colonne nom="HMINF"/>
+            <colonne nom="DAF"/>
+            <colonne nom="cailloux"/>
+            <colonne nom="typecailloux"/>
+            <colonne nom="infil"/>
+            <colonne nom="epd"/>
+        </ta_entete>
+        <tableau nb_colonnes="8" nom="horizon 1">
+            <colonne nom="epc">1</colonne>
+            <colonne nom="HCCF">2</colonne>
+            <colonne nom="HMINF">3</colonne>
+            <colonne nom="DAF">4</colonne>
+            <colonne nom="cailloux">5</colonne>
+            <colonne nom="typecailloux">6</colonne>
+            <colonne nom="infil">7</colonne>
+            <colonne nom="epd">8</colonne>
+        </tableau>
+        <tableau nb_colonnes="8" nom="horizon 2">
+            <colonne nom="epc">11</colonne>
+            <colonne nom="HCCF">22</colonne>
+            <colonne nom="HMINF">33</colonne>
+            <colonne nom="DAF">44</colonne>
+            <colonne nom="cailloux">55</colonne>
+            <colonne nom="typecailloux">66</colonne>
+            <colonne nom="infil">77</colonne>
+            <colonne nom="epd">88</colonne>
+        </tableau>
+        <tableau nb_colonnes="8" nom="horizon 3">
+            <colonne nom="epc">111</colonne>
+            <colonne nom="HCCF">222</colonne>
+            <colonne nom="HMINF">333</colonne>
+            <colonne nom="DAF">444</colonne>
+            <colonne nom="cailloux">555</colonne>
+            <colonne nom="typecailloux">666</colonne>
+            <colonne nom="infil">777</colonne>
+            <colonne nom="epd">888</colonne>
+        </tableau>
+        <tableau nb_colonnes="8" nom="horizon 4">
+            <colonne nom="epc"/>
+            <colonne nom="HCCF"/>
+            <colonne nom="HMINF"/>
+            <colonne nom="DAF"/>
+            <colonne nom="cailloux"/>
+            <colonne nom="typecailloux"/>
+            <colonne nom="infil"/>
+            <colonne nom="epd"/>
+        </tableau>
+        <tableau nb_colonnes="8" nom="horizon 5">
+            <colonne nom="epc"/>
+            <colonne nom="HCCF"/>
+            <colonne nom="HMINF"/>
+            <colonne nom="DAF"/>
+            <colonne nom="cailloux"/>
+            <colonne nom="typecailloux"/>
+            <colonne nom="infil"/>
+            <colonne nom="epd"/>
+        </tableau>
+    </sol>
+</sols>

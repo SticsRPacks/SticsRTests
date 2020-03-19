@@ -1,0 +1,595 @@
+F: Simulation options
+         O: Nitrogen stress activation                     2
+                   M1: yes                                 0
+                   M2: no                                  0
+                                                                     codeinnact          1
+         O: Water stress activation                         2
+                   M1: yes                                 0
+                   M2: no                                  0
+                                                                     codeh2oact          1
+         O: Optimum mineralisation in bare soil            2
+                   M1: yes                                 0
+                   M2: no                                  0
+                                                                     codeminopt          2
+         O: Smoothing of initial profiles                  2
+                   M1: yes                                 0
+                   M2: no                                  0
+                                                                     iniprofil           2
+         O: Depth for mineral N and water stocks calculation 2
+                   M1: profmes                             0
+                   M2: profsol                             0
+                                                                     codeprofmes         1
+         O: Climatic series                                2
+                   M1: reset                               0
+                   M2: succession                          0
+                                                                     codeinitprec        2
+         O: Biomass and yield conservation after harvest   2
+                   M1: yes                                 0
+                   M2: no                                  0
+                                                                     codemsfinal         1
+         O: Take account of mulch                          2
+                   M1: yes                                 0
+                   M2: no                                  0
+                                                                     codeactimulch       2
+         O: Fruit load                                     2
+                   M1: all fruits (including ripe ones)    0
+                   M2: growing fruits only                 0
+                                                                     codefrmur           1
+         O: Hourly microclimate                            2
+                   M1: yes                                 0
+                   M2: no                                  0
+                                                                     codemicheur         1
+         O: Scientific writing in st2 and report            2
+                   M1: yes                                 0
+                   M2: no                                  0
+                                                                     codeoutscient       2
+         O: Separator spaces in report                     2
+                   M1: yes                                 0
+                   M2: no                                  1
+                                                                     codeseprapport      1
+                   M2:                                               separateurrapport   ,
+         O: Activation of model sensitivity analysis       2
+                  M1: yes                                  0
+                  M2: no                                   0
+                                                                     codesensibilite     2
+         NO:                                                         flagecriture        79
+F: Radiation interception
+         NO:                                                         parsurrg            0.48
+F: Shoot growth
+         NO:                                                         coefb               0.0815
+         NO:                                                         proprac             0.20
+         NO:                                                         y0msrac             0.7
+         NO:                                                         khaut               0.7
+F: Root growth
+         NO:                                                         dacohes             0.7
+         NO:                                                         daseuilbas          1.4
+         NO:                                                         daseuilhaut         2.0
+F: Water absorption and nitrogen content of the plant
+         NO:                                                         beta                1.4
+         NO:                                                         lvopt               0.5
+         NO:                                                         rayon               0.02
+         NO:                                                         difN                0.07
+         NO:                                                         concrr              0.02
+         NO:                                                         plNmin              10.0
+         NO:                                                         irrlev              20.0
+         NO:                                                         QNpltminINN         0.0
+         O: Nitrogen fixation by legumes                   2
+                   M1: critical nitrogen                   0
+                   M2: nodule activity                     2
+                                                                     codesymbiose        2
+                   O: mineral nitrogen inhibition          3
+                             M11: no effect                0
+                             M12: nitrogen amount          0
+                             M13: nitrogen concentration   0
+                                                                     codefxn             2
+F: Soil C and N processes and fertiliser losses
+         NO:                                                         FTEMh                 0.12000
+         NO:                                                         FTEMha                25.0000
+         NO:                                                         TREFh                 15.00000
+         NO:                                                         FTEMr                  0.10300
+         NO:                                                         FTEMra                12.00000
+         NO:                                                         TREFr                 15.00000
+         NO:                                                         FINERT              0.65
+         NO:                                                         FMIN1               6e-4
+         NO:                                                         FMIN2               0.0272
+         NO:                                                         FMIN3               0.0167
+         NO:                                                         Wh                  0.105
+         NO:                                                         pHminvol            5.5
+         NO:                                                         pHmaxvol            8.5
+         NO:                                                         Vabs2               2.0
+         NO:                                                         Xorgmax             400.0
+         NO:                                                         hminm               0.25
+         NO:                                                         hoptm               0.9
+         NO:                                                         hminn               0.67
+         NO:                                                         hoptn               1.0
+         NO:                                                         Fnx                 0.8
+         NO:                                                         pHminnit            3.0
+         NO:                                                         pHmaxnit            5.5
+         NO:                                                         tnitmin             5.0
+         NO:                                                         tnitopt             25.0
+         NO:                                                         tnitopt2            25.0
+         NO:                                                         tnitmax             45.0
+         NO:                                                         rationit            0.05000
+         NO:                                                         ratiodenit          0.10000
+         NO:                                                         alphaph             0.00500
+         NO:                                                         dphvolmax           1.00000
+         NO:                                                         phvols              8.60000
+         NO:                                                         fhminsat            0.5
+         NO:                                                         fredkN              0.25
+         NO:                                                         fredlN              0.5
+         NO:                                                         fNCbiomin           0.04
+         NO:                                                         fredNsup            0.5
+         NO:                                                         Primingmax          3.0
+F: Soil hydrology and compaction
+         NO:                                                         pminruis            5.0
+         NO:                                                         diftherm            0.00537
+         NO:                                                         bformnappe          0.77000
+         NO:                                                         rdrain              1.0
+         NO:                                                         psihumin            -1.5
+         NO:                                                         psihucc             -0.03
+         NO:                                                         prophumtasssem      1.2
+         NO:                                                         prophumtassrec      1.0
+         O: calculation of groundwater if drainage         2                             
+                   M1: average                             0                             
+                   M2: interdrain localisation             1                             
+                                                                     codhnappe           1
+                   M2:                                               distdrain           1000
+F: Soil tillage if soil compaction activated
+         NO:                                                         proflabour          15.0
+         NO:                                                         proftravmin         5.0
+F: Typology of pebbles fertilisers and residues
+         O: Types of pebbles                              10
+                   M1: Beauce limestone 1                 2
+                   M2: Beauce limestone 2                 2
+                   M3: Lutetian limestone                 2
+                   M4: Lutetian Brackish marl and limestone 2 
+                   M5: Morainic gravels                   2
+                   M6: Unweathered flint, sandstone or granite 2
+                   M7: weathered granite                  2
+                   M8: Jurassic limestone                 2
+                   M9: Pebbles from Magneraud             2
+                   M10: Other pebbles                     2
+                                                                     codetycailloux      8
+                   M1:                                               masvolcx            2.2
+                   M1:                                               hcccx               7.
+                   M2:                                               masvolcx            1.8
+                   M2:                                               hcccx               16.
+                   M3:                                               masvolcx            2.0
+                   M3:                                               hcccx               11.
+                   M4:                                               masvolcx            2.3
+                   M4:                                               hcccx               7.
+                   M5:                                               masvolcx            2.6
+                   M5:                                               hcccx               3.
+                   M6:                                               masvolcx            2.65
+                   M6:                                               hcccx               0.
+                   M7:                                               masvolcx            2.3
+                   M7:                                               hcccx               10.
+                   M8:                                               masvolcx            2.2
+                   M8:                                               hcccx               5.
+                   M9:                                               masvolcx            1.2
+                   M9:                                               hcccx               28
+                   M10:                                              masvolcx            0.0
+                   M10:                                              hcccx               0.
+         O: Types of mineral fertilisers                  8
+                   M1: Ammonium.nitrate                   4
+                   M2: Urea.Ammonium.Nitrate.solution     4
+                   M3: Urea                               4
+                   M4: Anhydrous.ammonia                  4
+                   M5: Ammonium.sulphate                  4
+                   M6: Ammonium.phosphate                 4
+                   M7: Calcium.nitrate                    4
+                   M8: Fixed.efficiency                   4
+                                                                     codetypeng          1
+                   M1:                                               engamm              0.50
+                   M1:                                               orgeng              46.
+                   M1:                                               deneng              0.15
+                   M1:                                               voleng              0.15
+                   M2:                                               engamm              0.75
+                   M2:                                               orgeng              42.
+                   M2:                                               deneng              0.13
+                   M2:                                               voleng              0.30
+                   M3:                                               engamm              1.00
+                   M3:                                               orgeng              38.
+                   M3:                                               deneng              0.10
+                   M3:                                               voleng              0.35
+                   M4:                                               engamm              1.00
+                   M4:                                               orgeng              38.
+                   M4:                                               deneng              0.10
+                   M4:                                               voleng              0.35
+                   M5:                                               engamm              1.00
+                   M5:                                               orgeng              38.
+                   M5:                                               deneng              0.10
+                   M5:                                               voleng              0.25
+                   M6:                                               engamm              1.00
+                   M6:                                               orgeng              38.
+                   M6:                                               deneng              0.10
+                   M6:                                               voleng              0.25
+                   M7:                                               engamm              0.00
+                   M7:                                               orgeng              25.
+                   M7:                                               deneng              0.20
+                   M7:                                               voleng              0.00
+                   M8:                                               engamm              0.50
+                   M8:                                               orgeng              0.20
+                   M8:                                               deneng              0.05
+                   M8:                                               voleng              0.05
+         O: Type of residues for decomposition parameters 21
+                   M1: Main crop on surface              17
+                   M2: Intermediate crop on surface      17
+                   M3: Manure on surface                 17
+                   M4: Green compost on surface          17
+                   M5: Sewage sludge on surface          17
+                   M6: Vinasse on surface                17
+                   M7: Horn on surface                   17
+                   M8: Grapevine shoots on surface       17
+                   M9: Others.1 on surface               17
+                   M10: Others.2 on surface              17
+                   M11: Main crop ploughed in            17
+                   M12: Intermediate crop ploughed in    17
+                   M13: Manure ploughed in               17
+                   M14: Green compost ploughed in        17
+                   M15: Sewage sludge ploughed in        17
+                   M16: Vinasse ploughed in              17
+                   M17: Cattle horn ploughed in          17
+                   M18: Grapevine shoots ploughed in     17
+                   M19: Others.1 ploughed in             17
+                   M20: Others.2 ploughed in             17
+                   M21: Dead roots in soil               17
+                                                                     codetypres          21
+                   M1:                                               CroCo               1.0
+                   M1:                                               akres               0.098
+                   M1:                                               bkres               0.76
+                   M1:                                               awb                 15.4
+                   M1:                                               bwb                 -76
+                   M1:                                               cwb                 7.8
+                   M1:                                               ahres               0.73
+                   M1:                                               bhres               10.2
+                   M1:                                               kbio                0.0076
+                   M1:                                               yres                0.62
+                   M1:                                               CNresmin            15.
+                   M1:                                               CNresmax            150.
+                   M1:                                               qmulchruis0         1.
+                   M1:                                               mouillabilmulch     0.4
+                   M1:                                               kcouvmlch           0.367
+                   M1:                                               albedomulchresidus  0.1
+                   M1:                                               Qmulchdec           1.0
+                   M2:                                               CroCo               1.0
+                   M2:                                               akres               0.098
+                   M2:                                               bkres               0.76
+                   M2:                                               awb                 15.4
+                   M2:                                               bwb                 -76
+                   M2:                                               cwb                 7.8
+                   M2:                                               ahres               0.73
+                   M2:                                               bhres               10.2
+                   M2:                                               kbio                0.0076
+                   M2:                                               yres                0.62
+                   M2:                                               CNresmin            9.
+                   M2:                                               CNresmax            50.
+                   M2:                                               qmulchruis0         1.
+                   M2:                                               mouillabilmulch     0.4
+                   M2:                                               kcouvmlch           0.367
+                   M2:                                               albedomulchresidus  0.1
+                   M2:                                               Qmulchdec           1.0
+                   M3:                                               CroCo               1.0
+                   M3:                                               akres               0.064
+                   M3:                                               bkres               -0.26
+                   M3:                                               awb                 28.8
+                   M3:                                               bwb                 -228
+                   M3:                                               cwb                 11.5
+                   M3:                                               ahres               36.5
+                   M3:                                               bhres               1305.
+                   M3:                                               kbio                0.0025
+                   M3:                                               yres                0.90
+                   M3:                                               CNresmin            12.
+                   M3:                                               CNresmax            27.
+                   M3:                                               qmulchruis0         1.
+                   M3:                                               mouillabilmulch     0.4
+                   M3:                                               kcouvmlch           0.367
+                   M3:                                               albedomulchresidus  0.1
+                   M3:                                               Qmulchdec           1.0
+                   M4:                                               CroCo               1.0
+                   M4:                                               akres               0.080
+                   M4:                                               bkres               -0.48
+                   M4:                                               awb                 33.0
+                   M4:                                               bwb                 -400
+                   M4:                                               cwb                 9.5
+                   M4:                                               ahres               1.00
+                   M4:                                               bhres               29.4
+                   M4:                                               kbio                0.0015
+                   M4:                                               yres                0.82
+                   M4:                                               CNresmin            17.
+                   M4:                                               CNresmax            18.5
+                   M4:                                               qmulchruis0         1.
+                   M4:                                               mouillabilmulch     0.4
+                   M4:                                               kcouvmlch           0.367
+                   M4:                                               albedomulchresidus  0.1
+                   M4:                                               Qmulchdec           1.0
+                   M5:                                               CroCo               1.0
+                   M5:                                               akres               0.064
+                   M5:                                               bkres               0.052
+                   M5:                                               awb                 12.7
+                   M5:                                               bwb                 -58
+                   M5:                                               cwb                 6.2
+                   M5:                                               ahres               10
+                   M5:                                               bhres               329
+                   M5:                                               kbio                0.0027
+                   M5:                                               yres                0.62
+                   M5:                                               CNresmin            6.
+                   M5:                                               CNresmax            20.
+                   M5:                                               qmulchruis0         1.
+                   M5:                                               mouillabilmulch     0.4
+                   M5:                                               kcouvmlch           0.367
+                   M5:                                               albedomulchresidus  0.1
+                   M5:                                               Qmulchdec           1.0
+                   M6:                                               CroCo               1.0
+                   M6:                                               akres               0.70
+                   M6:                                               bkres               0
+                   M6:                                               awb                 5.45
+                   M6:                                               bwb                 0
+                   M6:                                               cwb                 5.45
+                   M6:                                               ahres               0.18
+                   M6:                                               bhres               0
+                   M6:                                               kbio                0.011
+                   M6:                                               yres                0.42
+                   M6:                                               CNresmin            5.8
+                   M6:                                               CNresmax            7.8
+                   M6:                                               qmulchruis0         1.
+                   M6:                                               mouillabilmulch     0.4
+                   M6:                                               kcouvmlch           0.367
+                   M6:                                               albedomulchresidus  0.1
+                   M6:                                               Qmulchdec           1.0
+                   M7:                                               CroCo               1.0
+                   M7:                                               akres               0.14
+                   M7:                                               bkres               0
+                   M7:                                               awb                 5.5
+                   M7:                                               bwb                 0
+                   M7:                                               cwb                 5.5
+                   M7:                                               ahres               0.05
+                   M7:                                               bhres               0
+                   M7:                                               kbio                0.0035
+                   M7:                                               yres                0.54
+                   M7:                                               CNresmin            3.2
+                   M7:                                               CNresmax            4.0
+                   M7:                                               qmulchruis0         1.
+                   M7:                                               mouillabilmulch     0.4
+                   M7:                                               kcouvmlch           0.367
+                   M7:                                               albedomulchresidus  0.1
+                   M7:                                               Qmulchdec           1.0
+                   M8:                                               CroCo               1.0
+                   M8:                                               akres               0.00
+                   M8:                                               bkres               0
+                   M8:                                               awb                 0.0
+                   M8:                                               bwb                 0
+                   M8:                                               cwb                 0.0
+                   M8:                                               ahres               0.00
+                   M8:                                               bhres               0
+                   M8:                                               kbio                0.0000
+                   M8:                                               yres                0.00
+                   M8:                                               CNresmin            0.
+                   M8:                                               CNresmax            0.
+                   M8:                                               qmulchruis0         0.
+                   M8:                                               mouillabilmulch     0.0
+                   M8:                                               kcouvmlch           0.0
+                   M8:                                               albedomulchresidus  0.0
+                   M8:                                               Qmulchdec           1.0
+                   M9:                                               CroCo               1.0
+                   M9:                                               akres               0.098
+                   M9:                                               bkres               0.76
+                   M9:                                               awb                 15.4
+                   M9:                                               bwb                 -76
+                   M9:                                               cwb                 7.8
+                   M9:                                               ahres               0.73
+                   M9:                                               bhres               10.2
+                   M9:                                               kbio                0.0076
+                   M9:                                               yres                0.62
+                   M9:                                               CNresmin            15.
+                   M9:                                               CNresmax            150.
+                   M9:                                               qmulchruis0         1.
+                   M9:                                               mouillabilmulch     0.4
+                   M9:                                               kcouvmlch           0.367
+                   M9:                                               albedomulchresidus  0.1
+                   M9:                                               Qmulchdec           1.0
+                   M10:                                              CroCo               1.0
+                   M10:                                              akres               0.098
+                   M10:                                              bkres               0.76
+                   M10:                                              awb                 15.4
+                   M10:                                              bwb                 -76
+                   M10:                                              cwb                 7.8
+                   M10:                                              ahres               0.73
+                   M10:                                              bhres               10.2
+                   M10:                                              kbio                0.0076
+                   M10:                                              yres                0.62
+                   M10:                                              CNresmin            15.
+                   M10:                                              CNresmax            150.
+                   M10:                                              qmulchruis0         1.
+                   M10:                                              mouillabilmulch     0.4
+                   M10:                                              kcouvmlch           0.367
+                   M10:                                              albedomulchresidus  0.1
+                   M10:                                              Qmulchdec           1.0
+                   M11:                                              CroCo               1.0
+                   M11:                                              akres               0.098
+                   M11:                                              bkres               0.76
+                   M11:                                              awb                 15.4
+                   M11:                                              bwb                 -76
+                   M11:                                              cwb                 7.8
+                   M11:                                              ahres               0.73
+                   M11:                                              bhres               10.2
+                   M11:                                              kbio                0.0076
+                   M11:                                              yres                0.62
+                   M11:                                              CNresmin            15.
+                   M11:                                              CNresmax            150.
+                   M11:                                              qmulchruis0         1.
+                   M11:                                              mouillabilmulch     0.4
+                   M11:                                              kcouvmlch           0.367
+                   M11:                                              albedomulchresidus  0.1
+                   M11:                                              Qmulchdec           1.0
+                   M12:                                               CroCo               1.0
+                   M12:                                              akres               0.098
+                   M12:                                              bkres               0.76
+                   M12:                                              awb                 15.4
+                   M12:                                              bwb                 -76
+                   M12:                                              cwb                 7.8
+                   M12:                                              ahres               0.73
+                   M12:                                              bhres               10.2
+                   M12:                                              kbio                0.0076
+                   M12:                                              yres                0.62
+                   M12:                                              CNresmin            9.
+                   M12:                                              CNresmax            50.
+                   M12:                                              qmulchruis0         1.
+                   M12:                                              mouillabilmulch     0.4
+                   M12:                                              kcouvmlch           0.367
+                   M12:                                              albedomulchresidus  0.1
+                   M12:                                              Qmulchdec           1.0
+                   M13:                                              CroCo               1.0
+                   M13:                                              akres               0.064
+                   M13:                                              bkres               -0.26
+                   M13:                                              awb                 28.8
+                   M13:                                              bwb                 -228
+                   M13:                                              cwb                 11.5
+                   M13:                                              ahres               36.5
+                   M13:                                              bhres               1305.
+                   M13:                                              kbio                0.0025
+                   M13:                                              yres                0.90
+                   M13:                                              CNresmin            12.
+                   M13:                                              CNresmax            27.
+                   M13:                                              qmulchruis0         1.
+                   M13:                                              mouillabilmulch     0.4
+                   M13:                                              kcouvmlch           0.367
+                   M13:                                              albedomulchresidus  0.1
+                   M13:                                              Qmulchdec           1.0
+                   M14:                                              CroCo               1.0
+                   M14:                                              akres               0.080
+                   M14:                                              bkres               -0.48
+                   M14:                                              awb                 33.0
+                   M14:                                              bwb                 -400
+                   M14:                                              cwb                 9.5
+                   M14:                                              ahres               1.00
+                   M14:                                              bhres               29.4
+                   M14:                                              kbio                0.0015
+                   M14:                                              yres                0.82
+                   M14:                                              CNresmin            17.
+                   M14:                                              CNresmax            18.5
+                   M14:                                              qmulchruis0         1.
+                   M14:                                              mouillabilmulch     0.4
+                   M14:                                              kcouvmlch           0.367
+                   M14:                                              albedomulchresidus  0.1
+                   M14:                                              Qmulchdec           1.0
+                   M15:                                              CroCo               1.0
+                   M15:                                              akres               0.064
+                   M15:                                              bkres               0.052
+                   M15:                                              awb                 12.7
+                   M15:                                              bwb                 -58
+                   M15:                                              cwb                 6.2
+                   M15:                                              ahres               10
+                   M15:                                              bhres               329
+                   M15:                                              kbio                0.0027
+                   M15:                                              yres                0.62
+                   M15:                                              CNresmin            6.
+                   M15:                                              CNresmax            20.
+                   M15:                                              qmulchruis0         1.
+                   M15:                                              mouillabilmulch     0.4
+                   M15:                                              kcouvmlch           0.367
+                   M15:                                              albedomulchresidus  0.1
+                   M15:                                              Qmulchdec           1.0
+                   M16:                                              CroCo               1.0
+                   M16:                                              akres               0.70
+                   M16:                                              bkres               0
+                   M16:                                              awb                 5.45
+                   M16:                                              bwb                 0
+                   M16:                                              cwb                 5.45
+                   M16:                                              ahres               0.18
+                   M16:                                              bhres               0
+                   M16:                                              kbio                0.011
+                   M16:                                              yres                0.42
+                   M16:                                              CNresmin            5.8
+                   M16:                                              CNresmax            7.8
+                   M16:                                              qmulchruis0         1.
+                   M16:                                              mouillabilmulch     0.4
+                   M16:                                              kcouvmlch           0.367
+                   M16:                                              albedomulchresidus  0.1
+                   M16:                                              Qmulchdec           1.0
+                   M17:                                              CroCo               1.0
+                   M17:                                              akres               0.14
+                   M17:                                              bkres               0
+                   M17:                                              awb                 5.5
+                   M17:                                              bwb                 0
+                   M17:                                              cwb                 5.5
+                   M17:                                              ahres               0.05
+                   M17:                                              bhres               0
+                   M17:                                              kbio                0.0035
+                   M17:                                              yres                0.54
+                   M17:                                              CNresmin            3.2
+                   M17:                                              CNresmax            4.0
+                   M17:                                              qmulchruis0         1.
+                   M17:                                              mouillabilmulch     0.4
+                   M17:                                              kcouvmlch           0.367
+                   M17:                                              albedomulchresidus  0.1
+                   M17:                                              Qmulchdec           1.0
+                   M18:                                              CroCo               1.0
+                   M18:                                              akres               0.00
+                   M18:                                              bkres               0
+                   M18:                                              awb                 0.0
+                   M18:                                              bwb                 0
+                   M18:                                              cwb                 0.0
+                   M18:                                              ahres               0.00
+                   M18:                                              bhres               0
+                   M18:                                              kbio                0.0000
+                   M18:                                              yres                0.00
+                   M18:                                              CNresmin            0.
+                   M18:                                              CNresmax            0.
+                   M18:                                              qmulchruis0         0.
+                   M18:                                              mouillabilmulch     0.0
+                   M18:                                              kcouvmlch           0.0
+                   M18:                                              albedomulchresidus  0.0
+                   M18:                                              Qmulchdec           1.0
+                   M19:                                              CroCo               1.0
+                   M19:                                              akres               0.098
+                   M19:                                              bkres               0.76
+                   M19:                                              awb                 15.4
+                   M19:                                              bwb                 -76
+                   M19:                                              cwb                 7.8
+                   M19:                                              ahres               0.73
+                   M19:                                              bhres               10.2
+                   M19:                                              kbio                0.0076
+                   M19:                                              yres                0.62
+                   M19:                                              CNresmin            15.
+                   M19:                                              CNresmax            150.
+                   M19:                                              qmulchruis0         1.
+                   M19:                                              mouillabilmulch     0.4
+                   M19:                                              kcouvmlch           0.367
+                   M19:                                              albedomulchresidus  0.1
+                   M19:                                              Qmulchdec           1.0
+                   M20:                                              CroCo               1.0
+                   M20:                                              akres               0.098
+                   M20:                                              bkres               0.76
+                   M20:                                              awb                 15.4
+                   M20:                                              bwb                 -76
+                   M20:                                              cwb                 7.8
+                   M20:                                              ahres               0.73
+                   M20:                                              bhres               10.2
+                   M20:                                              kbio                0.0076
+                   M20:                                              yres                0.62
+                   M20:                                              CNresmin            15.
+                   M20:                                              CNresmax            150.
+                   M20:                                              qmulchruis0         1.
+                   M20:                                              mouillabilmulch     0.4
+                   M20:                                              kcouvmlch           0.367
+                   M20:                                              albedomulchresidus  0.1
+                   M20:                                              Qmulchdec           1.0
+                   M21:                                              CroCo               1.0
+                   M21:                                              akres               0.098
+                   M21:                                              bkres               0.76
+                   M21:                                              awb                 15.4
+                   M21:                                              bwb                 -76
+                   M21:                                              cwb                 7.8
+                   M21:                                              ahres               0.73
+                   M21:                                              bhres               10.2
+                   M21:                                              kbio                0.0076
+                   M21:                                              yres                0.62
+                   M21:                                              CNresmin            15.
+                   M21:                                              CNresmax            150.
+                   M21:                                              qmulchruis0         1.
+                   M21:                                              mouillabilmulch     0.4
+                   M21:                                              kcouvmlch           0.367
+                   M21:                                              albedomulchresidus  0.1
+                   M21:                                              Qmulchdec           1.0
+                   

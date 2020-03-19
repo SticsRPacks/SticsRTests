@@ -1,0 +1,5 @@
+Informations about Stics model utilities build version
+Build date: 2018/10/20 (00:06:58)
+Stics version : v_test
+Version date : 2018/10/20
+OS name : Linux

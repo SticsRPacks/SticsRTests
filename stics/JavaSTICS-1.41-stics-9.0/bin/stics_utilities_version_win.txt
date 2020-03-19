@@ -1,0 +1,4 @@
+Informations about Stics model build version 
+Build date: 21/09/2017 (17:34:58.40) 
+Stics version : v_test 
+Version date : 21/09/2017 

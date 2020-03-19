@@ -1,0 +1,22 @@
+﻿<!ELEMENT usms (usm*)>
+
+<!ELEMENT usm (datedebut, datefin, finit, numsol, fstation, fclim1, fclim2, culturean, nbplantes, plante+)>
+<!ATTLIST usm nom CDATA #REQUIRED>
+
+<!ELEMENT datedebut (#PCDATA)>
+<!ELEMENT datefin   (#PCDATA)>
+<!ELEMENT codesimul (#PCDATA)>
+<!ELEMENT finit     (#PCDATA)>
+<!ELEMENT numsol    (#PCDATA)>
+<!ELEMENT fstation  (#PCDATA)>
+<!ELEMENT fclim1    (#PCDATA)>
+<!ELEMENT fclim2    (#PCDATA)>
+<!ELEMENT nbplantes (#PCDATA)>
+
+<!ELEMENT plante (fplt, ftec, flai?, codesimul)>
+<!ATTLIST plante dominance CDATA #REQUIRED>
+
+<!ELEMENT fplt (#PCDATA)>
+<!ELEMENT ftec (#PCDATA)>
+<!ELEMENT flai (#PCDATA)>
+<!ELEMENT codesimul (#PCDATA)>
