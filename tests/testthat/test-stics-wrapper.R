@@ -1,5 +1,6 @@
-path_to_JavaStics=system.file("stics", package = "SticsRFiles")
-javastics_path=file.path(path_to_JavaStics,"JavaSTICS-1.41-stics-9.0-light")
+# Define path to JavaStics and download data
+path_to_JavaStics=system.file("stics", package = "SticsRTests")
+javastics_path=file.path(path_to_JavaStics,"JavaSTICS-1.41-stics-9.0")
 data_dir= file.path(SticsRFiles::download_data(),"study_case_1","V9.0")
 
 

@@ -1,7 +1,0 @@
-tsol(iz)  ;profile of soil temperature;°C;?
-hur(iz)   ;soil water content;mm.cm-1;?
-lracz(iz) ;efficient root density profile;cm.cm-3sol;?
-rl(n,iz)  ;length of roots;cm.cm-2sol;?
-nit(iz)   ;profile of soil nitrates;KgN.ha-1;?
-humirac_z   ;soil dryness on the roots;0-1 ;?
-efnrac_z   ;effect of mineral nitrogen on the roots;0-1;?
