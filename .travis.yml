@@ -10,3 +10,6 @@ r_github_packages:
   - SticsRPacks/SticsRFiles
   - SticsRPacks/SticsOnR
   - SticsRPacks/CroptimizR
+
+jdk:
+  - openjdk8
