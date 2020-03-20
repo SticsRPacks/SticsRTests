@@ -10,7 +10,10 @@ param_lb=c(0.0005,50)
 param_ub=c(0.0025,400)
 var_name="lai_n"
 situation_name="bo96iN+"
-stics_path=file.path(javastics_path,"bin/stics_modulo.exe")
+stics_path=file.path(javastics_path,"bin",SticsOnR:::get_java_models(javastics_path)$exe)
+if ( SticsOnR:::is_unix() ) {
+  system2(paste0("chmod +x ",stics_path))
+}
 stics_inputs_path=file.path(data_dir,"TxtFiles")
 dir.create(stics_inputs_path)
 SticsRFiles::gen_usms_xml2txt(javastics_path = javastics_path, workspace_path = file.path(data_dir,"XmlFiles"),
