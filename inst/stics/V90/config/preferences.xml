@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>Javastics user preferences</comment>
+<entry key="viewer.barre.outils">true</entry>
+<entry key="langue">en</entry>
+<entry key="convert.file.enabled">false</entry>
+<entry key="viewer.zoom.tailleAdapte">true</entry>
+<entry key="workingDirectory.saveCurrent">true</entry>
+<entry key="viewer.barre.etat">true</entry>
+<entry key="window.maximized">true</entry>
+<entry key="window.bounds">0,0,0,0</entry>
+<entry key="model.last">modulostics</entry>
+<entry key="model.saveLast">true</entry>
+<entry key="clim.col.saved">false</entry>
+<entry key="viewer.fenetre.toujoursVisible">false</entry>
+<entry key="viewer.barre.menu">true</entry>
+<entry key="window.saveBounds">true</entry>
+<entry key="viewer.splash">true</entry>
+<entry key="viewer.zoom.tailleReelle">false</entry>
+<entry key="workingDirectory.current">D:\Home\sbuis\Documents\WORK\STICS\JavaSTICS-1.41-stics-9.0\example</entry>
+<entry key="viewer.fenetre.pleinEcran">false</entry>
+<entry key="model.list">{modulostics	stics_modulo.exe}</entry>
+</properties>

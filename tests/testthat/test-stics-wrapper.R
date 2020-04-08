@@ -1,6 +1,6 @@
 # Define path to JavaStics and download data
 path_to_JavaStics=system.file("stics", package = "SticsRTests")
-javastics_path=file.path(path_to_JavaStics,"V9.0")
+javastics_path=file.path(path_to_JavaStics,"V90")
 data_dir= file.path(SticsRFiles::download_data(),"study_case_1","V9.0")
 
 
@@ -10,7 +10,9 @@ param_lb=c(0.0005,50)
 param_ub=c(0.0025,400)
 var_name="lai_n"
 situation_name="bo96iN+"
-stics_path=file.path(javastics_path,"bin",SticsOnR:::get_java_models(javastics_path)$exe)
+SticsOnR::init_javastics_pref(javastics_path,overwrite = TRUE)
+stics_path=file.path(javastics_path,"bin",SticsOnR::list_stics_exe(javastics_path)$current[[1]])
+
 if ( SticsOnR:::is_unix() ) {
   system2(paste0("chmod +x ",stics_path))
 }
