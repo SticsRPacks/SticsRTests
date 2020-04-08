@@ -14,7 +14,7 @@ SticsOnR::init_javastics_pref(javastics_path,overwrite = TRUE)
 stics_path=file.path(javastics_path,"bin",SticsOnR::list_stics_exe(javastics_path)$current[[1]])
 
 if ( SticsOnR:::is_unix() ) {
-  system2(paste0("chmod +x ",stics_path))
+  system2(command = "chmod",args = c("+x", stics_path))
 }
 stics_inputs_path=file.path(data_dir,"TxtFiles")
 dir.create(stics_inputs_path)
