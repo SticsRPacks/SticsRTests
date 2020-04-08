@@ -1,3 +1,9 @@
+# Test for checking java version
+print("java information")
+system("which java")
+system("java -version")
+quit(status = 0)
+
 # Define path to JavaStics and download data
 path_to_JavaStics=system.file("stics", package = "SticsRTests")
 javastics_path=file.path(path_to_JavaStics,"V90")
