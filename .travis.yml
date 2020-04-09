@@ -7,25 +7,20 @@ os:
   - linux
 
 install:
-  #- sudo apt-get remove openjdk-11-jdk
   - sudo apt-get update
   - sudo apt-get -y install openjdk-8-jdk
-  - sudo update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
-  #- sudo rm /usr/local/lib/jvm/openjdk11/bin/java
-  #- sudo rm /usr/bin/java
-  #- sudo ln -s /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java /usr/bin/java
+  - sudo rm /usr/local/lib/jvm/openjdk11/bin/java
+  - sudo rm /usr/bin/java
+  - sudo ln -s /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java /usr/bin/java
   - j=`which java`
   - echo $j
-  #- ls -al /usr/bin/java
   - echo "java path"
   - ls -al $j
-  #- ls -al /etc/alternatives/java
   - echo "java -version"
   - java -version
+  - export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
   - echo "JAVA_HOME"
   - echo $JAVA_HOME
-  #- echo "Java location"
-  #- which java
 
 r_github_packages:
   - SticsRPacks/SticsRFiles
