@@ -6,21 +6,24 @@ cache: packages
 os:
   - linux
 
-before_install:
+install:
   #- sudo apt-get remove openjdk-11-jdk
   - sudo apt-get update
   - sudo apt-get -y install openjdk-8-jdk
   #- sudo update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
   # - sudo update-alternatives --set java /usr/local/lib/jvm/openjdk8/bin/java
-  - echo "java path ..."
-  - ls -al /usr/bin/java
-  - ls -al /etc/alternatives/java
+  - j=`which java`
+  - echo $j
+  #- ls -al /usr/bin/java
+  - echo "java path"
+  - ls -al $j
+  #- ls -al /etc/alternatives/java
   - echo "java -version"
   - java -version
   - echo "JAVA_HOME"
   - echo $JAVA_HOME
-  - echo "Java location"
-  - which java
+  #- echo "Java location"
+  #- which java
 
 r_github_packages:
   - SticsRPacks/SticsRFiles
