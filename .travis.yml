@@ -7,10 +7,13 @@ os:
   - linux
 
 before_install:
-  - sudo apt-get remove openjdk-11-jdk
+  #- sudo apt-get remove openjdk-11-jdk
   - sudo apt-get update
   - sudo apt-get -y install openjdk-8-jdk
   #- sudo update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+  - sudo update-alternatives --set java /usr/local/lib/jvm/openjdk8/bin/java
+  - echo "list jvm dir..."
+  - ls /usr/local/lib/jvm
   - echo "java -version"
   - java -version
   - echo "JAVA_HOME"
