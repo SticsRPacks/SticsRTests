@@ -6,6 +6,10 @@ cache: packages
 os:
   - linux
 
+before_install:
+  - sudo apt-get update
+  - sudo apt-get -y install openjdk-8-jdk
+
 r_github_packages:
   - SticsRPacks/SticsRFiles
   - SticsRPacks/SticsOnR
@@ -13,3 +17,12 @@ r_github_packages:
 
 jdk:
   - openjdk8
+
+before_script:
+  - env
+  - echo "java -version"
+  - java -version
+  - echo "JAVA_HOME"
+  - echo $JAVA_HOME
+  - echo "Java location"
+  - which java
