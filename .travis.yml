@@ -13,6 +13,7 @@ install:
   #- sudo update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
   # - sudo update-alternatives --set java /usr/local/lib/jvm/openjdk8/bin/java
   - sudo rm /usr/local/lib/jvm/openjdk11/bin/java
+  - sudo rm /usr/bin/java
   - sudo ln -s /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java /usr/bin/java
   - j=`which java`
   - echo $j
