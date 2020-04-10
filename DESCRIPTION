@@ -28,9 +28,7 @@ Remotes:
     github::SticsRPacks/CroptimizR
 Suggests:
     testthat,
-    knitr,
     rmarkdown
-VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
 BinaryFiles:
 	inst/stics/V90/bin/JavaSticsCmd.exe,
