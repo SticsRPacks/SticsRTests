@@ -19,6 +19,12 @@ xfun::gsub_file(file=vignette_rmd,
                 replacement=paste0("\"",javastics_path,"\""),
                 fixed=TRUE)
 
+## Change the name of the executable (will be included i nthe vignette when SticsRFiles functions will be stabilized)
+xfun::gsub_file(file=vignette_rmd,
+                pattern="stics_path=file.path(javastics_path,\"bin/stics_modulo.exe\")",
+                replacement="SticsOnR::init_javastics_pref(javastics_path,overwrite = TRUE); stics_path=file.path(javastics_path,\"bin\",SticsOnR::list_stics_exe(javastics_path)$current[[1]])",
+                fixed=TRUE)
+
 ## change the options of the parameter estimation method
 xfun::gsub_file(file=vignette_rmd,
                 pattern="optim_options$nb_rep <- 7",replacement="optim_options$nb_rep <- 2",fixed=TRUE)
@@ -65,6 +71,12 @@ xfun::gsub_file(file=vignette_rmd,
                 replacement=paste0("\"",javastics_path,"\""),
                 fixed=TRUE)
 
+## Change the name of the executable (will be included i nthe vignette when SticsRFiles functions will be stabilized)
+xfun::gsub_file(file=vignette_rmd,
+                pattern="stics_path=file.path(javastics_path,\"bin/stics_modulo.exe\")",
+                replacement="SticsOnR::init_javastics_pref(javastics_path,overwrite = TRUE); stics_path=file.path(javastics_path,\"bin\",SticsOnR::list_stics_exe(javastics_path)$current[[1]])",
+                fixed=TRUE)
+
 ## change the options of the parameter estimation method
 xfun::gsub_file(file=vignette_rmd,
                 pattern="optim_options$nb_rep <- 7",replacement="optim_options$nb_rep <- 2",fixed=TRUE)
@@ -108,6 +120,12 @@ javastics_path=file.path(system.file("stics", package = "SticsRTests"),"V90")
 xfun::gsub_file(file=vignette_rmd,
                 pattern="params$path_to_JavaStics",
                 replacement=paste0("\"",javastics_path,"\""),
+                fixed=TRUE)
+
+## Change the name of the executable (will be included i nthe vignette when SticsRFiles functions will be stabilized)
+xfun::gsub_file(file=vignette_rmd,
+                pattern="stics_path=file.path(javastics_path,\"bin/stics_modulo.exe\")",
+                replacement="SticsOnR::init_javastics_pref(javastics_path,overwrite = TRUE); stics_path=file.path(javastics_path,\"bin\",SticsOnR::list_stics_exe(javastics_path)$current[[1]])",
                 fixed=TRUE)
 
 ## change the options of the parameter estimation method
