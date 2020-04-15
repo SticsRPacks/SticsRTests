@@ -1,0 +1,140 @@
+
+# Test Vignette simple_case
+
+tmpdir <- normalizePath(tempdir(), winslash = "/", mustWork = FALSE)
+vignette_rmd <-file.path(tmpdir,"Parameter_estimation_simple_case.Rmd")
+download.file("https://raw.github.com/SticsRPacks/CroptimizR/master/vignettes/Parameter_estimation_simple_case.Rmd",
+              vignette_rmd)
+
+## set the parameters for a run in auto_test mode
+xfun::gsub_file(file=vignette_rmd,
+                pattern="params$eval_auto_test",replacement="TRUE",fixed=TRUE)
+xfun::gsub_file(file=vignette_rmd,
+                pattern="params$eval_auto_vignette",replacement="FALSE",fixed=TRUE)
+xfun::gsub_file(file=vignette_rmd,
+                pattern="params$eval_manual_vignette",replacement="FALSE",fixed=TRUE)
+javastics_path=file.path(system.file("stics", package = "SticsRTests"),"V90")
+xfun::gsub_file(file=vignette_rmd,
+                pattern="params$path_to_JavaStics",
+                replacement=paste0("\"",javastics_path,"\""),
+                fixed=TRUE)
+
+## change the options of the parameter estimation method
+xfun::gsub_file(file=vignette_rmd,
+                pattern="optim_options$nb_rep <- 7",replacement="optim_options$nb_rep <- 2",fixed=TRUE)
+xfun::gsub_file(file=vignette_rmd,
+                pattern="optim_options$maxeval <- 500",replacement="optim_options$maxeval <- 4",fixed=TRUE)
+
+## generate the R script
+knitr::purl(input=vignette_rmd,
+            output=file.path(tmpdir,"Parameter_estimation_simple_case.R"), documentation = 2)
+
+## run it
+source(file.path(tmpdir,"Parameter_estimation_simple_case.R"))
+
+## load the results
+load(file.path(optim_options$path_results,"optim_results.Rdata"))
+nlo_new=nlo
+load(system.file(file.path("extdata","ResultsSimpleCase2repet4iter"), "optim_results.Rdata", package = "CroptimizR"))
+
+test_that("Test Vignette simple_case", {
+  expect_equal(nlo_new,nlo)
+  expect_true(file.exists(file.path(optim_options$path_results,"EstimatedVSinit.pdf")))
+})
+
+
+
+
+# Test Vignette specific and varietal
+
+tmpdir <- normalizePath(tempdir(), winslash = "/", mustWork = FALSE)
+vignette_rmd <-file.path(tmpdir,"Parameter_estimation_Specific_and_Varietal.Rmd")
+download.file("https://raw.github.com/SticsRPacks/CroptimizR/master/vignettes/Parameter_estimation_Specific_and_Varietal.Rmd",
+              vignette_rmd)
+
+## set the parameters for a run in auto_test mode
+xfun::gsub_file(file=vignette_rmd,
+                pattern="params$eval_auto_test",replacement="TRUE",fixed=TRUE)
+xfun::gsub_file(file=vignette_rmd,
+                pattern="params$eval_auto_vignette",replacement="FALSE",fixed=TRUE)
+xfun::gsub_file(file=vignette_rmd,
+                pattern="params$eval_manual_vignette",replacement="FALSE",fixed=TRUE)
+javastics_path=file.path(system.file("stics", package = "SticsRTests"),"V90")
+xfun::gsub_file(file=vignette_rmd,
+                pattern="params$path_to_JavaStics",
+                replacement=paste0("\"",javastics_path,"\""),
+                fixed=TRUE)
+
+## change the options of the parameter estimation method
+xfun::gsub_file(file=vignette_rmd,
+                pattern="optim_options$nb_rep <- 7",replacement="optim_options$nb_rep <- 2",fixed=TRUE)
+xfun::gsub_file(file=vignette_rmd,
+                pattern="optim_options$maxeval <- 1000",replacement="optim_options$maxeval <- 4",fixed=TRUE)
+
+## generate the R script
+knitr::purl(input=vignette_rmd,
+            output=file.path(tmpdir,"Parameter_estimation_Specific_and_Varietal.R"), documentation = 2)
+
+## run it
+source(file.path(tmpdir,"Parameter_estimation_Specific_and_Varietal.R"))
+
+## load the results
+load(file.path(optim_options$path_results,"optim_results.Rdata"))
+nlo_new=nlo
+load(system.file(file.path("extdata","ResultsSpecificVarietal_2repet4iter"), "optim_results.Rdata", package = "CroptimizR"))
+
+test_that("Test Vignette specific and varietal", {
+  expect_equal(nlo_new,nlo)
+  expect_true(file.exists(file.path(optim_options$path_results,"EstimatedVSinit.pdf")))
+})
+
+
+
+# Test Vignette DREAM
+
+tmpdir <- normalizePath(tempdir(), winslash = "/", mustWork = FALSE)
+vignette_rmd <-file.path(tmpdir,"Parameter_estimation_DREAM.Rmd")
+download.file("https://raw.github.com/SticsRPacks/CroptimizR/master/vignettes/Parameter_estimation_DREAM.Rmd",
+              vignette_rmd)
+
+## set the parameters for a run in auto_test mode
+xfun::gsub_file(file=vignette_rmd,
+                pattern="params$eval_auto_test",replacement="TRUE",fixed=TRUE)
+xfun::gsub_file(file=vignette_rmd,
+                pattern="params$eval_auto_vignette",replacement="FALSE",fixed=TRUE)
+xfun::gsub_file(file=vignette_rmd,
+                pattern="params$eval_manual_vignette",replacement="FALSE",fixed=TRUE)
+javastics_path=file.path(system.file("stics", package = "SticsRTests"),"V90")
+xfun::gsub_file(file=vignette_rmd,
+                pattern="params$path_to_JavaStics",
+                replacement=paste0("\"",javastics_path,"\""),
+                fixed=TRUE)
+
+## change the options of the parameter estimation method
+xfun::gsub_file(file=vignette_rmd,
+                pattern="optim_options$iterations <- 10000 # Total number of iterations",
+                replacement="optim_options$iterations <- 4 # Total number of iterations",fixed=TRUE)
+xfun::gsub_file(file=vignette_rmd,
+                pattern="optim_options$iterations <- 1000 # Total number of new iterations",
+                replacement="optim_options$iterations <- 4 # Total number of new iterations",fixed=TRUE)
+
+## generate the R script
+knitr::purl(input=vignette_rmd,
+            output=file.path(tmpdir,"Parameter_estimation_DREAM.R"), documentation = 2)
+
+## run it
+source(file.path(tmpdir,"Parameter_estimation_DREAM.R"))
+
+## load the results
+load(file.path(optim_options$path_results,"optim_results.Rdata"))
+res$out=NULL
+res_new=res
+load(system.file(file.path("extdata","ResultsSpecificVarietalDREAM_4iter"), "optim_results.Rdata", package = "CroptimizR"))
+res$out=NULL
+
+test_that("Test Vignette DREAM", {
+  expect_equal(res_new,res)
+  expect_true(file.exists(file.path(optim_options$path_results,"correlationPlots.pdf")))
+  expect_true(file.exists(file.path(optim_options$path_results,"iterAndDensityPlots.pdf")))
+  expect_true(file.exists(file.path(optim_options$path_results,"marginalPlots.pdf")))
+})

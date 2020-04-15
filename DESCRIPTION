@@ -13,7 +13,7 @@ Authors@R:
        person("Samuel", "Buis", email = "samuel.buis@inra.fr", role = c("aut")),
        person("Michel", "Giner", email = "michel.giner@cirad.fr", role = c("aut")))
 Description: The package uses testthat to run all tests that cannot be made directly from the SticsRPacks packages 
-  because they have to use external programs such as STICS or JavaSTICS (not distributed freely).
+  because they have to use external programs such as STICS or JavaSTICS (not yet automatically downloadable on the web).
 License: file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -21,14 +21,14 @@ RoxygenNote: 7.1.0
 Imports: 
     SticsRFiles,
     SticsOnR,
-    CroptimizR
+    CroptimizR,
+	xfun,
+	knitr,
+	testthat
 Remotes: 
     github::SticsRPacks/SticsRFiles,
     github::SticsRPacks/SticsOnR,
     github::SticsRPacks/CroptimizR
-Suggests:
-    testthat,
-    rmarkdown
 Roxygen: list(markdown = TRUE)
 BinaryFiles:
 	inst/stics/V90/bin/JavaSticsCmd.exe,
