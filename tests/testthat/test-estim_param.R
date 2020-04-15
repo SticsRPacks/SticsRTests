@@ -58,58 +58,69 @@ test_that("Test Vignette simple_case", {
 
 
 
-#
-# # Test Vignette specific and varietal
-#
-# tmpdir <- normalizePath(tempdir(), winslash = "/", mustWork = FALSE)
-# vignette_rmd <-file.path(tmpdir,"Parameter_estimation_Specific_and_Varietal.Rmd")
-# download.file("https://raw.github.com/SticsRPacks/CroptimizR/master/vignettes/Parameter_estimation_Specific_and_Varietal.Rmd",
-#               vignette_rmd)
-#
-# ## set the parameters for a run in auto_test mode
-# xfun::gsub_file(file=vignette_rmd,
-#                 pattern="params$eval_auto_test",replacement="TRUE",fixed=TRUE)
-# xfun::gsub_file(file=vignette_rmd,
-#                 pattern="params$eval_auto_vignette",replacement="FALSE",fixed=TRUE)
-# xfun::gsub_file(file=vignette_rmd,
-#                 pattern="params$eval_manual_vignette",replacement="FALSE",fixed=TRUE)
-# javastics_path=file.path(system.file("stics", package = "SticsRTests"),"V90")
-# xfun::gsub_file(file=vignette_rmd,
-#                 pattern="params$path_to_JavaStics",
-#                 replacement=paste0("\"",javastics_path,"\""),
-#                 fixed=TRUE)
-#
-# ## Change the name of the executable (will be included i nthe vignette when SticsRFiles functions will be stabilized)
-# xfun::gsub_file(file=vignette_rmd,
-#                 pattern="stics_path=file.path(javastics_path,\"bin/stics_modulo.exe\")",
-#                 replacement="SticsOnR::init_javastics_pref(javastics_path,overwrite = TRUE); stics_path=file.path(javastics_path,\"bin\",SticsOnR::list_stics_exe(javastics_path)$current[[1]])",
-#                 fixed=TRUE)
-#
-# ## change the options of the parameter estimation method
-# xfun::gsub_file(file=vignette_rmd,
-#                 pattern="optim_options$nb_rep <- 7",replacement="optim_options$nb_rep <- 2",fixed=TRUE)
-# xfun::gsub_file(file=vignette_rmd,
-#                 pattern="optim_options$maxeval <- 1000",replacement="optim_options$maxeval <- 4",fixed=TRUE)
-#
-# ## generate the R script
-# knitr::purl(input=vignette_rmd,
-#             output=file.path(tmpdir,"Parameter_estimation_Specific_and_Varietal.R"), documentation = 2)
-#
-# ## run it
-# source(file.path(tmpdir,"Parameter_estimation_Specific_and_Varietal.R"))
-#
-# ## load the results
-# load(file.path(optim_options$path_results,"optim_results.Rdata"))
-# nlo_new=nlo
-# load(system.file(file.path("extdata","ResultsSpecificVarietal_2repet4iter"), "optim_results.Rdata", package = "CroptimizR"))
-#
-# test_that("Test Vignette specific and varietal", {
-#   expect_equal(nlo_new,nlo)
-#   expect_true(file.exists(file.path(optim_options$path_results,"EstimatedVSinit.pdf")))
-# })
-#
-#
-#
+
+# Test Vignette specific and varietal
+
+tmpdir <- normalizePath(tempdir(), winslash = "/", mustWork = FALSE)
+vignette_rmd <-file.path(tmpdir,"Parameter_estimation_Specific_and_Varietal.Rmd")
+download.file("https://raw.github.com/SticsRPacks/CroptimizR/master/vignettes/Parameter_estimation_Specific_and_Varietal.Rmd",
+              vignette_rmd)
+
+## set the parameters for a run in auto_test mode
+xfun::gsub_file(file=vignette_rmd,
+                pattern="params$eval_auto_test",replacement="TRUE",fixed=TRUE)
+xfun::gsub_file(file=vignette_rmd,
+                pattern="params$eval_auto_vignette",replacement="FALSE",fixed=TRUE)
+xfun::gsub_file(file=vignette_rmd,
+                pattern="params$eval_manual_vignette",replacement="FALSE",fixed=TRUE)
+javastics_path=file.path(system.file("stics", package = "SticsRTests"),"V90")
+xfun::gsub_file(file=vignette_rmd,
+                pattern="params$path_to_JavaStics",
+                replacement=paste0("\"",javastics_path,"\""),
+                fixed=TRUE)
+
+## Change the name of the executable (will be included i nthe vignette when SticsRFiles functions will be stabilized)
+xfun::gsub_file(file=vignette_rmd,
+                pattern="stics_path=file.path(javastics_path,\"bin/stics_modulo.exe\")",
+                replacement="SticsOnR::init_javastics_pref(javastics_path,overwrite = TRUE); stics_path=file.path(javastics_path,\"bin\",SticsOnR::list_stics_exe(javastics_path)$current[[1]])",
+                fixed=TRUE)
+
+## Define initial values as those used for computing the reference results
+## (random sampling may lead to different values on different platforms even with the same seed)
+xfun::gsub_file(file=vignette_rmd,
+                pattern="lb=0.0005,ub=0.0025)",
+                replacement="lb=0.0005,ub=0.0025, init_values=c(0.001386297, 0.001877701))",
+                fixed=TRUE)
+xfun::gsub_file(file=vignette_rmd,
+                pattern="lb=c(50,100),ub=c(400,450))",
+                replacement="lb=c(50,100),ub=c(400,450), init_values=data.frame(c(293.3769, 115.9086), c(299.3398,162.9456)))",
+                fixed=TRUE)
+
+## change the options of the parameter estimation method
+xfun::gsub_file(file=vignette_rmd,
+                pattern="optim_options$nb_rep <- 7",replacement="optim_options$nb_rep <- 2",fixed=TRUE)
+xfun::gsub_file(file=vignette_rmd,
+                pattern="optim_options$maxeval <- 1000",replacement="optim_options$maxeval <- 4",fixed=TRUE)
+
+## generate the R script
+knitr::purl(input=vignette_rmd,
+            output=file.path(tmpdir,"Parameter_estimation_Specific_and_Varietal.R"), documentation = 2)
+
+## run it
+source(file.path(tmpdir,"Parameter_estimation_Specific_and_Varietal.R"))
+
+## load the results
+load(file.path(optim_options$path_results,"optim_results.Rdata"))
+nlo_new=nlo
+load(system.file(file.path("extdata","ResultsSpecificVarietal_2repet4iter"), "optim_results.Rdata", package = "CroptimizR"))
+
+test_that("Test Vignette specific and varietal", {
+  expect_equal(nlo_new,nlo, tolerance = 1e-5)
+  expect_true(file.exists(file.path(optim_options$path_results,"EstimatedVSinit.pdf")))
+})
+
+
+
 # # Test Vignette DREAM
 #
 # tmpdir <- normalizePath(tempdir(), winslash = "/", mustWork = FALSE)
