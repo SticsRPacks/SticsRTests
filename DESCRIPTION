@@ -18,6 +18,8 @@ License: file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.0
+install:
+	- R -e 'install.packages("remotes");library(remotes);remotes::install_deps(dependencies = TRUE,upgrade="always")'
 Imports: 
     SticsRFiles,
     SticsOnR,
