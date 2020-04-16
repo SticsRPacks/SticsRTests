@@ -34,3 +34,4 @@ r_github_packages:
 jdk:
   - openjdk8
 
+warnings_are_errors: false
