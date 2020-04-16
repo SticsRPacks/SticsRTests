@@ -2,9 +2,6 @@
 
 language: R
 cache: packages
-env:
-  global:
-    - _R_CRAN_CHECK_INCOMING_=false
 
 os:
   - linux
