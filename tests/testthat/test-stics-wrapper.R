@@ -1,9 +1,10 @@
+
+context("Stics Wrapper")
 # Define path to JavaStics and download data
 path_to_JavaStics=system.file("stics", package = "SticsRTests")
 javastics_path=file.path(path_to_JavaStics,"V90")
-SticsOnR::init_javastics_pref(javastics_path,overwrite = TRUE)
-stics_path=file.path(javastics_path,"bin",SticsOnR::list_stics_exe(javastics_path)$current[[1]])
-if ( SticsOnR:::is_unix() ) {
+stics_path=file.path(javastics_path,"bin",SticsOnR:::list_stics_exe(javastics_path)$current[[1]])
+if(SticsOnR:::is_unix()){
   system2(command = "chmod",args = c("+x", stics_path))
 }
 

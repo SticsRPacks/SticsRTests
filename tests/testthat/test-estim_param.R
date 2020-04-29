@@ -2,6 +2,8 @@
 # Download and transform Vignette simple_case for different tests
 # ---------------------------------------------------------------
 
+context("Parameter estimation")
+
 tmpdir <- normalizePath(tempdir(), winslash = "/", mustWork = FALSE)
 simple_case_rmd <-file.path(tmpdir,"Parameter_estimation_simple_case.Rmd")
 download.file("https://raw.github.com/SticsRPacks/CroptimizR/master/vignettes/Parameter_estimation_simple_case.Rmd",
@@ -23,7 +25,7 @@ xfun::gsub_file(file=simple_case_rmd,
 ## Change the name of the executable (will be included in the vignette when SticsRFiles functions will be stabilized)
 xfun::gsub_file(file=simple_case_rmd,
                 pattern="stics_path=file.path(javastics_path,\"bin/stics_modulo.exe\")",
-                replacement="SticsOnR::init_javastics_pref(javastics_path,overwrite = TRUE); stics_path=file.path(javastics_path,\"bin\",SticsOnR::list_stics_exe(javastics_path)$current[[1]])",
+                replacement="SticsOnR:::init_javastics_pref(javastics_path,overwrite = TRUE); stics_path=file.path(javastics_path,\"bin\",SticsOnR:::list_stics_exe(javastics_path)$current[[1]])",
                 fixed=TRUE)
 
 ## generate the R script
@@ -116,7 +118,7 @@ xfun::gsub_file(file=vignette_rmd,
 ## Change the name of the executable (will be included i nthe vignette when SticsRFiles functions will be stabilized)
 xfun::gsub_file(file=vignette_rmd,
                 pattern="stics_path=file.path(javastics_path,\"bin/stics_modulo.exe\")",
-                replacement="SticsOnR::init_javastics_pref(javastics_path,overwrite = TRUE); stics_path=file.path(javastics_path,\"bin\",SticsOnR::list_stics_exe(javastics_path)$current[[1]])",
+                replacement="SticsOnR:::init_javastics_pref(javastics_path,overwrite = TRUE); stics_path=file.path(javastics_path,\"bin\",SticsOnR:::list_stics_exe(javastics_path)$current[[1]])",
                 fixed=TRUE)
 
 ## Define initial values as those used for computing the reference results
