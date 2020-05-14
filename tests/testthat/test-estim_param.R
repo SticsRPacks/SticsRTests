@@ -22,12 +22,6 @@ xfun::gsub_file(file=simple_case_rmd,
                 replacement=paste0("\"",javastics_path,"\""),
                 fixed=TRUE)
 
-## Change the name of the executable (will be included in the vignette when SticsRFiles functions will be stabilized)
-xfun::gsub_file(file=simple_case_rmd,
-                pattern="stics_path=file.path(javastics_path,\"bin/stics_modulo.exe\")",
-                replacement="SticsOnR:::init_javastics_pref(javastics_path,overwrite = TRUE); stics_path=file.path(javastics_path,\"bin\",SticsOnR:::list_stics_exe(javastics_path)$current[[1]])",
-                fixed=TRUE)
-
 ## generate the R script
 simple_case_r <-file.path(tmpdir,"Parameter_estimation_simple_case.R")
 knitr::purl(input=simple_case_rmd,
@@ -113,12 +107,6 @@ javastics_path=file.path(system.file("stics", package = "SticsRTests"),"V90")
 xfun::gsub_file(file=vignette_rmd,
                 pattern="params$path_to_JavaStics",
                 replacement=paste0("\"",javastics_path,"\""),
-                fixed=TRUE)
-
-## Change the name of the executable (will be included i nthe vignette when SticsRFiles functions will be stabilized)
-xfun::gsub_file(file=vignette_rmd,
-                pattern="stics_path=file.path(javastics_path,\"bin/stics_modulo.exe\")",
-                replacement="SticsOnR:::init_javastics_pref(javastics_path,overwrite = TRUE); stics_path=file.path(javastics_path,\"bin\",SticsOnR:::list_stics_exe(javastics_path)$current[[1]])",
                 fixed=TRUE)
 
 ## Define initial values as those used for computing the reference results

@@ -3,10 +3,6 @@ context("Stics Wrapper")
 # Define path to JavaStics and download data
 path_to_JavaStics=system.file("stics", package = "SticsRTests")
 javastics_path=file.path(path_to_JavaStics,"V90")
-stics_path=file.path(javastics_path,"bin",SticsOnR:::list_stics_exe(javastics_path)$current[[1]])
-if(SticsOnR:::is_unix()){
-  system2(command = "chmod",args = c("+x", stics_path))
-}
 
 # Download and prepare data
 data_dir= file.path(SticsRFiles::download_data(),"study_case_1","V9.0")
@@ -16,9 +12,7 @@ SticsRFiles::gen_usms_xml2txt(javastics_path = javastics_path, workspace_path = 
                               target_path = stics_inputs_path, display = TRUE)
 
 # Set options for Stics wrapper
-model_options=SticsOnR::stics_wrapper_options(stics_path,stics_inputs_path,
-                                              parallel=FALSE)
-
+model_options=SticsOnR::stics_wrapper_options(javastics_path,data_dir = stics_inputs_path, parallel=FALSE)
 
 # Test parameter forcing works
 param_names=c("dlaimax","durvieF")
