@@ -55,8 +55,9 @@ source(simple_case_r_tmp)
 
 ## load the results
 load(file.path(optim_options$path_results,"optim_results.Rdata"))
-nlo_new=nlo
+nlo_new<-lapply(nlo,function(x) {x$call<-NULL;x}) # remove "call" since it may change between code versions ...
 load(system.file(file.path("extdata","ResultsSimpleCase2repet4iter"), "optim_results.Rdata", package = "CroptimizR"))
+nlo<-lapply(nlo,function(x) {x$call<-NULL;x})
 
 test_that("Test Vignette simple_case", {
   expect_equal(nlo_new,nlo, tolerance = 1e-5)
@@ -80,7 +81,7 @@ optim_results=estim_param(obs_list=obs_list,",
                 fixed=TRUE)
 
 test_that("Test Vignette model crash", {
-  expect_error(source(simple_case_r_tmp),"Error: model wrapper")
+  expect_error(source(simple_case_r_tmp),"error")
 })
 
 
@@ -135,8 +136,9 @@ source(file.path(tmpdir,"Parameter_estimation_Specific_and_Varietal.R"))
 
 ## load the results
 load(file.path(optim_options$path_results,"optim_results.Rdata"))
-nlo_new=nlo
+nlo_new<-lapply(nlo,function(x) {x$call<-NULL;x}) # remove "call" since it may change between code versions ...
 load(system.file(file.path("extdata","ResultsSpecificVarietal_2repet4iter"), "optim_results.Rdata", package = "CroptimizR"))
+nlo<-lapply(nlo,function(x) {x$call<-NULL;x}) # remove "call" since it may change between code versions ...
 
 test_that("Test Vignette specific and varietal", {
   expect_equal(nlo_new,nlo, tolerance = 1e-4)
