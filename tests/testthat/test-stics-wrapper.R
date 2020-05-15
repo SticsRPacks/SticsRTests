@@ -9,7 +9,7 @@ data_dir= file.path(SticsRFiles::download_data(),"study_case_1","V9.0")
 stics_inputs_path=file.path(data_dir,"TxtFiles")
 dir.create(stics_inputs_path)
 SticsRFiles::gen_usms_xml2txt(javastics_path = javastics_path, workspace_path = file.path(data_dir,"XmlFiles"),
-                              target_path = stics_inputs_path, display = TRUE)
+                              target_path = stics_inputs_path, verbose = TRUE)
 
 # Set options for Stics wrapper
 model_options=SticsOnR::stics_wrapper_options(javastics_path,data_dir = stics_inputs_path, parallel=FALSE)
