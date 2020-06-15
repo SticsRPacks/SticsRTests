@@ -51,6 +51,9 @@ xfun::gsub_file(file=simple_case_r_tmp,
                 pattern="optim_options$maxeval <- 500",replacement="optim_options$maxeval <- 4",fixed=TRUE)
 
 ## run it
+print("Displaying script path")
+file.exists(simple_case_r_tmp)
+cat(simple_case_r_tmp)
 source(simple_case_r_tmp)
 
 ## load the results
