@@ -8,15 +8,15 @@ data_dir= file.path(SticsRFiles::download_data(),"study_case_1","V9.0")
 javastics_workspace_path=file.path(data_dir,"XmlFiles")
 stics_inputs_path=file.path(data_dir,"TxtFiles")
 dir.create(stics_inputs_path)
-gen_usms_xml2txt(javastics_path = javastics_path, workspace_path = javastics_workspace_path,
+SticsRFiles::gen_usms_xml2txt(javastics_path = javastics_path, workspace_path = javastics_workspace_path,
                  target_path = stics_inputs_path, verbose = TRUE)
 
 sit_name="bo96iN+"  # can be a vector of situation names if you want to consider several, e.g. c("bo96iN+","bou00t1")
 var_name="lai_n"    # can be a vector of variable names if you want to consider several, e.g. c("lai_n","masec_n")
-obs_list= get_obs(javastics_workspace_path, usm_name = sit_name)
-obs_list= filter_obs(obs_list, var_names= var_name, include=TRUE)
+obs_list= SticsRFiles::get_obs(javastics_workspace_path, usm_name = sit_name)
+obs_list= CroptimizR::filter_obs(obs_list, var_names= var_name, include=TRUE)
 
-test_that("Test Vignette simple_case", {
+test_that("Test filter_obs", {
   expect_equal(names(obs_list), "bo96iN+")
 })
 
