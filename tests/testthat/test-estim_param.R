@@ -14,6 +14,10 @@ SticsRFiles::gen_usms_xml2txt(javastics_path = javastics_path, workspace_path = 
 sit_name="bo96iN+"  # can be a vector of situation names if you want to consider several, e.g. c("bo96iN+","bou00t1")
 var_name="lai_n"    # can be a vector of variable names if you want to consider several, e.g. c("lai_n","masec_n")
 obs_list= SticsRFiles::get_obs(javastics_workspace_path, usm_name = sit_name)
+
+print(obs_list)
+flush.console()
+
 obs_list= CroptimizR::filter_obs(obs_list, var_names= var_name, include=TRUE)
 
 test_that("Test filter_obs", {
