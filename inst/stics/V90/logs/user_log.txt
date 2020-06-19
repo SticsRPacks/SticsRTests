@@ -382,3 +382,12 @@
 [16/06/20]-[11:35:43] - File plant found in workspace, it will be used instead of default file.
 [16/06/20]-[11:35:43] - File param_gen.xml hasn't been found in workspace, default file will be used (D:\Home\sbuis\Documents\GitHub\SticsRTests\inst\stics\V90\config).
 [16/06/20]-[11:35:43] - File param_newform.xml hasn't been found in workspace, default file will be used (D:\Home\sbuis\Documents\GitHub\SticsRTests\inst\stics\V90\config).
+[19/06/20]-[15:59:09] - File plant hasn't been found in workspace, default file will be used (D:\Home\sbuis\Documents\GitHub\SticsRTests\inst\stics\V90).
+[19/06/20]-[15:59:10] - File param_gen.xml hasn't been found in workspace, default file will be used (D:\Home\sbuis\Documents\GitHub\SticsRTests\inst\stics\V90\config).
+[19/06/20]-[15:59:10] - File param_newform.xml hasn't been found in workspace, default file will be used (D:\Home\sbuis\Documents\GitHub\SticsRTests\inst\stics\V90\config).
+[19/06/20]-[15:59:11] - File plant hasn't been found in workspace, default file will be used (D:\Home\sbuis\Documents\GitHub\SticsRTests\inst\stics\V90).
+[19/06/20]-[15:59:11] - File param_gen.xml hasn't been found in workspace, default file will be used (D:\Home\sbuis\Documents\GitHub\SticsRTests\inst\stics\V90\config).
+[19/06/20]-[15:59:12] - File param_newform.xml hasn't been found in workspace, default file will be used (D:\Home\sbuis\Documents\GitHub\SticsRTests\inst\stics\V90\config).
+[19/06/20]-[15:59:12] - File plant hasn't been found in workspace, default file will be used (D:\Home\sbuis\Documents\GitHub\SticsRTests\inst\stics\V90).
+[19/06/20]-[15:59:13] - File param_gen.xml hasn't been found in workspace, default file will be used (D:\Home\sbuis\Documents\GitHub\SticsRTests\inst\stics\V90\config).
+[19/06/20]-[15:59:13] - File param_newform.xml hasn't been found in workspace, default file will be used (D:\Home\sbuis\Documents\GitHub\SticsRTests\inst\stics\V90\config).
