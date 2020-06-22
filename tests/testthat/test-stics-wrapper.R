@@ -77,3 +77,34 @@ test_that("Wrong model path lead to an error", {
 test_that("Unexisting data path lead to an error", {
   expect_error(stics_wrapper_options(stics_path,paste0(stics_inputs_path,"ugly_suffix")))
 })
+
+
+# Test rotations
+
+javastics_workspace_path=file.path(javastics_path,"example")
+
+## Generate Stics input files from JavaStics input files
+stics_inputs_path=file.path(tempdir(),"RotationTests")
+dir.create(stics_inputs_path)
+
+gen_usms_xml2txt(javastics_path = javastics_path, workspace_path = javastics_workspace_path,
+                 target_path = stics_inputs_path, usms_list = c("demo_BareSoil2","demo_Wheat1","banana","demo_maize3"), verbose = TRUE)
+
+model_options= stics_wrapper_options(javastics_path, data_dir = stics_inputs_path, parallel=TRUE)
+sim_without_successive=stics_wrapper(model_options=model_options)
+
+model_options= stics_wrapper_options(javastics_path, data_dir = stics_inputs_path, successive_usms = list(c("demo_Wheat1","demo_BareSoil2","demo_maize3")), parallel=TRUE)
+sim_with_successive=stics_wrapper(model_options=model_options)
+
+test_that("Test rotation", {
+  expect_true(any(grepl("rotation",readLines(file(file.path(stics_inputs_path,"demo_BareSoil2","mod_bdemo_BareSoil2.sti"), "rb")))))
+  expect_true(any(grepl("rotation",readLines(file(file.path(stics_inputs_path,"demo_maize3","mod_bdemo_maize3.sti"), "rb")))))
+  expect_identical(sim_with_successive$sim_list[[1]]$banana,sim_without_successive$sim_list[[1]]$banana)
+  expect_identical(sim_with_successive$sim_list[[1]]$demo_Wheat1,sim_without_successive$sim_list[[1]]$demo_Wheat1)
+  expect_false(identical(sim_with_successive$sim_list[[1]]$demo_BareSoil2,sim_without_successive$sim_list[[1]]$demo_BareSoil2))
+  expect_false(identical(sim_with_successive$sim_list[[1]]$demo_maize3,sim_without_successive$sim_list[[1]]$demo_maize3))
+})
+
+zz <- file(file.path(stics_inputs_path,"demo_maize3","mod_bdemo_maize3.sti"), "rb")
+grep("rotation",readLines(zz))
+
