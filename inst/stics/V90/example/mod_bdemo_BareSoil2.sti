@@ -1,0 +1,109 @@
+  Balance of the STICS simulation 9.0_r2089_2018-10-19                              , model culture     
+************************************************
+ 1. INPUT DATA
+ *******************
+   Weather file            :                                           statio5j
+   Cultural practices file :                                     solnu2_tec.xml
+   Initialisations file :                                    demsnu2_ini.xml
+   Initial soil values      : solsoja     
+      Z (cm)      Water (%)      NO3 (kg/ha)    NH4 (kg/ha)
+         5.        21.2           5.5           0.0
+        15.        19.7           7.5           0.0
+        20.        14.0           0.5           0.0
+        50.        18.6           0.0           0.0
+        80.        21.6           0.0           0.0
+     Maximum water reserve used by plant  =    0. mm
+     Maximum rooting depth     =    0. cm
+ This year is in case of rotation and chained with the previous one 
+
+   Start of simulation : 31-jul-1993      day 212
+   End of simulation   : 28-feb-1994      day  59   (or 424)
+
+
+
+ Irrigation read 
+ Fertilisation read
+  method of PET calculation                                               Penman reading
+
+   Irrigation
+     Number of irrigations:   0
+
+   Fertilisation
+
+   Fertilisation:        Number of applications = 0
+
+   Organic residues and/or soil tillage
+     Tillage        day 290    on 30.cm
+
+
+5. WATER, NITROGEN, CARBON BALANCE over the whole simulation period  (213 days)
+*******************************************************************************
+   Normalised days at 15.degrees C :    Humus = 257.      Residues =  73.
+   Potential mineralisation rate = 0.44 kg N/ha/day   or 2.89% per year
+WATER BALANCE  (mm)
+     initial water content    467.        final water content      586.
+     rain                     713.        evaporation              118.
+     irrigation                 0.        transpiration              0.
+     capillary rise            -0.        runoff                   294.
+                                          deep infiltration        133.
+                                          mole drainage              0.
+                                          leaf interception          0.
+                                          mulch interception        49.
+                                          ineffective irrigation     0.
+     -----------------------------        -----------------------------
+     TOTAL INPUTS            1180.        TOTAL OUTPUTS           1180.
+
+MINERAL NITROGEN BALANCE (kg N/ha)
+     initial plant N            0.        final plant N               0.
+                                          N uptake exported           0.
+                                          N uptake returned           0.
+     initial soil NH4           0.        final soil NH4              0.
+     initial soil NO3          14.        final soil NO3             92.
+     rain                      14.        leaching                    0.
+     irrigation                 0.        leaching in mole drains     0.
+     fertiliser                 0.        fertiliser N immobilis.     0.
+     symbiotic fixation         0.        fertiliser N volatilis.     0.
+     humus mineralisation     114.        manure N volatilis.         0.
+     residue mineralisation   -50.        N2 and N2O losses           0.
+     -----------------------------        -----------------------------
+     TOTAL INPUTS              92.        TOTAL OUTPUTS             92.
+
+ORGANIC NITROGEN BALANCE (kg N/ha)
+     Active humified pool       1954.                                1930.
+     Inert humified pool        3685.                                3685.
+     Zymogeneous biomass pool     68.                                  97.
+     Soil residues pool            6.                                   0.
+     Mulch residues pool          63.                                   0.
+     Fertiliser Immobilised        0.
+     Added organic fertil.         0.
+     Added Crop residues           0.
+     Added Roots                   0.
+     Added Fallen leaves           0.        Priming (PE)               0.
+     Added Trimmed leaves          0.        Mineralisation - PE       64.
+     -------------------------------        -----------------------------
+     TOTAL INITIAL              5776.        TOTAL FINAL             5776.
+
+ORGANIC CARBON BALANCE   (kg C/ha)
+     Active humified pool      18349.                               18142.
+     Inert humified pool       35100.                               35100.
+     Zymogeneous biomass pool   1010.                                1411.
+     Soil residues pool          331.                                   1.
+     Mulch residues pool        4162.                                   0.
+     Fertiliser Immobilised        0.
+     Added organic fertil.         0.
+     Added Crop residues           0.
+     Added Roots                   0.
+     Added Fallen leaves           0.        Priming (PE)               0.
+     Added Trimmed leaves          0.        Mineralisation - PE     4298.
+     -------------------------------        -----------------------------
+     TOTAL INITIAL             58952.        TOTAL FINAL            58952.
+
+Heterotrophic Respiration (kg C/ha): Residues = 3227.
+                                     Humus    = 1071.
+                                     Total    = 4298.
+
+Cumulative N2O emissions  (kg N/ha): nitrification      =  0.00
+                                     denitrification    =  0.00
+                                     Total              =  0.00
+
+CROP RESIDUES returned to soil: none                 DM =  0.0 t/ha     C/N =  0.
