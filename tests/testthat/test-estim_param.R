@@ -18,6 +18,11 @@ obs_list= SticsRFiles::get_obs(javastics_workspace_path, usm_name = sit_name)
 print(obs_list)
 flush.console()
 
+df=dplyr::bind_rows(obs_list,.id="id")
+print(df)
+flush.console()
+
+
 obs_list= CroptimizR::filter_obs(obs_list, var_names= var_name, include=TRUE)
 
 test_that("Test filter_obs", {
