@@ -27,6 +27,7 @@ Imports:
 	knitr,
 	testthat
 Remotes: 
+	cran/dplyr@0.8.5
     github::SticsRPacks/SticsRFiles,
     github::SticsRPacks/SticsOnR,
     github::SticsRPacks/CroptimizR
