@@ -19,7 +19,6 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.0
 Imports: 
-	dplyr (<= 0.8.5),
     SticsRFiles,
     SticsOnR,
     CroptimizR,
@@ -27,7 +26,6 @@ Imports:
 	knitr,
 	testthat
 Remotes: 
-	cran/dplyr@0.8.5
     github::SticsRPacks/SticsRFiles,
     github::SticsRPacks/SticsOnR,
     github::SticsRPacks/CroptimizR
