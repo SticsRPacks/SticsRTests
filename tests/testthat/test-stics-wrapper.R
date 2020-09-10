@@ -8,7 +8,8 @@ javastics_path=file.path(path_to_JavaStics,"V90")
 data_dir= file.path(SticsRFiles::download_data(),"study_case_1","V9.0")
 stics_inputs_path=file.path(data_dir,"TxtFiles")
 dir.create(stics_inputs_path)
-SticsRFiles::gen_usms_xml2txt(javastics_path = javastics_path, workspace_path = file.path(data_dir,"XmlFiles"),
+javastics_workspace_path<-file.path(data_dir,"XmlFiles")
+SticsRFiles::gen_usms_xml2txt(javastics_path = javastics_path, workspace_path = javastics_workspace_path,
                               target_path = stics_inputs_path, verbose = TRUE)
 
 # Set options for Stics wrapper
@@ -37,13 +38,32 @@ test_that("Parameter forcing works", {
 })
 
 
-# Test effect of sit_var_dates_mask
-situation_names=c("bo96iN+","lu97iN+")
-res <- SticsOnR::stics_wrapper(model_options = model_options, sit_var_dates_mask = situation_names)
 
+
+# Test selection of results using arguments sit_names and sit_var_dates_mask
+situation_names=c("bo96iN+","lu97iN+")
+res <- SticsOnR::stics_wrapper(model_options = model_options, sit_names = situation_names)
 test_that("Asking results for a list of situation works", {
   expect_equal(situation_names,names(res$sim_list[[1]]))
 })
+situation_names=c("bo96iN+","toto", "titi")
+test_that("Asking results for a non existing USM lead to an error", {
+  expect_warning(SticsOnR::stics_wrapper(model_options = model_options, sit_names = situation_names),regexp("These USMs will not be simulated"))
+})
+obs_list= SticsRFiles::get_obs(javastics_workspace_path)
+obs_list[["bo96iN+"]]<-NULL
+res <- SticsOnR::stics_wrapper(model_options = model_options, sit_var_dates_mask = obs_list)
+test_that("Asking results for a list of situation works", {
+  expect_equal(names(obs_list),names(res$sim_list[[1]]))
+})
+obs_list= SticsRFiles::get_obs(javastics_workspace_path)
+obs_list[["toto"]]<-obs_list[["bo96iN+"]]
+test_that("Asking results for a list of situation works", {
+  expect_warning(SticsOnR::stics_wrapper(model_options = model_options, sit_var_dates_mask = obs_list),regexp("These USMs will not be simulated"))
+})
+
+
+
 
 
 # Test Design-Of-Experiment
@@ -87,7 +107,7 @@ javastics_workspace_path=file.path(javastics_path,"example")
 stics_inputs_path=file.path(tempdir(),"RotationTests")
 dir.create(stics_inputs_path)
 
-gen_usms_xml2txt(javastics_path = javastics_path, workspace_path = javastics_workspace_path,
+SticsRFiles::gen_usms_xml2txt(javastics_path = javastics_path, workspace_path = javastics_workspace_path,
                  target_path = stics_inputs_path, usms_list = c("demo_BareSoil2","demo_Wheat1","banana","demo_maize3"), verbose = TRUE)
 
 model_options= stics_wrapper_options(javastics_path, data_dir = stics_inputs_path, parallel=TRUE)
@@ -96,6 +116,9 @@ sim_without_successive=stics_wrapper(model_options=model_options)
 model_options= stics_wrapper_options(javastics_path, data_dir = stics_inputs_path, successive_usms = list(c("demo_Wheat1","demo_BareSoil2","demo_maize3")), parallel=TRUE)
 sim_with_successive=stics_wrapper(model_options=model_options)
 
+model_options= stics_wrapper_options(javastics_path, data_dir = stics_inputs_path, successive_usms = list(c("demo_Wheat1","demo_BareSoil2","demo_maize3")), parallel=TRUE)
+sim_with_successive_restricted_results=stics_wrapper(model_options=model_options, sit_names=c("banana","demo_maize3"))
+
 test_that("Test rotation", {
   expect_true(any(grepl("rotation",readLines(file(file.path(stics_inputs_path,"demo_BareSoil2","mod_bdemo_BareSoil2.sti"), "rb")))))
   expect_true(any(grepl("rotation",readLines(file(file.path(stics_inputs_path,"demo_maize3","mod_bdemo_maize3.sti"), "rb")))))
@@ -103,7 +126,11 @@ test_that("Test rotation", {
   expect_identical(sim_with_successive$sim_list[[1]]$demo_Wheat1,sim_without_successive$sim_list[[1]]$demo_Wheat1)
   expect_false(identical(sim_with_successive$sim_list[[1]]$demo_BareSoil2,sim_without_successive$sim_list[[1]]$demo_BareSoil2))
   expect_false(identical(sim_with_successive$sim_list[[1]]$demo_maize3,sim_without_successive$sim_list[[1]]$demo_maize3))
+  expect_identical(names(sim_with_successive_restricted_results$sim_list[[1]]),c("banana","demo_maize3"))
+  expect_identical(sim_with_successive_restricted_results$sim_list[[1]]$demo_maize3,sim_without_successive$sim_list[[1]]$demo_maize3)
 })
+
+
 
 zz <- file(file.path(stics_inputs_path,"demo_maize3","mod_bdemo_maize3.sti"), "rb")
 grep("rotation",readLines(zz))
