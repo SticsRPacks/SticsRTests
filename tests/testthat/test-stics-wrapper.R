@@ -31,8 +31,8 @@ sim_max       <- SticsOnR::stics_wrapper(param_values = param_values_min, model_
 sim_min       <- SticsOnR::stics_wrapper(param_values = param_values_max, model_options = model_options)
 
 test_that("Parameter forcing works", {
-  expect_gt(sum( abs(sim_max$sim_list[[1]][[situation_name]][,var_name]-
-                       sim_min$sim_list[[1]][[situation_name]][,var_name]),
+  expect_gt(sum( abs(sim_max$sim_list[[situation_name]][,var_name]-
+                       sim_min$sim_list[[situation_name]][,var_name]),
                  na.rm=TRUE),
             0)
 })
@@ -40,26 +40,46 @@ test_that("Parameter forcing works", {
 
 
 
-# Test selection of results using arguments sit_names and sit_var_dates_mask
+# Test selection of results using arguments sit_names, sit_var_dates_mask, var_names, dates
 situation_names=c("bo96iN+","lu97iN+")
 res <- SticsOnR::stics_wrapper(model_options = model_options, sit_names = situation_names)
-test_that("Asking results for a list of situation works", {
-  expect_equal(situation_names,names(res$sim_list[[1]]))
+test_that("Asking results for a list of situation using sit_names works", {
+  expect_equal(situation_names,names(res$sim_list))
 })
 situation_names=c("bo96iN+","toto", "titi")
-test_that("Asking results for a non existing USM lead to an error", {
-  expect_warning(SticsOnR::stics_wrapper(model_options = model_options, sit_names = situation_names),regexp("These USMs will not be simulated"))
+test_that("Asking results for a non existing USM using sit_names lead to a warning", {
+  expect_warning(SticsOnR::stics_wrapper(model_options = model_options, sit_names = situation_names),regexp="These USMs will not be simulated")
+})
+obs_list= SticsRFiles::get_obs(javastics_workspace_path)
+obs_list[["toto"]]<-obs_list[["bo96iN+"]]
+test_that("Asking results for a non existing USM using sit_var_dates_mask lead to a warning", {
+  expect_warning(SticsOnR::stics_wrapper(model_options = model_options, sit_var_dates_mask = obs_list),regexp="These USMs will not be simulated")
 })
 obs_list= SticsRFiles::get_obs(javastics_workspace_path)
 obs_list[["bo96iN+"]]<-NULL
 res <- SticsOnR::stics_wrapper(model_options = model_options, sit_var_dates_mask = obs_list)
-test_that("Asking results for a list of situation works", {
-  expect_equal(names(obs_list),names(res$sim_list[[1]]))
+test_that("Asking results for a list of variables / dates using sit_var_dates_mask works", {
+  expect_equal(names(obs_list),names(res$sim_list))
+  expect_equal(head(names(obs_list$`lu97iN+`),-1),names(res$sim_list$`lu97iN+`))  # head is used to remove "Plant" column in obs
+  expect_equal(obs_list$`lu97iN+`$Date,res$sim_list$`lu97iN+`$Date)
 })
-obs_list= SticsRFiles::get_obs(javastics_workspace_path)
-obs_list[["toto"]]<-obs_list[["bo96iN+"]]
-test_that("Asking results for a list of situation works", {
-  expect_warning(SticsOnR::stics_wrapper(model_options = model_options, sit_var_dates_mask = obs_list),regexp("These USMs will not be simulated"))
+var_list <- c("mafruit", "lai_n" ,"masec_n")
+res <- SticsOnR::stics_wrapper(model_options = model_options, sit_names="lu97iN+", var_names = var_list)
+test_that("Asking results for a list of variables using var_names works", {
+  expect_equal(sort(var_list),sort(tail(names(res$sim_list$`lu97iN+`),-5))) # tail is used to remove Date, ian, mo, jo, jul column in sim
+})
+var_list <- c("mafruit", "lai", "toto")
+test_that("Asking results for a list of non-existing variables lead to a warning", {
+  expect_warning(SticsOnR::stics_wrapper(model_options = model_options, sit_names="lu97iN+", var_names = var_list), regexp="not simulated by the Stics model")
+})
+dates <- obs_list$`lu97iN+`$Date
+res <- SticsOnR::stics_wrapper(model_options = model_options, sit_names="lu97iN+", dates = dates)
+test_that("Asking results for a list of Dates using dates argument works", {
+  expect_equal(obs_list$`lu97iN+`$Date,res$sim_list$`lu97iN+`$Date)
+})
+dates <- c("01/01/2034")
+test_that("Asking results for a non-simulated date lead to a warning", {
+  expect_warning(SticsOnR::stics_wrapper(model_options = model_options, sit_names="lu97iN+", dates = dates), regexp="Requested date")
 })
 
 
@@ -122,12 +142,12 @@ sim_with_successive_restricted_results=stics_wrapper(model_options=model_options
 test_that("Test rotation", {
   expect_true(any(grepl("rotation",readLines(file(file.path(stics_inputs_path,"demo_BareSoil2","mod_bdemo_BareSoil2.sti"), "rb")))))
   expect_true(any(grepl("rotation",readLines(file(file.path(stics_inputs_path,"demo_maize3","mod_bdemo_maize3.sti"), "rb")))))
-  expect_identical(sim_with_successive$sim_list[[1]]$banana,sim_without_successive$sim_list[[1]]$banana)
-  expect_identical(sim_with_successive$sim_list[[1]]$demo_Wheat1,sim_without_successive$sim_list[[1]]$demo_Wheat1)
-  expect_false(identical(sim_with_successive$sim_list[[1]]$demo_BareSoil2,sim_without_successive$sim_list[[1]]$demo_BareSoil2))
-  expect_false(identical(sim_with_successive$sim_list[[1]]$demo_maize3,sim_without_successive$sim_list[[1]]$demo_maize3))
-  expect_identical(names(sim_with_successive_restricted_results$sim_list[[1]]),c("banana","demo_maize3"))
-  expect_identical(sim_with_successive_restricted_results$sim_list[[1]]$demo_maize3,sim_without_successive$sim_list[[1]]$demo_maize3)
+  expect_identical(sim_with_successive$sim_list$banana,sim_without_successive$sim_list$banana)
+  expect_identical(sim_with_successive$sim_list$demo_Wheat1,sim_without_successive$sim_list$demo_Wheat1)
+  expect_false(identical(sim_with_successive$sim_list$demo_BareSoil2,sim_without_successive$sim_list$demo_BareSoil2))
+  expect_false(identical(sim_with_successive$sim_list$demo_maize3,sim_without_successive$sim_list$demo_maize3))
+  expect_identical(names(sim_with_successive_restricted_results$sim_list),c("banana","demo_maize3"))
+  expect_identical(sim_with_successive_restricted_results$sim_list$demo_maize3,sim_with_successive$sim_list$demo_maize3)
 })
 
 
