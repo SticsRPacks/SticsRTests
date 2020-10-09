@@ -14,15 +14,6 @@ SticsRFiles::gen_usms_xml2txt(javastics_path = javastics_path, workspace_path = 
 sit_name="bo96iN+"  # can be a vector of situation names if you want to consider several, e.g. c("bo96iN+","bou00t1")
 var_name="lai_n"    # can be a vector of variable names if you want to consider several, e.g. c("lai_n","masec_n")
 obs_list= SticsRFiles::get_obs(javastics_workspace_path, usm_name = sit_name)
-#class(obs_list) <- append("list", "stics_observation")
-
-print(obs_list)
-flush.console()
-
-df=dplyr::bind_rows(obs_list,.id="id")
-print(df)
-flush.console()
-
 
 obs_list= CroptimizR::filter_obs(obs_list, var_names= var_name, include=TRUE)
 
@@ -105,8 +96,7 @@ test_that("Test Vignette simple_case", {
 simple_case_r_tmp <-file.path(tmpdir,"Parameter_estimation_simple_case_tmp.R")
 file.copy(from=simple_case_r, to=simple_case_r_tmp, overwrite=TRUE)
 
-## Define initial values as those used for computing the reference results
-## (random sampling may lead to different values on different platforms even with the same seed)
+# remove a file necessary for Stics
 xfun::gsub_file(file=simple_case_r_tmp,
                 pattern="optim_results=estim_param(obs_list=obs_list,",
                 replacement="file.remove(file.path(stics_inputs_path,sit_name,\"tempopar.sti\"))
@@ -178,6 +168,46 @@ test_that("Test Vignette specific and varietal", {
   expect_true(file.exists(file.path(optim_options$path_results,"EstimatedVSinit.pdf")))
 })
 
+
+# Test var_names argument
+# For that, create a synthetic observed variable laiX2=mai_n*2 which is not simulated,
+# set var_names=lai_n to get the simulated lai, use transform_sim to dynamically compute laiX2
+# and try to retrieve the parameter value used to create the synthetic observation.
+
+javastics_path=file.path(system.file("stics", package = "SticsRTests"),"V90")
+data_dir= file.path(SticsRFiles::download_data(),"study_case_1","V9.0")
+javastics_workspace_path=file.path(data_dir,"XmlFiles")
+stics_inputs_path=file.path(data_dir,"TxtFiles")
+dir.create(stics_inputs_path)
+SticsRFiles::gen_usms_xml2txt(javastics_path = javastics_path, workspace_path = javastics_workspace_path,
+                              target_path = stics_inputs_path, verbose = TRUE)
+
+## Create synthetic observations
+model_options <- stics_wrapper_options(javastics_path, data_dir = stics_inputs_path, parallel=FALSE)
+tmp <- stics_wrapper(model_options=model_options, param_values=c(dlaimax=0.0012), var_names="lai_n", sit_names="bo96iN+")
+obs_synth <- tmp$sim_list
+obs_synth$`bo96iN+` <- obs_synth$`bo96iN+` %>% dplyr::mutate(laiX2=lai_n*2) %>% select(-lai_n)
+
+transform_sim <- function(model_results, ...) {
+  model_results$sim_list$`bo96iN+` <- mutate(model_results$sim_list$`bo96iN+`, laiX2=lai_n*2)
+  return(model_results)
+}
+
+# Try to retrieve dlaimax value
+param_info=list(lb=c(dlaimax=0.0005),
+                ub=c(dlaimax=0.0020))
+optim_options=list(nb_rep=3, maxeval=15, xtol_rel=1e-01, path_results=data_dir, ranseed=1234)
+optim_results=estim_param(obs_list=obs_synth,
+                          crit_function = crit_ols,
+                          model_function=stics_wrapper,
+                          model_options=model_options,
+                          optim_options=optim_options,
+                          param_info=param_info, transform_sim = transform_sim,
+                          var_names="lai_n")
+
+test_that("Test Vignette specific and varietal", {
+  expect_equal(optim_results$final_values[["dlaimax"]],0.0012, tolerance = 1e-4)
+})
 
 
 # # Test Vignette DREAM

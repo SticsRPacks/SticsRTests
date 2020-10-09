@@ -21,12 +21,8 @@ param_lb=c(0.0005,50)
 param_ub=c(0.0025,400)
 var_name="lai_n"
 situation_name="bo96iN+"
-param_values_min <- array( param_lb,
-                           dim=c(1,length(param_lb),1),
-                           dimnames=list(NULL,param_names,situation_name))
-param_values_max <- array( param_ub,
-                           dim=c(1,length(param_ub),1),
-                           dimnames=list(NULL,param_names,situation_name))
+param_values_min <- setNames(param_lb, param_names)
+param_values_max <- setNames(param_ub, param_names)
 sim_max       <- SticsOnR::stics_wrapper(param_values = param_values_min, model_options = model_options)
 sim_min       <- SticsOnR::stics_wrapper(param_values = param_values_max, model_options = model_options)
 
@@ -68,10 +64,11 @@ res <- SticsOnR::stics_wrapper(model_options = model_options, sit_names="lu97iN+
 test_that("Asking results for a list of variables using var_names works", {
   expect_equal(sort(var_list),sort(tail(names(res$sim_list$`lu97iN+`),-5))) # tail is used to remove Date, ian, mo, jo, jul column in sim
 })
-var_list <- c("mafruit", "lai", "toto")
-test_that("Asking results for a list of non-existing variables lead to a warning", {
-  expect_warning(SticsOnR::stics_wrapper(model_options = model_options, sit_names="lu97iN+", var_names = var_list), regexp="not simulated by the Stics model")
-})
+# To uncomment when check of existence of stics variable will be implemented
+#var_list <- c("mafruit", "lai", "toto")
+#test_that("Asking results for a list of non-existing variables lead to a warning", {
+#  expect_warning(SticsOnR::stics_wrapper(model_options = model_options, sit_names="lu97iN+", var_names = var_list), regexp="not simulated by the Stics model")
+#})
 dates <- obs_list$`lu97iN+`$Date
 res <- SticsOnR::stics_wrapper(model_options = model_options, sit_names="lu97iN+", dates = dates)
 test_that("Asking results for a list of Dates using dates argument works", {
@@ -79,29 +76,20 @@ test_that("Asking results for a list of Dates using dates argument works", {
 })
 dates <- c("01/01/2034")
 test_that("Asking results for a non-simulated date lead to a warning", {
-  expect_warning(SticsOnR::stics_wrapper(model_options = model_options, sit_names="lu97iN+", dates = dates), regexp="Requested date")
+  expect_warning(SticsOnR::stics_wrapper(model_options = model_options, sit_names="lu97iN+", dates = dates), regexp="Not any requested date")
 })
-
-
-
 
 
 # Test Design-Of-Experiment
 situation_name="bo96iN+"
 var_name="mafruit"
-param_names=c("dlaimax","durvieF")
-param_lb=c(0.0005,50)
-param_ub=c(0.0025,400)
-param_values <- array( sapply(seq_along(param_names),function(i) runif(3,min=param_lb[i],max=param_ub[i])),
-                       dim=c(3,length(param_lb),1),
-                       dimnames=list(NULL,param_names,situation_name))
-res <- SticsOnR::stics_wrapper(param_values = param_values, model_options = model_options)
-id_to_test=sample(1:dim(param_values)[1],2)
+param_values <- tibble(dlaimax=runif(3,min=0.0005,max=50), durvieF=runif(3,min=0.0025,max=400))
+res <- SticsOnR::stics_wrapper(param_values = param_values, var_names = var_name, model_options = model_options)
+id_to_test=sample(1:nrow(param_values),2)
 
 test_that("Asking results for a DOE works", {
-  expect_equal(length(res$sim_list),dim(param_values)[1])
-  expect_gt(sum( abs(res$sim_list[[id_to_test[1]]][[situation_name]][,var_name]-
-                     res$sim_list[[id_to_test[2]]][[situation_name]][,var_name]),
+  expect_gt(sum( abs(res$sim_list[[situation_name]][id_to_test[1],var_name]-
+                     res$sim_list[[situation_name]][id_to_test[1],var_name]),
                  na.rm=TRUE),
             0)
 })
@@ -139,6 +127,11 @@ sim_with_successive=stics_wrapper(model_options=model_options)
 model_options= stics_wrapper_options(javastics_path, data_dir = stics_inputs_path, successive_usms = list(c("demo_Wheat1","demo_BareSoil2","demo_maize3")), parallel=TRUE)
 sim_with_successive_restricted_results=stics_wrapper(model_options=model_options, sit_names=c("banana","demo_maize3"))
 
+maize_succ_res <- file(file.path(stics_inputs_path,"demo_maize3","mod_bdemo_maize3.sti"), "rb")
+nb_grep_maize <- grep("rotation",readLines(maize_succ_res))
+baresoil_succ_res <- file(file.path(stics_inputs_path,"demo_BareSoil2","mod_bdemo_BareSoil2.sti"), "rb")
+nb_grep_baresoil <- grep("rotation",readLines(baresoil_succ_res))
+
 test_that("Test rotation", {
   expect_true(any(grepl("rotation",readLines(file(file.path(stics_inputs_path,"demo_BareSoil2","mod_bdemo_BareSoil2.sti"), "rb")))))
   expect_true(any(grepl("rotation",readLines(file(file.path(stics_inputs_path,"demo_maize3","mod_bdemo_maize3.sti"), "rb")))))
@@ -148,10 +141,11 @@ test_that("Test rotation", {
   expect_false(identical(sim_with_successive$sim_list$demo_maize3,sim_without_successive$sim_list$demo_maize3))
   expect_identical(names(sim_with_successive_restricted_results$sim_list),c("banana","demo_maize3"))
   expect_identical(sim_with_successive_restricted_results$sim_list$demo_maize3,sim_with_successive$sim_list$demo_maize3)
+  expect_true(length(nb_grep_maize)>0)
+  expect_true(length(nb_grep_baresoil)>0)
+
 })
 
 
 
-zz <- file(file.path(stics_inputs_path,"demo_maize3","mod_bdemo_maize3.sti"), "rb")
-grep("rotation",readLines(zz))
 
