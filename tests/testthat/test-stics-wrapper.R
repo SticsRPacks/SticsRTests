@@ -83,7 +83,7 @@ test_that("Asking results for a non-simulated date lead to a warning", {
 # Test Design-Of-Experiment
 situation_name="bo96iN+"
 var_name="mafruit"
-param_values <- tibble(dlaimax=runif(3,min=0.0005,max=50), durvieF=runif(3,min=0.0025,max=400))
+param_values <- tibble::tibble(dlaimax=runif(3,min=0.0005,max=50), durvieF=runif(3,min=0.0025,max=400))
 res <- SticsOnR::stics_wrapper(param_values = param_values, var_names = var_name, model_options = model_options)
 id_to_test=sample(1:nrow(param_values),2)
 
