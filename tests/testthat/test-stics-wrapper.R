@@ -89,7 +89,7 @@ id_to_test=sample(1:nrow(param_values),2)
 
 test_that("Asking results for a DOE works", {
   expect_gt(sum( abs(res$sim_list[[situation_name]][id_to_test[1],var_name]-
-                     res$sim_list[[situation_name]][id_to_test[1],var_name]),
+                     res$sim_list[[situation_name]][id_to_test[2],var_name]),
                  na.rm=TRUE),
             0)
 })

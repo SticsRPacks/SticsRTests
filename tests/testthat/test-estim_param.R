@@ -186,7 +186,7 @@ SticsRFiles::gen_usms_xml2txt(javastics_path = javastics_path, workspace_path = 
 model_options <- stics_wrapper_options(javastics_path, data_dir = stics_inputs_path, parallel=FALSE)
 tmp <- stics_wrapper(model_options=model_options, param_values=c(dlaimax=0.0012), var_names="lai_n", sit_names="bo96iN+")
 obs_synth <- tmp$sim_list
-obs_synth$`bo96iN+` <- obs_synth$`bo96iN+` %>% dplyr::mutate(laiX2=lai_n*2) %>% select(-lai_n)
+obs_synth$`bo96iN+` <- obs_synth$`bo96iN+` %>% dplyr::mutate(laiX2=lai_n*2) %>% dplyr::select(-lai_n)
 
 transform_sim <- function(model_results, ...) {
   model_results$sim_list$`bo96iN+` <- mutate(model_results$sim_list$`bo96iN+`, laiX2=lai_n*2)
