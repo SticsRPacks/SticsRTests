@@ -189,7 +189,7 @@ obs_synth <- tmp$sim_list
 obs_synth$`bo96iN+` <- obs_synth$`bo96iN+` %>% dplyr::mutate(laiX2=lai_n*2) %>% dplyr::select(-lai_n)
 
 transform_sim <- function(model_results, ...) {
-  model_results$sim_list$`bo96iN+` <- mutate(model_results$sim_list$`bo96iN+`, laiX2=lai_n*2)
+  model_results$sim_list$`bo96iN+` <- dplyr::mutate(model_results$sim_list$`bo96iN+`, laiX2=lai_n*2)
   return(model_results)
 }
 
