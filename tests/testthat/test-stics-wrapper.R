@@ -5,7 +5,7 @@ path_to_JavaStics=system.file("stics", package = "SticsRTests")
 javastics_path=file.path(path_to_JavaStics,"V90")
 
 # Download and prepare data
-data_dir= file.path(SticsRFiles::download_data(example_dirs="study_case_1"),"V9.0")
+data_dir= file.path(SticsRFiles::download_data(example_dirs="study_case_1", version_name = "V9.0"))
 stics_inputs_path=file.path(data_dir,"TxtFiles")
 dir.create(stics_inputs_path)
 javastics_workspace_path<-file.path(data_dir,"XmlFiles")

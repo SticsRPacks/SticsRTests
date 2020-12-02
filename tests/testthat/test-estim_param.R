@@ -4,7 +4,7 @@ library(SticsRFiles)
 library(CroptimizR)
 
 javastics_path=file.path(system.file("stics", package = "SticsRTests"),"V90")
-data_dir= file.path(SticsRFiles::download_data(example_dirs="study_case_1"),"V9.0")
+data_dir= file.path(SticsRFiles::download_data(example_dirs="study_case_1", version_name = "V9.0"))
 javastics_workspace_path=file.path(data_dir,"XmlFiles")
 stics_inputs_path=file.path(data_dir,"TxtFiles")
 dir.create(stics_inputs_path)
@@ -175,7 +175,7 @@ test_that("Test Vignette specific and varietal", {
 # and try to retrieve the parameter value used to create the synthetic observation.
 
 javastics_path=file.path(system.file("stics", package = "SticsRTests"),"V90")
-data_dir= file.path(SticsRFiles::download_data(example_dirs="study_case_1"),"V9.0")
+data_dir= file.path(SticsRFiles::download_data(example_dirs="study_case_1", version_name = "V9.0"))
 javastics_workspace_path=file.path(data_dir,"XmlFiles")
 stics_inputs_path=file.path(data_dir,"TxtFiles")
 dir.create(stics_inputs_path)
@@ -219,7 +219,7 @@ test_that("Test var_names, transform_sim and transform_obs arguments", {
 # forced values of durvieF should give quite different results).
 
 javastics_path=file.path(system.file("stics", package = "SticsRTests"),"V90")
-data_dir= file.path(SticsRFiles::download_data(example_dirs="study_case_1"),"V9.0")
+data_dir= file.path(SticsRFiles::download_data(example_dirs="study_case_1", version_name = "V9.0"))
 javastics_workspace_path=file.path(data_dir,"XmlFiles")
 stics_inputs_path=file.path(data_dir,"TxtFiles")
 dir.create(stics_inputs_path)
