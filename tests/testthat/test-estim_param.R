@@ -6,18 +6,21 @@ library(dplyr)
 javastics_path=file.path(system.file("stics", package = "SticsRTests"),"V90")
 
 
-SticsRFiles:::get_referenced_dirs("study_case_1", "V9.0" )
+dirs_str <- SticsRFiles:::get_referenced_dirs("study_case_1", "V9.0" )
+print(dirs_str)
+
+dirs <- "study_case_1"
 ver_data <- SticsRFiles:::get_versions_info(version_name = "V9.0")
 print(ver_data)
 dirs_names <- grep(pattern = "^study_case", x = names(ver_data), value = TRUE)
 print(dirs_names)
 dirs_idx <-  dirs_names %in% c("study_case_1")
 print(dirs_idx)
-# if (!all(dirs_idx)) {
-#   dirs <- dirs_names[dirs_idx]
-# }
-# print(dirs)
-version_data <- ver_data %>% dplyr::select(dirs)
+if (!all(dirs_idx)) {
+   dirs <- dirs_names[dirs_idx]
+ }
+print(dirs)
+version_data <- ver_data %>% dplyr::select(any_of(dirs))
 print(version_data)
 is_na <- base::is.na(version_data)
 print(is_na)
