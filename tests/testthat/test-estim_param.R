@@ -13,10 +13,10 @@ dirs_names <- grep(pattern = "^study_case", x = names(ver_data), value = TRUE)
 print(dirs_names)
 dirs_idx <-  dirs_names %in% c("study_case_1")
 print(dirs_idx)
-if (!all(dirs_idx)) {
-  dirs <- dirs_names[dirs_idx]
-}
-print(dirs)
+# if (!all(dirs_idx)) {
+#   dirs <- dirs_names[dirs_idx]
+# }
+# print(dirs)
 version_data <- ver_data %>% dplyr::select(dirs)
 print(version_data)
 is_na <- base::is.na(version_data)
