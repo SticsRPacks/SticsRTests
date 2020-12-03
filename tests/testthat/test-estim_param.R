@@ -5,6 +5,28 @@ library(CroptimizR)
 library(dplyr)
 
 javastics_path=file.path(system.file("stics", package = "SticsRTests"),"V90")
+
+
+# Getting path string(s) from examples data file
+dirs_str <- get_referenced_dirs(dirs = "study_case_1", version_name = "V9.0")
+print(dirs_str)
+
+data_dir = normalizePath(tempdir(), winslash = "/", mustWork = FALSE)
+data_dir_zip = normalizePath(file.path(data_dir,"master.zip"), winslash = "/", mustWork = FALSE)
+utils::download.file("https://github.com/SticsRPacks/data/archive/master.zip", data_dir_zip)
+df_name = utils::unzip(data_dir_zip, exdir = data_dir, list = TRUE)
+print(df_name)
+
+# Creating files list to extract from dirs strings
+arch_files <- unlist(lapply(dirs_str,
+                            function(x) grep(pattern = x, x = df_name$Name, value = TRUE)))
+print(arch_files)
+
+print(normalizePath(file.path(data_dir,arch_files[1]), winslash = "/"))
+
+
+
+
 data_dir= file.path(SticsRFiles::download_data(example_dirs="study_case_1", version_name = "V9.0"))
 javastics_workspace_path=file.path(data_dir,"XmlFiles")
 stics_inputs_path=file.path(data_dir,"TxtFiles")
