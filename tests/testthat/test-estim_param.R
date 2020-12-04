@@ -32,9 +32,9 @@ unlink(data_dir_zip)
 print(normalizePath(file.path(data_dir,arch_files[1]), winslash = "/"))
 
 
-SticsRFiles::download_data()
+print(SticsRFiles::download_data)
 
-SticsRFiles:::get_referenced_dirs()
+print(SticsRFiles:::get_referenced_dirs)
 
 
 
