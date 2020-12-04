@@ -32,9 +32,15 @@ unlink(data_dir_zip)
 print(normalizePath(file.path(data_dir,arch_files[1]), winslash = "/"))
 
 
+SticsRFiles::download_data()
+
+SticsRFiles:::get_referenced_dirs()
+
 
 
 data_dir= file.path(SticsRFiles::download_data(example_dirs="study_case_1", version_name = "V9.0"))
+print(data_dir)
+
 javastics_workspace_path=file.path(data_dir,"XmlFiles")
 stics_inputs_path=file.path(data_dir,"TxtFiles")
 dir.create(stics_inputs_path)
