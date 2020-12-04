@@ -8,7 +8,7 @@ javastics_path=file.path(system.file("stics", package = "SticsRTests"),"V90")
 
 
 # Getting path string(s) from examples data file
-dirs_str <- SticsRFiles::get_referenced_dirs(dirs = "study_case_1", version_name = "V9.0")
+dirs_str <- SticsRFiles:::get_referenced_dirs(dirs = "study_case_1", version_name = "V9.0")
 print(dirs_str)
 
 data_dir = normalizePath(tempdir(), winslash = "/", mustWork = FALSE)
