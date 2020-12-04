@@ -12,7 +12,11 @@ dirs_str <- SticsRFiles:::get_referenced_dirs(dirs = "study_case_1", version_nam
 print(dirs_str)
 
 data_dir = normalizePath(tempdir(), winslash = "/", mustWork = FALSE)
+print(data_dir)
+
 data_dir_zip = normalizePath(file.path(data_dir,"master.zip"), winslash = "/", mustWork = FALSE)
+print(data_dir_zip)
+
 utils::download.file("https://github.com/SticsRPacks/data/archive/master.zip", data_dir_zip)
 df_name = utils::unzip(data_dir_zip, exdir = data_dir, list = TRUE)
 print(df_name)
@@ -21,6 +25,9 @@ print(df_name)
 arch_files <- unlist(lapply(dirs_str,
                             function(x) grep(pattern = x, x = df_name$Name, value = TRUE)))
 print(arch_files)
+
+utils::unzip(data_dir_zip, exdir = data_dir, files = arch_files)
+unlink(data_dir_zip)
 
 print(normalizePath(file.path(data_dir,arch_files[1]), winslash = "/"))
 
