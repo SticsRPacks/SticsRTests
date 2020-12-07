@@ -19,16 +19,16 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.0
 Imports: 
-    SticsRFiles,
     SticsOnR,
     CroptimizR,
+    SticsRFiles,
 	xfun,
 	knitr,
 	testthat
 Remotes: 
-    github::SticsRPacks/SticsRFiles,
     github::SticsRPacks/SticsOnR,
-    github::SticsRPacks/CroptimizR
+    github::SticsRPacks/CroptimizR,
+    github::SticsRPacks/SticsRFiles
 Roxygen: list(markdown = TRUE)
 BinaryFiles:
 	inst/stics/V90/bin/JavaSticsCmd.exe,
