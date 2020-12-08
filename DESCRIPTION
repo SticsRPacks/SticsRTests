@@ -26,9 +26,9 @@ Imports:
 	knitr,
 	testthat
 Remotes: 
-    github::SticsRPacks/SticsRFiles,
-    github::SticsRPacks/SticsOnR,
-    github::SticsRPacks/CroptimizR
+    github::SticsRPacks/SticsRFiles@master,
+    github::SticsRPacks/SticsOnR@master,
+    github::SticsRPacks/CroptimizR@master
 Roxygen: list(markdown = TRUE)
 BinaryFiles:
 	inst/stics/V90/bin/JavaSticsCmd.exe,
