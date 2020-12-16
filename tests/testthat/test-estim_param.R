@@ -81,7 +81,7 @@ source(simple_case_r_tmp)
 
 ## load the results
 load(file.path(optim_options$path_results,"optim_results.Rdata"))
-nlo_new<-lapply(nlo,function(x) {x$call<-NULL;x}) # remove "call" since it may change between code versions ...
+nlo_new<-lapply(optim_results$nlo,function(x) {x$call<-NULL;x}) # remove "call" since it may change between code versions ...
 load(system.file(file.path("extdata","ResultsSimpleCase2repet4iter"), "optim_results.Rdata", package = "CroptimizR"))
 nlo<-lapply(nlo,function(x) {x$call<-NULL;x})
 
