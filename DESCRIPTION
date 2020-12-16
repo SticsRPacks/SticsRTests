@@ -7,10 +7,10 @@ Authors@R:
            role = c("aut", "cre"),
            email = "remi.vezy@cirad.fr",
            comment = c(ORCID = "0000-0002-0808-1461")),
+       person("Samuel", "Buis", email = "samuel.buis@inra.fr", role = c("aut")),
        person(given = "Patrice",family = "Lecharpentier",
            role = c("aut"),
            email = "patrice.lecharpentier@inra.fr"),
-       person("Samuel", "Buis", email = "samuel.buis@inra.fr", role = c("aut")),
        person("Michel", "Giner", email = "michel.giner@cirad.fr", role = c("aut")))
 Description: The package uses testthat to run all tests that cannot be made directly from the SticsRPacks packages 
   because they have to use external programs such as STICS or JavaSTICS (not yet automatically downloadable on the web).
@@ -22,13 +22,15 @@ Imports:
     SticsRFiles,
     SticsOnR,
     CroptimizR,
+	CroPlotR,
 	xfun,
 	knitr,
 	testthat
 Remotes: 
     github::SticsRPacks/SticsRFiles@master,
     github::SticsRPacks/SticsOnR@master,
-    github::SticsRPacks/CroptimizR@master
+    github::SticsRPacks/CroptimizR@master,
+    github::SticsRPacks/CroPlotR@master
 Roxygen: list(markdown = TRUE)
 BinaryFiles:
 	inst/stics/V90/bin/JavaSticsCmd.exe,
