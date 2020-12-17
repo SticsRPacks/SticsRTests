@@ -13,6 +13,14 @@ on:
 name: R-CMD-check
 
 jobs:
+  # specific install for macOS stics executable dependency
+  build:
+    runs-on: macOS-latest
+    steps:
+    - uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: latest-stable
+
   R-CMD-check:
     runs-on: ${{ matrix.config.os }}
 
@@ -76,7 +84,7 @@ jobs:
       - name: Check
         env:
           _R_CHECK_CRAN_INCOMING_REMOTE_: false
-        run: rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
+        run: rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "error", check_dir = "check")
         shell: Rscript {0}
 
       - name: Upload check results
