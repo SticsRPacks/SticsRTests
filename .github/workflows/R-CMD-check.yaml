@@ -10,7 +10,8 @@ on:
       - main
       - master
   repository_dispatch:
-
+    types: [R-CMD-check]
+    
 name: R-CMD-check
 
 jobs:
