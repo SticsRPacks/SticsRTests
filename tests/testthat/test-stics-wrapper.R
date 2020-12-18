@@ -56,14 +56,15 @@ obs_list[["bo96iN+"]]<-NULL
 res <- SticsOnR::stics_wrapper(model_options = model_options, sit_var_dates_mask = obs_list)
 test_that("Asking results for a list of variables / dates using sit_var_dates_mask works", {
   expect_equal(names(obs_list),names(res$sim_list))
-  expect_equal(head(names(obs_list$`lu97iN+`),-1),names(res$sim_list$`lu97iN+`))  # head is used to remove "Plant" column in obs
+  expect_equal(names(obs_list$`lu97iN+`),names(res$sim_list$`lu97iN+`))
   expect_equal(obs_list$`lu97iN+`$Date,res$sim_list$`lu97iN+`$Date)
 })
 var_list <- c("mafruit", "lai_n" ,"masec_n")
 res <- SticsOnR::stics_wrapper(model_options = model_options, sit_names="lu97iN+", var_names = var_list)
 test_that("Asking results for a list of variables using var_names works", {
-  expect_equal(sort(var_list),sort(tail(names(res$sim_list$`lu97iN+`),-5))) # tail is used to remove Date, ian, mo, jo, jul column in sim
+  expect_equal(sort(var_list),sort(setdiff(names(res$sim_list$`lu97iN+`),c("Plant","Date")))) # tail is used to remove Date, ian, mo, jo, jul column in sim
 })
+
 # To uncomment when check of existence of stics variable will be implemented
 #var_list <- c("mafruit", "lai", "toto")
 #test_that("Asking results for a list of non-existing variables lead to a warning", {
