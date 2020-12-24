@@ -27,7 +27,7 @@ Imports:
 	knitr,
 	testthat
 Remotes: 
-    github::SticsRPacks/CroPlotR@master
+    github::SticsRPacks/CroPlotR@master,
     github::SticsRPacks/CroptimizR@master,
     github::SticsRPacks/SticsOnR@master,
     github::SticsRPacks/SticsRFiles@master,
