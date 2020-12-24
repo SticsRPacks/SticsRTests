@@ -27,10 +27,10 @@ Imports:
 	knitr,
 	testthat
 Remotes: 
+    github::SticsRPacks/CroPlotR@master
     github::SticsRPacks/CroptimizR@master,
     github::SticsRPacks/SticsOnR@master,
     github::SticsRPacks/SticsRFiles@master,
-    github::SticsRPacks/CroPlotR@master
 Roxygen: list(markdown = TRUE)
 SystemRequirements: Java 8
 BinaryFiles:
