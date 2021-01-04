@@ -9,8 +9,7 @@ A package to make integration tests for the SticsRPacks packages
 
 <!-- badges: start -->
 
-[![Travis build
-status](https://travis-ci.org/SticsRPacks/SticsRTests.svg?branch=master)](https://travis-ci.org/SticsRPacks/SticsRTests)
+[![R-CMD-check](https://github.com/SticsRPacks/SticsRTests/workflows/R-CMD-check/badge.svg)](https://github.com/SticsRPacks/SticsRTests/actions)
 <!-- badges: end -->
 
 This package is used to test the functions from all the distributed R
