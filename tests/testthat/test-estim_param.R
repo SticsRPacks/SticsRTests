@@ -81,7 +81,7 @@ source(simple_case_r_tmp)
 
 ## load the results
 load(file.path(optim_options$path_results,"optim_results.Rdata"))
-nlo_new<-lapply(optim_results$nlo,function(x) {x$call<-NULL;x}) # remove "call" since it may change between code versions ...
+nlo_new<-lapply(res$nlo,function(x) {x$call<-NULL;x}) # remove "call" since it may change between code versions ...
 load(system.file(file.path("extdata","ResultsSimpleCase2repet4iter"), "optim_results.Rdata", package = "CroptimizR"))
 nlo<-lapply(nlo,function(x) {x$call<-NULL;x})
 
@@ -100,9 +100,9 @@ file.copy(from=simple_case_r, to=simple_case_r_tmp, overwrite=TRUE)
 
 # remove a file necessary for Stics
 xfun::gsub_file(file=simple_case_r_tmp,
-                pattern="optim_results=estim_param(obs_list=obs_list,",
+                pattern="res=estim_param(obs_list=obs_list,",
                 replacement="file.remove(file.path(stics_inputs_path,sit_name,\"tempopar.sti\"))
-optim_results=estim_param(obs_list=obs_list,",
+res=estim_param(obs_list=obs_list,",
                 fixed=TRUE)
 
 test_that("Test Vignette model crash", {
@@ -161,7 +161,7 @@ source(file.path(tmpdir,"Parameter_estimation_Specific_and_Varietal.R"))
 
 ## load the results
 load(file.path(optim_options$path_results,"optim_results.Rdata"))
-nlo_new<-lapply(optim_results$nlo,function(x) {x$call<-NULL;x}) # remove "call" since it may change between code versions ...
+nlo_new<-lapply(res$nlo,function(x) {x$call<-NULL;x}) # remove "call" since it may change between code versions ...
 load(system.file(file.path("extdata","ResultsSpecificVarietal_2repet4iter"), "optim_results.Rdata", package = "CroptimizR"))
 nlo<-lapply(nlo,function(x) {x$call<-NULL;x}) # remove "call" since it may change between code versions ...
 
@@ -195,7 +195,7 @@ transform_sim <- function(model_results, ...) {
   return(model_results)
 }
 
-# Try to retrieve dlaimax value
+# Try to retrieve dlaimax value with the standard method
 param_info=list(lb=c(dlaimax=0.0005),
                 ub=c(dlaimax=0.0020))
 optim_options=list(nb_rep=3, maxeval=15, xtol_rel=1e-01, path_results=data_dir, ranseed=1234)
@@ -211,6 +211,23 @@ test_that("Test var_names, transform_sim and transform_obs arguments", {
   expect_equal(optim_results$final_values[["dlaimax"]],0.0012, tolerance = 1e-4)
 })
 
+
+# Same but with optim package
+param_info=list(lb=c(dlaimax=0.0005),
+                ub=c(dlaimax=0.0020))
+optim_options=list(nb_rep=3, control=list(maxit=7), path_results=data_dir, ranseed=1234)
+optim_results=estim_param(obs_list=obs_synth,
+                          crit_function = crit_ols,
+						  optim_method="optim",
+                          model_function=stics_wrapper,
+                          model_options=model_options,
+                          optim_options=optim_options,
+                          param_info=param_info, transform_sim = transform_sim,
+                          var_names="lai_n")
+
+test_that("Test var_names, transform_sim and transform_obs arguments", {
+  expect_equal(optim_results$final_values[["dlaimax"]],0.0012, tolerance = 1e-4)
+})
 
 
 # Test force_param_values argument
