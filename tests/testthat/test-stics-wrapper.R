@@ -18,21 +18,13 @@ model_options=SticsOnR::stics_wrapper_options(javastics_path,data_dir = stics_in
 # Test parameter forcing works
 param_names=c("dlaimax","durvieF")
 param_lb=c(0.0005,50)
-param_ub=c(0.0025,400)
-var_name="lai_n"
-situation_name="bo96iN+"
-param_values_min <- setNames(param_lb, param_names)
-param_values_max <- setNames(param_ub, param_names)
-sim_max       <- SticsOnR::stics_wrapper(param_values = param_values_min, model_options = model_options)
-sim_min       <- SticsOnR::stics_wrapper(param_values = param_values_max, model_options = model_options)
+param_values <- setNames(param_lb, param_names)
 
-test_that("Parameter forcing works", {
-  expect_gt(sum( abs(sim_max$sim_list[[situation_name]][,var_name]-
-                       sim_min$sim_list[[situation_name]][,var_name]),
-                 na.rm=TRUE),
-            0)
+res <- CroptimizR::test_wrapper(model_function=SticsOnR::stics_wrapper, model_options = model_options, param_values = param_values, sit_names = "bo96iN+", var_names = "lai_n")
+
+test_that("Stics Wrapper succeed test_wrapper tests", {
+  expect_true(all(res$test_results))
 })
-
 
 
 
