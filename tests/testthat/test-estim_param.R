@@ -275,6 +275,47 @@ test_that("Test forced_param_values argument", {
 })
 
 
+# Test rotations
+# Here we use observations for a given USM (demo_maize3) and try to estimate parameters for another non-observed USM (demo_Wheat1)
+# which in run before the observed one in a rotation
+
+javastics_workspace_path=file.path(javastics_path,"example")
+
+## Generate Stics input files from JavaStics input files
+stics_inputs_path=file.path(tempdir(),"RotationTests")
+dir.create(stics_inputs_path)
+
+SticsRFiles::gen_usms_xml2txt(javastics_path = javastics_path, workspace_path = javastics_workspace_path,
+                              target_path = stics_inputs_path, usms_list = c("demo_BareSoil2","demo_Wheat1","demo_maize3"), verbose = TRUE)
+
+model_options= stics_wrapper_options(javastics_path, data_dir = stics_inputs_path, successive_usms = list(c("demo_Wheat1","demo_BareSoil2","demo_maize3")), parallel=TRUE)
+sim_with_successive=stics_wrapper(model_options=model_options, sit_names=c("demo_Wheat1","demo_BareSoil2","demo_maize3"), var_names=c("AZnit_1"),
+                                  param_values=data.frame(situation=c("demo_Wheat1"), durvieF=350))
+
+## Create synthetic observations
+obs_synth <- sim_with_successive$sim_list["demo_maize3"]
+
+# Try to retrieve dlaimax value with the standard method
+param_info=list()
+param_info$durvieF=list(lb=50,ub=500,sit_list=list("demo_Wheat1"))
+optim_options=list(nb_rep=3, maxeval=15, xtol_rel=1e-01, path_results=stics_inputs_path, ranseed=1234)
+optim_results=estim_param(obs_list=obs_synth,
+                          crit_function = crit_ols,
+                          model_function=stics_wrapper,
+                          model_options=model_options,
+                          optim_options=optim_options,
+                          param_info=param_info)
+
+
+test_that("Test rotation", {
+  expect_equal(optim_results$final_values[["durvieF"]],350, tolerance = 1)
+})
+
+
+
+
+
+
 
 # # Test Vignette DREAM
 #

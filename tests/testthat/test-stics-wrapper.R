@@ -15,7 +15,7 @@ SticsRFiles::gen_usms_xml2txt(javastics_path = javastics_path, workspace_path = 
 # Set options for Stics wrapper
 model_options=SticsOnR::stics_wrapper_options(javastics_path,data_dir = stics_inputs_path, parallel=FALSE)
 
-# Test parameter forcing works
+# Standard wrapper tests
 param_names=c("dlaimax","durvieF")
 param_lb=c(0.0005,50)
 param_values <- setNames(param_lb, param_names)
@@ -26,6 +26,22 @@ test_that("Stics Wrapper succeed test_wrapper tests", {
   expect_true(all(res$test_results))
 })
 
+
+# Test forcing of parameter per situation works
+param_values <- data.frame(situation="bo96iN+",dlaimax=0.0005,durvieF=50)
+model_options=SticsOnR::stics_wrapper_options(javastics_path,data_dir = stics_inputs_path, parallel=FALSE)
+
+var_name="lai_n"
+sim_without_forcing       <- SticsOnR::stics_wrapper(model_options = model_options, var_names="lai_n", sit_names = c("bo96iN+", "bou99t1"))
+sim_with_forcing       <- SticsOnR::stics_wrapper(param_values = param_values, model_options = model_options, var_names="lai_n", sit_names = c("bo96iN+", "bou99t1"))
+
+test_that("Parameter forcing per situation works", {
+  expect_gt(sum( abs(sim_with_forcing$sim_list[["bo96iN+"]][,var_name]-
+                       sim_without_forcing$sim_list[["bo96iN+"]][,var_name]),
+                 na.rm=TRUE),
+            0)
+  expect_identical(sim_without_forcing$sim_list[["bou99t1"]], sim_with_forcing$sim_list[["bou99t1"]])
+})
 
 
 # Test selection of results using arguments sit_names, sit_var_dates_mask, var_names, dates
