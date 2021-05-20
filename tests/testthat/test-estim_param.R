@@ -279,6 +279,33 @@ test_that("Test forced_param_values argument", {
                       2e-4)
 })
 
+# Test DREAM-ZS takes into account initial values
+model_options <- stics_wrapper_options(javastics_path, data_dir = stics_inputs_path, parallel=FALSE)
+tmp <- stics_wrapper(model_options=model_options, param_values=c(dlaimax=0.0012), var_names="lai_n", sit_names="bo96iN+")
+obs_synth <- tmp$sim_list
+
+param_info=list(lb=c(dlaimax=0.0005),
+                ub=c(dlaimax=0.0020), init_values=c(dlaimax=c(0.001, 0.0011, 0.0013)))
+
+optim_options=list()
+optim_options$iterations <- 10
+optim_options$startValue <- 3 # Number of markov chains
+optim_options$path_results <- data_dir # path where to store the results (graph and Rdata)
+optim_options$ranseed <- 1234 # seed for random numbers
+
+optim_results=estim_param(obs_list=obs_synth,
+                          crit_function=likelihood_log_ciidn,
+                          model_function=stics_wrapper,
+                          model_options=model_options,
+                          optim_options=optim_options,
+                          param_info=param_info,
+                          optim_method="BayesianTools.dreamzs")
+
+test_that("Test DREAM-ZS takes into account initial values", {
+  expect_equal(optim_results$post_sample[1:2],as.numeric(param_info$init_values[1:2]))
+})
+
+
 
 # Test rotations
 # Here we use observations for a given USM (demo_maize3) and try to estimate parameters for another non-observed USM (demo_Wheat1)
@@ -316,33 +343,6 @@ test_that("Test rotation", {
   expect_equal(optim_results$final_values[["durvieF"]],350, tolerance = 1)
 })
 
-
-
-# Test DREAM-ZS takes into account initial values
-model_options <- stics_wrapper_options(javastics_path, data_dir = stics_inputs_path, parallel=FALSE)
-tmp <- stics_wrapper(model_options=model_options, param_values=c(dlaimax=0.0012), var_names="lai_n", sit_names="bo96iN+")
-obs_synth <- tmp$sim_list
-
-param_info=list(lb=c(dlaimax=0.0005),
-                ub=c(dlaimax=0.0020), init_values=c(dlaimax=c(0.001, 0.0011, 0.0013)))
-
-optim_options=list()
-optim_options$iterations <- 10
-optim_options$startValue <- 3 # Number of markov chains
-optim_options$path_results <- data_dir # path where to store the results (graph and Rdata)
-optim_options$ranseed <- 1234 # seed for random numbers
-
-optim_results=estim_param(obs_list=obs_synth,
-                          crit_function=likelihood_log_ciidn,
-                          model_function=stics_wrapper,
-                          model_options=model_options,
-                          optim_options=optim_options,
-                          param_info=param_info,
-                          optim_method="BayesianTools.dreamzs")
-
-test_that("Test DREAM-ZS takes into account initial values", {
-  expect_equal(optim_results$post_sample[1:2],as.numeric(param_info$init_values[1:2]))
-})
 
 
 # # Test Vignette DREAM
