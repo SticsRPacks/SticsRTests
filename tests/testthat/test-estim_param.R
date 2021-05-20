@@ -171,7 +171,7 @@ test_that("Test Vignette specific and varietal", {
 })
 
 
-# Test var_names argument
+# Test var_names argument and init values are taken into account
 # For that, create a synthetic observed variable laiX2=mai_n*2 which is not simulated,
 # set var_names=lai_n to get the simulated lai, use transform_sim to dynamically compute laiX2
 # and try to retrieve the parameter value used to create the synthetic observation.
@@ -197,7 +197,8 @@ transform_sim <- function(model_results, ...) {
 
 # Try to retrieve dlaimax value with the standard method
 param_info=list(lb=c(dlaimax=0.0005),
-                ub=c(dlaimax=0.0020))
+                ub=c(dlaimax=0.0020),
+                init_values=c(dlaimax=c(0.0005, 0.0017)))
 optim_options=list(nb_rep=3, maxeval=15, xtol_rel=1e-01, path_results=data_dir, ranseed=1234)
 optim_results=estim_param(obs_list=obs_synth,
                           crit_function = crit_ols,
@@ -207,14 +208,15 @@ optim_results=estim_param(obs_list=obs_synth,
                           param_info=param_info, transform_sim = transform_sim,
                           var_names="lai_n")
 
-test_that("Test var_names, transform_sim and transform_obs arguments", {
+test_that("Test var_names and transform_sim arguments with nloptr", {
   expect_equal(optim_results$final_values[["dlaimax"]],0.0012, tolerance = 1e-4)
+})
+test_that("Test init_values are taken into account in nloptr", {
+  expect_equal(optim_results$init_values[1:2,],as.numeric(param_info$init_values[1:2]))
 })
 
 
 # Same but with optim package
-param_info=list(lb=c(dlaimax=0.0005),
-                ub=c(dlaimax=0.0020))
 optim_options=list(nb_rep=3, control=list(maxit=7), path_results=data_dir, ranseed=1234)
 optim_results=estim_param(obs_list=obs_synth,
                           crit_function = crit_ols,
@@ -225,8 +227,11 @@ optim_results=estim_param(obs_list=obs_synth,
                           param_info=param_info, transform_sim = transform_sim,
                           var_names="lai_n")
 
-test_that("Test var_names, transform_sim and transform_obs arguments", {
+test_that("Test var_names and transform_sim arguments with optim", {
   expect_equal(optim_results$final_values[["dlaimax"]],0.0012, tolerance = 1e-4)
+})
+test_that("Test init_values are taken into account in optim", {
+  expect_equal(optim_results$init_values[1:2,],as.numeric(param_info$init_values[1:2]))
 })
 
 
@@ -313,8 +318,31 @@ test_that("Test rotation", {
 
 
 
+# Test DREAM-ZS takes into account initial values
+model_options <- stics_wrapper_options(javastics_path, data_dir = stics_inputs_path, parallel=FALSE)
+tmp <- stics_wrapper(model_options=model_options, param_values=c(dlaimax=0.0012), var_names="lai_n", sit_names="bo96iN+")
+obs_synth <- tmp$sim_list
 
+param_info=list(lb=c(dlaimax=0.0005),
+                ub=c(dlaimax=0.0020), init_values=c(dlaimax=c(0.001, 0.0011, 0.0013)))
 
+optim_options=list()
+optim_options$iterations <- 10
+optim_options$startValue <- 3 # Number of markov chains
+optim_options$path_results <- data_dir # path where to store the results (graph and Rdata)
+optim_options$ranseed <- 1234 # seed for random numbers
+
+optim_results=estim_param(obs_list=obs_synth,
+                          crit_function=likelihood_log_ciidn,
+                          model_function=stics_wrapper,
+                          model_options=model_options,
+                          optim_options=optim_options,
+                          param_info=param_info,
+                          optim_method="BayesianTools.dreamzs")
+
+test_that("Test DREAM-ZS takes into account initial values", {
+  expect_equal(optim_results$post_sample[1:2],as.numeric(param_info$init_values[1:2]))
+})
 
 
 # # Test Vignette DREAM
