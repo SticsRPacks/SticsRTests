@@ -88,6 +88,7 @@ nlo<-lapply(nlo,function(x) {x$call<-NULL;x})
 print(nlo)
 print(nlo_new)
 
+print(paste("Testthat Local edition",edition_get()))
 
 test_that("Test Vignette simple_case", {
   expect_equal(nlo_new,nlo, tolerance = 1e-3)
