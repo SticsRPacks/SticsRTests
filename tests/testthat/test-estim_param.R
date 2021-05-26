@@ -85,13 +85,9 @@ nlo_new<-lapply(res$nlo,function(x) {x$call<-NULL;x}) # remove "call" since it m
 load(system.file(file.path("extdata","ResultsSimpleCase2repet4iter"), "optim_results.Rdata", package = "CroptimizR"))
 nlo<-lapply(nlo,function(x) {x$call<-NULL;x})
 
-print(nlo)
-print(nlo_new)
-
-print(paste("Testthat Local edition",edition_get()))
-
 test_that("Test Vignette simple_case", {
-  expect_equal(nlo_new,nlo, tolerance = 1e-3)
+  expect_equal(sapply(nlo_new, "[[","solution"), sapply(nlo, "[[","solution"), tolerance = 1e-4)
+  expect_equal(sapply(nlo_new, "[[","objective"), sapply(nlo, "[[","objective"), tolerance = 1e-4)
   expect_true(file.exists(file.path(optim_options$path_results,"EstimatedVSinit.pdf")))
 })
 
