@@ -85,6 +85,10 @@ nlo_new<-lapply(res$nlo,function(x) {x$call<-NULL;x}) # remove "call" since it m
 load(system.file(file.path("extdata","ResultsSimpleCase2repet4iter"), "optim_results.Rdata", package = "CroptimizR"))
 nlo<-lapply(nlo,function(x) {x$call<-NULL;x})
 
+print(nlo)
+print(nlo_new)
+
+
 test_that("Test Vignette simple_case", {
   expect_equal(nlo_new,nlo, tolerance = 1e-3)
   expect_true(file.exists(file.path(optim_options$path_results,"EstimatedVSinit.pdf")))
@@ -164,6 +168,9 @@ load(file.path(optim_options$path_results,"optim_results.Rdata"))
 nlo_new<-lapply(res$nlo,function(x) {x$call<-NULL;x}) # remove "call" since it may change between code versions ...
 load(system.file(file.path("extdata","ResultsSpecificVarietal_2repet4iter"), "optim_results.Rdata", package = "CroptimizR"))
 nlo<-lapply(nlo,function(x) {x$call<-NULL;x}) # remove "call" since it may change between code versions ...
+
+print(nlo)
+print(nlo_new)
 
 test_that("Test Vignette specific and varietal", {
   expect_equal(nlo_new,nlo, tolerance = 1e-3)
