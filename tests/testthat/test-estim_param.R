@@ -177,6 +177,7 @@ test_that("Test Vignette specific and varietal", {
 # For that, create a synthetic observed variable laiX2=mai_n*2 which is not simulated,
 # set var_names=lai_n to get the simulated lai, use transform_sim to dynamically compute laiX2
 # and try to retrieve the parameter value used to create the synthetic observation.
+# level_info is also tested here ...
 
 javastics_path=file.path(system.file("stics", package = "SticsRTests"),"V90")
 data_dir= file.path(SticsRFiles::download_data(example_dirs="study_case_1", version_name = "V9.0"))
@@ -190,7 +191,8 @@ SticsRFiles::gen_usms_xml2txt(javastics_path = javastics_path, workspace_path = 
 model_options <- stics_wrapper_options(javastics_path, data_dir = stics_inputs_path, parallel=FALSE)
 tmp <- stics_wrapper(model_options=model_options, param_values=c(dlaimax=0.0012), var_names="lai_n", sit_names="bo96iN+")
 obs_synth <- tmp$sim_list
-obs_synth$`bo96iN+` <- obs_synth$`bo96iN+` %>% dplyr::mutate(laiX2=lai_n*2) %>% dplyr::select(-lai_n)
+obs_synth$`bo96iN+` <- obs_synth$`bo96iN+` %>% dplyr::mutate(laiX2=lai_n*2) %>% dplyr::select(-lai_n) %>%
+  slice(seq(1,nrow(.),by=2))
 
 transform_sim <- function(model_results, ...) {
   model_results$sim_list$`bo96iN+` <- dplyr::mutate(model_results$sim_list$`bo96iN+`, laiX2=lai_n*2)
@@ -208,13 +210,24 @@ optim_results=estim_param(obs_list=obs_synth,
                           model_options=model_options,
                           optim_options=optim_options,
                           param_info=param_info, transform_sim = transform_sim,
-                          var_names="lai_n")
+                          var_names="lai_n",
+                          info_level=4)
 
 test_that("Test var_names and transform_sim arguments with nloptr", {
   expect_equal(optim_results$final_values[["dlaimax"]],0.0012, tolerance = 1e-4)
 })
 test_that("Test init_values are taken into account in nloptr", {
   expect_equal(optim_results$init_values[1:2,],as.numeric(param_info$init_values[1:2]))
+})
+test_that("level_info is working as expected", {
+  expect_false(identical(optim_results$sim_intersect, optim_results$sim))
+  expect_false(identical(optim_results$sim_transformed, optim_results$sim))
+  expect_false(identical(optim_results$sim_transformed, optim_results$sim_intersect))
+  expect_true(!is.null(optim_results$sim) && !is.null(optim_results$sim_intersect) &&
+                !is.null(optim_results$sim_transformed) && !is.null(optim_results$obs_intersect))
+  expect_equal(unique(optim_results$params_and_crit$rep), c(1,2,3))
+  expect_true(length(optim_results$sim)==45 && length(optim_results$sim_intersect)==45 &&
+                length(optim_results$sim_transformed)==45 && length(optim_results$obs_intersect)==45)
 })
 
 
