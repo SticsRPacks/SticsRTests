@@ -92,24 +92,23 @@ test_that("Test Vignette simple_case", {
 })
 
 
-# Test model crash
-# ----------------
-
-## Copy the simple case R script for this test
-simple_case_r_tmp <-file.path(tmpdir,"Parameter_estimation_simple_case_tmp.R")
-file.copy(from=simple_case_r, to=simple_case_r_tmp, overwrite=TRUE)
-
-# remove a file necessary for Stics
-xfun::gsub_file(file=simple_case_r_tmp,
-                pattern="res=estim_param(obs_list=obs_list,",
-                replacement="file.remove(file.path(stics_inputs_path,sit_name,\"tempopar.sti\"))
-res=estim_param(obs_list=obs_list,",
-                fixed=TRUE)
-
-test_that("Test Vignette model crash", {
-  expect_error(source(simple_case_r_tmp),"error")
-})
-
+# # Test model crash
+# # ----------------
+#
+# ## Copy the simple case R script for this test
+# simple_case_r_tmp <-file.path(tmpdir,"Parameter_estimation_simple_case_tmp.R")
+# file.copy(from=simple_case_r, to=simple_case_r_tmp, overwrite=TRUE)
+#
+# # remove a file necessary for Stics
+# xfun::gsub_file(file=simple_case_r_tmp,
+#                 pattern="res=estim_param(obs_list=obs_list,",
+#                 replacement="file.remove(file.path(stics_inputs_path,sit_name,\"tempopar.sti\"))
+# res=estim_param(obs_list=obs_list,",
+#                 fixed=TRUE)
+#
+# test_that("Test Vignette model crash", {
+#   expect_error(source(simple_case_r_tmp),"error")
+# })
 
 # Test optimization of an unexisting parameter
 # TO DO
