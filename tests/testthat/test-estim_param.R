@@ -92,30 +92,15 @@ test_that("Test Vignette simple_case", {
 })
 
 
-# # Test model crash
-# # ----------------
-#
-# ## Copy the simple case R script for this test
-# simple_case_r_tmp <-file.path(tmpdir,"Parameter_estimation_simple_case_tmp.R")
-# file.copy(from=simple_case_r, to=simple_case_r_tmp, overwrite=TRUE)
-#
-# # remove a file necessary for Stics
-# xfun::gsub_file(file=simple_case_r_tmp,
-#                 pattern="res=estim_param(obs_list=obs_list,",
-#                 replacement="file.remove(file.path(stics_inputs_path,sit_name,\"tempopar.sti\"))
-# res=estim_param(obs_list=obs_list,",
-#                 fixed=TRUE)
-#
-# test_that("Test Vignette model crash", {
-#   expect_error(source(simple_case_r_tmp),"error")
-# })
 
 # Test optimization of an unexisting parameter
+# --------------------------------------------
 # TO DO
 
 
 
 # Test Vignette specific and varietal
+# -----------------------------------
 
 tmpdir <- normalizePath(tempdir(), winslash = "/", mustWork = FALSE)
 vignette_rmd <-file.path(tmpdir,"Parameter_estimation_Specific_and_Varietal.Rmd")
@@ -172,7 +157,56 @@ test_that("Test Vignette specific and varietal", {
 })
 
 
+
+
+# # Test that model crash end with proper error message
+# # ---------------------------------------------------
+#
+# Commented since actually estim_param do not through an error: this is due to the return()
+# command in the on.exit function ... We have to find a way of catching that an error triggered
+# the on.exit and do not execute the return in that case ... or replace the on.exit by a tryCatch.
+#
+# javastics_path=file.path(system.file("stics", package = "SticsRTests"),"V90")
+# data_dir= file.path(SticsRFiles::download_data(example_dirs="study_case_1", version_name = "V9.0"))
+# javastics_workspace_path=file.path(data_dir,"XmlFiles")
+# stics_inputs_path=file.path(data_dir,"TxtFiles")
+# dir.create(stics_inputs_path)
+# SticsRFiles::gen_usms_xml2txt(javastics_path = javastics_path, workspace_path = javastics_workspace_path,
+#                               target_path = stics_inputs_path, verbose = TRUE)
+#
+# sit_name <- "bo96iN+"
+# obs_list <- SticsRFiles::get_obs(javastics_workspace_path, usm_name = sit_name)
+#
+# ## Remove a file necessary to run Stics to make it crash
+# file.remove(file.path(stics_inputs_path,sit_name,"tempopar.sti"))
+#
+# ## Run estim_param
+# param_info=list(lb=c(dlaimax=0.0005),
+#                 ub=c(dlaimax=0.0020), init_values=c(dlaimax=c(0.001, 0.0011, 0.0013)))
+# optim_options=list(nb_rep=3, maxeval=15, xtol_rel=1e-01, path_results=data_dir, ranseed=1234)
+# transform_sim <- function(model_results, ...) {
+#   model_results$sim_list$`bo96iN+` <- dplyr::mutate(model_results$sim_list$`bo96iN+`, lai_n=lai_n*2)
+#   return(model_results)
+# }
+# transform_obs <- function(obs_list, ...) {
+#   obs_list$`bo96iN+` <- dplyr::mutate(obs_list$`bo96iN+`, lai_n=lai_n*2)
+#   return(obs_list)
+# }
+#
+# test_that("Test model crash end with proper error message", {
+#   expect_error(estim_param(obs_list=obs_list,
+#                            model_function=stics_wrapper,
+#                            model_options=model_options,
+#                            optim_options=optim_options,
+#                            param_info=param_info, info_level = 4,
+#                            transform_sim=transform_sim, transform_obs=transform_obs),
+#                "Error")
+# })
+
+
 # Test var_names argument and init values are taken into account
+# --------------------------------------------------------------
+
 # For that, create a synthetic observed variable laiX2=mai_n*2 which is not simulated,
 # set var_names=lai_n to get the simulated lai, use transform_sim to dynamically compute laiX2
 # and try to retrieve the parameter value used to create the synthetic observation.
@@ -198,10 +232,10 @@ transform_sim <- function(model_results, ...) {
   return(model_results)
 }
 
-# Try to retrieve dlaimax value with the standard method
+## Try to retrieve dlaimax value with the standard method
 param_info=list(lb=c(dlaimax=0.0005),
                 ub=c(dlaimax=0.0020),
-                init_values=c(dlaimax=c(0.0005, 0.0017)))
+                init_values=data.frame(dlaimax=c(0.0005, 0.0017)))
 optim_options=list(nb_rep=3, maxeval=15, xtol_rel=1e-01, path_results=data_dir, ranseed=1234)
 optim_results=estim_param(obs_list=obs_synth,
                           crit_function = crit_ols,
@@ -216,7 +250,7 @@ test_that("Test var_names and transform_sim arguments with nloptr", {
   expect_equal(optim_results$final_values[["dlaimax"]],0.0012, tolerance = 1e-4)
 })
 test_that("Test init_values are taken into account in nloptr", {
-  expect_equal(optim_results$init_values[1:2,],as.numeric(param_info$init_values[1:2]))
+  expect_equal(optim_results$init_values[1:2,],as.numeric(param_info$init_values[1:2,]))
 })
 test_that("level_info is working as expected", {
   expect_false(identical(optim_results$sim_intersect, optim_results$sim))
@@ -230,7 +264,7 @@ test_that("level_info is working as expected", {
 })
 
 
-# Same but with optim package
+## Same but with optim package
 optim_options=list(nb_rep=3, control=list(maxit=7), path_results=data_dir, ranseed=1234)
 optim_results=estim_param(obs_list=obs_synth,
                           crit_function = crit_ols,
@@ -245,11 +279,12 @@ test_that("Test var_names and transform_sim arguments with optim", {
   expect_equal(optim_results$final_values[["dlaimax"]],0.0012, tolerance = 1e-4)
 })
 test_that("Test init_values are taken into account in optim", {
-  expect_equal(optim_results$init_values[1:2,],as.numeric(param_info$init_values[1:2]))
+  expect_equal(optim_results$init_values[1:2,],as.numeric(param_info$init_values[1:2,]))
 })
 
 
 # Test force_param_values argument
+# --------------------------------
 # For that, create a synthetic observed variable lai_n created by forcing the values
 # dlaimax and durvieF, and then try to estimate dlaimax by forcing durvieF to its true value
 # (if the forcing is not performed correctly we should not be able to retrieve the correct
@@ -270,7 +305,7 @@ tmp <- stics_wrapper(model_options=model_options, param_values=c(dlaimax=0.0012,
                      var_names="lai_n", sit_names="bo96iN+")
 obs_synth <- tmp$sim_list
 
-# Try to retrieve dlaimax value
+## Try to retrieve dlaimax value
 param_info=list(lb=c(dlaimax=0.0005),
                 ub=c(dlaimax=0.0020), init_values=c(dlaimax=c(0.001, 0.0011, 0.0013)))
 optim_options=list(nb_rep=3, maxeval=15, xtol_rel=1e-01, path_results=data_dir, ranseed=1234)
@@ -293,13 +328,16 @@ test_that("Test forced_param_values argument", {
                       2e-4)
 })
 
+
 # Test DREAM-ZS takes into account initial values
+# -----------------------------------------------
+
 model_options <- stics_wrapper_options(javastics_path, data_dir = stics_inputs_path, parallel=FALSE)
 tmp <- stics_wrapper(model_options=model_options, param_values=c(dlaimax=0.0012), var_names="lai_n", sit_names="bo96iN+")
 obs_synth <- tmp$sim_list
 
 param_info=list(lb=c(dlaimax=0.0005),
-                ub=c(dlaimax=0.0020), init_values=c(dlaimax=c(0.001, 0.0011, 0.0013)))
+                ub=c(dlaimax=0.0020), init_values=data.frame(dlaimax=c(0.001, 0.0011, 0.0013)))
 
 optim_options=list()
 optim_options$iterations <- 10
@@ -316,12 +354,13 @@ optim_results=estim_param(obs_list=obs_synth,
                           optim_method="BayesianTools.dreamzs")
 
 test_that("Test DREAM-ZS takes into account initial values", {
-  expect_equal(optim_results$post_sample[1:2],as.numeric(param_info$init_values[1:2]))
+  expect_equal(optim_results$post_sample[1:2],as.numeric(param_info$init_values[1:2,]))
 })
 
 
 
 # Test rotations
+# --------------
 # Here we use observations for a given USM (demo_maize3) and try to estimate parameters for another non-observed USM (demo_Wheat1)
 # which in run before the observed one in a rotation
 
@@ -341,7 +380,7 @@ sim_with_successive=stics_wrapper(model_options=model_options, sit_names=c("demo
 ## Create synthetic observations
 obs_synth <- sim_with_successive$sim_list["demo_maize3"]
 
-# Try to retrieve dlaimax value with the standard method
+## Try to retrieve dlaimax value with the standard method
 param_info=list()
 param_info$durvieF=list(lb=50,ub=500,sit_list=list("demo_Wheat1"))
 optim_options=list(nb_rep=3, maxeval=15, xtol_rel=1e-01, path_results=stics_inputs_path, ranseed=1234)
@@ -360,7 +399,7 @@ test_that("Test rotation", {
 
 
 # # Test Vignette DREAM
-#
+# # -------------------
 # TO update when the way of defining initial values will be uniformized in CroptimizR
 #
 #
