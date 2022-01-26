@@ -5,7 +5,7 @@ library(CroptimizR)
 library(dplyr)
 
 javastics_path=file.path(system.file("stics", package = "SticsRTests"),"V90")
-data_dir= file.path(SticsRFiles::download_data(example_dirs="study_case_1", version_name = "V9.0"))
+data_dir= file.path(SticsRFiles::download_data(example_dirs="study_case_1", stics_version = "V9.0"))
 
 javastics_workspace_path=file.path(data_dir,"XmlFiles")
 stics_inputs_path=file.path(data_dir,"TxtFiles")
@@ -80,7 +80,7 @@ xfun::gsub_file(file=simple_case_r_tmp,
 source(simple_case_r_tmp)
 
 ## load the results
-load(file.path(optim_options$path_results,"optim_results.Rdata"))
+load(file.path(optim_options$out_dir,"optim_results.Rdata"))
 nlo_new<-lapply(res$nlo,function(x) {x$call<-NULL;x}) # remove "call" since it may change between code versions ...
 load(system.file(file.path("extdata","ResultsSimpleCase2repet4iter"), "optim_results.Rdata", package = "CroptimizR"))
 nlo<-lapply(nlo,function(x) {x$call<-NULL;x})
@@ -88,7 +88,7 @@ nlo<-lapply(nlo,function(x) {x$call<-NULL;x})
 test_that("Test Vignette simple_case", {
   expect_equal(sapply(nlo_new, "[[","solution"), sapply(nlo, "[[","solution"), tolerance = 1e-4)
   expect_equal(sapply(nlo_new, "[[","objective"), sapply(nlo, "[[","objective"), tolerance = 1e-4)
-  expect_true(file.exists(file.path(optim_options$path_results,"EstimatedVSinit.pdf")))
+  expect_true(file.exists(file.path(optim_options$out_dir,"EstimatedVSinit.pdf")))
 })
 
 
@@ -145,7 +145,7 @@ knitr::purl(input=vignette_rmd,
 source(file.path(tmpdir,"Parameter_estimation_Specific_and_Varietal.R"))
 
 ## load the results
-load(file.path(optim_options$path_results,"optim_results.Rdata"))
+load(file.path(optim_options$out_dir,"optim_results.Rdata"))
 nlo_new<-lapply(res$nlo,function(x) {x$call<-NULL;x}) # remove "call" since it may change between code versions ...
 load(system.file(file.path("extdata","ResultsSpecificVarietal_2repet4iter"), "optim_results.Rdata", package = "CroptimizR"))
 nlo<-lapply(nlo,function(x) {x$call<-NULL;x}) # remove "call" since it may change between code versions ...
@@ -153,7 +153,7 @@ nlo<-lapply(nlo,function(x) {x$call<-NULL;x}) # remove "call" since it may chang
 test_that("Test Vignette specific and varietal", {
   expect_equal(sapply(nlo_new, "[[","solution"), sapply(nlo, "[[","solution"), tolerance = 1e-4)
   expect_equal(sapply(nlo_new, "[[","objective"), sapply(nlo, "[[","objective"), tolerance = 1e-4)
-  expect_true(file.exists(file.path(optim_options$path_results,"EstimatedVSinit.pdf")))
+  expect_true(file.exists(file.path(optim_options$out_dir,"EstimatedVSinit.pdf")))
 })
 
 
@@ -167,7 +167,7 @@ test_that("Test Vignette specific and varietal", {
 # the on.exit and do not execute the return in that case ... or replace the on.exit by a tryCatch.
 #
 # javastics_path=file.path(system.file("stics", package = "SticsRTests"),"V90")
-# data_dir= file.path(SticsRFiles::download_data(example_dirs="study_case_1", version_name = "V9.0"))
+# data_dir= file.path(SticsRFiles::download_data(example_dirs="study_case_1", stics_version = "V9.0"))
 # javastics_workspace_path=file.path(data_dir,"XmlFiles")
 # stics_inputs_path=file.path(data_dir,"TxtFiles")
 # dir.create(stics_inputs_path)
@@ -183,7 +183,7 @@ test_that("Test Vignette specific and varietal", {
 # ## Run estim_param
 # param_info=list(lb=c(dlaimax=0.0005),
 #                 ub=c(dlaimax=0.0020), init_values=c(dlaimax=c(0.001, 0.0011, 0.0013)))
-# optim_options=list(nb_rep=3, maxeval=15, xtol_rel=1e-01, path_results=data_dir, ranseed=1234)
+# optim_options=list(nb_rep=3, maxeval=15, xtol_rel=1e-01, out_dir=data_dir, ranseed=1234)
 # transform_sim <- function(model_results, ...) {
 #   model_results$sim_list$`bo96iN+` <- dplyr::mutate(model_results$sim_list$`bo96iN+`, lai_n=lai_n*2)
 #   return(model_results)
@@ -213,7 +213,7 @@ test_that("Test Vignette specific and varietal", {
 # level_info is also tested here ...
 
 javastics_path=file.path(system.file("stics", package = "SticsRTests"),"V90")
-data_dir= file.path(SticsRFiles::download_data(example_dirs="study_case_1", version_name = "V9.0"))
+data_dir= file.path(SticsRFiles::download_data(example_dirs="study_case_1", stics_version = "V9.0"))
 javastics_workspace_path=file.path(data_dir,"XmlFiles")
 stics_inputs_path=file.path(data_dir,"TxtFiles")
 dir.create(stics_inputs_path)
@@ -236,7 +236,7 @@ transform_sim <- function(model_results, ...) {
 param_info=list(lb=c(dlaimax=0.0005),
                 ub=c(dlaimax=0.0020),
                 init_values=data.frame(dlaimax=c(0.0005, 0.0017)))
-optim_options=list(nb_rep=3, maxeval=15, xtol_rel=1e-01, path_results=data_dir, ranseed=1234)
+optim_options=list(nb_rep=3, maxeval=15, xtol_rel=1e-01, out_dir=data_dir, ranseed=1234)
 optim_results=estim_param(obs_list=obs_synth,
                           crit_function = crit_ols,
                           model_function=stics_wrapper,
@@ -265,7 +265,7 @@ test_that("level_info is working as expected", {
 
 
 ## Same but with optim package
-optim_options=list(nb_rep=3, control=list(maxit=7), path_results=data_dir, ranseed=1234)
+optim_options=list(nb_rep=3, control=list(maxit=7), out_dir=data_dir, ranseed=1234)
 optim_results=estim_param(obs_list=obs_synth,
                           crit_function = crit_ols,
 						  optim_method="optim",
@@ -292,7 +292,7 @@ test_that("Test init_values are taken into account in optim", {
 # forced values of durvieF should give quite different results).
 
 javastics_path=file.path(system.file("stics", package = "SticsRTests"),"V90")
-data_dir= file.path(SticsRFiles::download_data(example_dirs="study_case_1", version_name = "V9.0"))
+data_dir= file.path(SticsRFiles::download_data(example_dirs="study_case_1", stics_version = "V9.0"))
 javastics_workspace_path=file.path(data_dir,"XmlFiles")
 stics_inputs_path=file.path(data_dir,"TxtFiles")
 dir.create(stics_inputs_path)
@@ -308,7 +308,7 @@ obs_synth <- tmp$sim_list
 ## Try to retrieve dlaimax value
 param_info=list(lb=c(dlaimax=0.0005),
                 ub=c(dlaimax=0.0020), init_values=c(dlaimax=c(0.001, 0.0011, 0.0013)))
-optim_options=list(nb_rep=3, maxeval=15, xtol_rel=1e-01, path_results=data_dir, ranseed=1234)
+optim_options=list(nb_rep=3, maxeval=15, xtol_rel=1e-01, out_dir=data_dir, ranseed=1234)
 optim_results1=estim_param(obs_list=obs_synth,
                           crit_function = crit_ols,
                           model_function=stics_wrapper,
@@ -342,7 +342,7 @@ param_info=list(lb=c(dlaimax=0.0005),
 optim_options=list()
 optim_options$iterations <- 10
 optim_options$startValue <- 3 # Number of markov chains
-optim_options$path_results <- data_dir # path where to store the results (graph and Rdata)
+optim_options$out_dir <- data_dir # path where to store the results (graph and Rdata)
 optim_options$ranseed <- 1234 # seed for random numbers
 
 optim_results=estim_param(obs_list=obs_synth,
@@ -383,7 +383,7 @@ obs_synth <- sim_with_successive$sim_list["demo_maize3"]
 ## Try to retrieve dlaimax value with the standard method
 param_info=list()
 param_info$durvieF=list(lb=50,ub=500,sit_list=list("demo_Wheat1"))
-optim_options=list(nb_rep=3, maxeval=15, xtol_rel=1e-01, path_results=stics_inputs_path, ranseed=1234)
+optim_options=list(nb_rep=3, maxeval=15, xtol_rel=1e-01, out_dir=stics_inputs_path, ranseed=1234)
 optim_results=estim_param(obs_list=obs_synth,
                           crit_function = crit_ols,
                           model_function=stics_wrapper,
@@ -443,7 +443,7 @@ test_that("Test rotation", {
 # source(file.path(tmpdir,"Parameter_estimation_DREAM.R"))
 #
 # ## load the results
-# load(file.path(optim_options$path_results,"optim_results.Rdata"))
+# load(file.path(optim_options$out_dir,"optim_results.Rdata"))
 # res$out=NULL
 # res_new=res
 # load(system.file(file.path("extdata","ResultsSpecificVarietalDREAM_4iter"), "optim_results.Rdata", package = "CroptimizR"))
@@ -451,9 +451,7 @@ test_that("Test rotation", {
 #
 # test_that("Test Vignette DREAM", {
 #   expect_equal(res_new,res)
-#   expect_true(file.exists(file.path(optim_options$path_results,"correlationPlots.pdf")))
-#   expect_true(file.exists(file.path(optim_options$path_results,"iterAndDensityPlots.pdf")))
-#   expect_true(file.exists(file.path(optim_options$path_results,"marginalPlots.pdf")))
+#   expect_true(file.exists(file.path(optim_options$out_dir,"correlationPlots.pdf")))
+#   expect_true(file.exists(file.path(optim_options$out_dir,"iterAndDensityPlots.pdf")))
+#   expect_true(file.exists(file.path(optim_options$out_dir,"marginalPlots.pdf")))
 # })
-
-
