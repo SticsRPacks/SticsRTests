@@ -8,7 +8,7 @@ javastics = normalizePath(file.path(path_to_JavaStics,"V90"), winslash = "/")
 # Define the workspaces ---------------------------------------------------
 
 data_dir = SticsRFiles::download_data(example_dirs="study_case_1",
-                                      version_name = "V9.0")
+                                      stics_version = "V9.0")
 
 workspace = file.path(data_dir, "XmlFiles")
 
@@ -21,7 +21,7 @@ gen_varmod(workspace, sim_variables)
 # Run the simulations -----------------------------------------------------
 
 # Usms to simul te (you can subset if needed)
-usms = get_usms_list(usm_path = file.path(workspace,"usms.xml"))
+usms = get_usms_list(file = file.path(workspace,"usms.xml"))
 usms = usms[1:3]
 
 # Standard run ------------------------------------------------------------

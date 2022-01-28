@@ -126,7 +126,7 @@ stics_inputs_path=file.path(tempdir(),"RotationTests")
 dir.create(stics_inputs_path)
 
 SticsRFiles::gen_usms_xml2txt(javastics = javastics_path, workspace = javastics_workspace_path,
-                              out_dir = stics_inputs_path, usms_list = c("demo_BareSoil2","demo_Wheat1","banana","demo_maize3"), verbose = TRUE)
+                              out_dir = stics_inputs_path, usm = c("demo_BareSoil2","demo_Wheat1","banana","demo_maize3"), verbose = TRUE)
 
 model_options= stics_wrapper_options(javastics_path, data_dir = stics_inputs_path, parallel=TRUE)
 sim_without_successive=stics_wrapper(model_options=model_options)
