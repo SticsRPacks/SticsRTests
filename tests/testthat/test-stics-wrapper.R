@@ -9,8 +9,8 @@ data_dir= file.path(SticsRFiles::download_data(example_dirs="study_case_1", stic
 stics_inputs_path=file.path(data_dir,"TxtFiles")
 dir.create(stics_inputs_path)
 javastics_workspace_path<-file.path(data_dir,"XmlFiles")
-SticsRFiles::gen_usms_xml2txt(javastics_path = javastics_path, workspace_path = javastics_workspace_path,
-                              target_path = stics_inputs_path, verbose = TRUE)
+SticsRFiles::gen_usms_xml2txt(javastics = javastics_path, workspace = javastics_workspace_path,
+                              out_dir = stics_inputs_path, verbose = TRUE)
 
 # Set options for Stics wrapper
 model_options=SticsOnR::stics_wrapper_options(javastics_path,data_dir = stics_inputs_path, parallel=FALSE)
@@ -125,8 +125,8 @@ javastics_workspace_path=file.path(javastics_path,"example")
 stics_inputs_path=file.path(tempdir(),"RotationTests")
 dir.create(stics_inputs_path)
 
-SticsRFiles::gen_usms_xml2txt(javastics_path = javastics_path, workspace_path = javastics_workspace_path,
-                 target_path = stics_inputs_path, usms_list = c("demo_BareSoil2","demo_Wheat1","banana","demo_maize3"), verbose = TRUE)
+SticsRFiles::gen_usms_xml2txt(javastics = javastics_path, workspace = javastics_workspace_path,
+                              out_dir = stics_inputs_path, usms_list = c("demo_BareSoil2","demo_Wheat1","banana","demo_maize3"), verbose = TRUE)
 
 model_options= stics_wrapper_options(javastics_path, data_dir = stics_inputs_path, parallel=TRUE)
 sim_without_successive=stics_wrapper(model_options=model_options)

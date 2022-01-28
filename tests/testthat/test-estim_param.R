@@ -10,8 +10,8 @@ data_dir= file.path(SticsRFiles::download_data(example_dirs="study_case_1", stic
 javastics_workspace_path=file.path(data_dir,"XmlFiles")
 stics_inputs_path=file.path(data_dir,"TxtFiles")
 dir.create(stics_inputs_path)
-SticsRFiles::gen_usms_xml2txt(javastics_path = javastics_path, workspace_path = javastics_workspace_path,
-                 target_path = stics_inputs_path, verbose = TRUE)
+SticsRFiles::gen_usms_xml2txt(javastics = javastics_path, workspace = javastics_workspace_path,
+                 out_dir = stics_inputs_path, verbose = TRUE)
 
 sit_name="bo96iN+"  # can be a vector of situation names if you want to consider several, e.g. c("bo96iN+","bou00t1")
 var_name="lai_n"    # can be a vector of variable names if you want to consider several, e.g. c("lai_n","masec_n")
@@ -171,8 +171,8 @@ test_that("Test Vignette specific and varietal", {
 # javastics_workspace_path=file.path(data_dir,"XmlFiles")
 # stics_inputs_path=file.path(data_dir,"TxtFiles")
 # dir.create(stics_inputs_path)
-# SticsRFiles::gen_usms_xml2txt(javastics_path = javastics_path, workspace_path = javastics_workspace_path,
-#                               target_path = stics_inputs_path, verbose = TRUE)
+# SticsRFiles::gen_usms_xml2txt(javastics = javastics_path, workspace = javastics_workspace_path,
+#                               out_dir = stics_inputs_path, verbose = TRUE)
 #
 # sit_name <- "bo96iN+"
 # obs_list <- SticsRFiles::get_obs(javastics_workspace_path, usm_name = sit_name)
@@ -217,8 +217,8 @@ data_dir= file.path(SticsRFiles::download_data(example_dirs="study_case_1", stic
 javastics_workspace_path=file.path(data_dir,"XmlFiles")
 stics_inputs_path=file.path(data_dir,"TxtFiles")
 dir.create(stics_inputs_path)
-SticsRFiles::gen_usms_xml2txt(javastics_path = javastics_path, workspace_path = javastics_workspace_path,
-                              target_path = stics_inputs_path, verbose = TRUE)
+SticsRFiles::gen_usms_xml2txt(javastics = javastics_path, workspace = javastics_workspace_path,
+                              out_dir = stics_inputs_path, verbose = TRUE)
 
 ## Create synthetic observations
 model_options <- stics_wrapper_options(javastics_path, data_dir = stics_inputs_path, parallel=FALSE)
@@ -296,8 +296,8 @@ data_dir= file.path(SticsRFiles::download_data(example_dirs="study_case_1", stic
 javastics_workspace_path=file.path(data_dir,"XmlFiles")
 stics_inputs_path=file.path(data_dir,"TxtFiles")
 dir.create(stics_inputs_path)
-SticsRFiles::gen_usms_xml2txt(javastics_path = javastics_path, workspace_path = javastics_workspace_path,
-                              target_path = stics_inputs_path, verbose = TRUE)
+SticsRFiles::gen_usms_xml2txt(javastics = javastics_path, workspace = javastics_workspace_path,
+                              out_dir = stics_inputs_path, verbose = TRUE)
 
 ## Create synthetic observations
 model_options <- stics_wrapper_options(javastics_path, data_dir = stics_inputs_path, parallel=FALSE)
@@ -370,8 +370,8 @@ javastics_workspace_path=file.path(javastics_path,"example")
 stics_inputs_path=file.path(tempdir(),"RotationTests")
 dir.create(stics_inputs_path)
 
-SticsRFiles::gen_usms_xml2txt(javastics_path = javastics_path, workspace_path = javastics_workspace_path,
-                              target_path = stics_inputs_path, usms_list = c("demo_BareSoil2","demo_Wheat1","demo_maize3"), verbose = TRUE)
+SticsRFiles::gen_usms_xml2txt(javastics = javastics_path, workspace = javastics_workspace_path,
+                              out_dir = stics_inputs_path, usms_list = c("demo_BareSoil2","demo_Wheat1","demo_maize3"), verbose = TRUE)
 
 model_options= stics_wrapper_options(javastics_path, data_dir = stics_inputs_path, successive_usms = list(c("demo_Wheat1","demo_BareSoil2","demo_maize3")), parallel=TRUE)
 sim_with_successive=stics_wrapper(model_options=model_options, sit_names=c("demo_Wheat1","demo_BareSoil2","demo_maize3"), var_names=c("AZnit_1"),
