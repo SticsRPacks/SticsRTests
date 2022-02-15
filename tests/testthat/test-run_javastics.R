@@ -27,8 +27,8 @@ usms = usms[1:3]
 # Standard run ------------------------------------------------------------
 
 test_that("run_javastics works using standard call", {
-  usms_out = run_javastics(javastics_path = javastics,
-                           workspace_path = workspace,
+  usms_out = run_javastics(javastics = javastics,
+                           workspace = workspace,
                            usms_list = usms, verbose = FALSE)
   errored = unlist(lapply(usms_out, function(x) x$error))
 
@@ -46,8 +46,8 @@ custom_stics_exe =
   )
 
 test_that("run_javastics works using a custom executable: exe path", {
-  usms_out = run_javastics(javastics_path = javastics,
-                           workspace_path = workspace,
+  usms_out = run_javastics(javastics = javastics,
+                           workspace = workspace,
                            stics_exe = file.path(javastics,"custom_exe",custom_stics_exe),
                            usms_list = usms, verbose = FALSE)
   errored = unlist(lapply(usms_out, function(x) x$error))
@@ -56,8 +56,8 @@ test_that("run_javastics works using a custom executable: exe path", {
 })
 
 test_that("run_javastics works using a custom executable: exe name", {
-  usms_out = run_javastics(javastics_path = javastics,
-                           workspace_path = workspace,
+  usms_out = run_javastics(javastics = javastics,
+                           workspace = workspace,
                            stics_exe = custom_stics_exe,
                            usms_list = usms, verbose = FALSE)
   errored = unlist(lapply(usms_out, function(x) x$error))
@@ -66,8 +66,8 @@ test_that("run_javastics works using a custom executable: exe name", {
 })
 
 test_that("run_javastics works using a custom executable: exe label", {
-  usms_out = run_javastics(javastics_path = javastics,
-                           workspace_path = workspace,
+  usms_out = run_javastics(javastics = javastics,
+                           workspace = workspace,
                            stics_exe = paste0("stics_custom_",
                                               SticsOnR:::user_os()),
                            usms_list = usms, verbose = FALSE)
