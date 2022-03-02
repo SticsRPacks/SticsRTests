@@ -20,7 +20,7 @@ param_names=c("dlaimax","durvieF")
 param_lb=c(0.0005,50)
 param_values <- setNames(param_lb, param_names)
 
-res <- CroptimizR::test_wrapper(model_function=SticsOnR::stics_wrapper, model_options = model_options, param_values = param_values, sit_names = "bo96iN+", var_names = "lai_n")
+res <- CroptimizR::test_wrapper(model_function=SticsOnR::stics_wrapper, model_options = model_options, param_values = param_values, situation = "bo96iN+", var = "lai_n")
 
 test_that("Stics Wrapper succeed test_wrapper tests", {
   expect_true(all(res$test_results))
@@ -32,8 +32,8 @@ param_values <- data.frame(situation="bo96iN+",dlaimax=0.0005,durvieF=50)
 model_options=SticsOnR::stics_wrapper_options(javastics_path,data_dir = stics_inputs_path, parallel=FALSE)
 
 var_name="lai_n"
-sim_without_forcing       <- SticsOnR::stics_wrapper(model_options = model_options, var_names="lai_n", sit_names = c("bo96iN+", "bou99t1"))
-sim_with_forcing       <- SticsOnR::stics_wrapper(param_values = param_values, model_options = model_options, var_names="lai_n", sit_names = c("bo96iN+", "bou99t1"))
+sim_without_forcing       <- SticsOnR::stics_wrapper(model_options = model_options, var="lai_n", situation = c("bo96iN+", "bou99t1"))
+sim_with_forcing       <- SticsOnR::stics_wrapper(param_values = param_values, model_options = model_options, var="lai_n", situation = c("bo96iN+", "bou99t1"))
 
 test_that("Parameter forcing per situation works", {
   expect_gt(sum( abs(sim_with_forcing$sim_list[["bo96iN+"]][,var_name]-
@@ -44,15 +44,15 @@ test_that("Parameter forcing per situation works", {
 })
 
 
-# Test selection of results using arguments sit_names, sit_var_dates_mask, var_names, dates
+# Test selection of results using arguments situation, sit_var_dates_mask, var, dates
 situation_names=c("bo96iN+","lu97iN+")
-res <- SticsOnR::stics_wrapper(model_options = model_options, sit_names = situation_names)
-test_that("Asking results for a list of situation using sit_names works", {
+res <- SticsOnR::stics_wrapper(model_options = model_options, situation = situation_names)
+test_that("Asking results for a list of situation using situation works", {
   expect_equal(situation_names,names(res$sim_list))
 })
 situation_names=c("bo96iN+","toto", "titi")
-test_that("Asking results for a non existing USM using sit_names lead to a warning", {
-  expect_warning(SticsOnR::stics_wrapper(model_options = model_options, sit_names = situation_names),regexp="These USMs will not be simulated")
+test_that("Asking results for a non existing USM using situation lead to a warning", {
+  expect_warning(SticsOnR::stics_wrapper(model_options = model_options, situation = situation_names),regexp="These USMs will not be simulated")
 })
 obs_list= SticsRFiles::get_obs(javastics_workspace_path)
 obs_list[["toto"]]<-obs_list[["bo96iN+"]]
@@ -68,24 +68,24 @@ test_that("Asking results for a list of variables / dates using sit_var_dates_ma
   expect_equal(obs_list$`lu97iN+`$Date,res$sim_list$`lu97iN+`$Date)
 })
 var_list <- c("mafruit", "lai_n" ,"masec_n")
-res <- SticsOnR::stics_wrapper(model_options = model_options, sit_names="lu97iN+", var_names = var_list)
-test_that("Asking results for a list of variables using var_names works", {
+res <- SticsOnR::stics_wrapper(model_options = model_options, situation="lu97iN+", var = var_list)
+test_that("Asking results for a list of variables using var works", {
   expect_equal(sort(var_list),sort(setdiff(names(res$sim_list$`lu97iN+`),c("Plant","Date")))) # tail is used to remove Date, ian, mo, jo, jul column in sim
 })
 
 # To uncomment when check of existence of stics variable will be implemented
 #var_list <- c("mafruit", "lai", "toto")
 #test_that("Asking results for a list of non-existing variables lead to a warning", {
-#  expect_warning(SticsOnR::stics_wrapper(model_options = model_options, sit_names="lu97iN+", var_names = var_list), regexp="not simulated by the Stics model")
+#  expect_warning(SticsOnR::stics_wrapper(model_options = model_options, situation="lu97iN+", var = var_list), regexp="not simulated by the Stics model")
 #})
 dates <- obs_list$`lu97iN+`$Date
-res <- SticsOnR::stics_wrapper(model_options = model_options, sit_names="lu97iN+", dates = dates)
+res <- SticsOnR::stics_wrapper(model_options = model_options, situation="lu97iN+", dates = dates)
 test_that("Asking results for a list of Dates using dates argument works", {
   expect_equal(obs_list$`lu97iN+`$Date,res$sim_list$`lu97iN+`$Date)
 })
 dates <- c("01/01/2034")
 test_that("Asking results for a non-simulated date lead to a warning", {
-  expect_warning(SticsOnR::stics_wrapper(model_options = model_options, sit_names="lu97iN+", dates = dates), regexp="Not any requested date")
+  expect_warning(SticsOnR::stics_wrapper(model_options = model_options, situation="lu97iN+", dates = dates), regexp="Not any requested date")
 })
 
 
@@ -94,7 +94,7 @@ test_that("Asking results for a non-simulated date lead to a warning", {
 # situation_name="bo96iN+"
 # var_name="mafruit"
 # param_values <- tibble::tibble(dlaimax=runif(3,min=0.0005,max=50), durvieF=runif(3,min=0.0025,max=400))
-# res <- SticsOnR::stics_wrapper(param_values = param_values, var_names = var_name, model_options = model_options)
+# res <- SticsOnR::stics_wrapper(param_values = param_values, var = var_name, model_options = model_options)
 # id_to_test=sample(1:nrow(param_values),2)
 #
 # test_that("Asking results for a DOE works", {
@@ -135,7 +135,7 @@ model_options= stics_wrapper_options(javastics_path, data_dir = stics_inputs_pat
 sim_with_successive=stics_wrapper(model_options=model_options)
 
 model_options= stics_wrapper_options(javastics_path, data_dir = stics_inputs_path, successive_usms = list(c("demo_Wheat1","demo_BareSoil2","demo_maize3")), parallel=TRUE)
-sim_with_successive_restricted_results=stics_wrapper(model_options=model_options, sit_names=c("banana","demo_maize3"))
+sim_with_successive_restricted_results=stics_wrapper(model_options=model_options, situation=c("banana","demo_maize3"))
 
 maize_succ_res <- file(file.path(stics_inputs_path,"demo_maize3","mod_bdemo_maize3.sti"), "rb")
 nb_grep_maize <- grep("rotation",readLines(maize_succ_res))

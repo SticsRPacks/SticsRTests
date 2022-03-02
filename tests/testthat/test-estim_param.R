@@ -17,7 +17,7 @@ sit_name="bo96iN+"  # can be a vector of situation names if you want to consider
 var_name="lai_n"    # can be a vector of variable names if you want to consider several, e.g. c("lai_n","masec_n")
 obs_list= SticsRFiles::get_obs(javastics_workspace_path, usm = sit_name)
 
-obs_list= CroptimizR::filter_obs(obs_list, var_names= var_name, include=TRUE)
+obs_list= CroptimizR::filter_obs(obs_list, var= var_name, include=TRUE)
 
 test_that("Test filter_obs", {
   expect_equal(names(obs_list), "bo96iN+")
@@ -204,11 +204,11 @@ test_that("Test Vignette specific and varietal", {
 # })
 
 
-# Test var_names argument and init values are taken into account
+# Test var argument and init values are taken into account
 # --------------------------------------------------------------
 
 # For that, create a synthetic observed variable laiX2=mai_n*2 which is not simulated,
-# set var_names=lai_n to get the simulated lai, use transform_sim to dynamically compute laiX2
+# set var=lai_n to get the simulated lai, use transform_sim to dynamically compute laiX2
 # and try to retrieve the parameter value used to create the synthetic observation.
 # level_info is also tested here ...
 
@@ -222,7 +222,7 @@ SticsRFiles::gen_usms_xml2txt(javastics = javastics_path, workspace = javastics_
 
 ## Create synthetic observations
 model_options <- stics_wrapper_options(javastics_path, data_dir = stics_inputs_path, parallel=FALSE)
-tmp <- stics_wrapper(model_options=model_options, param_values=c(dlaimax=0.0012), var_names="lai_n", sit_names="bo96iN+")
+tmp <- stics_wrapper(model_options=model_options, param_values=c(dlaimax=0.0012), var="lai_n", situation="bo96iN+")
 obs_synth <- tmp$sim_list
 obs_synth$`bo96iN+` <- obs_synth$`bo96iN+` %>% dplyr::mutate(laiX2=lai_n*2) %>% dplyr::select(-lai_n) %>%
   slice(seq(1,nrow(.),by=2))
@@ -243,10 +243,10 @@ optim_results=estim_param(obs_list=obs_synth,
                           model_options=model_options,
                           optim_options=optim_options,
                           param_info=param_info, transform_sim = transform_sim,
-                          var_names="lai_n",
+                          var="lai_n",
                           info_level=4)
 
-test_that("Test var_names and transform_sim arguments with nloptr", {
+test_that("Test var and transform_sim arguments with nloptr", {
   expect_equal(optim_results$final_values[["dlaimax"]],0.0012, tolerance = 1e-4)
 })
 test_that("Test init_values are taken into account in nloptr", {
@@ -273,9 +273,9 @@ optim_results=estim_param(obs_list=obs_synth,
                           model_options=model_options,
                           optim_options=optim_options,
                           param_info=param_info, transform_sim = transform_sim,
-                          var_names="lai_n")
+                          var="lai_n")
 
-test_that("Test var_names and transform_sim arguments with optim", {
+test_that("Test var and transform_sim arguments with optim", {
   expect_equal(optim_results$final_values[["dlaimax"]],0.0012, tolerance = 1e-4)
 })
 test_that("Test init_values are taken into account in optim", {
@@ -302,7 +302,7 @@ SticsRFiles::gen_usms_xml2txt(javastics = javastics_path, workspace = javastics_
 ## Create synthetic observations
 model_options <- stics_wrapper_options(javastics_path, data_dir = stics_inputs_path, parallel=FALSE)
 tmp <- stics_wrapper(model_options=model_options, param_values=c(dlaimax=0.0012, durvieF=100),
-                     var_names="lai_n", sit_names="bo96iN+")
+                     var="lai_n", situation="bo96iN+")
 obs_synth <- tmp$sim_list
 
 ## Try to retrieve dlaimax value
@@ -333,7 +333,7 @@ test_that("Test forced_param_values argument", {
 # -----------------------------------------------
 
 model_options <- stics_wrapper_options(javastics_path, data_dir = stics_inputs_path, parallel=FALSE)
-tmp <- stics_wrapper(model_options=model_options, param_values=c(dlaimax=0.0012), var_names="lai_n", sit_names="bo96iN+")
+tmp <- stics_wrapper(model_options=model_options, param_values=c(dlaimax=0.0012), var="lai_n", situation="bo96iN+")
 obs_synth <- tmp$sim_list
 
 param_info=list(lb=c(dlaimax=0.0005),
@@ -374,7 +374,7 @@ SticsRFiles::gen_usms_xml2txt(javastics = javastics_path, workspace = javastics_
                               out_dir = stics_inputs_path, usms_list = c("demo_BareSoil2","demo_Wheat1","demo_maize3"), verbose = TRUE)
 
 model_options= stics_wrapper_options(javastics_path, data_dir = stics_inputs_path, successive_usms = list(c("demo_Wheat1","demo_BareSoil2","demo_maize3")), parallel=TRUE)
-sim_with_successive=stics_wrapper(model_options=model_options, sit_names=c("demo_Wheat1","demo_BareSoil2","demo_maize3"), var_names=c("AZnit_1"),
+sim_with_successive=stics_wrapper(model_options=model_options, situation=c("demo_Wheat1","demo_BareSoil2","demo_maize3"), var=c("AZnit_1"),
                                   param_values=data.frame(situation=c("demo_Wheat1"), durvieF=350))
 
 ## Create synthetic observations
