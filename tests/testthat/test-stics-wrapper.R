@@ -13,7 +13,7 @@ SticsRFiles::gen_usms_xml2txt(javastics = javastics_path, workspace = javastics_
                               out_dir = stics_inputs_path, verbose = TRUE)
 
 # Set options for Stics wrapper
-model_options=SticsOnR::stics_wrapper_options(javastics_path,data_dir = stics_inputs_path, parallel=FALSE)
+model_options=SticsOnR::stics_wrapper_options(javastics=javastics_path,workspace = stics_inputs_path, parallel=FALSE)
 
 # Standard wrapper tests
 param_names=c("dlaimax","durvieF")
@@ -29,7 +29,7 @@ test_that("Stics Wrapper succeed test_wrapper tests", {
 
 # Test forcing of parameter per situation works
 param_values <- data.frame(situation="bo96iN+",dlaimax=0.0005,durvieF=50)
-model_options=SticsOnR::stics_wrapper_options(javastics_path,data_dir = stics_inputs_path, parallel=FALSE)
+model_options=SticsOnR::stics_wrapper_options(javastics=javastics_path, workspace = stics_inputs_path, parallel=FALSE)
 
 var_name="lai_n"
 sim_without_forcing       <- SticsOnR::stics_wrapper(model_options = model_options, var="lai_n", situation = c("bo96iN+", "bou99t1"))
@@ -107,13 +107,13 @@ test_that("Asking results for a non-simulated date lead to a warning", {
 
 # Test wrong model path lead to an error
 test_that("Wrong model path lead to an error", {
-  expect_error(stics_wrapper_options("",stics_inputs_path))
-  expect_error(stics_wrapper_options(paste0(stics_path,"ugly_suffix"),stics_inputs_path))
+  expect_error(stics_wrapper_options(javastics="",workspace=stics_inputs_path))
+  expect_error(stics_wrapper_options(javastics=paste0(stics_path,"ugly_suffix"),workspace=stics_inputs_path))
 })
 
 # Test unexisting data path lead to an error
 test_that("Unexisting data path lead to an error", {
-  expect_error(stics_wrapper_options(stics_path,paste0(stics_inputs_path,"ugly_suffix")))
+  expect_error(stics_wrapper_options(javastics=stics_path,workspace=paste0(stics_inputs_path,"ugly_suffix")))
 })
 
 
@@ -128,13 +128,13 @@ dir.create(stics_inputs_path)
 SticsRFiles::gen_usms_xml2txt(javastics = javastics_path, workspace = javastics_workspace_path,
                               out_dir = stics_inputs_path, usm = c("demo_BareSoil2","demo_Wheat1","banana","demo_maize3"), verbose = TRUE)
 
-model_options= stics_wrapper_options(javastics_path, data_dir = stics_inputs_path, parallel=TRUE)
+model_options= stics_wrapper_options(javastics=javastics_path, workspace = stics_inputs_path, parallel=TRUE)
 sim_without_successive=stics_wrapper(model_options=model_options)
 
-model_options= stics_wrapper_options(javastics_path, data_dir = stics_inputs_path, successive_usms = list(c("demo_Wheat1","demo_BareSoil2","demo_maize3")), parallel=TRUE)
+model_options= stics_wrapper_options(javastics=javastics_path, workspace = stics_inputs_path, successive = list(c("demo_Wheat1","demo_BareSoil2","demo_maize3")), parallel=TRUE)
 sim_with_successive=stics_wrapper(model_options=model_options)
 
-model_options= stics_wrapper_options(javastics_path, data_dir = stics_inputs_path, successive_usms = list(c("demo_Wheat1","demo_BareSoil2","demo_maize3")), parallel=TRUE)
+model_options= stics_wrapper_options(javastics=javastics_path, workspace = stics_inputs_path, successive = list(c("demo_Wheat1","demo_BareSoil2","demo_maize3")), parallel=TRUE)
 sim_with_successive_restricted_results=stics_wrapper(model_options=model_options, situation=c("banana","demo_maize3"))
 
 maize_succ_res <- file(file.path(stics_inputs_path,"demo_maize3","mod_bdemo_maize3.sti"), "rb")
