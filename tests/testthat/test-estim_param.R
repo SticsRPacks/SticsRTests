@@ -88,7 +88,7 @@ nlo<-lapply(nlo,function(x) {x$call<-NULL;x})
 test_that("Test Vignette simple_case", {
   expect_equal(sapply(nlo_new, "[[","solution"), sapply(nlo, "[[","solution"), tolerance = 1e-4)
   expect_equal(sapply(nlo_new, "[[","objective"), sapply(nlo, "[[","objective"), tolerance = 1e-4)
-  expect_true(file.exists(file.path(optim_options$out_dir,"EstimatedVSinit.pdf")))
+  expect_true(file.exists(file.path(optim_options$out_dir,"plots.pdf")))
 })
 
 
@@ -153,7 +153,7 @@ nlo<-lapply(nlo,function(x) {x$call<-NULL;x}) # remove "call" since it may chang
 test_that("Test Vignette specific and varietal", {
   expect_equal(sapply(nlo_new, "[[","solution"), sapply(nlo, "[[","solution"), tolerance = 1e-4)
   expect_equal(sapply(nlo_new, "[[","objective"), sapply(nlo, "[[","objective"), tolerance = 1e-4)
-  expect_true(file.exists(file.path(optim_options$out_dir,"EstimatedVSinit.pdf")))
+  expect_true(file.exists(file.path(optim_options$out_dir,"plots.pdf")))
 })
 
 
@@ -244,7 +244,7 @@ optim_results=estim_param(obs_list=obs_synth,
                           optim_options=optim_options,
                           param_info=param_info, transform_sim = transform_sim,
                           var="lai_n",
-                          info_level=4)
+                          info_level=4, info_crit_func = NULL)
 
 test_that("Test var and transform_sim arguments with nloptr", {
   expect_equal(optim_results$final_values[["dlaimax"]],0.0012, tolerance = 1e-4)
