@@ -88,7 +88,9 @@ nlo<-lapply(nlo,function(x) {x$call<-NULL;x})
 test_that("Test Vignette simple_case", {
   expect_equal(sapply(nlo_new, "[[","solution"), sapply(nlo, "[[","solution"), tolerance = 1e-4)
   expect_equal(sapply(nlo_new, "[[","objective"), sapply(nlo, "[[","objective"), tolerance = 1e-4)
-  expect_true(file.exists(file.path(optim_options$out_dir,"plots.pdf")))
+  expect_true(file.exists(file.path(optim_options$out_dir,"EstimatedVSinit.pdf")))
+  expect_true(file.exists(file.path(optim_options$out_dir,"ValuesVSit.pdf")))
+  expect_true(file.exists(file.path(optim_options$out_dir,"ValuesVSit_2D.pdf")))
 })
 
 
@@ -153,7 +155,9 @@ nlo<-lapply(nlo,function(x) {x$call<-NULL;x}) # remove "call" since it may chang
 test_that("Test Vignette specific and varietal", {
   expect_equal(sapply(nlo_new, "[[","solution"), sapply(nlo, "[[","solution"), tolerance = 1e-4)
   expect_equal(sapply(nlo_new, "[[","objective"), sapply(nlo, "[[","objective"), tolerance = 1e-4)
-  expect_true(file.exists(file.path(optim_options$out_dir,"plots.pdf")))
+  expect_true(file.exists(file.path(optim_options$out_dir,"EstimatedVSinit.pdf")))
+  expect_true(file.exists(file.path(optim_options$out_dir,"ValuesVSit.pdf")))
+  expect_true(file.exists(file.path(optim_options$out_dir,"ValuesVSit_2D.pdf")))
 })
 
 
