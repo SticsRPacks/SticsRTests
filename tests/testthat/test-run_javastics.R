@@ -29,7 +29,7 @@ usms = usms[1:3]
 test_that("run_javastics works using standard call", {
   usms_out = run_javastics(javastics = javastics,
                            workspace = workspace,
-                           usms_list = usms, verbose = FALSE)
+                           usm = usms, verbose = FALSE)
   errored = unlist(lapply(usms_out, function(x) x$error))
 
   expect_true(all(!errored))
@@ -49,7 +49,7 @@ test_that("run_javastics works using a custom executable: exe path", {
   usms_out = run_javastics(javastics = javastics,
                            workspace = workspace,
                            stics_exe = file.path(javastics,"custom_exe",custom_stics_exe),
-                           usms_list = usms, verbose = FALSE)
+                           usm = usms, verbose = FALSE)
   errored = unlist(lapply(usms_out, function(x) x$error))
 
   expect_true(all(!errored))
@@ -59,7 +59,7 @@ test_that("run_javastics works using a custom executable: exe name", {
   usms_out = run_javastics(javastics = javastics,
                            workspace = workspace,
                            stics_exe = custom_stics_exe,
-                           usms_list = usms, verbose = FALSE)
+                           usm = usms, verbose = FALSE)
   errored = unlist(lapply(usms_out, function(x) x$error))
 
   expect_true(all(!errored))
@@ -70,7 +70,7 @@ test_that("run_javastics works using a custom executable: exe label", {
                            workspace = workspace,
                            stics_exe = paste0("stics_custom_",
                                               SticsOnR:::user_os()),
-                           usms_list = usms, verbose = FALSE)
+                           usm = usms, verbose = FALSE)
   errored = unlist(lapply(usms_out, function(x) x$error))
 
   expect_true(all(!errored))
