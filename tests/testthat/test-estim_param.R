@@ -9,7 +9,7 @@ data_dir= file.path(SticsRFiles::download_data(example_dirs="study_case_1", stic
 
 javastics_workspace_path=file.path(data_dir,"XmlFiles")
 stics_inputs_path=file.path(data_dir,"TxtFiles")
-dir.create(stics_inputs_path)
+dir.create(stics_inputs_path, showWarnings = FALSE)
 SticsRFiles::gen_usms_xml2txt(javastics = javastics_path, workspace = javastics_workspace_path,
                  out_dir = stics_inputs_path, verbose = TRUE)
 
@@ -174,7 +174,7 @@ test_that("Test Vignette specific and varietal", {
 # data_dir= file.path(SticsRFiles::download_data(example_dirs="study_case_1", stics_version = "V9.0"))
 # javastics_workspace_path=file.path(data_dir,"XmlFiles")
 # stics_inputs_path=file.path(data_dir,"TxtFiles")
-# dir.create(stics_inputs_path)
+# dir.create(stics_inputs_path, showWarnings = FALSE)
 # SticsRFiles::gen_usms_xml2txt(javastics = javastics_path, workspace = javastics_workspace_path,
 #                               out_dir = stics_inputs_path, verbose = TRUE)
 #
@@ -220,7 +220,7 @@ javastics_path=file.path(system.file("stics", package = "SticsRTests"),"V90")
 data_dir= file.path(SticsRFiles::download_data(example_dirs="study_case_1", stics_version = "V9.0"))
 javastics_workspace_path=file.path(data_dir,"XmlFiles")
 stics_inputs_path=file.path(data_dir,"TxtFiles")
-dir.create(stics_inputs_path)
+dir.create(stics_inputs_path, showWarnings = FALSE)
 SticsRFiles::gen_usms_xml2txt(javastics = javastics_path, workspace = javastics_workspace_path,
                               out_dir = stics_inputs_path, verbose = TRUE)
 
@@ -299,7 +299,7 @@ javastics_path=file.path(system.file("stics", package = "SticsRTests"),"V90")
 data_dir= file.path(SticsRFiles::download_data(example_dirs="study_case_1", stics_version = "V9.0"))
 javastics_workspace_path=file.path(data_dir,"XmlFiles")
 stics_inputs_path=file.path(data_dir,"TxtFiles")
-dir.create(stics_inputs_path)
+dir.create(stics_inputs_path, showWarnings = FALSE)
 SticsRFiles::gen_usms_xml2txt(javastics = javastics_path, workspace = javastics_workspace_path,
                               out_dir = stics_inputs_path, verbose = TRUE)
 
@@ -372,7 +372,7 @@ javastics_workspace_path=file.path(javastics_path,"example")
 
 ## Generate Stics input files from JavaStics input files
 stics_inputs_path=file.path(tempdir(),"RotationTests")
-dir.create(stics_inputs_path)
+dir.create(stics_inputs_path, showWarnings = FALSE)
 
 SticsRFiles::gen_usms_xml2txt(javastics = javastics_path, workspace = javastics_workspace_path,
                               out_dir = stics_inputs_path, usms = c("demo_BareSoil2","demo_Wheat1","demo_maize3"), verbose = TRUE)
