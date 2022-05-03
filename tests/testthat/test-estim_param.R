@@ -368,37 +368,37 @@ test_that("Test DREAM-ZS takes into account initial values", {
 # Here we use observations for a given USM (demo_maize3) and try to estimate parameters for another non-observed USM (demo_Wheat1)
 # which in run before the observed one in a rotation
 
-# javastics_workspace_path=file.path(javastics_path,"example")
-#
-# ## Generate Stics input files from JavaStics input files
-# stics_inputs_path=file.path(tempdir(),"RotationTests")
-# dir.create(stics_inputs_path, showWarnings = FALSE)
-#
-# SticsRFiles::gen_usms_xml2txt(javastics = javastics_path, workspace = javastics_workspace_path,
-#                               out_dir = stics_inputs_path, usm = c("demo_BareSoil2","demo_Wheat1","demo_maize3"), verbose = TRUE)
-#
-# model_options= SticsOnR::stics_wrapper_options(javastics=javastics_path, workspace = stics_inputs_path, successive = list(c("demo_Wheat1","demo_BareSoil2","demo_maize3")), parallel=TRUE)
-# sim_with_successive=SticsOnR::stics_wrapper(model_options=model_options, situation=c("demo_Wheat1","demo_BareSoil2","demo_maize3"), var=c("AZnit_1"),
-#                                   param_values=data.frame(situation=c("demo_Wheat1"), durvieF=350))
-#
-# ## Create synthetic observations
-# obs_synth <- sim_with_successive$sim_list["demo_maize3"]
-#
-# ## Try to retrieve dlaimax value with the standard method
-# param_info=list()
-# param_info$durvieF=list(lb=50,ub=500,sit_list=list("demo_Wheat1"))
-# optim_options=list(nb_rep=3, maxeval=15, xtol_rel=1e-01, out_dir=stics_inputs_path, ranseed=1234)
-# optim_results=estim_param(obs_list=obs_synth,
-#                           crit_function = crit_ols,
-#                           model_function=SticsOnR::stics_wrapper,
-#                           model_options=model_options,
-#                           optim_options=optim_options,
-#                           param_info=param_info)
-#
-#
-# test_that("Test rotation", {
-#   expect_equal(optim_results$final_values[["durvieF"]],350, tolerance = 1)
-# })
+javastics_workspace_path=file.path(javastics_path,"example")
+
+## Generate Stics input files from JavaStics input files
+stics_inputs_path=file.path(tempdir(),"RotationTests")
+dir.create(stics_inputs_path, showWarnings = FALSE)
+
+SticsRFiles::gen_usms_xml2txt(javastics = javastics_path, workspace = javastics_workspace_path,
+                              out_dir = stics_inputs_path, usm = c("demo_BareSoil2","demo_Wheat1","demo_maize3"), verbose = TRUE)
+
+model_options= SticsOnR::stics_wrapper_options(javastics=javastics_path, workspace = stics_inputs_path, successive = list(c("demo_Wheat1","demo_BareSoil2","demo_maize3")), parallel=TRUE)
+sim_with_successive=SticsOnR::stics_wrapper(model_options=model_options, situation=c("demo_Wheat1","demo_BareSoil2","demo_maize3"), var=c("AZnit_1"),
+                                  param_values=data.frame(situation=c("demo_Wheat1"), durvieF=350))
+
+## Create synthetic observations
+obs_synth <- sim_with_successive$sim_list["demo_maize3"]
+
+## Try to retrieve dlaimax value with the standard method
+param_info=list()
+param_info$durvieF=list(lb=50,ub=500,sit_list=list("demo_Wheat1"))
+optim_options=list(nb_rep=3, maxeval=15, xtol_rel=1e-01, out_dir=stics_inputs_path, ranseed=1234)
+optim_results=estim_param(obs_list=obs_synth,
+                          crit_function = crit_ols,
+                          model_function=SticsOnR::stics_wrapper,
+                          model_options=model_options,
+                          optim_options=optim_options,
+                          param_info=param_info)
+
+
+test_that("Test rotation", {
+  expect_equal(optim_results$final_values[["durvieF"]],350, tolerance = 1)
+})
 
 
 
