@@ -107,13 +107,13 @@ test_that("Asking results for a non-simulated date lead to a warning", {
 
 # Test wrong model path lead to an error
 test_that("Wrong model path lead to an error", {
-  expect_error(stics_wrapper_options(javastics="",workspace=stics_inputs_path))
-  expect_error(stics_wrapper_options(javastics=paste0(stics_path,"ugly_suffix"),workspace=stics_inputs_path))
+  expect_error(SticsOnR::stics_wrapper_options(javastics="",workspace=stics_inputs_path))
+  expect_error(SticsOnR::stics_wrapper_options(javastics=paste0(stics_path,"ugly_suffix"),workspace=stics_inputs_path))
 })
 
 # Test unexisting data path lead to an error
 test_that("Unexisting data path lead to an error", {
-  expect_error(stics_wrapper_options(javastics=stics_path,workspace=paste0(stics_inputs_path,"ugly_suffix")))
+  expect_error(SticsOnR::stics_wrapper_options(javastics=stics_path,workspace=paste0(stics_inputs_path,"ugly_suffix")))
 })
 
 
@@ -128,14 +128,14 @@ dir.create(stics_inputs_path, showWarnings = FALSE)
 SticsRFiles::gen_usms_xml2txt(javastics = javastics_path, workspace = javastics_workspace_path,
                               out_dir = stics_inputs_path, usm = c("demo_BareSoil2","demo_Wheat1","banana","demo_maize3"), verbose = TRUE)
 
-model_options= stics_wrapper_options(javastics=javastics_path, workspace = stics_inputs_path, parallel=TRUE)
-sim_without_successive=stics_wrapper(model_options=model_options)
+model_options= SticsOnR::stics_wrapper_options(javastics=javastics_path, workspace = stics_inputs_path, parallel=TRUE)
+sim_without_successive=SticsOnR::stics_wrapper(model_options=model_options)
 
-model_options= stics_wrapper_options(javastics=javastics_path, workspace = stics_inputs_path, successive = list(c("demo_Wheat1","demo_BareSoil2","demo_maize3")), parallel=TRUE)
-sim_with_successive=stics_wrapper(model_options=model_options)
+model_options= SticsOnR::stics_wrapper_options(javastics=javastics_path, workspace = stics_inputs_path, successive = list(c("demo_Wheat1","demo_BareSoil2","demo_maize3")), parallel=TRUE)
+sim_with_successive=SticsOnR::stics_wrapper(model_options=model_options)
 
-model_options= stics_wrapper_options(javastics=javastics_path, workspace = stics_inputs_path, successive = list(c("demo_Wheat1","demo_BareSoil2","demo_maize3")), parallel=TRUE)
-sim_with_successive_restricted_results=stics_wrapper(model_options=model_options, situation=c("banana","demo_maize3"))
+model_options= SticsOnR::stics_wrapper_options(javastics=javastics_path, workspace = stics_inputs_path, successive = list(c("demo_Wheat1","demo_BareSoil2","demo_maize3")), parallel=TRUE)
+sim_with_successive_restricted_results=SticsOnR::stics_wrapper(model_options=model_options, situation=c("banana","demo_maize3"))
 
 maize_succ_res <- file(file.path(stics_inputs_path,"demo_maize3","mod_bdemo_maize3.sti"), "rb")
 nb_grep_maize <- grep("rotation",readLines(maize_succ_res))
