@@ -371,7 +371,7 @@ test_that("Test DREAM-ZS takes into account initial values", {
 javastics_workspace_path=file.path(javastics_path,"example")
 
 ## Generate Stics input files from JavaStics input files
-stics_inputs_path=file.path(tempdir(),"RotationTests")
+stics_inputs_path=normalizePath(file.path(tempdir(),"RotationTests"), winslash = "/")
 dir.create(stics_inputs_path, showWarnings = FALSE)
 
 SticsRFiles::gen_usms_xml2txt(javastics = javastics_path, workspace = javastics_workspace_path,
@@ -394,7 +394,6 @@ optim_results=estim_param(obs_list=obs_synth,
                           model_options=model_options,
                           optim_options=optim_options,
                           param_info=param_info)
-
 
 test_that("Test rotation", {
   expect_equal(optim_results$final_values[["durvieF"]],350, tolerance = 1)
