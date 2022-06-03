@@ -65,7 +65,7 @@ file.copy(from=simple_case_r, to=simple_case_r_tmp, overwrite=TRUE)
 ## Define initial values as those used for computing the reference results
 ## (random sampling may lead to different values on different platforms even with the same seed)
 xfun::gsub_file(file=simple_case_r_tmp,
-                pattern="ub=c(dlaimax=0.0025, durvieF=400))",
+                pattern="ub = c(dlaimax = 0.0025, durvieF = 400))",
                 replacement="ub=c(dlaimax=0.0025, durvieF=400),init_values=data.frame(dlaimax=c(0.0023862966, 0.0008777006),
                                       durvieF=c(118.3769, 290.9086)))",
                 fixed=TRUE)
@@ -86,6 +86,8 @@ load(system.file(file.path("extdata","ResultsSimpleCase2repet4iter"), "optim_res
 nlo<-lapply(nlo,function(x) {x$call<-NULL;x})
 
 test_that("Test Vignette simple_case", {
+  expect_equal(nlo_new[[1]]$x0, c(0.0023862966, 118.3769), tolerance = 1e-7)
+  expect_equal(nlo_new[[2]]$x0, c(0.0008777006, 290.9086), tolerance = 1e-7)
   expect_equal(sapply(nlo_new, "[[","solution"), sapply(nlo, "[[","solution"), tolerance = 1e-4)
   expect_equal(sapply(nlo_new, "[[","objective"), sapply(nlo, "[[","objective"), tolerance = 1e-4)
   expect_true(file.exists(file.path(optim_options$out_dir,"EstimatedVSinit.pdf")))
@@ -125,11 +127,11 @@ xfun::gsub_file(file=vignette_rmd,
 ## Define initial values as those used for computing the reference results
 ## (random sampling may lead to different values on different platforms even with the same seed)
 xfun::gsub_file(file=vignette_rmd,
-                pattern="lb=0.0005,ub=0.0025)",
+                pattern="lb = 0.0005, ub = 0.0025)",
                 replacement="lb=0.0005,ub=0.0025, init_values=c(0.001386297, 0.001877701))",
                 fixed=TRUE)
 xfun::gsub_file(file=vignette_rmd,
-                pattern="lb=c(50,100),ub=c(400,450))",
+                pattern="lb = c(50, 100), ub = c(400, 450))",
                 replacement="lb=c(50,100),ub=c(400,450), init_values=data.frame(c(293.3769, 115.9086), c(299.3398,162.9456)))",
                 fixed=TRUE)
 
@@ -153,6 +155,8 @@ load(system.file(file.path("extdata","ResultsSpecificVarietal_2repet4iter"), "op
 nlo<-lapply(nlo,function(x) {x$call<-NULL;x}) # remove "call" since it may change between code versions ...
 
 test_that("Test Vignette specific and varietal", {
+  expect_equal(nlo_new[[1]]$x0, c(0.001386297, 293.3769, 299.3398), tolerance = 1e-7)
+  expect_equal(nlo_new[[2]]$x0, c(0.001877701, 115.9086, 162.9456), tolerance = 1e-7)
   expect_equal(sapply(nlo_new, "[[","solution"), sapply(nlo, "[[","solution"), tolerance = 1e-4)
   expect_equal(sapply(nlo_new, "[[","objective"), sapply(nlo, "[[","objective"), tolerance = 1e-4)
   expect_true(file.exists(file.path(optim_options$out_dir,"EstimatedVSinit.pdf")))
