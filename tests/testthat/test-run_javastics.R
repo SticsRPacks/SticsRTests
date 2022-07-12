@@ -2,13 +2,15 @@
 library(SticsRFiles)
 library(SticsOnR)
 
+stics_version <- "V10.0"
+
 path_to_JavaStics = system.file("stics", package = "SticsRTests")
-javastics = normalizePath(file.path(path_to_JavaStics,"V90"), winslash = "/")
+javastics = normalizePath(file.path(path_to_JavaStics,stics_version), winslash = "/")
 
 # Define the workspaces ---------------------------------------------------
 
 data_dir = SticsRFiles::download_data(example_dirs="study_case_1",
-                                      stics_version = "V9.0")
+                                      stics_version = stics_version)
 
 workspace = file.path(data_dir, "XmlFiles")
 
@@ -42,7 +44,7 @@ custom_stics_exe =
   switch (SticsOnR:::user_os(),
           win = "stics_custom.exe",
           lin = "stics_custom_lin",
-          mac = "stics_custom_mac",
+          #mac = "stics_custom_mac",
   )
 
 test_that("run_javastics works using a custom executable: exe path", {

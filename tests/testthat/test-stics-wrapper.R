@@ -1,11 +1,12 @@
 
 context("Stics Wrapper")
+stics_version <- "V10.0"
 # Define path to JavaStics and download data
 path_to_JavaStics=system.file("stics", package = "SticsRTests")
-javastics_path=file.path(path_to_JavaStics,"V90")
+javastics_path=file.path(path_to_JavaStics,stics_version)
 
 # Download and prepare data
-data_dir= file.path(SticsRFiles::download_data(example_dirs="study_case_1", stics_version = "V9.0"))
+data_dir= file.path(SticsRFiles::download_data(example_dirs="study_case_1", stics_version = stics_version))
 stics_inputs_path=file.path(data_dir,"TxtFiles")
 dir.create(stics_inputs_path, showWarnings = FALSE)
 javastics_workspace_path<-file.path(data_dir,"XmlFiles")
@@ -32,8 +33,8 @@ param_values <- data.frame(situation="bo96iN+",dlaimax=0.0005,durvieF=50)
 model_options=SticsOnR::stics_wrapper_options(javastics=javastics_path, workspace = stics_inputs_path, parallel=FALSE)
 
 var_name="lai_n"
-sim_without_forcing       <- SticsOnR::stics_wrapper(model_options = model_options, var="lai_n", situation = c("bo96iN+", "bou99t1"))
-sim_with_forcing       <- SticsOnR::stics_wrapper(param_values = param_values, model_options = model_options, var="lai_n", situation = c("bo96iN+", "bou99t1"))
+sim_without_forcing <- SticsOnR::stics_wrapper(model_options = model_options, var="lai_n", situation = c("bo96iN+", "bou99t1"))
+sim_with_forcing  <- SticsOnR::stics_wrapper(param_values = param_values, model_options = model_options, var="lai_n", situation = c("bo96iN+", "bou99t1"))
 
 test_that("Parameter forcing per situation works", {
   expect_gt(sum( abs(sim_with_forcing$sim_list[["bo96iN+"]][,var_name]-
