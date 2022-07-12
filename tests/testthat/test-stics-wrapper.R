@@ -73,6 +73,12 @@ res <- SticsOnR::stics_wrapper(model_options = model_options, situation="lu97iN+
 test_that("Asking results for a list of variables using var works", {
   expect_equal(sort(var_list),sort(setdiff(names(res$sim_list$`lu97iN+`),c("Plant","Date")))) # tail is used to remove Date, ian, mo, jo, jul column in sim
 })
+var_list_parenthesis <- c("mafruit", "lai(n)" ,"masec(n)")
+var_list <- c("mafruit", "lai_n" ,"masec_n")
+res <- SticsOnR::stics_wrapper(model_options = model_options, situation="lu97iN+", var = var_list_parenthesis)
+test_that("Asking results for a list of variables with parenthesis in the name works", {
+  expect_equal(sort(var_list),sort(setdiff(names(res$sim_list$`lu97iN+`),c("Plant","Date")))) # tail is used to remove Date, ian, mo, jo, jul column in sim
+})
 
 # To uncomment when check of existence of stics variable will be implemented
 #var_list <- c("mafruit", "lai", "toto")
