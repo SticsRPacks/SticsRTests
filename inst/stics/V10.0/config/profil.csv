@@ -1,0 +1,17 @@
+tsol(iz)  ;profile of soil temperature;degrees.C;?
+hur(iz)   ;soil water content;mm.cm-1;?
+husup_by_cm;water drainage under each layer of 1 cm;mm;?
+lracz(iz) ;efficient root density profile;cm.cm-3sol;?
+rl(n,iz)  ;length of roots;cm.cm-2sol;?
+nit(iz)   ;profile of soil nitrates;KgN.ha-1;?
+humirac_z   ;soil dryness on the roots;0-1 ;?
+efnrac_z   ;effect of mineral nitrogen on the roots;0-1;?
+Chum; Quantity of C in humus in each layer; Kg.ha-1;?
+Nhum; Quantity of N in humus in each layer; KgN.ha-1;?
+C_allresidues; total amount of C for all residues by layer; kg.ha-1;?
+N_allresidues; total amount of N for all residues by layer; kgN.ha-1;?
+rlg(n,iz)  ;length of fine roots;cm.cm-2sol;?
+rlf(n,iz)  ;length of coarse roots;cm.cm-2sol;?
+msrac;biomass of roots;t.ha-1;?
+%rlf;percentage of fine roots ;%;
+%rl;percentage of root length in relation to total length;%;

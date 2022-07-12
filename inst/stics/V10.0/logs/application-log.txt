@@ -1,0 +1,1072 @@
+[12/07/22]-[11:27:11] INFO - 
+                          -- JAVASTICS HELP --                            
+ABSTRACT
+
+       JavaStics - The JavaStics Java application provides either a graphical
+       user interface or a command line interface for the Stics Soil-Crop model;
+       depending on the used launch method (see details below).
+       
+       JavaSticsCmd.exe can be used like any .jar in an Unix environment. 
+       But it requires a version of Java virtual machine at least equal to 11. 
+
+       Under Windows, JavaSticsCmd.exe use does not need to meet any requirement,
+       because the Java virtual machine 11 is embedded in the .exe archive.
+
+       See JavaStics documentation included in the JavaStics distribution
+       doc/JavaStics_documentation.html
+
+SYNOPSIS
+
+              [WINDOWS]
+       JavaSticsCmd.exe
+       JavaSticsCmd.exe [OPTIONS]
+
+              [UNIX]
+       java -jar JavaSticsCmd.exe
+       java -jar JavaSticsCmd.exe [OPTIONS]
+	   
+DESCRIPTION
+
+       This help mainly relates how to use JavaStics from the 
+       command line using options and arguments, for launching
+       specific JavaStics actions with shell. JavaSticsCmd.exe must
+       be launched from the JavaStics root directory.
+
+       JavaSticsCmd.exe runs JavaStics Gui
+
+       [WORKSPACE] is always expected : it may be either a 
+       JavaStics workspace directory name or relative path inside 
+       the JavaStics directory or a full absolute path to a 
+       workspace directory
+
+       [USM] is expected as the name of one USM; may be optional
+
+OPTIONS
+ 
+       -h, --help
+            displays this help
+
+       -v, --verbose
+            put this anywhere in the command to run stics with full logs
+            
+       -d, --debug
+            put this anywhere in the command to run stics with debug 
+            logs
+            
+       -r, --run [WORKSPACE]
+            run stics, WORKSPACE is used as JavaStics workspace,
+            all USMs are executed in that workspace
+            
+       -r, --run [WORKSPACE] [USM1] [USM2] ...
+            run stics, WORKSPACE is used as JavaStics workspace,
+            and each USM name (one or a list of) is executed
+            individually in that workspace
+
+       --run-successive [WORKSPACE] [USM1] [USM2] ...
+            run stics, WORKSPACE is used as JavaStics workspace,
+            and a list of USM name (at least 2) is expected for
+            executing them successively
+            
+       --generate-txt [WORKSPACE] [USM]
+            generate Stics Fortran binary input files (text) from
+            JavaStics files (XML), WORKSPACE is used as JavaStics
+            workspace. This command only works using one USM name.
+            
+EXAMPLES
+
+     All use case examples below are for using JavaStics command
+     line under Windows and the "example" workspace included in
+     the JavaStics distribution archive.
+     They can be used "as is" from the command line inside
+     the JavaStics folder.
+
+     * Running all USMs
+
+            JavaSticsCmd.exe --run example
+
+     * Running a single USM or a list of
+   
+            JavaSticsCmd.exe --run example soybean
+            
+            JavaSticsCmd.exe --run example wheat maize
+
+     * Running successive USMs
+
+            JavaSticsCmd.exe --run-successive example demo_Wheat1
+            demo_BareSoil2 demo_maize3
+
+     * Generating text files for Stics
+
+            JavaSticsCmd.exe --generate-txt example wheat
+[12/07/22]-[11:27:11] INFO - Files generated :
+[12/07/22]-[11:27:11] INFO - 	/tmp/RtmpArSlz1/data-master/study_case_1/V10.0/XmlFiles/mod_bbo96iN+.sti
+[12/07/22]-[11:27:11] INFO - 	/tmp/RtmpArSlz1/data-master/study_case_1/V10.0/XmlFiles/modhistory.sti
+[12/07/22]-[11:27:12] INFO - Files generated :
+[12/07/22]-[11:27:12] INFO - 	/tmp/RtmpArSlz1/data-master/study_case_1/V10.0/XmlFiles/mod_bbou00t1.sti
+[12/07/22]-[11:27:12] INFO - 	/tmp/RtmpArSlz1/data-master/study_case_1/V10.0/XmlFiles/modhistory.sti
+[12/07/22]-[11:27:13] INFO - Files generated :
+[12/07/22]-[11:27:13] INFO - 	/tmp/RtmpArSlz1/data-master/study_case_1/V10.0/XmlFiles/mod_bbou00t3.sti
+[12/07/22]-[11:27:13] INFO - 	/tmp/RtmpArSlz1/data-master/study_case_1/V10.0/XmlFiles/modhistory.sti
+[12/07/22]-[11:27:13] INFO - 
+                          -- JAVASTICS HELP --                            
+ABSTRACT
+
+       JavaStics - The JavaStics Java application provides either a graphical
+       user interface or a command line interface for the Stics Soil-Crop model;
+       depending on the used launch method (see details below).
+       
+       JavaSticsCmd.exe can be used like any .jar in an Unix environment. 
+       But it requires a version of Java virtual machine at least equal to 11. 
+
+       Under Windows, JavaSticsCmd.exe use does not need to meet any requirement,
+       because the Java virtual machine 11 is embedded in the .exe archive.
+
+       See JavaStics documentation included in the JavaStics distribution
+       doc/JavaStics_documentation.html
+
+SYNOPSIS
+
+              [WINDOWS]
+       JavaSticsCmd.exe
+       JavaSticsCmd.exe [OPTIONS]
+
+              [UNIX]
+       java -jar JavaSticsCmd.exe
+       java -jar JavaSticsCmd.exe [OPTIONS]
+	   
+DESCRIPTION
+
+       This help mainly relates how to use JavaStics from the 
+       command line using options and arguments, for launching
+       specific JavaStics actions with shell. JavaSticsCmd.exe must
+       be launched from the JavaStics root directory.
+
+       JavaSticsCmd.exe runs JavaStics Gui
+
+       [WORKSPACE] is always expected : it may be either a 
+       JavaStics workspace directory name or relative path inside 
+       the JavaStics directory or a full absolute path to a 
+       workspace directory
+
+       [USM] is expected as the name of one USM; may be optional
+
+OPTIONS
+ 
+       -h, --help
+            displays this help
+
+       -v, --verbose
+            put this anywhere in the command to run stics with full logs
+            
+       -d, --debug
+            put this anywhere in the command to run stics with debug 
+            logs
+            
+       -r, --run [WORKSPACE]
+            run stics, WORKSPACE is used as JavaStics workspace,
+            all USMs are executed in that workspace
+            
+       -r, --run [WORKSPACE] [USM1] [USM2] ...
+            run stics, WORKSPACE is used as JavaStics workspace,
+            and each USM name (one or a list of) is executed
+            individually in that workspace
+
+       --run-successive [WORKSPACE] [USM1] [USM2] ...
+            run stics, WORKSPACE is used as JavaStics workspace,
+            and a list of USM name (at least 2) is expected for
+            executing them successively
+            
+       --generate-txt [WORKSPACE] [USM]
+            generate Stics Fortran binary input files (text) from
+            JavaStics files (XML), WORKSPACE is used as JavaStics
+            workspace. This command only works using one USM name.
+            
+EXAMPLES
+
+     All use case examples below are for using JavaStics command
+     line under Windows and the "example" workspace included in
+     the JavaStics distribution archive.
+     They can be used "as is" from the command line inside
+     the JavaStics folder.
+
+     * Running all USMs
+
+            JavaSticsCmd.exe --run example
+
+     * Running a single USM or a list of
+   
+            JavaSticsCmd.exe --run example soybean
+            
+            JavaSticsCmd.exe --run example wheat maize
+
+     * Running successive USMs
+
+            JavaSticsCmd.exe --run-successive example demo_Wheat1
+            demo_BareSoil2 demo_maize3
+
+     * Generating text files for Stics
+
+            JavaSticsCmd.exe --generate-txt example wheat
+[12/07/22]-[11:27:14] INFO - Files generated :
+[12/07/22]-[11:27:14] INFO - 	/tmp/RtmpArSlz1/data-master/study_case_1/V10.0/XmlFiles/mod_bbo96iN+.sti
+[12/07/22]-[11:27:14] INFO - 	/tmp/RtmpArSlz1/data-master/study_case_1/V10.0/XmlFiles/modhistory.sti
+[12/07/22]-[11:27:15] INFO - Files generated :
+[12/07/22]-[11:27:15] INFO - 	/tmp/RtmpArSlz1/data-master/study_case_1/V10.0/XmlFiles/mod_bbou00t1.sti
+[12/07/22]-[11:27:15] INFO - 	/tmp/RtmpArSlz1/data-master/study_case_1/V10.0/XmlFiles/modhistory.sti
+[12/07/22]-[11:27:15] INFO - Files generated :
+[12/07/22]-[11:27:15] INFO - 	/tmp/RtmpArSlz1/data-master/study_case_1/V10.0/XmlFiles/mod_bbou00t3.sti
+[12/07/22]-[11:27:15] INFO - 	/tmp/RtmpArSlz1/data-master/study_case_1/V10.0/XmlFiles/modhistory.sti
+[12/07/22]-[11:27:16] INFO - 
+                          -- JAVASTICS HELP --                            
+ABSTRACT
+
+       JavaStics - The JavaStics Java application provides either a graphical
+       user interface or a command line interface for the Stics Soil-Crop model;
+       depending on the used launch method (see details below).
+       
+       JavaSticsCmd.exe can be used like any .jar in an Unix environment. 
+       But it requires a version of Java virtual machine at least equal to 11. 
+
+       Under Windows, JavaSticsCmd.exe use does not need to meet any requirement,
+       because the Java virtual machine 11 is embedded in the .exe archive.
+
+       See JavaStics documentation included in the JavaStics distribution
+       doc/JavaStics_documentation.html
+
+SYNOPSIS
+
+              [WINDOWS]
+       JavaSticsCmd.exe
+       JavaSticsCmd.exe [OPTIONS]
+
+              [UNIX]
+       java -jar JavaSticsCmd.exe
+       java -jar JavaSticsCmd.exe [OPTIONS]
+	   
+DESCRIPTION
+
+       This help mainly relates how to use JavaStics from the 
+       command line using options and arguments, for launching
+       specific JavaStics actions with shell. JavaSticsCmd.exe must
+       be launched from the JavaStics root directory.
+
+       JavaSticsCmd.exe runs JavaStics Gui
+
+       [WORKSPACE] is always expected : it may be either a 
+       JavaStics workspace directory name or relative path inside 
+       the JavaStics directory or a full absolute path to a 
+       workspace directory
+
+       [USM] is expected as the name of one USM; may be optional
+
+OPTIONS
+ 
+       -h, --help
+            displays this help
+
+       -v, --verbose
+            put this anywhere in the command to run stics with full logs
+            
+       -d, --debug
+            put this anywhere in the command to run stics with debug 
+            logs
+            
+       -r, --run [WORKSPACE]
+            run stics, WORKSPACE is used as JavaStics workspace,
+            all USMs are executed in that workspace
+            
+       -r, --run [WORKSPACE] [USM1] [USM2] ...
+            run stics, WORKSPACE is used as JavaStics workspace,
+            and each USM name (one or a list of) is executed
+            individually in that workspace
+
+       --run-successive [WORKSPACE] [USM1] [USM2] ...
+            run stics, WORKSPACE is used as JavaStics workspace,
+            and a list of USM name (at least 2) is expected for
+            executing them successively
+            
+       --generate-txt [WORKSPACE] [USM]
+            generate Stics Fortran binary input files (text) from
+            JavaStics files (XML), WORKSPACE is used as JavaStics
+            workspace. This command only works using one USM name.
+            
+EXAMPLES
+
+     All use case examples below are for using JavaStics command
+     line under Windows and the "example" workspace included in
+     the JavaStics distribution archive.
+     They can be used "as is" from the command line inside
+     the JavaStics folder.
+
+     * Running all USMs
+
+            JavaSticsCmd.exe --run example
+
+     * Running a single USM or a list of
+   
+            JavaSticsCmd.exe --run example soybean
+            
+            JavaSticsCmd.exe --run example wheat maize
+
+     * Running successive USMs
+
+            JavaSticsCmd.exe --run-successive example demo_Wheat1
+            demo_BareSoil2 demo_maize3
+
+     * Generating text files for Stics
+
+            JavaSticsCmd.exe --generate-txt example wheat
+[12/07/22]-[11:27:16] INFO - Files generated :
+[12/07/22]-[11:27:16] INFO - 	/tmp/RtmpArSlz1/data-master/study_case_1/V10.0/XmlFiles/mod_bbo96iN+.sti
+[12/07/22]-[11:27:16] INFO - 	/tmp/RtmpArSlz1/data-master/study_case_1/V10.0/XmlFiles/modhistory.sti
+[12/07/22]-[11:27:17] INFO - Files generated :
+[12/07/22]-[11:27:17] INFO - 	/tmp/RtmpArSlz1/data-master/study_case_1/V10.0/XmlFiles/mod_bbou00t1.sti
+[12/07/22]-[11:27:17] INFO - 	/tmp/RtmpArSlz1/data-master/study_case_1/V10.0/XmlFiles/modhistory.sti
+[12/07/22]-[11:27:18] INFO - Files generated :
+[12/07/22]-[11:27:18] INFO - 	/tmp/RtmpArSlz1/data-master/study_case_1/V10.0/XmlFiles/mod_bbou00t3.sti
+[12/07/22]-[11:27:18] INFO - 	/tmp/RtmpArSlz1/data-master/study_case_1/V10.0/XmlFiles/modhistory.sti
+[12/07/22]-[11:27:18] INFO - 
+                          -- JAVASTICS HELP --                            
+ABSTRACT
+
+       JavaStics - The JavaStics Java application provides either a graphical
+       user interface or a command line interface for the Stics Soil-Crop model;
+       depending on the used launch method (see details below).
+       
+       JavaSticsCmd.exe can be used like any .jar in an Unix environment. 
+       But it requires a version of Java virtual machine at least equal to 11. 
+
+       Under Windows, JavaSticsCmd.exe use does not need to meet any requirement,
+       because the Java virtual machine 11 is embedded in the .exe archive.
+
+       See JavaStics documentation included in the JavaStics distribution
+       doc/JavaStics_documentation.html
+
+SYNOPSIS
+
+              [WINDOWS]
+       JavaSticsCmd.exe
+       JavaSticsCmd.exe [OPTIONS]
+
+              [UNIX]
+       java -jar JavaSticsCmd.exe
+       java -jar JavaSticsCmd.exe [OPTIONS]
+	   
+DESCRIPTION
+
+       This help mainly relates how to use JavaStics from the 
+       command line using options and arguments, for launching
+       specific JavaStics actions with shell. JavaSticsCmd.exe must
+       be launched from the JavaStics root directory.
+
+       JavaSticsCmd.exe runs JavaStics Gui
+
+       [WORKSPACE] is always expected : it may be either a 
+       JavaStics workspace directory name or relative path inside 
+       the JavaStics directory or a full absolute path to a 
+       workspace directory
+
+       [USM] is expected as the name of one USM; may be optional
+
+OPTIONS
+ 
+       -h, --help
+            displays this help
+
+       -v, --verbose
+            put this anywhere in the command to run stics with full logs
+            
+       -d, --debug
+            put this anywhere in the command to run stics with debug 
+            logs
+            
+       -r, --run [WORKSPACE]
+            run stics, WORKSPACE is used as JavaStics workspace,
+            all USMs are executed in that workspace
+            
+       -r, --run [WORKSPACE] [USM1] [USM2] ...
+            run stics, WORKSPACE is used as JavaStics workspace,
+            and each USM name (one or a list of) is executed
+            individually in that workspace
+
+       --run-successive [WORKSPACE] [USM1] [USM2] ...
+            run stics, WORKSPACE is used as JavaStics workspace,
+            and a list of USM name (at least 2) is expected for
+            executing them successively
+            
+       --generate-txt [WORKSPACE] [USM]
+            generate Stics Fortran binary input files (text) from
+            JavaStics files (XML), WORKSPACE is used as JavaStics
+            workspace. This command only works using one USM name.
+            
+EXAMPLES
+
+     All use case examples below are for using JavaStics command
+     line under Windows and the "example" workspace included in
+     the JavaStics distribution archive.
+     They can be used "as is" from the command line inside
+     the JavaStics folder.
+
+     * Running all USMs
+
+            JavaSticsCmd.exe --run example
+
+     * Running a single USM or a list of
+   
+            JavaSticsCmd.exe --run example soybean
+            
+            JavaSticsCmd.exe --run example wheat maize
+
+     * Running successive USMs
+
+            JavaSticsCmd.exe --run-successive example demo_Wheat1
+            demo_BareSoil2 demo_maize3
+
+     * Generating text files for Stics
+
+            JavaSticsCmd.exe --generate-txt example wheat
+[12/07/22]-[11:27:19] INFO - Files generated :
+[12/07/22]-[11:27:19] INFO - 	/tmp/RtmpArSlz1/data-master/study_case_1/V10.0/XmlFiles/mod_bbo96iN+.sti
+[12/07/22]-[11:27:19] INFO - 	/tmp/RtmpArSlz1/data-master/study_case_1/V10.0/XmlFiles/modhistory.sti
+[12/07/22]-[11:27:20] INFO - Files generated :
+[12/07/22]-[11:27:20] INFO - 	/tmp/RtmpArSlz1/data-master/study_case_1/V10.0/XmlFiles/mod_bbou00t1.sti
+[12/07/22]-[11:27:20] INFO - 	/tmp/RtmpArSlz1/data-master/study_case_1/V10.0/XmlFiles/modhistory.sti
+[12/07/22]-[11:27:20] INFO - Files generated :
+[12/07/22]-[11:27:20] INFO - 	/tmp/RtmpArSlz1/data-master/study_case_1/V10.0/XmlFiles/mod_bbou00t3.sti
+[12/07/22]-[11:27:20] INFO - 	/tmp/RtmpArSlz1/data-master/study_case_1/V10.0/XmlFiles/modhistory.sti
+[12/07/22]-[11:29:17] INFO - 
+                          -- JAVASTICS HELP --                            
+ABSTRACT
+
+       JavaStics - The JavaStics Java application provides either a graphical
+       user interface or a command line interface for the Stics Soil-Crop model;
+       depending on the used launch method (see details below).
+       
+       JavaSticsCmd.exe can be used like any .jar in an Unix environment. 
+       But it requires a version of Java virtual machine at least equal to 11. 
+
+       Under Windows, JavaSticsCmd.exe use does not need to meet any requirement,
+       because the Java virtual machine 11 is embedded in the .exe archive.
+
+       See JavaStics documentation included in the JavaStics distribution
+       doc/JavaStics_documentation.html
+
+SYNOPSIS
+
+              [WINDOWS]
+       JavaSticsCmd.exe
+       JavaSticsCmd.exe [OPTIONS]
+
+              [UNIX]
+       java -jar JavaSticsCmd.exe
+       java -jar JavaSticsCmd.exe [OPTIONS]
+	   
+DESCRIPTION
+
+       This help mainly relates how to use JavaStics from the 
+       command line using options and arguments, for launching
+       specific JavaStics actions with shell. JavaSticsCmd.exe must
+       be launched from the JavaStics root directory.
+
+       JavaSticsCmd.exe runs JavaStics Gui
+
+       [WORKSPACE] is always expected : it may be either a 
+       JavaStics workspace directory name or relative path inside 
+       the JavaStics directory or a full absolute path to a 
+       workspace directory
+
+       [USM] is expected as the name of one USM; may be optional
+
+OPTIONS
+ 
+       -h, --help
+            displays this help
+
+       -v, --verbose
+            put this anywhere in the command to run stics with full logs
+            
+       -d, --debug
+            put this anywhere in the command to run stics with debug 
+            logs
+            
+       -r, --run [WORKSPACE]
+            run stics, WORKSPACE is used as JavaStics workspace,
+            all USMs are executed in that workspace
+            
+       -r, --run [WORKSPACE] [USM1] [USM2] ...
+            run stics, WORKSPACE is used as JavaStics workspace,
+            and each USM name (one or a list of) is executed
+            individually in that workspace
+
+       --run-successive [WORKSPACE] [USM1] [USM2] ...
+            run stics, WORKSPACE is used as JavaStics workspace,
+            and a list of USM name (at least 2) is expected for
+            executing them successively
+            
+       --generate-txt [WORKSPACE] [USM]
+            generate Stics Fortran binary input files (text) from
+            JavaStics files (XML), WORKSPACE is used as JavaStics
+            workspace. This command only works using one USM name.
+            
+EXAMPLES
+
+     All use case examples below are for using JavaStics command
+     line under Windows and the "example" workspace included in
+     the JavaStics distribution archive.
+     They can be used "as is" from the command line inside
+     the JavaStics folder.
+
+     * Running all USMs
+
+            JavaSticsCmd.exe --run example
+
+     * Running a single USM or a list of
+   
+            JavaSticsCmd.exe --run example soybean
+            
+            JavaSticsCmd.exe --run example wheat maize
+
+     * Running successive USMs
+
+            JavaSticsCmd.exe --run-successive example demo_Wheat1
+            demo_BareSoil2 demo_maize3
+
+     * Generating text files for Stics
+
+            JavaSticsCmd.exe --generate-txt example wheat
+[12/07/22]-[11:29:41] INFO - 
+                          -- JAVASTICS HELP --                            
+ABSTRACT
+
+       JavaStics - The JavaStics Java application provides either a graphical
+       user interface or a command line interface for the Stics Soil-Crop model;
+       depending on the used launch method (see details below).
+       
+       JavaSticsCmd.exe can be used like any .jar in an Unix environment. 
+       But it requires a version of Java virtual machine at least equal to 11. 
+
+       Under Windows, JavaSticsCmd.exe use does not need to meet any requirement,
+       because the Java virtual machine 11 is embedded in the .exe archive.
+
+       See JavaStics documentation included in the JavaStics distribution
+       doc/JavaStics_documentation.html
+
+SYNOPSIS
+
+              [WINDOWS]
+       JavaSticsCmd.exe
+       JavaSticsCmd.exe [OPTIONS]
+
+              [UNIX]
+       java -jar JavaSticsCmd.exe
+       java -jar JavaSticsCmd.exe [OPTIONS]
+	   
+DESCRIPTION
+
+       This help mainly relates how to use JavaStics from the 
+       command line using options and arguments, for launching
+       specific JavaStics actions with shell. JavaSticsCmd.exe must
+       be launched from the JavaStics root directory.
+
+       JavaSticsCmd.exe runs JavaStics Gui
+
+       [WORKSPACE] is always expected : it may be either a 
+       JavaStics workspace directory name or relative path inside 
+       the JavaStics directory or a full absolute path to a 
+       workspace directory
+
+       [USM] is expected as the name of one USM; may be optional
+
+OPTIONS
+ 
+       -h, --help
+            displays this help
+
+       -v, --verbose
+            put this anywhere in the command to run stics with full logs
+            
+       -d, --debug
+            put this anywhere in the command to run stics with debug 
+            logs
+            
+       -r, --run [WORKSPACE]
+            run stics, WORKSPACE is used as JavaStics workspace,
+            all USMs are executed in that workspace
+            
+       -r, --run [WORKSPACE] [USM1] [USM2] ...
+            run stics, WORKSPACE is used as JavaStics workspace,
+            and each USM name (one or a list of) is executed
+            individually in that workspace
+
+       --run-successive [WORKSPACE] [USM1] [USM2] ...
+            run stics, WORKSPACE is used as JavaStics workspace,
+            and a list of USM name (at least 2) is expected for
+            executing them successively
+            
+       --generate-txt [WORKSPACE] [USM]
+            generate Stics Fortran binary input files (text) from
+            JavaStics files (XML), WORKSPACE is used as JavaStics
+            workspace. This command only works using one USM name.
+            
+EXAMPLES
+
+     All use case examples below are for using JavaStics command
+     line under Windows and the "example" workspace included in
+     the JavaStics distribution archive.
+     They can be used "as is" from the command line inside
+     the JavaStics folder.
+
+     * Running all USMs
+
+            JavaSticsCmd.exe --run example
+
+     * Running a single USM or a list of
+   
+            JavaSticsCmd.exe --run example soybean
+            
+            JavaSticsCmd.exe --run example wheat maize
+
+     * Running successive USMs
+
+            JavaSticsCmd.exe --run-successive example demo_Wheat1
+            demo_BareSoil2 demo_maize3
+
+     * Generating text files for Stics
+
+            JavaSticsCmd.exe --generate-txt example wheat
+[12/07/22]-[11:31:44] INFO - 
+                          -- JAVASTICS HELP --                            
+ABSTRACT
+
+       JavaStics - The JavaStics Java application provides either a graphical
+       user interface or a command line interface for the Stics Soil-Crop model;
+       depending on the used launch method (see details below).
+       
+       JavaSticsCmd.exe can be used like any .jar in an Unix environment. 
+       But it requires a version of Java virtual machine at least equal to 11. 
+
+       Under Windows, JavaSticsCmd.exe use does not need to meet any requirement,
+       because the Java virtual machine 11 is embedded in the .exe archive.
+
+       See JavaStics documentation included in the JavaStics distribution
+       doc/JavaStics_documentation.html
+
+SYNOPSIS
+
+              [WINDOWS]
+       JavaSticsCmd.exe
+       JavaSticsCmd.exe [OPTIONS]
+
+              [UNIX]
+       java -jar JavaSticsCmd.exe
+       java -jar JavaSticsCmd.exe [OPTIONS]
+	   
+DESCRIPTION
+
+       This help mainly relates how to use JavaStics from the 
+       command line using options and arguments, for launching
+       specific JavaStics actions with shell. JavaSticsCmd.exe must
+       be launched from the JavaStics root directory.
+
+       JavaSticsCmd.exe runs JavaStics Gui
+
+       [WORKSPACE] is always expected : it may be either a 
+       JavaStics workspace directory name or relative path inside 
+       the JavaStics directory or a full absolute path to a 
+       workspace directory
+
+       [USM] is expected as the name of one USM; may be optional
+
+OPTIONS
+ 
+       -h, --help
+            displays this help
+
+       -v, --verbose
+            put this anywhere in the command to run stics with full logs
+            
+       -d, --debug
+            put this anywhere in the command to run stics with debug 
+            logs
+            
+       -r, --run [WORKSPACE]
+            run stics, WORKSPACE is used as JavaStics workspace,
+            all USMs are executed in that workspace
+            
+       -r, --run [WORKSPACE] [USM1] [USM2] ...
+            run stics, WORKSPACE is used as JavaStics workspace,
+            and each USM name (one or a list of) is executed
+            individually in that workspace
+
+       --run-successive [WORKSPACE] [USM1] [USM2] ...
+            run stics, WORKSPACE is used as JavaStics workspace,
+            and a list of USM name (at least 2) is expected for
+            executing them successively
+            
+       --generate-txt [WORKSPACE] [USM]
+            generate Stics Fortran binary input files (text) from
+            JavaStics files (XML), WORKSPACE is used as JavaStics
+            workspace. This command only works using one USM name.
+            
+EXAMPLES
+
+     All use case examples below are for using JavaStics command
+     line under Windows and the "example" workspace included in
+     the JavaStics distribution archive.
+     They can be used "as is" from the command line inside
+     the JavaStics folder.
+
+     * Running all USMs
+
+            JavaSticsCmd.exe --run example
+
+     * Running a single USM or a list of
+   
+            JavaSticsCmd.exe --run example soybean
+            
+            JavaSticsCmd.exe --run example wheat maize
+
+     * Running successive USMs
+
+            JavaSticsCmd.exe --run-successive example demo_Wheat1
+            demo_BareSoil2 demo_maize3
+
+     * Generating text files for Stics
+
+            JavaSticsCmd.exe --generate-txt example wheat
+[12/07/22]-[11:31:45] INFO - Files generated :
+[12/07/22]-[11:31:45] INFO - 	/tmp/RtmpaQRtba/data-master/study_case_1/V10.0/XmlFiles/mod_bbo96iN+.sti
+[12/07/22]-[11:31:45] INFO - 	/tmp/RtmpaQRtba/data-master/study_case_1/V10.0/XmlFiles/modhistory.sti
+[12/07/22]-[11:31:45] INFO - Files generated :
+[12/07/22]-[11:31:45] INFO - 	/tmp/RtmpaQRtba/data-master/study_case_1/V10.0/XmlFiles/mod_bbou00t1.sti
+[12/07/22]-[11:31:45] INFO - 	/tmp/RtmpaQRtba/data-master/study_case_1/V10.0/XmlFiles/modhistory.sti
+[12/07/22]-[11:31:46] INFO - Files generated :
+[12/07/22]-[11:31:46] INFO - 	/tmp/RtmpaQRtba/data-master/study_case_1/V10.0/XmlFiles/mod_bbou00t3.sti
+[12/07/22]-[11:31:46] INFO - 	/tmp/RtmpaQRtba/data-master/study_case_1/V10.0/XmlFiles/modhistory.sti
+[12/07/22]-[11:31:46] INFO - 
+                          -- JAVASTICS HELP --                            
+ABSTRACT
+
+       JavaStics - The JavaStics Java application provides either a graphical
+       user interface or a command line interface for the Stics Soil-Crop model;
+       depending on the used launch method (see details below).
+       
+       JavaSticsCmd.exe can be used like any .jar in an Unix environment. 
+       But it requires a version of Java virtual machine at least equal to 11. 
+
+       Under Windows, JavaSticsCmd.exe use does not need to meet any requirement,
+       because the Java virtual machine 11 is embedded in the .exe archive.
+
+       See JavaStics documentation included in the JavaStics distribution
+       doc/JavaStics_documentation.html
+
+SYNOPSIS
+
+              [WINDOWS]
+       JavaSticsCmd.exe
+       JavaSticsCmd.exe [OPTIONS]
+
+              [UNIX]
+       java -jar JavaSticsCmd.exe
+       java -jar JavaSticsCmd.exe [OPTIONS]
+	   
+DESCRIPTION
+
+       This help mainly relates how to use JavaStics from the 
+       command line using options and arguments, for launching
+       specific JavaStics actions with shell. JavaSticsCmd.exe must
+       be launched from the JavaStics root directory.
+
+       JavaSticsCmd.exe runs JavaStics Gui
+
+       [WORKSPACE] is always expected : it may be either a 
+       JavaStics workspace directory name or relative path inside 
+       the JavaStics directory or a full absolute path to a 
+       workspace directory
+
+       [USM] is expected as the name of one USM; may be optional
+
+OPTIONS
+ 
+       -h, --help
+            displays this help
+
+       -v, --verbose
+            put this anywhere in the command to run stics with full logs
+            
+       -d, --debug
+            put this anywhere in the command to run stics with debug 
+            logs
+            
+       -r, --run [WORKSPACE]
+            run stics, WORKSPACE is used as JavaStics workspace,
+            all USMs are executed in that workspace
+            
+       -r, --run [WORKSPACE] [USM1] [USM2] ...
+            run stics, WORKSPACE is used as JavaStics workspace,
+            and each USM name (one or a list of) is executed
+            individually in that workspace
+
+       --run-successive [WORKSPACE] [USM1] [USM2] ...
+            run stics, WORKSPACE is used as JavaStics workspace,
+            and a list of USM name (at least 2) is expected for
+            executing them successively
+            
+       --generate-txt [WORKSPACE] [USM]
+            generate Stics Fortran binary input files (text) from
+            JavaStics files (XML), WORKSPACE is used as JavaStics
+            workspace. This command only works using one USM name.
+            
+EXAMPLES
+
+     All use case examples below are for using JavaStics command
+     line under Windows and the "example" workspace included in
+     the JavaStics distribution archive.
+     They can be used "as is" from the command line inside
+     the JavaStics folder.
+
+     * Running all USMs
+
+            JavaSticsCmd.exe --run example
+
+     * Running a single USM or a list of
+   
+            JavaSticsCmd.exe --run example soybean
+            
+            JavaSticsCmd.exe --run example wheat maize
+
+     * Running successive USMs
+
+            JavaSticsCmd.exe --run-successive example demo_Wheat1
+            demo_BareSoil2 demo_maize3
+
+     * Generating text files for Stics
+
+            JavaSticsCmd.exe --generate-txt example wheat
+[12/07/22]-[11:31:47] INFO - Files generated :
+[12/07/22]-[11:31:47] INFO - 	/tmp/RtmpaQRtba/data-master/study_case_1/V10.0/XmlFiles/mod_bbo96iN+.sti
+[12/07/22]-[11:31:47] INFO - 	/tmp/RtmpaQRtba/data-master/study_case_1/V10.0/XmlFiles/modhistory.sti
+[12/07/22]-[11:31:48] INFO - Files generated :
+[12/07/22]-[11:31:48] INFO - 	/tmp/RtmpaQRtba/data-master/study_case_1/V10.0/XmlFiles/mod_bbou00t1.sti
+[12/07/22]-[11:31:48] INFO - 	/tmp/RtmpaQRtba/data-master/study_case_1/V10.0/XmlFiles/modhistory.sti
+[12/07/22]-[11:31:48] INFO - Files generated :
+[12/07/22]-[11:31:48] INFO - 	/tmp/RtmpaQRtba/data-master/study_case_1/V10.0/XmlFiles/mod_bbou00t3.sti
+[12/07/22]-[11:31:48] INFO - 	/tmp/RtmpaQRtba/data-master/study_case_1/V10.0/XmlFiles/modhistory.sti
+[12/07/22]-[11:31:49] INFO - 
+                          -- JAVASTICS HELP --                            
+ABSTRACT
+
+       JavaStics - The JavaStics Java application provides either a graphical
+       user interface or a command line interface for the Stics Soil-Crop model;
+       depending on the used launch method (see details below).
+       
+       JavaSticsCmd.exe can be used like any .jar in an Unix environment. 
+       But it requires a version of Java virtual machine at least equal to 11. 
+
+       Under Windows, JavaSticsCmd.exe use does not need to meet any requirement,
+       because the Java virtual machine 11 is embedded in the .exe archive.
+
+       See JavaStics documentation included in the JavaStics distribution
+       doc/JavaStics_documentation.html
+
+SYNOPSIS
+
+              [WINDOWS]
+       JavaSticsCmd.exe
+       JavaSticsCmd.exe [OPTIONS]
+
+              [UNIX]
+       java -jar JavaSticsCmd.exe
+       java -jar JavaSticsCmd.exe [OPTIONS]
+	   
+DESCRIPTION
+
+       This help mainly relates how to use JavaStics from the 
+       command line using options and arguments, for launching
+       specific JavaStics actions with shell. JavaSticsCmd.exe must
+       be launched from the JavaStics root directory.
+
+       JavaSticsCmd.exe runs JavaStics Gui
+
+       [WORKSPACE] is always expected : it may be either a 
+       JavaStics workspace directory name or relative path inside 
+       the JavaStics directory or a full absolute path to a 
+       workspace directory
+
+       [USM] is expected as the name of one USM; may be optional
+
+OPTIONS
+ 
+       -h, --help
+            displays this help
+
+       -v, --verbose
+            put this anywhere in the command to run stics with full logs
+            
+       -d, --debug
+            put this anywhere in the command to run stics with debug 
+            logs
+            
+       -r, --run [WORKSPACE]
+            run stics, WORKSPACE is used as JavaStics workspace,
+            all USMs are executed in that workspace
+            
+       -r, --run [WORKSPACE] [USM1] [USM2] ...
+            run stics, WORKSPACE is used as JavaStics workspace,
+            and each USM name (one or a list of) is executed
+            individually in that workspace
+
+       --run-successive [WORKSPACE] [USM1] [USM2] ...
+            run stics, WORKSPACE is used as JavaStics workspace,
+            and a list of USM name (at least 2) is expected for
+            executing them successively
+            
+       --generate-txt [WORKSPACE] [USM]
+            generate Stics Fortran binary input files (text) from
+            JavaStics files (XML), WORKSPACE is used as JavaStics
+            workspace. This command only works using one USM name.
+            
+EXAMPLES
+
+     All use case examples below are for using JavaStics command
+     line under Windows and the "example" workspace included in
+     the JavaStics distribution archive.
+     They can be used "as is" from the command line inside
+     the JavaStics folder.
+
+     * Running all USMs
+
+            JavaSticsCmd.exe --run example
+
+     * Running a single USM or a list of
+   
+            JavaSticsCmd.exe --run example soybean
+            
+            JavaSticsCmd.exe --run example wheat maize
+
+     * Running successive USMs
+
+            JavaSticsCmd.exe --run-successive example demo_Wheat1
+            demo_BareSoil2 demo_maize3
+
+     * Generating text files for Stics
+
+            JavaSticsCmd.exe --generate-txt example wheat
+[12/07/22]-[11:31:50] INFO - Files generated :
+[12/07/22]-[11:31:50] INFO - 	/tmp/RtmpaQRtba/data-master/study_case_1/V10.0/XmlFiles/mod_bbo96iN+.sti
+[12/07/22]-[11:31:50] INFO - 	/tmp/RtmpaQRtba/data-master/study_case_1/V10.0/XmlFiles/modhistory.sti
+[12/07/22]-[11:31:50] INFO - Files generated :
+[12/07/22]-[11:31:50] INFO - 	/tmp/RtmpaQRtba/data-master/study_case_1/V10.0/XmlFiles/mod_bbou00t1.sti
+[12/07/22]-[11:31:50] INFO - 	/tmp/RtmpaQRtba/data-master/study_case_1/V10.0/XmlFiles/modhistory.sti
+[12/07/22]-[11:31:51] INFO - Files generated :
+[12/07/22]-[11:31:51] INFO - 	/tmp/RtmpaQRtba/data-master/study_case_1/V10.0/XmlFiles/mod_bbou00t3.sti
+[12/07/22]-[11:31:51] INFO - 	/tmp/RtmpaQRtba/data-master/study_case_1/V10.0/XmlFiles/modhistory.sti
+[12/07/22]-[11:31:51] INFO - 
+                          -- JAVASTICS HELP --                            
+ABSTRACT
+
+       JavaStics - The JavaStics Java application provides either a graphical
+       user interface or a command line interface for the Stics Soil-Crop model;
+       depending on the used launch method (see details below).
+       
+       JavaSticsCmd.exe can be used like any .jar in an Unix environment. 
+       But it requires a version of Java virtual machine at least equal to 11. 
+
+       Under Windows, JavaSticsCmd.exe use does not need to meet any requirement,
+       because the Java virtual machine 11 is embedded in the .exe archive.
+
+       See JavaStics documentation included in the JavaStics distribution
+       doc/JavaStics_documentation.html
+
+SYNOPSIS
+
+              [WINDOWS]
+       JavaSticsCmd.exe
+       JavaSticsCmd.exe [OPTIONS]
+
+              [UNIX]
+       java -jar JavaSticsCmd.exe
+       java -jar JavaSticsCmd.exe [OPTIONS]
+	   
+DESCRIPTION
+
+       This help mainly relates how to use JavaStics from the 
+       command line using options and arguments, for launching
+       specific JavaStics actions with shell. JavaSticsCmd.exe must
+       be launched from the JavaStics root directory.
+
+       JavaSticsCmd.exe runs JavaStics Gui
+
+       [WORKSPACE] is always expected : it may be either a 
+       JavaStics workspace directory name or relative path inside 
+       the JavaStics directory or a full absolute path to a 
+       workspace directory
+
+       [USM] is expected as the name of one USM; may be optional
+
+OPTIONS
+ 
+       -h, --help
+            displays this help
+
+       -v, --verbose
+            put this anywhere in the command to run stics with full logs
+            
+       -d, --debug
+            put this anywhere in the command to run stics with debug 
+            logs
+            
+       -r, --run [WORKSPACE]
+            run stics, WORKSPACE is used as JavaStics workspace,
+            all USMs are executed in that workspace
+            
+       -r, --run [WORKSPACE] [USM1] [USM2] ...
+            run stics, WORKSPACE is used as JavaStics workspace,
+            and each USM name (one or a list of) is executed
+            individually in that workspace
+
+       --run-successive [WORKSPACE] [USM1] [USM2] ...
+            run stics, WORKSPACE is used as JavaStics workspace,
+            and a list of USM name (at least 2) is expected for
+            executing them successively
+            
+       --generate-txt [WORKSPACE] [USM]
+            generate Stics Fortran binary input files (text) from
+            JavaStics files (XML), WORKSPACE is used as JavaStics
+            workspace. This command only works using one USM name.
+            
+EXAMPLES
+
+     All use case examples below are for using JavaStics command
+     line under Windows and the "example" workspace included in
+     the JavaStics distribution archive.
+     They can be used "as is" from the command line inside
+     the JavaStics folder.
+
+     * Running all USMs
+
+            JavaSticsCmd.exe --run example
+
+     * Running a single USM or a list of
+   
+            JavaSticsCmd.exe --run example soybean
+            
+            JavaSticsCmd.exe --run example wheat maize
+
+     * Running successive USMs
+
+            JavaSticsCmd.exe --run-successive example demo_Wheat1
+            demo_BareSoil2 demo_maize3
+
+     * Generating text files for Stics
+
+            JavaSticsCmd.exe --generate-txt example wheat
+[12/07/22]-[11:31:52] INFO - Files generated :
+[12/07/22]-[11:31:52] INFO - 	/tmp/RtmpaQRtba/data-master/study_case_1/V10.0/XmlFiles/mod_bbo96iN+.sti
+[12/07/22]-[11:31:52] INFO - 	/tmp/RtmpaQRtba/data-master/study_case_1/V10.0/XmlFiles/modhistory.sti
+[12/07/22]-[11:31:53] INFO - Files generated :
+[12/07/22]-[11:31:53] INFO - 	/tmp/RtmpaQRtba/data-master/study_case_1/V10.0/XmlFiles/mod_bbou00t1.sti
+[12/07/22]-[11:31:53] INFO - 	/tmp/RtmpaQRtba/data-master/study_case_1/V10.0/XmlFiles/modhistory.sti
+[12/07/22]-[11:31:54] INFO - Files generated :
+[12/07/22]-[11:31:54] INFO - 	/tmp/RtmpaQRtba/data-master/study_case_1/V10.0/XmlFiles/mod_bbou00t3.sti
+[12/07/22]-[11:31:54] INFO - 	/tmp/RtmpaQRtba/data-master/study_case_1/V10.0/XmlFiles/modhistory.sti

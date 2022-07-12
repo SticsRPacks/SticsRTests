@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>Javastics user preferences</comment>
+<entry key="model.list">{modulostics_linux	stics_modulo},{stics_custom_lin_lin	stics_custom_lin},</entry>
+<entry key="model.last">stics_custom_lin_lin</entry>
+<entry key="workingDirectory.current">/tmp/RtmpaQRtba/data-master/study_case_1/V10.0/XmlFiles</entry>
+</properties>

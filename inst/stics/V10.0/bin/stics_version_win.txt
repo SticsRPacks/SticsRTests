@@ -1,0 +1,5 @@
+Informations about Stics model build version 
+Build date : 2022-07-07 ( 8:43:30,06) 
+Version : V10.0.0_r3224 
+Version date : 2022-07-07 
+OS name : Windows (32bits) 
