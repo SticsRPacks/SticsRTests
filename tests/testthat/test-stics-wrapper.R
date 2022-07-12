@@ -123,7 +123,7 @@ test_that("Unexisting data path lead to an error", {
 javastics_workspace_path=file.path(javastics_path,"example")
 
 ## Generate Stics input files from JavaStics input files
-stics_inputs_path=file.path(tempdir(),"RotationTests")
+stics_inputs_path= normalizePath(file.path(tempdir(),"RotationTests"), winslash = "/")
 dir.create(stics_inputs_path, showWarnings = FALSE)
 
 SticsRFiles::gen_usms_xml2txt(javastics = javastics_path, workspace = javastics_workspace_path,
@@ -156,3 +156,4 @@ test_that("Test rotation", {
   expect_true(length(nb_grep_baresoil)>0)
 
 })
+
