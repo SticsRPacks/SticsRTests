@@ -4,8 +4,9 @@ library(SticsRFiles)
 library(CroptimizR)
 library(dplyr)
 
-javastics_path=file.path(system.file("stics", package = "SticsRTests"),"V90")
-data_dir= file.path(SticsRFiles::download_data(example_dirs="study_case_1", stics_version = "V9.0"))
+stics_version <- "V10.0"
+javastics_path=file.path(system.file("stics", package = "SticsRTests"),stics_version)
+data_dir= file.path(SticsRFiles::download_data(example_dirs="study_case_1", stics_version = stics_version))
 
 javastics_workspace_path=file.path(data_dir,"XmlFiles")
 stics_inputs_path=file.path(data_dir,"TxtFiles")
@@ -42,7 +43,7 @@ xfun::gsub_file(file=simple_case_rmd,
                 pattern="params$eval_auto_vignette",replacement="FALSE",fixed=TRUE)
 xfun::gsub_file(file=simple_case_rmd,
                 pattern="params$eval_manual_vignette",replacement="FALSE",fixed=TRUE)
-javastics_path=file.path(system.file("stics", package = "SticsRTests"),"V90")
+javastics_path=file.path(system.file("stics", package = "SticsRTests"),stics_version)
 xfun::gsub_file(file=simple_case_rmd,
                 pattern="params$path_to_JavaStics",
                 replacement=paste0("\"",javastics_path,"\""),
@@ -75,6 +76,12 @@ xfun::gsub_file(file=simple_case_r_tmp,
                 pattern="optim_options$nb_rep <- 7",replacement="optim_options$nb_rep <- 2",fixed=TRUE)
 xfun::gsub_file(file=simple_case_r_tmp,
                 pattern="optim_options$maxeval <- 500",replacement="optim_options$maxeval <- 4",fixed=TRUE)
+
+## adapt the version of the Stics input files to the Stics version used
+xfun::gsub_file(file=simple_case_r_tmp,
+                pattern="stics_version = \"V9.0\"",
+                replacement=paste0("stics_version = \"",stics_version,"\""),fixed=TRUE)
+
 
 ## run it
 source(simple_case_r_tmp)
@@ -118,7 +125,7 @@ xfun::gsub_file(file=vignette_rmd,
                 pattern="params$eval_auto_vignette",replacement="FALSE",fixed=TRUE)
 xfun::gsub_file(file=vignette_rmd,
                 pattern="params$eval_manual_vignette",replacement="FALSE",fixed=TRUE)
-javastics_path=file.path(system.file("stics", package = "SticsRTests"),"V90")
+javastics_path=file.path(system.file("stics", package = "SticsRTests"),stics_version)
 xfun::gsub_file(file=vignette_rmd,
                 pattern="params$path_to_JavaStics",
                 replacement=paste0("\"",javastics_path,"\""),
@@ -140,6 +147,12 @@ xfun::gsub_file(file=vignette_rmd,
                 pattern="optim_options$nb_rep <- 7",replacement="optim_options$nb_rep <- 2",fixed=TRUE)
 xfun::gsub_file(file=vignette_rmd,
                 pattern="optim_options$maxeval <- 1000",replacement="optim_options$maxeval <- 4",fixed=TRUE)
+
+
+## adapt the version of the Stics input files to the Stics version used
+xfun::gsub_file(file=vignette_rmd,
+                pattern="stics_version = \"V9.0\"",
+                replacement=paste0("stics_version = \"",stics_version,"\""),fixed=TRUE)
 
 ## generate the R script
 knitr::purl(input=vignette_rmd,
@@ -174,8 +187,8 @@ test_that("Test Vignette specific and varietal", {
 # command in the on.exit function ... We have to find a way of catching that an error triggered
 # the on.exit and do not execute the return in that case ... or replace the on.exit by a tryCatch.
 #
-# javastics_path=file.path(system.file("stics", package = "SticsRTests"),"V90")
-# data_dir= file.path(SticsRFiles::download_data(example_dirs="study_case_1", stics_version = "V9.0"))
+# javastics_path=file.path(system.file("stics", package = "SticsRTests"),stics_version)
+# data_dir= file.path(SticsRFiles::download_data(example_dirs="study_case_1", stics_version = stics_version))
 # javastics_workspace_path=file.path(data_dir,"XmlFiles")
 # stics_inputs_path=file.path(data_dir,"TxtFiles")
 # dir.create(stics_inputs_path, showWarnings = FALSE)
@@ -220,8 +233,8 @@ test_that("Test Vignette specific and varietal", {
 # and try to retrieve the parameter value used to create the synthetic observation.
 # level_info is also tested here ...
 
-javastics_path=file.path(system.file("stics", package = "SticsRTests"),"V90")
-data_dir= file.path(SticsRFiles::download_data(example_dirs="study_case_1", stics_version = "V9.0"))
+javastics_path=file.path(system.file("stics", package = "SticsRTests"),stics_version)
+data_dir= file.path(SticsRFiles::download_data(example_dirs="study_case_1", stics_version = stics_version))
 javastics_workspace_path=file.path(data_dir,"XmlFiles")
 stics_inputs_path=file.path(data_dir,"TxtFiles")
 dir.create(stics_inputs_path, showWarnings = FALSE)
@@ -299,8 +312,8 @@ test_that("Test init_values are taken into account in optim", {
 # value of dlaimax + estimated values of dlaimax from same starting points but with 2 different
 # forced values of durvieF should give quite different results).
 
-javastics_path=file.path(system.file("stics", package = "SticsRTests"),"V90")
-data_dir= file.path(SticsRFiles::download_data(example_dirs="study_case_1", stics_version = "V9.0"))
+javastics_path=file.path(system.file("stics", package = "SticsRTests"),stics_version)
+data_dir= file.path(SticsRFiles::download_data(example_dirs="study_case_1", stics_version = stics_version))
 javastics_workspace_path=file.path(data_dir,"XmlFiles")
 stics_inputs_path=file.path(data_dir,"TxtFiles")
 dir.create(stics_inputs_path, showWarnings = FALSE)
@@ -422,7 +435,7 @@ test_that("Test rotation", {
 #                 pattern="params$eval_auto_vignette",replacement="FALSE",fixed=TRUE)
 # xfun::gsub_file(file=vignette_rmd,
 #                 pattern="params$eval_manual_vignette",replacement="FALSE",fixed=TRUE)
-# javastics_path=file.path(system.file("stics", package = "SticsRTests"),"V90")
+# javastics_path=file.path(system.file("stics", package = "SticsRTests"),stics_version)
 # xfun::gsub_file(file=vignette_rmd,
 #                 pattern="params$path_to_JavaStics",
 #                 replacement=paste0("\"",javastics_path,"\""),
