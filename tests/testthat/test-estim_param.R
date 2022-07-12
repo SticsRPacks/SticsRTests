@@ -164,8 +164,8 @@ source(file.path(tmpdir,"Parameter_estimation_Specific_and_Varietal.R"))
 ## load the results
 load(file.path(optim_options$out_dir,"optim_results.Rdata"))
 nlo_new<-lapply(res$nlo,function(x) {x$call<-NULL;x}) # remove "call" since it may change between code versions ...
-load(system.file(file.path("extdata","ResultsSpecificVarietal_2repet4iter"), "optim_results.Rdata", package = "CroptimizR"))
-nlo<-lapply(nlo,function(x) {x$call<-NULL;x}) # remove "call" since it may change between code versions ...
+load(system.file(file.path("extdata","ResultsSpecificVarietal_2repet4iter",stics_version), "optim_results.Rdata", package = "CroptimizR"))
+nlo<-lapply(res$nlo,function(x) {x$call<-NULL;x}) # remove "call" since it may change between code versions ...
 
 test_that("Test Vignette specific and varietal", {
   expect_equal(nlo_new[[1]]$x0, c(0.001386297, 293.3769, 299.3398), tolerance = 1e-7)
