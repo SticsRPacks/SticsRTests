@@ -45,7 +45,7 @@ To use this package, follow these steps:
 
 ```{r eval=FALSE}
 data_dir= file.path(getwd(),"data")
-dir.create(data_dir)
+dir.create(data_dir, showWarnings = FALSE)
 data_dir_zip= normalizePath(file.path(data_dir,"master.zip"), winslash = "/", mustWork = FALSE)
 download.file("https://github.com/SticsRPacks/data/archive/master.zip", data_dir_zip)
 unzip(data_dir_zip, exdir = data_dir)

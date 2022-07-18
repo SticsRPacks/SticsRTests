@@ -21,7 +21,10 @@ param_names=c("dlaimax","durvieF")
 param_lb=c(0.0005,50)
 param_values <- setNames(param_lb, param_names)
 
-res <- CroptimizR::test_wrapper(model_function=SticsOnR::stics_wrapper, model_options = model_options, param_values = param_values, situation = "bo96iN+", var = "lai_n")
+res <- CroptimizR::test_wrapper(model_function=SticsOnR::stics_wrapper,
+                                model_options = model_options,
+                                param_values = param_values,
+                                situation = "bo96iN+", var = "lai_n")
 
 test_that("Stics Wrapper succeed test_wrapper tests", {
   expect_true(all(res$test_results))
@@ -129,11 +132,12 @@ test_that("Unexisting data path lead to an error", {
 javastics_workspace_path=file.path(javastics_path,"example")
 
 ## Generate Stics input files from JavaStics input files
-stics_inputs_path= normalizePath(file.path(tempdir(),"RotationTests"), winslash = "/")
+stics_inputs_path= normalizePath(file.path(tempdir(),"RotationTests"), winslash = "/", mustWork = FALSE)
 dir.create(stics_inputs_path, showWarnings = FALSE)
 
 SticsRFiles::gen_usms_xml2txt(javastics = javastics_path, workspace = javastics_workspace_path,
-                              out_dir = stics_inputs_path, usm = c("demo_BareSoil2","demo_Wheat1","banana","demo_maize3"), verbose = TRUE)
+                              out_dir = stics_inputs_path,
+                              usm = c("demo_BareSoil2","demo_Wheat1","banana","demo_maize3"), verbose = TRUE)
 
 model_options= SticsOnR::stics_wrapper_options(javastics=javastics_path, workspace = stics_inputs_path, parallel=TRUE)
 sim_without_successive=SticsOnR::stics_wrapper(model_options=model_options)
