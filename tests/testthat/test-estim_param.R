@@ -12,7 +12,7 @@ javastics_workspace_path=file.path(data_dir,"XmlFiles")
 stics_inputs_path=file.path(data_dir,"TxtFiles")
 dir.create(stics_inputs_path, showWarnings = FALSE)
 SticsRFiles::gen_usms_xml2txt(javastics = javastics_path, workspace = javastics_workspace_path,
-                 out_dir = stics_inputs_path, verbose = TRUE)
+                              out_dir = stics_inputs_path, verbose = TRUE)
 
 sit_name="bo96iN+"  # can be a vector of situation names if you want to consider several, e.g. c("bo96iN+","bou00t1")
 var_name="lai_n"    # can be a vector of variable names if you want to consider several, e.g. c("lai_n","masec_n")
@@ -66,9 +66,8 @@ file.copy(from=simple_case_r, to=simple_case_r_tmp, overwrite=TRUE)
 ## Define initial values as those used for computing the reference results
 ## (random sampling may lead to different values on different platforms even with the same seed)
 xfun::gsub_file(file=simple_case_r_tmp,
-                pattern="ub = c(dlaimax = 0.0025, durvieF = 400))",
-                replacement="ub=c(dlaimax=0.0025, durvieF=400),init_values=data.frame(dlaimax=c(0.0023862966, 0.0008777006),
-                                      durvieF=c(118.3769, 290.9086)))",
+                pattern="ub = c(dlaimax = 0.0025, durvieF = 400)",
+                replacement="ub=c(dlaimax=0.0025, durvieF=400),\n  init_values=data.frame(dlaimax=c(0.0023862966, 0.0008777006), durvieF=c(118.3769, 290.9086))",
                 fixed=TRUE)
 
 ## change the options of the parameter estimation method
@@ -133,13 +132,17 @@ xfun::gsub_file(file=vignette_rmd,
 
 ## Define initial values as those used for computing the reference results
 ## (random sampling may lead to different values on different platforms even with the same seed)
+
+
 xfun::gsub_file(file=vignette_rmd,
-                pattern="lb = 0.0005, ub = 0.0025)",
-                replacement="lb=0.0005,ub=0.0025, init_values=c(0.001386297, 0.001877701))",
+                pattern="ub = 0.0025",
+                replacement="ub = 0.0025,\n    init_values = c(0.001386297, 0.001877701)",
                 fixed=TRUE)
+
+
 xfun::gsub_file(file=vignette_rmd,
-                pattern="lb = c(50, 100), ub = c(400, 450))",
-                replacement="lb=c(50,100),ub=c(400,450), init_values=data.frame(c(293.3769, 115.9086), c(299.3398,162.9456)))",
+                pattern="ub = c(400, 450)",
+                replacement="ub = c(400,450),\n  init_values = data.frame(c(293.3769, 115.9086), c(299.3398,162.9456))",
                 fixed=TRUE)
 
 ## change the options of the parameter estimation method
@@ -289,7 +292,7 @@ test_that("level_info is working as expected", {
 optim_options=list(nb_rep=3, control=list(maxit=7), out_dir=data_dir, ranseed=1234)
 optim_results=estim_param(obs_list=obs_synth,
                           crit_function = crit_ols,
-						  optim_method="optim",
+                          optim_method="optim",
                           model_function=SticsOnR::stics_wrapper,
                           model_options=model_options,
                           optim_options=optim_options,
@@ -323,7 +326,7 @@ SticsRFiles::gen_usms_xml2txt(javastics = javastics_path, workspace = javastics_
 ## Create synthetic observations
 model_options <- SticsOnR::stics_wrapper_options(javastics=javastics_path, workspace = stics_inputs_path, parallel=FALSE)
 tmp <- SticsOnR::stics_wrapper(model_options=model_options, param_values=c(dlaimax=0.0012, durvieF=100),
-                     var="lai_n", situation="bo96iN+")
+                               var="lai_n", situation="bo96iN+")
 obs_synth <- tmp$sim_list
 
 ## Try to retrieve dlaimax value
@@ -331,22 +334,22 @@ param_info=list(lb=c(dlaimax=0.0005),
                 ub=c(dlaimax=0.0020), init_values=c(dlaimax=c(0.001, 0.0011, 0.0013)))
 optim_options=list(nb_rep=3, maxeval=15, xtol_rel=1e-01, out_dir=data_dir, ranseed=1234)
 optim_results1=estim_param(obs_list=obs_synth,
-                          crit_function = crit_ols,
-                          model_function=SticsOnR::stics_wrapper,
-                          model_options=model_options,
-                          optim_options=optim_options,
-                          param_info=param_info, forced_param_values = c(durvieF=100))
+                           crit_function = crit_ols,
+                           model_function=SticsOnR::stics_wrapper,
+                           model_options=model_options,
+                           optim_options=optim_options,
+                           param_info=param_info, forced_param_values = c(durvieF=100))
 optim_results2=estim_param(obs_list=obs_synth,
-                          crit_function = crit_ols,
-                          model_function=SticsOnR::stics_wrapper,
-                          model_options=model_options,
-                          optim_options=optim_options,
-                          param_info=param_info, forced_param_values = c(durvieF=300))
+                           crit_function = crit_ols,
+                           model_function=SticsOnR::stics_wrapper,
+                           model_options=model_options,
+                           optim_options=optim_options,
+                           param_info=param_info, forced_param_values = c(durvieF=300))
 
 test_that("Test forced_param_values argument", {
   expect_equal(optim_results1$final_values[["dlaimax"]],0.0012, tolerance = 1e-5)
   expect_gt(optim_results1$final_values[["dlaimax"]]-optim_results2$final_values[["dlaimax"]],
-                      2e-4)
+            2e-4)
 })
 
 
@@ -396,7 +399,7 @@ SticsRFiles::gen_usms_xml2txt(javastics = javastics_path, workspace = javastics_
 
 model_options= SticsOnR::stics_wrapper_options(javastics=javastics_path, workspace = stics_inputs_path, successive = list(c("demo_Wheat1","demo_BareSoil2","demo_maize3")), parallel=TRUE)
 sim_with_successive=SticsOnR::stics_wrapper(model_options=model_options, situation=c("demo_Wheat1","demo_BareSoil2","demo_maize3"), var=c("AZnit_1"),
-                                  param_values=data.frame(situation=c("demo_Wheat1"), durvieF=350))
+                                            param_values=data.frame(situation=c("demo_Wheat1"), durvieF=350))
 
 ## Create synthetic observations
 obs_synth <- sim_with_successive$sim_list["demo_maize3"]

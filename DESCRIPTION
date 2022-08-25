@@ -19,18 +19,18 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.0
 Imports: 
-    SticsRFiles,
-    SticsOnR,
-    CroptimizR,
-	CroPlotR,
+  SticsRFiles,
+  SticsOnR,
+  CroptimizR,
+  CroPlotR,
 	xfun,
 	knitr,
 	testthat
 Remotes: 
-    github::SticsRPacks/CroPlotR@master,
-    github::SticsRPacks/CroptimizR@master,
-    github::SticsRPacks/SticsOnR@master,
-    github::SticsRPacks/SticsRFiles@master,
+  github::SticsRPacks/CroPlotR@master,
+  github::SticsRPacks/CroptimizR@master,
+  github::SticsRPacks/SticsOnR@master,
+  github::SticsRPacks/SticsRFiles@master,
 Roxygen: list(markdown = TRUE)
 SystemRequirements: Java 8
 BinaryFiles:
