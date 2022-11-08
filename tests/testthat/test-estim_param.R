@@ -475,3 +475,73 @@ test_that("Test rotation", {
 #   expect_true(file.exists(file.path(optim_options$out_dir,"iterAndDensityPlots.pdf")))
 #   expect_true(file.exists(file.path(optim_options$out_dir,"marginalPlots.pdf")))
 # })
+
+
+
+# Test Vignette AgMIP phase III protocol
+# --------------------------------------
+
+tmpdir <- normalizePath(tempdir(), winslash = "/", mustWork = FALSE)
+vignette_rmd <-file.path(tmpdir,"AgMIP_Calibration_Phenology_protocol.Rmd")
+download.file("https://raw.github.com/SticsRPacks/CroptimizR/master/vignettes/AgMIP_Calibration_Phenology_protocol.Rmd",
+              vignette_rmd)
+
+## set the parameters for a run in auto_test mode
+xfun::gsub_file(file=vignette_rmd,
+                pattern="params$eval_auto_test",replacement="TRUE",fixed=TRUE)
+xfun::gsub_file(file=vignette_rmd,
+                pattern="params$eval_auto_vignette",replacement="FALSE",fixed=TRUE)
+xfun::gsub_file(file=vignette_rmd,
+                pattern="params$eval_manual_vignette",replacement="FALSE",fixed=TRUE)
+javastics_path=file.path(system.file("stics", package = "SticsRTests"),stics_version)
+xfun::gsub_file(file=vignette_rmd,
+                pattern="params$path_to_JavaStics",
+                replacement=paste0("\"",javastics_path,"\""),
+                fixed=TRUE)
+
+## Define initial values as those used for computing the reference results
+## (random sampling may lead to different values on different platforms even with the same seed)
+xfun::gsub_file(file=vignette_rmd,
+                pattern="ub = c(stlevamf = 500, stamflax = 800, tdmin = 8, stressdev = 1, tdmax = 32)",
+                replacement="ub = c(stlevamf = 500, stamflax = 800, tdmin = 8, stressdev = 1, tdmax = 32), init_values=data.frame(stlevamf = c(138.2656, 446.0060), stamflax = c(506.3340, 639.4217), tdmin = c(4.841205, 6.351278), stressdev = c(0.003672681, 0.547923659), tdmax = c(30.67603, 27.26267))",
+                fixed=TRUE)
+xfun::gsub_file(file=vignette_rmd,
+                pattern="lb = c(50, 100), ub = c(400, 450))",
+                replacement="lb=c(50,100),ub=c(400,450), init_values=data.frame(c(293.3769, 115.9086), c(299.3398,162.9456)))",
+                fixed=TRUE)
+
+## change the options of the parameter estimation method
+xfun::gsub_file(file=vignette_rmd,
+                pattern="list(nb_rep = c(10, 5))",replacement="list(nb_rep = 2, maxeval=4)",fixed=TRUE)
+
+## adapt the version of the Stics input files to the Stics version used
+xfun::gsub_file(file=vignette_rmd,
+                pattern="stics_version = \"V9.0\"",
+                replacement=paste0("stics_version = \"",stics_version,"\""),fixed=TRUE)
+
+## generate the R script
+knitr::purl(input=vignette_rmd,
+            output=file.path(tmpdir,"AgMIP_Calibration_Phenology_protocol.R"), documentation = 2)
+
+## run it
+source(file.path(tmpdir,"AgMIP_Calibration_Phenology_protocol.R"))
+
+## load the results
+load(file.path(optim_options$out_dir,"optim_results.Rdata"))
+nlo_new<-lapply(res$nlo,function(x) {x$call<-NULL;x}) # remove "call" since it may change between code versions ...
+load(system.file(file.path("extdata","ResultsAgmipPhenology_2repet4iter",stics_version), "optim_results.Rdata", package = "CroptimizR"))
+nlo<-lapply(res$nlo,function(x) {x$call<-NULL;x}) # remove "call" since it may change between code versions ...
+
+test_that("Test Vignette AgMIP Phase III protocol", {
+  expect_equal(nlo_new[[1]]$x0, c(405.5104, 764.4217, 4.841205), tolerance = 1e-4)
+  expect_equal(nlo_new[[2]]$x0, c(405.5104, 764.4217, 6.351278), tolerance = 1e-4)
+  expect_equal(sapply(nlo_new, "[[","solution"), sapply(nlo, "[[","solution"), tolerance = 1e-4)
+  expect_equal(sapply(nlo_new, "[[","objective"), sapply(nlo, "[[","objective"), tolerance = 1e-4)
+  expect_true(file.exists(file.path(optim_options$out_dir,"param_selection_steps.csv")))
+  for (i in 1:4) {
+    expect_true(file.exists(file.path(optim_options$out_dir,"results_all_steps",paste0("step_",i), "optim_results.Rdata")))
+    expect_true(file.exists(file.path(optim_options$out_dir,"results_all_steps",paste0("step_",i), "EstimatedVSinit.pdf")))
+    expect_true(file.exists(file.path(optim_options$out_dir,"results_all_steps",paste0("step_",i), "ValuesVSit.pdf")))
+    expect_true(file.exists(file.path(optim_options$out_dir,"results_all_steps",paste0("step_",i), "ValuesVSit_2D.pdf")))
+  }
+})
