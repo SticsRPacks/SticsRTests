@@ -525,7 +525,7 @@ knitr::purl(input=vignette_rmd,
 
 ## Seems that optim_options and optim_results.Rdata are not overwritten => try to remove them before run
 file.remove(file.path(optim_options$out_dir,"optim_results.Rdata"))
-rm(optim_options)
+rm(optim_options, param_info)
 
 ## run it
 source(file.path(tmpdir,"AgMIP_Calibration_Phenology_protocol.R"))
