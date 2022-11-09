@@ -508,14 +508,11 @@ xfun::gsub_file(file=vignette_rmd,
                 pattern="ub = c(stlevamf = 500, stamflax = 800, tdmin = 8, stressdev = 1, tdmax = 32)",
                 replacement="ub = c(stlevamf = 500, stamflax = 800, tdmin = 8, stressdev = 1, tdmax = 32), init_values=data.frame(stlevamf = c(138.2656, 446.0060), stamflax = c(506.3340, 639.4217), tdmin = c(4.841205, 6.351278), stressdev = c(0.003672681, 0.547923659), tdmax = c(30.67603, 27.26267))",
                 fixed=TRUE)
-xfun::gsub_file(file=vignette_rmd,
-                pattern="lb = c(50, 100), ub = c(400, 450))",
-                replacement="lb=c(50,100),ub=c(400,450), init_values=data.frame(c(293.3769, 115.9086), c(299.3398,162.9456)))",
-                fixed=TRUE)
 
 ## change the options of the parameter estimation method
 xfun::gsub_file(file=vignette_rmd,
-                pattern="list(nb_rep = c(10, 5))",replacement="list(nb_rep = 2, maxeval=4)",fixed=TRUE)
+                pattern="list(nb_rep = c(10, 5))",
+                replacement="list(nb_rep = 2, maxeval=4)",fixed=TRUE)
 
 ## adapt the version of the Stics input files to the Stics version used
 xfun::gsub_file(file=vignette_rmd,
@@ -535,7 +532,17 @@ nlo_new<-lapply(res$nlo,function(x) {x$call<-NULL;x}) # remove "call" since it m
 load(system.file(file.path("extdata","ResultsAgmipPhenology_2repet4iter",stics_version), "optim_results.Rdata", package = "CroptimizR"))
 nlo<-lapply(res$nlo,function(x) {x$call<-NULL;x}) # remove "call" since it may change between code versions ...
 
+print(res$param_selection_steps)
+
 test_that("Test Vignette AgMIP Phase III protocol", {
+  expect_equal(optim_options$nb_rep,2)
+  expect_equal(optim_options$maxeval,4)
+  expect_equal(param_info$init_values,
+               data.frame(stlevamf = c(138.2656, 446.0060),
+                          stamflax = c(506.3340, 639.4217),
+                          tdmin = c(4.841205, 6.351278),
+                          stressdev = c(0.003672681, 0.547923659),
+                          tdmax = c(30.67603, 27.26267)))
   expect_equal(nlo_new[[1]]$x0, c(405.5104, 764.4217, 4.841205), tolerance = 1e-4)
   expect_equal(nlo_new[[2]]$x0, c(405.5104, 764.4217, 6.351278), tolerance = 1e-4)
   expect_equal(sapply(nlo_new, "[[","solution"), sapply(nlo, "[[","solution"), tolerance = 1e-4)
