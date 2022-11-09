@@ -523,6 +523,10 @@ xfun::gsub_file(file=vignette_rmd,
 knitr::purl(input=vignette_rmd,
             output=file.path(tmpdir,"AgMIP_Calibration_Phenology_protocol.R"), documentation = 2)
 
+## Seems that optim_options and optim_results.Rdata are not overwritten => try to remove them before run
+file.remove(file.path(optim_options$out_dir,"optim_results.Rdata"))
+rm(optim_options)
+
 ## run it
 source(file.path(tmpdir,"AgMIP_Calibration_Phenology_protocol.R"))
 
@@ -531,8 +535,6 @@ load(file.path(optim_options$out_dir,"optim_results.Rdata"))
 nlo_new<-lapply(res$nlo,function(x) {x$call<-NULL;x}) # remove "call" since it may change between code versions ...
 load(system.file(file.path("extdata","ResultsAgmipPhenology_2repet4iter",stics_version), "optim_results.Rdata", package = "CroptimizR"))
 nlo<-lapply(res$nlo,function(x) {x$call<-NULL;x}) # remove "call" since it may change between code versions ...
-
-print(res$param_selection_steps)
 
 test_that("Test Vignette AgMIP Phase III protocol", {
   expect_equal(optim_options$nb_rep,2)
