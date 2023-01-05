@@ -9,12 +9,12 @@
     <param format="real" max="25.0" min="4.0" nom="aclim">20.000000</param>
   </formalisme>
   <formalisme nom="climate">
-    <option choix="4" nom="calculation of potential evapotranspiraton" nomParam="codeetp">
-      <choix code="1" nom="Penman-reading"/>
-      <choix code="2" nom="Penman-calculate"/>
-      <choix code="3" nom="Shutwall-and-Wallace"/>
-      <choix code="4" nom="Prestley-Taylor">
-        <param format="real" max="2.0" min="1.0" nom="alphapt">1.26000</param>
+    <option choix="4" nom="reading OR calculation of PET" nomParam="codeetp">
+      <choix code="1" nom="PET-Penman_reading"/>
+      <choix code="2" nom="PET-Penman_calculation"/>
+      <choix code="3" nom="PET-Shuttleworth-Wallace_calculation"/>
+      <choix code="4" nom="PET-Priestley-Taylor_calculation">
+        <param format="real" max="2.0" min="1.0" nom="alphapt">1.26</param>
       </choix>
     </option>
     <option choix="1" nom="climate change" nomParam="codeclichange">

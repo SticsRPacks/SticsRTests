@@ -2,7 +2,7 @@
 <initialisations version="10.0">
   <nbplantes>1</nbplantes>
   <plante dominance="1">
-    <stade0>lev</stade0>
+    <stade0>dor</stade0>
     <lai0>0.2</lai0>
     <magrain0>0.0</magrain0>
     <zrac0>20.0</zrac0>

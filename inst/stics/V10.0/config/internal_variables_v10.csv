@@ -32,7 +32,7 @@ deltai_stress;stress component of deltai;SD;;deltai_stress;AM
 deltai_T;thermal component of deltai;degree.days;;deltai_T;AM
 deltaimax;maximum increase in leaf expansion;m2 leaf m-2 soil;?;;AM
 DELTAMSRESEN;senescence rate of residual dry matter after forage crop cutting;t DM ha-1 day-1;?;;AM
-deltat;gradient of the relationship between saturation pressure and temperature;?;deltat;saturation_deficit;DR
+deltat;gradient of the relationship between saturation pressure and temperature;mbars;deltat;saturation_deficit;DR
 deltatemp;difference in mean daily temperature inside and outside a greenhouse;degrees C;deltatemp;;ML
 deltaz_stress;Stress component of deltaz;SD;??;stress_component_deltaz;AM
 deltaz_T;Thermal component of deltaz;cm day-1;??;thermal_component_deltaz;AM
@@ -53,10 +53,10 @@ dltarestemp2;daily biomass remobilised from temporary reserves to perennial orga
 dltat;daily biomass partitioning to the structural part of stems;t DM ha-1;dltat;;LS
 dos;saturation deficit within the canopy;mbars;dos;;ML
 dpHvol;increase of soil pH after manure application;SD;dpHvol;;FF
-dpHvolm;;SD;dpHvolm;;FF
+dpHvolm;maximum pH increase following the application of slurry (taking into account the amount of inorganic N applied) ;SD;dpHvolm;;FF
 drlsenf;length of dead fine roots in layer iz on day n;cm cm-2 soil;;;DR
 drlseng;length of dead coarse roots in layer iz on day n;cm cm-2 soil;;;DR
-dsat;air saturation deficit;mbar;dsat;air_saturation_deficit;DR
+dsat;air saturation deficit;mbars;dsat;air_saturation_deficit;DR
 DURAGE;natural lifespan of leaves;Q10;?;;AM
 DURVIEFv;maximal lifespan of an adult leaf;Q10;?;;AM
 DURVIEIp;lifespan of a young leal (at the AMF stage) expressed as a proportion of DURVIEF;SD;?;;AM
@@ -82,7 +82,7 @@ Fr;ratio of rain in repartition between rain and snow rain;0-1;?;;DR
 fracinsol;insolation fraction;0-1;fracinsol;;ML
 fruis;proportion of run-off water above the activation threshold (pminruis);SD;fruis;;ML
 Fs;ratio of snow in repartition between rain and snow rain;0-1;fs;;DR
-ftempremp; ? ; ?;ftempremp;;PL
+ftempremp;thermal stress index as a function of temperature using cardinal temperatures (tminremp et tmaxremp);0-1;ftempremp;;PL
 FsNH3;potential ammonia volatilization rate;microgram m-2 day-1;FsNH3;;FF
 fth;temperature factor on humus mineralisation rate;SD;fth;;FF
 ftr;temperature factor on residue decomposition rate;SD;ftr;;FF
@@ -105,7 +105,7 @@ IMB;date of the beginning of seed moistening;days;null;;DR
 INNI;instantaneous nitrogen index;SD;?;;AM variable
 jvi;vernalizing contribution of a given day;nb days;;;ML
 K;melting rate;mm degrees C-1 day-1;K;K_snow;DR
-K_LAI;maximal LAI produced;?;;;DR
+K_LAI;maximal LAI produced;m2 m-2;;;DR
 K2;actual mineralisation rate of humus;day-1;K2;;FF
 K2hum;potential mineralisation rate of humus;day-1;K2hum;;FF
 kgdiffus;proportion of diffusive radiation reaching the soil;SD;?;;AM
@@ -130,7 +130,7 @@ nbgraingel; number of frozen grains per square meter;grains m-2;nbgraingel;;PL
 nbgrains; number of grains per square meter;grains m-2;nbgrains;;PL
 nbjgrauto;days of autotrophy for a moistened seed;days;nbjgrauto;;ML
 nbjhumec;maximal period that seedcan be in a moist status without seed death occurs ;days;nbjhumec;;DR
-NH3g;ammonia concentration in the gaseous soil phase;?;NH3g;;FF
+NH3g;ammonia concentration in the gaseous soil phase;mol l-1;NH3g;;FF
 NH3surf;ammonia concentration at the soil surface;microgram N m-3;NH3surf;;FF
 nit;amount of NO3-N in an elementary layer; kg N ha-1;nit;;JL
 nodn;coefficient used to take into account the effect of the soil mineral N content on the potential N fixation;SD;nodn;;FF
@@ -150,7 +150,7 @@ QNplmax;maximal amount of N possible in the crop;kg N ha-1;QNplmax;maximal_N_in_
 raa;aerodynamic resistance between the canopy and the reference height of weather measurements;s m-1;raa;;FF
 raamax;maximum daily value of the aerodynamic resistance between the cover et the reference level zr;W m-2;raamax;;ML
 raamin;minimum daily value of the aerodynamic resistance between the cover et the reference level zr;W m-2;raamin;;ML
-racinepsi;;???;;;JL un moment racinepsi=lracz comprend pas
+racinepsi;efficient root length density participating in predawn potential, located in the moist layers (PSISOL < -1.5 Mpa), else =0.;cm root cm-3 soil;racinepsi;root_psi;JL un moment racinepsi=lracz comprend pas
 rac;resistance of the canopy boundary layer;s m-1;rac;;ML
 Ratm;atmospheric component of the long wave radiation;MJ m-2 day-1;Ratm;;ML
 rc;resistance of canopy;s m-1;?;;ML
@@ -174,7 +174,7 @@ rnet_PE;Net radiation for Brunt formula;MJ m-2;rnet;net_radiation;DR
 rnet_PT;Net radiation for Priestley-Taylor evapotranspiration calculation;MJ m-2;rnet dans calceeq;net_radiation;DR
 rnetmax;maximum value of daily net radiation;W m-2;rnetmax dans caltcult.f90;;ML
 rnetmin;minimum value of daily net radiation;W m-2;rnetmin dans caltcult.f90;;ML
-rnetP;net radiation affectiong the crop;MJ m-2;;;ML
+rnetP;net radiation affecting the crop;MJ m-2;;;ML
 Rsol;surface comopnent of the long wave radiation;MJ m-2 day-1;Rsolglo;;ML
 RsRso;total to extraterrestrial radiation ratio;SD;RsRso;;AM
 rtransmis;radiation transmistted through the crop;MJ m-2 day-1;rtransmis;;AM
@@ -188,7 +188,7 @@ sbvmax;leaf expansion allowed per unit of biomass accumulated;cm2 g-1;?;;AM
 sla;maximum SLA (specific leaf area) of green leaves;cm2 g-1;slamax;maximum_specific_leaf_area;DR
 somger;growing degree-days from planting in the seed bed;degrees C;somger;;DR
 SOMSEN;current thermal time for senescence;Q10;?;;AM
-ST_LAI;growing degree-days since emergence;?;;;DR
+ST_LAI;growing degree-days since emergence;degreesC;;;DR
 stdebsenrac_p; life span of roots;degreeC day-1; ??; life_span_root; AM devrait etre dans parameters
 SURFAO;fraction of surface in the shade;SD;?;;AM
 SURFAS;fraction of surface in the sun;SD;?;;AM
@@ -228,8 +228,8 @@ drliz;daily root length emission per elementary layer;cm root cm-3 soil;drliz;;A
 Wi;index of soil water availability (0-1);SD;;;DR
 aevap;soil evaporation parameter combining climatic and soils aspects;mm;;;DR
 EVAP0;accumulation of evaporative fluxes (esol, Emd, emulch);mm;;;DR
-RNETP1;;MJ m-2 day-1;;;DR
-RNETP2;;MJ m-2 day-1;;;DR
+RNETP1;net radiation affecting the crop (use for direct evaporation);MJ m-2 day-1;;;DR
+RNETP2;net radiation affecting the crop (use for transpiration);MJ m-2 day-1;;;DR
 dh;displacement height;m;;;DR
 hmin;water content at permanent wilting point of macro layer;%weight;;;DR
 vnit;nitrification rate;mg N kg-1 day-1;vnit;;FF
@@ -237,11 +237,11 @@ vnitpot;potential nitrification rate;mg N kg-1 day-1;vnitpot;;FF
 theta_sat;volumic soil water content at saturation;cm3 cm-3;theta_sat;;FF
 devjour;daily development rate;ND;devjourfr;;PL
 k;growth compartment;ND;i;;PL
-croifruit;fruit growth;?;croifruit;;PL
+croifruit;fruit growth;g m-2;croifruit;;PL
 teaugrain;Water content of (harvested) organs;g g-1;teaugrain;;PL
 dltazo;daily increase of grain nitrogen content;kgN.ha-1.day-1;dltazo;;PL-BD
 potcroifruit;potential growth of a fruit;g.fruit-1.day-1;potcroifruit;;BD
-dfr;fruit development stage of each age class;[-];dfr;;BD
+dfr;fruit development stage of each age class;SD;dfr;;BD
 mafraisfeuille;leaf fresh matter;t.ha-1;mafraisfeuille;;BD
 mafraistige;structural stem fresh matter;t.ha-1;mafraistige;;BD
 mafraisres;reserve fresh matter;t.ha-1;mafraisres;;BD

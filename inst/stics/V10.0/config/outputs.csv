@@ -72,7 +72,7 @@ CO2hum;daily amount of CO2-C emitted due to the mineralisation of soil humus;kg.
 CO2res;daily amount of CO2-C emitted due to the mineralisation of organic residues;kg.ha-1.d-1;sc;real;0;0
 CO2sol;daily amount of CO2-C emitted due to soil mineralisation (humus and organic residues);kg.ha-1.d-1;sc;real;0;0
 codebbch_output;code of the bbch stage (see plant file);0-99;p;integer;0;1
-concN_W_drained;;;soil;real;0;0
+concN_W_drained;daily nitrate concentration in drainage water;mg NO3.l-1.day;soil;real;0;0
 concNO3les;nitrate concentration in drained water;mg NO3.l-1;soil;real;0;0
 concNO3sol(1);nitrate concentration in soil layer 1;mg NO3.l-1;sc;real;1;0
 concNO3sol(2);nitrate concentration in soil layer 2;mg NO3.l-1;sc;real;2;0
@@ -119,41 +119,41 @@ cumvminh;daily amount of N mineralised from humus;kg.ha-1.d-1;soil;real;0;0
 cumvminr;daily amount of N mineralised from organic residues;kg.ha-1.d-1;soil;real;0;0
 da(1);bulk density of the layer 1 (recalculated  by the model if codeDSTtass is 1);g.cm-3;soil;real;1;0
 da(2);bulk density of the layer 2 (recalculated  by the model if codeDSTtass is 1);g.cm-3;soil;real;2;0
-date_irrigations(1);date of irrigation;SD;sc;integer;1;0
-date_irrigations(10);date of irrigation;SD;sc;integer;10;0
-date_irrigations(11);date of irrigation;SD;sc;integer;11;0
-date_irrigations(12);date of irrigation;SD;sc;integer;12;0
-date_irrigations(13);date of irrigation;SD;sc;integer;13;0
-date_irrigations(14);date of irrigation;SD;sc;integer;14;0
-date_irrigations(15);date of irrigation;SD;sc;integer;15;0
-date_irrigations(16);date of irrigation;SD;sc;integer;16;0
-date_irrigations(17);date of irrigation;SD;sc;integer;17;0
-date_irrigations(18);date of irrigation;SD;sc;integer;18;0
-date_irrigations(19);date of irrigation;SD;sc;integer;19;0
-date_irrigations(2);date of irrigation;SD;sc;integer;2;0
-date_irrigations(20);date of irrigation;SD;sc;integer;20;0
-date_irrigations(21);date of irrigation;SD;sc;integer;21;0
-date_irrigations(22);date of irrigation;SD;sc;integer;22;0
-date_irrigations(23);date of irrigation;SD;sc;integer;23;0
-date_irrigations(24);date of irrigation;SD;sc;integer;24;0
-date_irrigations(25);date of irrigation;SD;sc;integer;25;0
-date_irrigations(26);date of irrigation;SD;sc;integer;26;0
-date_irrigations(27);date of irrigation;SD;sc;integer;27;0
-date_irrigations(28);date of irrigation;SD;sc;integer;28;0
-date_irrigations(29);date of irrigation;SD;sc;integer;29;0
-date_irrigations(3);date of irrigation;SD;sc;integer;3;0
-date_irrigations(30);date of irrigation;SD;sc;integer;30;0
-date_irrigations(4);date of irrigation;SD;sc;integer;4;0
-date_irrigations(5);date of irrigation;SD;sc;integer;5;0
-date_irrigations(6);date of irrigation;SD;sc;integer;6;0
-date_irrigations(7);date of irrigation;SD;sc;integer;7;0
-date_irrigations(8);date of irrigation;SD;sc;integer;8;0
-date_irrigations(9);date of irrigation;SD;sc;integer;9;0
+date_irrigations(1);date of irrigation;julian day;sc;integer;1;0
+date_irrigations(10);date of irrigation;julian day;sc;integer;10;0
+date_irrigations(11);date of irrigation;julian day;sc;integer;11;0
+date_irrigations(12);date of irrigation;julian day;sc;integer;12;0
+date_irrigations(13);date of irrigation;julian day;sc;integer;13;0
+date_irrigations(14);date of irrigation;julian day;sc;integer;14;0
+date_irrigations(15);date of irrigation;julian day;sc;integer;15;0
+date_irrigations(16);date of irrigation;julian day;sc;integer;16;0
+date_irrigations(17);date of irrigation;julian day;sc;integer;17;0
+date_irrigations(18);date of irrigation;julian day;sc;integer;18;0
+date_irrigations(19);date of irrigation;julian day;sc;integer;19;0
+date_irrigations(2);date of irrigation;julian day;sc;integer;2;0
+date_irrigations(20);date of irrigation;julian day;sc;integer;20;0
+date_irrigations(21);date of irrigation;julian day;sc;integer;21;0
+date_irrigations(22);date of irrigation;julian day;sc;integer;22;0
+date_irrigations(23);date of irrigation;julian day;sc;integer;23;0
+date_irrigations(24);date of irrigation;julian day;sc;integer;24;0
+date_irrigations(25);date of irrigation;julian day;sc;integer;25;0
+date_irrigations(26);date of irrigation;julian day;sc;integer;26;0
+date_irrigations(27);date of irrigation;julian day;sc;integer;27;0
+date_irrigations(28);date of irrigation;julian day;sc;integer;28;0
+date_irrigations(29);date of irrigation;julian day;sc;integer;29;0
+date_irrigations(3);date of irrigation;julian day;sc;integer;3;0
+date_irrigations(30);date of irrigation;julian day;sc;integer;30;0
+date_irrigations(4);date of irrigation;julian day;sc;integer;4;0
+date_irrigations(5);date of irrigation;julian day;sc;integer;5;0
+date_irrigations(6);date of irrigation;julian day;sc;integer;6;0
+date_irrigations(7);date of irrigation;julian day;sc;integer;7;0
+date_irrigations(8);date of irrigation;julian day;sc;integer;8;0
+date_irrigations(9);date of irrigation;julian day;sc;integer;9;0
 day_after_begin_simul;number of days from the beginning of simulation;days;sc;integer;0;0
 day_after_emergence;number of days after emergence;days;p;integer;0;1
 day_after_sowing;days after sowing or planting;days;sc;integer;0;0
 day_cut;cut day;julian day;p;integer;0;0
-DCbmulch;;;sc;real;0;0
+DCbmulch;change in C amount in microbial biomass decomposing mulch between the beginning and the end of simulation;kg.ha-1;sc;real;0;0
 DChumt;change in humified organic C in soil between beginning and end of simulation;kg.ha-1;sc;real;0;0
 DCmulch;change in mulch C between the beginning and end of simulation;kg.ha-1;sc;real;0;0
 DCr;change in C of organic residues between begining and end of simulation;kg.ha-1;sc;real;0;0
@@ -709,11 +709,11 @@ SOCbalance;Soil organic C balance (inputs-outputs) over the whole soil profile;k
 SOCinputs;Soil organic C inputs to the whole soil profile;kg.ha-1;sc;real;0;0
 SOCtot;amount of soil organic C (all organic pools) over the whole soil profile;kg.ha-1;sc;real;0;0
 SoilAvW;amount of plant available water in soil over the depth profmes;mm;sc;real;0;0
-SoilAvW_by_layers(1);;;sc;real;1;0
-SoilAvW_by_layers(2);;;sc;real;2;0
-SoilAvW_by_layers(3);;;sc;real;3;0
-SoilAvW_by_layers(4);;;sc;real;4;0
-SoilAvW_by_layers(5);;;sc;real;5;0
+SoilAvW_by_layers(1);amount of plant available water in soil for layer 1;mm;sc;real;1;0
+SoilAvW_by_layers(2);amount of plant available water in soil for layer 2;mm;sc;real;2;0
+SoilAvW_by_layers(3);amount of plant available water in soil for layer 3;mm;sc;real;3;0
+SoilAvW_by_layers(4);amount of plant available water in soil for layer 4;mm;sc;real;4;0
+SoilAvW_by_layers(5);amount of plant available water in soil for layer 5;mm;sc;real;5;0
 SoilN;amount of mineral N in soil over the depth profmes;kg.ha-1;sc;real;0;0
 SoilNM;amount of NO3-N in soil over the depth profmesN;kg.ha-1;sc;real;0;0
 SoilWatM;amount of plant available water in soil over the depth profmesW;mm;sc;real;0;0
@@ -779,7 +779,7 @@ tnhc;cumulative normalized time for the mineralisation of humus;d;sc;real;0;0
 tnrc;cumulative normalized time for the mineralisation of organic residues;d;sc;real;0;0
 totapN;cumulative amount of mineral N added by mineral fertilisers and organic fertilisers;kg.ha-1;sc;real;0;0
 totapNres;cumulative amount of mineral N added by organic fertilisers;kg.ha-1;sc;real;0;0
-totir;cumulative amount of water inputs (precipitation + irrigation);mm;sc;real;0;0
+totir;cumulative amount of irrigation water;mm;sc;real;0;0
 tpm(n);water vapour pressure in air;hPa;c;real;n;0
 trg(n);active radiation (entered or calculated);MJ.m-2;c;real;n;0
 trgext(n);exterior radiation;MJ.m-2;c;real;n;0

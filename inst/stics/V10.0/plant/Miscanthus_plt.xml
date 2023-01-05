@@ -186,7 +186,7 @@
         <param format="real" max="1.0" min="0.0" nom="PropresPN">0.6</param>
         <param format="real" max="1.0" min="0.0" nom="Efremobil">0.05</param>
         <param format="real" max="1.0" min="0.0" nom="Propres">0.12</param>
-        <param format="real" max="1.0" min="0.0" nom="tauxmortresP">0.001</param>
+        <param format="real" max="1.0" min="0.0" nom="tauxmortresP">0.0005</param>
         <param format="real" max="200.0" min="5.0" nom="Parazoper">45</param>
         <param format="real" max="200.0" min="10.0" nom="ParazoTmorte">120</param>
         <param format="real" max="0.1" min="0" nom="inilai">0.001</param>
@@ -218,11 +218,11 @@
     </option>
   </formalisme>
   <formalisme nom="yield formation">
+    <param format="real" max="10000.0" min="0.0" nom="irazomax">0</param>
     <option choix="1" nom="growing dynamics" nomParam="codeindetermin">
       <choix code="1" nom="determinate growing plant">
         <param format="real" max="1.0" min="0.00" nom="cgrain">0</param>
         <param format="real" max="15000.0" min="0.0" nom="cgrainv0">0.000</param>
-        <param format="real" max="10000.0" min="0.0" nom="nbgrmin">0.000</param>
         <option choix="2" nom="unit Harvest Index" nomParam="codeir">
           <choix code="1" nom="days">
             <param format="real" max="1.0" min="0.2" nom="irmax">-999</param>
@@ -468,8 +468,8 @@
           <param format="real" max="6000.0" min="0.0" nom="stlevdrp">2300</param>
           <param format="real" max="500.0" min="0.0" nom="stflodrp">0</param>
           <param format="real" max="900.0" min="0.0" nom="stdrpdes">50</param>
+          <param format="integer" max="70" min="0" nom="jvc">0</param>
           <optionv nom="codebfroid">
-            <param code="2" format="integer" max="70" min="0" nom="jvc">-999</param>
             <param code="3" format="real" max="20000.0" min="0.0" nom="stdordebour">70</param>
           </optionv>
           <optionv nom="codephot">
@@ -519,14 +519,14 @@
             <param code="1" format="real" max="10000.0" min="0.0" nom="nbgrmin">0</param>
             <param code="1" format="real" max="1000000.0" min="0.0" nom="nbgrmax">1000</param>
             <param code="1" format="real" max="2000.0" min="0.0" nom="stdrpmat">1000</param>
-            <optionv nom="codeir">
+            <optionv code="1" nom="codeir">
               <param code="1" format="real" max="0.02" min="0.001" nom="vitircarb">-999</param>
               <param code="2" format="real" max="0.002" min="5.0E-5" nom="vitircarbT">0.0</param>
             </optionv>
             <param code="2" format="real" max="20.0" min="0.5" nom="afruitpot">-999</param>
             <param code="2" format="real" max="2000.0" min="10.0" nom="dureefruit">-999</param>
             <param code="2" format="real" max="6000.0" min="0.0" nom="stdrpnou">-999</param>
-            <optionv nom="codcalinflo">
+            <optionv code="2" nom="codcalinflo">
               <param code="1" format="real" max="100.0" min="0.0" nom="nbinflo">-999</param>
               <param code="2" format="real" max="100.0" min="0.0" nom="inflomax">-999</param>
               <param code="2" format="real" max="10.0" min="0.0" nom="pentinflores">-999</param>
