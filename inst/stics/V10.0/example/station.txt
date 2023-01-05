@@ -13,7 +13,7 @@ aclim
 codeetp
 1
 alphapt
-1.26000
+1.26
 codeclichange
 1
 codaltitude

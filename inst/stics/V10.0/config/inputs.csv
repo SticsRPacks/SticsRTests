@@ -485,7 +485,8 @@ CsurNres(6);C/N ratio of residue;g.g-1;PARTEC;11;real;4;300;1;0
 CsurNres(7);C/N ratio of residue;g.g-1;PARTEC;11;real;4;300;1;0
 CsurNres(8);C/N ratio of residue;g.g-1;PARTEC;11;real;4;300;1;0
 CsurNres(9);C/N ratio of residue;g.g-1;PARTEC;11;real;4;300;1;0
-CsurNsol;C to N ratio of soil humus;g.g-1;PARSOL;1;real;8;20;1;0
+CsurNsol;Initial C to N ratio of soil humus;g.g-1;PARSOL;1;real;8;20;1;0
+CsurNsol0;Initial C to N ratio of soil humus;g.g-1;PARSOL;1;real;8;20;1;0
 culturean;number of calendar years involved in the crop cycle (1 = 1 year e.g. for spring crops, 2 = two years, e.g. for winter crops);SD;USM/USMXML;1;integer;1;2;1;0
 cvent;parameter of the climate calculation under shelter;SD;STATION;1;real;0.001;1;1;0
 cwb;minimum ratio C/N of microbial biomass decomposing organic residues;g.g-1;PARAM;21;real;5;60;1;0
@@ -956,7 +957,7 @@ jultrav(7);date(s) of soil tillage;julian_d;PARTEC;11;integer;1;731;1;0
 jultrav(8);date(s) of soil tillage;julian_d;PARTEC;11;integer;1;731;1;0
 jultrav(9);date(s) of soil tillage;julian_d;PARTEC;11;integer;1;731;1;0
 julvernal;day of initiation of vernalisation in perennial crops (between 1 and 365) ;julian_d;PARPLT;1;integer;1;731;1;0
-jvc;number of vernalising days;d;PARPLT;1;real;0;70;1;1
+jvc;number of vernalising  days or dormancy units;d;PARPLT;1;real;0;150;1;1
 jvcmini;minimum number of vernalising days ;d;PARPLT;1;real;0;20;1;0
 Kamm;affinity constant for NH4 in nitrification (if Michaelis_Menten formalism is used);mg.L-1;PARAM;1;real;1;100;1;0
 kbio;potential decay rate of microbial biomass decomposing organic residues;d-1;PARAM;21;real;0;0.2;1;0

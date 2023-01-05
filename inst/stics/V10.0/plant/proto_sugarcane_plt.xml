@@ -219,11 +219,11 @@
     </option>
   </formalisme>
   <formalisme nom="yield formation">
+    <param format="real" max="1.0" min="0.01" nom="irazomax">1</param>
     <option choix="2" nom="growing dynamics" nomParam="codeindetermin">
       <choix code="1" nom="determinate growing plant">
         <param format="real" max="1.0" min="0.01" nom="cgrain">-999</param>
         <param format="real" max="15000.0" min="0.0" nom="cgrainv0">-999</param>
-        <param format="real" max="1.0" min="0.01" nom="irazomax">-999</param>
         <option choix="1" nom="unit Harvest Index" nomParam="codeir">
           <choix code="1" nom="days">
             <param format="real" max="1.0" min="0.2" nom="irmax">-999</param>
@@ -469,8 +469,8 @@
           <param format="real" max="6000.0" min="0.0" nom="stlevdrp">1000</param>
           <param format="real" max="500.0" min="0.0" nom="stflodrp">0</param>
           <param format="real" max="900.0" min="0.0" nom="stdrpdes">650</param>
+          <param format="integer" max="70" min="0" nom="jvc">0</param>
           <optionv nom="codebfroid">
-            <param code="2" format="integer" max="70" min="0" nom="jvc">-999</param>
             <param code="3" format="real" max="20000.0" min="0.0" nom="stdordebour">-999</param>
           </optionv>
           <optionv nom="codephot">
@@ -497,7 +497,7 @@
         </formalismev>
         <formalismev nom="radiation interception">
           <optionv nom="codetransrad">
-            <param code="1" format="real" max="1.5" min="0.1" nom="extin">0.555</param>
+            <param code="1" format="real" max="1.5" min="0.1" nom="extin">0.55</param>
             <param code="2" format="real" max="2.0" min="0.1" nom="ktrou">-999</param>
           </optionv>
         </formalismev>
@@ -520,14 +520,14 @@
             <param code="1" format="real" max="10000.0" min="0.0" nom="nbgrmin">-999</param>
             <param code="1" format="real" max="1000000.0" min="0.0" nom="nbgrmax">-999</param>
             <param code="1" format="real" max="2000.0" min="0.0" nom="stdrpmat">-999</param>
-            <optionv nom="codeir">
+            <optionv code="1" nom="codeir">
               <param code="1" format="real" max="0.02" min="0.001" nom="vitircarb">0.003</param>
               <param code="2" format="real" max="0.002" min="5.0E-5" nom="vitircarbT">-999</param>
             </optionv>
             <param code="2" format="real" max="20.0" min="0.5" nom="afruitpot">0.03</param>
             <param code="2" format="real" max="2000.0" min="10.0" nom="dureefruit">3000</param>
             <param code="2" format="real" max="6000.0" min="0.0" nom="stdrpnou">650</param>
-            <optionv nom="codcalinflo">
+            <optionv code="2" nom="codcalinflo">
               <param code="1" format="real" max="100.0" min="0.0" nom="nbinflo">1</param>
               <param code="2" format="real" max="100.0" min="0.0" nom="inflomax">-999</param>
               <param code="2" format="real" max="10.0" min="0.0" nom="pentinflores">-999</param>
@@ -561,8 +561,8 @@
           <param format="real" max="6000.0" min="0.0" nom="stlevdrp">1740</param>
           <param format="real" max="500.0" min="0.0" nom="stflodrp">0</param>
           <param format="real" max="900.0" min="0.0" nom="stdrpdes">650</param>
+          <param format="integer" max="70" min="0" nom="jvc">0</param>
           <optionv nom="codebfroid">
-            <param code="2" format="integer" max="70" min="0" nom="jvc">-999</param>
             <param code="3" format="real" max="20000.0" min="0.0" nom="stdordebour">-999</param>
           </optionv>
           <optionv nom="codephot">
@@ -589,7 +589,7 @@
         </formalismev>
         <formalismev nom="radiation interception">
           <optionv nom="codetransrad">
-            <param code="1" format="real" max="1.5" min="0.1" nom="extin">0.555</param>
+            <param code="1" format="real" max="1.5" min="0.1" nom="extin">0.55</param>
             <param code="2" format="real" max="2.0" min="0.1" nom="ktrou">-999</param>
           </optionv>
         </formalismev>
@@ -612,14 +612,14 @@
             <param code="1" format="real" max="10000.0" min="0.0" nom="nbgrmin">-999</param>
             <param code="1" format="real" max="1000000.0" min="0.0" nom="nbgrmax">-999</param>
             <param code="1" format="real" max="2000.0" min="0.0" nom="stdrpmat">-999</param>
-            <optionv nom="codeir">
+            <optionv code="1" nom="codeir">
               <param code="1" format="real" max="0.02" min="0.001" nom="vitircarb">0.003</param>
               <param code="2" format="real" max="0.002" min="5.0E-5" nom="vitircarbT">-999</param>
             </optionv>
             <param code="2" format="real" max="20.0" min="0.5" nom="afruitpot">0.03</param>
             <param code="2" format="real" max="2000.0" min="10.0" nom="dureefruit">3000</param>
             <param code="2" format="real" max="6000.0" min="0.0" nom="stdrpnou">650</param>
-            <optionv nom="codcalinflo">
+            <optionv code="2" nom="codcalinflo">
               <param code="1" format="real" max="100.0" min="0.0" nom="nbinflo">1</param>
               <param code="2" format="real" max="100.0" min="0.0" nom="inflomax">-999</param>
               <param code="2" format="real" max="10.0" min="0.0" nom="pentinflores">-999</param>
@@ -653,8 +653,8 @@
           <param format="real" max="6000.0" min="0.0" nom="stlevdrp">1000</param>
           <param format="real" max="500.0" min="0.0" nom="stflodrp">0</param>
           <param format="real" max="900.0" min="0.0" nom="stdrpdes">650</param>
+          <param format="integer" max="70" min="0" nom="jvc">0</param>
           <optionv nom="codebfroid">
-            <param code="2" format="integer" max="70" min="0" nom="jvc">-999</param>
             <param code="3" format="real" max="20000.0" min="0.0" nom="stdordebour">-999</param>
           </optionv>
           <optionv nom="codephot">
@@ -681,7 +681,7 @@
         </formalismev>
         <formalismev nom="radiation interception">
           <optionv nom="codetransrad">
-            <param code="1" format="real" max="1.5" min="0.1" nom="extin">0.555</param>
+            <param code="1" format="real" max="1.5" min="0.1" nom="extin">0.55</param>
             <param code="2" format="real" max="2.0" min="0.1" nom="ktrou">-999</param>
           </optionv>
         </formalismev>
@@ -704,14 +704,14 @@
             <param code="1" format="real" max="10000.0" min="0.0" nom="nbgrmin">-999</param>
             <param code="1" format="real" max="1000000.0" min="0.0" nom="nbgrmax">-999</param>
             <param code="1" format="real" max="2000.0" min="0.0" nom="stdrpmat">-999</param>
-            <optionv nom="codeir">
+            <optionv code="1" nom="codeir">
               <param code="1" format="real" max="0.02" min="0.001" nom="vitircarb">0.003</param>
               <param code="2" format="real" max="0.002" min="5.0E-5" nom="vitircarbT">-999</param>
             </optionv>
             <param code="2" format="real" max="20.0" min="0.5" nom="afruitpot">0.0015</param>
             <param code="2" format="real" max="2000.0" min="10.0" nom="dureefruit">3500</param>
             <param code="2" format="real" max="6000.0" min="0.0" nom="stdrpnou">650</param>
-            <optionv nom="codcalinflo">
+            <optionv code="2" nom="codcalinflo">
               <param code="1" format="real" max="100.0" min="0.0" nom="nbinflo">1</param>
               <param code="2" format="real" max="100.0" min="0.0" nom="inflomax">-999</param>
               <param code="2" format="real" max="10.0" min="0.0" nom="pentinflores">-999</param>
