@@ -17,7 +17,7 @@ Description: The package uses testthat to run all tests that cannot be made dire
 License: file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.0
+RoxygenNote: 7.2.1
 Imports: 
   SticsRFiles,
   SticsOnR,
@@ -25,12 +25,14 @@ Imports:
   CroPlotR,
 	xfun,
 	knitr,
-	testthat
+	testthat,
+  SticsRPacks
 Remotes: 
   github::SticsRPacks/CroPlotR@master,
   github::SticsRPacks/CroptimizR@master,
   github::SticsRPacks/SticsOnR@master,
   github::SticsRPacks/SticsRFiles@master,
+  github::SticsRPacks/SticsRPacks@master,
 Roxygen: list(markdown = TRUE)
 SystemRequirements: Java 8
 BinaryFiles:
@@ -112,5 +114,3 @@ BinaryFiles:
   inst/stics/V90/bin/jre7/bin/w2k_lsa_auth.dll,
   inst/stics/V90/bin/jre7/bin/wsdetect.dll,
   inst/stics/V90/bin/jre7/bin/zip.dll
-
-	
