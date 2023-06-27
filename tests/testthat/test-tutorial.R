@@ -2,7 +2,7 @@
 #Download and transform Tutorial .RMD to .R
 tmpdir <- normalizePath(tempdir(), winslash = "/", mustWork = FALSE)
 tutorial_rmd <-file.path(tmpdir,"SticsRpacks.Rmd")
-download.file("https://raw.githubusercontent.com/SticsRPacks/SticsRPacks/master/inst/tutorials/SticsRpacks/SticsRpacks.Rmd",
+download.file("https://raw.githubusercontent.com/SticsRPacks/SticsRPacks/main/inst/tutorials/SticsRpacks/SticsRpacks.Rmd",
               tutorial_rmd)
 xfun::gsub_file(file=tutorial_rmd,
                 "eval=FALSE","eval=TRUE",fixed=TRUE)

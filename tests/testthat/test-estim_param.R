@@ -33,7 +33,7 @@ context("Parameter estimation")
 
 tmpdir <- normalizePath(tempdir(), winslash = "/", mustWork = FALSE)
 simple_case_rmd <-file.path(tmpdir,"Parameter_estimation_simple_case.Rmd")
-download.file("https://raw.github.com/SticsRPacks/CroptimizR/master/vignettes/Parameter_estimation_simple_case.Rmd",
+download.file("https://raw.github.com/SticsRPacks/CroptimizR/main/vignettes/Parameter_estimation_simple_case.Rmd",
               simple_case_rmd)
 
 ## set the parameters for a run in auto_test mode
@@ -114,7 +114,7 @@ test_that("Test Vignette simple_case", {
 
 tmpdir <- normalizePath(tempdir(), winslash = "/", mustWork = FALSE)
 vignette_rmd <-file.path(tmpdir,"Parameter_estimation_Specific_and_Varietal.Rmd")
-download.file("https://raw.github.com/SticsRPacks/CroptimizR/master/vignettes/Parameter_estimation_Specific_and_Varietal.Rmd",
+download.file("https://raw.github.com/SticsRPacks/CroptimizR/main/vignettes/Parameter_estimation_Specific_and_Varietal.Rmd",
               vignette_rmd)
 
 ## set the parameters for a run in auto_test mode
@@ -428,7 +428,7 @@ test_that("Test rotation", {
 #
 # tmpdir <- normalizePath(tempdir(), winslash = "/", mustWork = FALSE)
 # vignette_rmd <-file.path(tmpdir,"Parameter_estimation_DREAM.Rmd")
-# download.file("https://raw.github.com/SticsRPacks/CroptimizR/master/vignettes/Parameter_estimation_DREAM.Rmd",
+# download.file("https://raw.github.com/SticsRPacks/CroptimizR/main/vignettes/Parameter_estimation_DREAM.Rmd",
 #               vignette_rmd)
 #
 # ## set the parameters for a run in auto_test mode
@@ -486,7 +486,7 @@ test_that("Test rotation", {
 
 tmpdir <- normalizePath(tempdir(), winslash = "/", mustWork = FALSE)
 vignette_rmd <-file.path(tmpdir,"AgMIP_Calibration_Phenology_protocol.Rmd")
-download.file("https://raw.github.com/SticsRPacks/CroptimizR/master/vignettes/AgMIP_Calibration_Phenology_protocol.Rmd",
+download.file("https://raw.github.com/SticsRPacks/CroptimizR/main/vignettes/AgMIP_Calibration_Phenology_protocol.Rmd",
               vignette_rmd)
 
 ## set the parameters for a run in auto_test mode
