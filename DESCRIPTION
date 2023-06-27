@@ -28,11 +28,11 @@ Imports:
 	testthat,
   SticsRPacks
 Remotes: 
-  github::SticsRPacks/CroPlotR@master,
-  github::SticsRPacks/CroptimizR@master,
-  github::SticsRPacks/SticsOnR@master,
-  github::SticsRPacks/SticsRFiles@master,
-  github::SticsRPacks/SticsRPacks@master,
+  github::SticsRPacks/CroPlotR@main,
+  github::SticsRPacks/CroptimizR@main,
+  github::SticsRPacks/SticsOnR@main,
+  github::SticsRPacks/SticsRFiles@main,
+  github::SticsRPacks/SticsRPacks@main,
 Roxygen: list(markdown = TRUE)
 SystemRequirements: Java 8
 BinaryFiles:
