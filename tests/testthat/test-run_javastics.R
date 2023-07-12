@@ -41,7 +41,7 @@ test_that("run_javastics works using standard call", {
 # Using a custom exe ------------------------------------------------------
 
 custom_stics_exe =
-  switch (SticsOnR:::user_os(),
+  switch (SticsRFiles:::user_os(),
           win = "stics_custom.exe",
           lin = "stics_custom_lin",
           #mac = "stics_custom_mac",
@@ -71,7 +71,7 @@ test_that("run_javastics works using a custom executable: exe label", {
   usms_out = run_javastics(javastics = javastics,
                            workspace = workspace,
                            stics_exe = paste0("stics_custom_",
-                                              SticsOnR:::user_os()),
+                                              SticsRFiles:::user_os()),
                            usm = usms, verbose = FALSE)
   errored = unlist(lapply(usms_out, function(x) x$error))
 
