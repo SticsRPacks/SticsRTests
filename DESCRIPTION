@@ -23,6 +23,7 @@ Imports:
   SticsOnR,
   CroptimizR,
   CroPlotR,
+  dplyr,
 	xfun,
 	knitr,
 	testthat,
