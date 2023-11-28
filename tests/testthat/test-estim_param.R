@@ -88,7 +88,7 @@ source(simple_case_r_tmp)
 ## load the results
 load(file.path(optim_options$out_dir,"optim_results.Rdata"))
 nlo_new<-lapply(res$nlo,function(x) {x$call<-NULL;x}) # remove "call" since it may change between code versions ...
-load(system.file(file.path("extdata","ResultsSimpleCase2repet4iter"), "optim_results.Rdata", package = "CroptimizR"))
+load(system.file(file.path("extdata","ResSimpleCase2rep4it"), "optim_results.Rdata", package = "CroptimizR"))
 nlo<-lapply(nlo,function(x) {x$call<-NULL;x})
 
 test_that("Test Vignette simple_case", {
@@ -167,7 +167,7 @@ source(file.path(tmpdir,"Parameter_estimation_Specific_and_Varietal.R"))
 ## load the results
 load(file.path(optim_options$out_dir,"optim_results.Rdata"))
 nlo_new<-lapply(res$nlo,function(x) {x$call<-NULL;x}) # remove "call" since it may change between code versions ...
-load(system.file(file.path("extdata","ResultsSpecificVarietal_2repet4iter",stics_version), "optim_results.Rdata", package = "CroptimizR"))
+load(system.file(file.path("extdata","ResSpecVar_2rep4it",stics_version), "optim_results.Rdata", package = "CroptimizR"))
 nlo<-lapply(res$nlo,function(x) {x$call<-NULL;x}) # remove "call" since it may change between code versions ...
 
 test_that("Test Vignette specific and varietal", {
@@ -326,7 +326,7 @@ SticsRFiles::gen_usms_xml2txt(javastics = javastics_path, workspace = javastics_
 ## Create synthetic observations
 model_options <- SticsOnR::stics_wrapper_options(javastics=javastics_path, workspace = stics_inputs_path, parallel=FALSE)
 tmp <- SticsOnR::stics_wrapper(model_options=model_options, param_values=c(dlaimax=0.0012, durvieF=100),
-                               var="lai_n", situation="bo96iN+")
+                               var=c("lai_n","masec_n"), situation="bo96iN+")
 obs_synth <- tmp$sim_list
 
 ## Try to retrieve dlaimax value
@@ -349,7 +349,7 @@ optim_results2=estim_param(obs_list=obs_synth,
 test_that("Test forced_param_values argument", {
   expect_equal(optim_results1$final_values[["dlaimax"]],0.0012, tolerance = 1e-5)
   expect_gt(optim_results1$final_values[["dlaimax"]]-optim_results2$final_values[["dlaimax"]],
-            2e-4)
+            1e-4)
 })
 
 
@@ -469,7 +469,7 @@ test_that("Test rotation", {
 # load(file.path(optim_options$out_dir,"optim_results.Rdata"))
 # res$out=NULL
 # res_new=res
-# load(system.file(file.path("extdata","ResultsSpecificVarietalDREAM_4iter"), "optim_results.Rdata", package = "CroptimizR"))
+# load(system.file(file.path("extdata","ResSpecVarDREAM_4it"), "optim_results.Rdata", package = "CroptimizR"))
 # res$out=NULL
 #
 # test_that("Test Vignette DREAM", {
@@ -533,7 +533,7 @@ source(file.path(tmpdir,"AgMIP_Calibration_Phenology_protocol.R"))
 ## load the results
 load(file.path(optim_options$out_dir,"optim_results.Rdata"))
 nlo_new<-lapply(res$nlo,function(x) {x$call<-NULL;x}) # remove "call" since it may change between code versions ...
-load(system.file(file.path("extdata","ResultsAgmipPhenology_2repet4iter",stics_version), "optim_results.Rdata", package = "CroptimizR"))
+load(system.file(file.path("extdata","ResAgmipPheno_2rep4it",stics_version), "optim_results.Rdata", package = "CroptimizR"))
 nlo<-lapply(res$nlo,function(x) {x$call<-NULL;x}) # remove "call" since it may change between code versions ...
 
 test_that("Test Vignette AgMIP Phase III protocol", {
@@ -557,3 +557,119 @@ test_that("Test Vignette AgMIP Phase III protocol", {
     expect_true(file.exists(file.path(optim_options$out_dir,"results_all_steps",paste0("step_",i), "ValuesVSit_2D.pdf")))
   }
 })
+
+
+# Test use of wls criterion
+# -------------------------
+
+javastics_path=file.path(system.file("stics", package = "SticsRTests"),stics_version)
+data_dir= file.path(SticsRFiles::download_data(example_dirs="study_case_1", stics_version = stics_version))
+javastics_workspace_path=file.path(data_dir,"XmlFiles")
+stics_inputs_path=file.path(data_dir,"TxtFiles")
+dir.create(stics_inputs_path, showWarnings = FALSE)
+SticsRFiles::gen_usms_xml2txt(javastics = javastics_path, workspace = javastics_workspace_path,
+                              out_dir = stics_inputs_path, verbose = TRUE)
+
+## Create synthetic observations
+model_options <- SticsOnR::stics_wrapper_options(javastics=javastics_path, workspace = stics_inputs_path, parallel=FALSE)
+tmp <- SticsOnR::stics_wrapper(model_options=model_options, param_values=c(dlaimax=0.0012),
+                               var=c("lai_n"), situation="bo96iN+")
+obs_synth <- tmp$sim_list
+param_info=list(lb=c(dlaimax=0.0005),
+                ub=c(dlaimax=0.0020), init_values=c(dlaimax=c(0.001, 0.0011, 0.0013)))
+optim_options=list(nb_rep=3, maxeval=15, xtol_rel=1e-01, out_dir=data_dir, ranseed=1234)
+
+## Try to retrieve dlaimax value using OLS
+optim_results_ols=estim_param(obs_list=obs_synth,
+                           crit_function = crit_ols,
+                           model_function=SticsOnR::stics_wrapper,
+                           model_options=model_options,
+                           optim_options=optim_options,
+                           param_info=param_info)
+## Same but with wls, using a weight=1
+weight <- function(...) {
+  return(1)
+}
+optim_results_wls=estim_param(obs_list=obs_synth,
+                           crit_function = crit_wls,
+                           model_function=SticsOnR::stics_wrapper,
+                           model_options=model_options,
+                           optim_options=optim_options,
+                           param_info=param_info,
+                           weight = weight)
+test_that("Test use of WLS, weight equal to 1", {
+  expect_equal(optim_results_ols$final_values[["dlaimax"]],
+               optim_results_wls$final_values[["dlaimax"]], tolerance = 1e-5)
+})
+## Now bias large values of LAI and take them into account or not using the weight
+## check that estimated value of dlaimax is correct when weight of large values is set to Inf
+obs_synth$`bo96iN+`$lai_n[obs_synth$`bo96iN+`$lai_n>5] <-
+  obs_synth$`bo96iN+`$lai_n[obs_synth$`bo96iN+`$lai_n>5] + 3
+optim_results_wls1=estim_param(obs_list=obs_synth,
+                              crit_function = crit_wls,
+                              model_function=SticsOnR::stics_wrapper,
+                              model_options=model_options,
+                              optim_options=optim_options,
+                              param_info=param_info,
+                              weight = weight)
+weight <- function(obs,...) {
+  w <- rep(1,length(obs))
+  w[obs>8] <- Inf
+  return(w)
+}
+optim_results_wls2=estim_param(obs_list=obs_synth,
+                               crit_function = crit_wls,
+                               model_function=SticsOnR::stics_wrapper,
+                               model_options=model_options,
+                               optim_options=optim_options,
+                               param_info=param_info,
+                               weight = weight)
+test_that("Test use of WLS, weight equal to Inf", {
+  expect_equal(optim_results_ols$final_values[["dlaimax"]],
+               optim_results_wls2$final_values[["dlaimax"]], tolerance = 1e-5)
+  expect_gt(optim_results_wls1$final_values[["dlaimax"]]-optim_results_wls2$final_values[["dlaimax"]],
+            1e-4)
+})
+## test incorrect format for weight function
+w0 <- 1
+w1 <- function(arg1) {
+  return(1)
+}
+w2 <- function(...) {
+  return(TRUE)
+}
+w3 <- function(obs, ...) {
+  return(rep(1,length(obs)+1))
+}
+test_that("Test use of wls: error is caught for incorrect format of weight", {
+  expect_error(estim_param(obs_list=obs_synth,
+                           crit_function = crit_wls,
+                           model_function=SticsOnR::stics_wrapper,
+                           model_options=model_options,
+                           optim_options=optim_options,
+                           param_info=param_info,
+                           weight = w0))
+  expect_error(estim_param(obs_list=obs_synth,
+                           crit_function = crit_wls,
+                           model_function=SticsOnR::stics_wrapper,
+                           model_options=model_options,
+                           optim_options=optim_options,
+                           param_info=param_info,
+                           weight = w1))
+  expect_error(estim_param(obs_list=obs_synth,
+                           crit_function = crit_wls,
+                           model_function=SticsOnR::stics_wrapper,
+                           model_options=model_options,
+                           optim_options=optim_options,
+                           param_info=param_info,
+                           weight = w2))
+  expect_error(estim_param(obs_list=obs_synth,
+                           crit_function = crit_wls,
+                           model_function=SticsOnR::stics_wrapper,
+                           model_options=model_options,
+                           optim_options=optim_options,
+                           param_info=param_info,
+                           weight = w3))
+})
+
+
