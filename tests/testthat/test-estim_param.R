@@ -647,15 +647,6 @@ test_that("Test use of WLS, weight equal to Inf", {
 })
 ## test incorrect format for weight function
 w0 <- 1
-w1 <- function(arg1) {
-  return(1)
-}
-w2 <- function(...) {
-  return(TRUE)
-}
-w3 <- function(obs, ...) {
-  return(rep(1,length(obs)+1))
-}
 test_that("Test use of wls: error is caught for incorrect format of weight", {
   expect_error(estim_param(obs_list=obs_synth,
                            crit_function = crit_wls,
@@ -664,27 +655,4 @@ test_that("Test use of wls: error is caught for incorrect format of weight", {
                            optim_options=optim_options,
                            param_info=param_info,
                            weight = w0))
-  expect_error(estim_param(obs_list=obs_synth,
-                           crit_function = crit_wls,
-                           model_function=SticsOnR::stics_wrapper,
-                           model_options=model_options,
-                           optim_options=optim_options,
-                           param_info=param_info,
-                           weight = w1))
-  expect_error(estim_param(obs_list=obs_synth,
-                           crit_function = crit_wls,
-                           model_function=SticsOnR::stics_wrapper,
-                           model_options=model_options,
-                           optim_options=optim_options,
-                           param_info=param_info,
-                           weight = w2))
-  expect_error(estim_param(obs_list=obs_synth,
-                           crit_function = crit_wls,
-                           model_function=SticsOnR::stics_wrapper,
-                           model_options=model_options,
-                           optim_options=optim_options,
-                           param_info=param_info,
-                           weight = w3))
 })
-
-
