@@ -157,6 +157,14 @@ xfun::gsub_file(file=vignette_rmd,
                 pattern="stics_version = \"V9.0\"",
                 replacement=paste0("stics_version = \"",stics_version,"\""),fixed=TRUE)
 
+## Fixing cores number for CI context on Github
+if (Sys.getenv("CI") != "") {
+  xfun::gsub_file(file = vignette_rmd,
+                  "parallel = TRUE","parallel = TRUE, cores = 2",
+                  fixed = TRUE)
+}
+
+
 ## generate the R script
 knitr::purl(input=vignette_rmd,
             output=file.path(tmpdir,"Parameter_estimation_Specific_and_Varietal.R"), documentation = 2)
@@ -518,6 +526,13 @@ xfun::gsub_file(file=vignette_rmd,
 xfun::gsub_file(file=vignette_rmd,
                 pattern="stics_version = \"V9.0\"",
                 replacement=paste0("stics_version = \"",stics_version,"\""),fixed=TRUE)
+
+## Fixing cores number for CI context on Github
+if (Sys.getenv("CI") != "") {
+  xfun::gsub_file(file = vignette_rmd,
+                  "parallel = TRUE, cores = 4","parallel = TRUE, cores = 2",
+                  fixed = TRUE)
+}
 
 ## generate the R script
 knitr::purl(input=vignette_rmd,

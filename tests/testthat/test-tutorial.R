@@ -13,7 +13,7 @@ xfun::gsub_file(file = tutorial_rmd,
                 "optim_options = list(nb_rep = 3, out_dir = workspace_path, maxeval = 3)",
                 fixed = TRUE)
 
-if (!Sys.getenv("CI") != "") {
+if (Sys.getenv("CI") != "") {
   xfun::gsub_file(file = tutorial_rmd,
                   "parallel = TRUE","parallel = TRUE, cores = 2",
                   fixed = TRUE)
