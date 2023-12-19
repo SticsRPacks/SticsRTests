@@ -1,6 +1,15 @@
 
 context("Stics Wrapper")
 stics_version <- "V10.0"
+
+# fixing the number of cores in the context of Github CI
+if (Sys.getenv("CI") != "") {
+  cores <- 2
+} else {
+  cores <- NA
+}
+
+
 # Define path to JavaStics and download data
 path_to_JavaStics=system.file("stics", package = "SticsRTests")
 javastics_path=file.path(path_to_JavaStics,stics_version)
@@ -14,7 +23,7 @@ SticsRFiles::gen_usms_xml2txt(javastics = javastics_path, workspace = javastics_
                               out_dir = stics_inputs_path, verbose = TRUE)
 
 # Set options for Stics wrapper
-model_options=SticsOnR::stics_wrapper_options(javastics=javastics_path,workspace = stics_inputs_path, parallel=FALSE)
+model_options=SticsOnR::stics_wrapper_options(javastics=javastics_path,workspace = stics_inputs_path, parallel = FALSE)
 
 # Standard wrapper tests
 param_names=c("dlaimax","durvieF")
@@ -33,7 +42,7 @@ test_that("Stics Wrapper succeed test_wrapper tests", {
 
 # Test forcing of parameter per situation works
 param_values <- data.frame(situation="bo96iN+",dlaimax=0.0005,durvieF=50)
-model_options=SticsOnR::stics_wrapper_options(javastics=javastics_path, workspace = stics_inputs_path, parallel=FALSE)
+model_options=SticsOnR::stics_wrapper_options(javastics=javastics_path, workspace = stics_inputs_path, parallel = FALSE)
 
 var_name="lai_n"
 sim_without_forcing <- SticsOnR::stics_wrapper(model_options = model_options, var="lai_n", situation = c("bo96iN+", "bou99t1"))
@@ -139,13 +148,13 @@ SticsRFiles::gen_usms_xml2txt(javastics = javastics_path, workspace = javastics_
                               out_dir = stics_inputs_path,
                               usm = c("demo_BareSoil2","demo_Wheat1","banana","demo_maize3"), verbose = TRUE)
 
-model_options= SticsOnR::stics_wrapper_options(javastics=javastics_path, workspace = stics_inputs_path, parallel=TRUE)
+model_options= SticsOnR::stics_wrapper_options(javastics=javastics_path, workspace = stics_inputs_path, parallel = TRUE, cores = cores)
 sim_without_successive=SticsOnR::stics_wrapper(model_options=model_options)
 
-model_options= SticsOnR::stics_wrapper_options(javastics=javastics_path, workspace = stics_inputs_path, successive = list(c("demo_Wheat1","demo_BareSoil2","demo_maize3")), parallel=TRUE)
+model_options= SticsOnR::stics_wrapper_options(javastics=javastics_path, workspace = stics_inputs_path, successive = list(c("demo_Wheat1","demo_BareSoil2","demo_maize3")), parallel = TRUE, cores = cores)
 sim_with_successive=SticsOnR::stics_wrapper(model_options=model_options)
 
-model_options= SticsOnR::stics_wrapper_options(javastics=javastics_path, workspace = stics_inputs_path, successive = list(c("demo_Wheat1","demo_BareSoil2","demo_maize3")), parallel=TRUE)
+model_options= SticsOnR::stics_wrapper_options(javastics=javastics_path, workspace = stics_inputs_path, successive = list(c("demo_Wheat1","demo_BareSoil2","demo_maize3")), parallel = TRUE, cores = cores)
 sim_with_successive_restricted_results=SticsOnR::stics_wrapper(model_options=model_options, situation=c("banana","demo_maize3"))
 
 maize_succ_res <- file(file.path(stics_inputs_path,"demo_maize3","mod_bdemo_maize3.sti"), "rb")
