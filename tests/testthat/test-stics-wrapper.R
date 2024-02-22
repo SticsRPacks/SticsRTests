@@ -158,13 +158,15 @@ model_options= SticsOnR::stics_wrapper_options(javastics=javastics_path, workspa
 sim_with_successive_restricted_results=SticsOnR::stics_wrapper(model_options=model_options, situation=c("banana","demo_maize3"))
 
 maize_succ_res <- file(file.path(stics_inputs_path,"demo_maize3","mod_bdemo_maize3.sti"), "rb")
-nb_grep_maize <- grep("rotation",readLines(maize_succ_res))
+maize_succ_res_lines <- readLines(maize_succ_res)
+nb_grep_maize <- grep("rotation", maize_succ_res_lines)
 baresoil_succ_res <- file(file.path(stics_inputs_path,"demo_BareSoil2","mod_bdemo_BareSoil2.sti"), "rb")
-nb_grep_baresoil <- grep("rotation",readLines(baresoil_succ_res))
+baresoil_succ_res_lines <- readLines(baresoil_succ_res)
+nb_grep_baresoil <- grep("rotation",baresoil_succ_res_lines)
 
 test_that("Test rotation", {
-  expect_true(any(grepl("rotation",readLines(file(file.path(stics_inputs_path,"demo_BareSoil2","mod_bdemo_BareSoil2.sti"), "rb")))))
-  expect_true(any(grepl("rotation",readLines(file(file.path(stics_inputs_path,"demo_maize3","mod_bdemo_maize3.sti"), "rb")))))
+  expect_true(any(grepl("rotation",maize_succ_res_lines)))
+  expect_true(any(grepl("rotation",baresoil_succ_res_lines)))
   expect_identical(sim_with_successive$sim_list$banana,sim_without_successive$sim_list$banana)
   expect_identical(sim_with_successive$sim_list$demo_Wheat1,sim_without_successive$sim_list$demo_Wheat1)
   expect_false(identical(sim_with_successive$sim_list$demo_BareSoil2,sim_without_successive$sim_list$demo_BareSoil2))
@@ -175,4 +177,7 @@ test_that("Test rotation", {
   expect_true(length(nb_grep_baresoil)>0)
 
 })
+
+close(maize_succ_res)
+close(baresoil_succ_res)
 

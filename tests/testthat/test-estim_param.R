@@ -5,6 +5,7 @@ library(CroptimizR)
 library(dplyr)
 
 stics_version <- "V10.0"
+#stics_version <- "latest"
 javastics_path=file.path(system.file("stics", package = "SticsRTests"),stics_version)
 data_dir= file.path(SticsRFiles::download_data(example_dirs="study_case_1", stics_version = stics_version))
 
