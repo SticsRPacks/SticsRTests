@@ -1,0 +1,15 @@
+User conditions and disclaimer
+
+By using any tool related to the STICS Crop model you accept that, even if every care is taken to ensure 
+the reliability of the current software suite, the STICS project team members and their funding agencies
+(INRAE, CIRAD, Agriculture Canada, Gembloux University) disclaim all warranties, whether expressed or implied,
+about its performance, reliability, simulation accuracy, completeness or suitability for any particular purpose.
+In consequence, they disclaim all responsibility and liability (including without limitation, liability in negligence)
+for all expenses, losses (data, time, monetary), damages (including direct, indirect and/or incidental damages)
+and costs which might be incurred as a result of the use of any of the reliable tools to the STICS crop model
+(code, executable files, R packages) in any way and for any reason. These usage clauses apply to all previous
+and subsequent versions of the various tools developed by members of the STICS project team, since its creation
+in 1996. Any other context of use of these tools must be subject to a specific agreement between the parties 
+concerned.
+
+January 2024

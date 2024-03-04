@@ -1,0 +1,449 @@
+[28/02/24]-[18:34:41] INFO - 
+                          -- JAVASTICS HELP --                            
+ABSTRACT
+
+       JavaStics - The JavaStics Java application provides either a graphical
+       user interface or a command line interface for the Stics Soil-Crop model;
+       depending on the used launch method (see details below).
+       
+       JavaSticsCmd.exe can be used like any .jar in an Unix environment. 
+       But it requires a version of Java virtual machine at least equal to 11. 
+
+       Under Windows, JavaSticsCmd.exe use does not need to meet any requirement,
+       because the Java virtual machine 11 is embedded in the .exe archive.
+
+       See JavaStics documentation included in the JavaStics distribution
+       doc/JavaStics_documentation.html
+
+SYNOPSIS
+
+              [WINDOWS]
+       JavaSticsCmd.exe
+       JavaSticsCmd.exe [OPTIONS]
+
+              [UNIX]
+       java -jar JavaSticsCmd.exe
+       java -jar JavaSticsCmd.exe [OPTIONS]
+	   
+DESCRIPTION
+
+       This help mainly relates how to use JavaStics from the 
+       command line using options and arguments, for launching
+       specific JavaStics actions with shell. JavaSticsCmd.exe must
+       be launched from the JavaStics root directory.
+
+       JavaSticsCmd.exe runs JavaStics Gui
+
+       [WORKSPACE] is always expected : it may be either a 
+       JavaStics workspace directory name or relative path inside 
+       the JavaStics directory or a full absolute path to a 
+       workspace directory
+
+       [USM] is expected as the name of one USM; may be optional
+
+OPTIONS
+ 
+       -h, --help
+            displays this help
+
+       -v, --verbose
+            put this anywhere in the command to run stics with full logs
+            
+       -d, --debug
+            put this anywhere in the command to run stics with debug 
+            logs
+
+       -V, --version
+            displays javastics and stics versions
+            
+       -r, --run [WORKSPACE]
+            run stics, WORKSPACE is used as JavaStics workspace,
+            all USMs are executed in that workspace
+            
+       -r, --run [WORKSPACE] [USM1] [USM2] ...
+            run stics, WORKSPACE is used as JavaStics workspace,
+            and each USM name (one or a list of) is executed
+            individually in that workspace
+
+       --run-successive [WORKSPACE] [USM1] [USM2] ...
+            run stics, WORKSPACE is used as JavaStics workspace,
+            and a list of USM name (at least 2) is expected for
+            executing them successively
+            
+       --generate-txt [WORKSPACE] [USM]
+            generate Stics Fortran binary input files (text) from
+            JavaStics files (XML), WORKSPACE is used as JavaStics
+            workspace. This command only works using one USM name.
+            
+EXAMPLES
+
+     All use case examples below are for using JavaStics command
+     line under Windows and the "example" workspace included in
+     the JavaStics distribution archive.
+     They can be used "as is" from the command line inside
+     the JavaStics folder.
+
+     * Running all USMs
+
+            JavaSticsCmd.exe --run example
+
+     * Running a single USM or a list of
+   
+            JavaSticsCmd.exe --run example soybean
+            
+            JavaSticsCmd.exe --run example wheat maize
+
+     * Running successive USMs
+
+            JavaSticsCmd.exe --run-successive example demo_Wheat1
+            demo_BareSoil2 demo_maize3
+
+     * Generating text files for Stics
+
+            JavaSticsCmd.exe --generate-txt example wheat
+[28/02/24]-[18:34:43] INFO - Files generated :
+[28/02/24]-[18:34:43] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_bSugarCane.sti
+[28/02/24]-[18:34:43] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\modhistory.sti
+[28/02/24]-[18:34:44] INFO - Files generated :
+[28/02/24]-[18:34:44] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_bpotato.sti
+[28/02/24]-[18:34:44] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\modhistory.sti
+[28/02/24]-[18:34:46] INFO - Files generated :
+[28/02/24]-[18:34:46] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_bbanana.sti
+[28/02/24]-[18:34:46] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\modhistory.sti
+[28/02/24]-[18:34:47] INFO - Files generated :
+[28/02/24]-[18:34:47] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_bsorghum.sti
+[28/02/24]-[18:34:47] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\modhistory.sti
+[28/02/24]-[18:34:49] INFO - Files generated :
+[28/02/24]-[18:34:49] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_bsugarbeet.sti
+[28/02/24]-[18:34:49] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\modhistory.sti
+[28/02/24]-[18:34:50] INFO - Files generated :
+[28/02/24]-[18:34:50] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_bwheat.sti
+[28/02/24]-[18:34:50] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\modhistory.sti
+[28/02/24]-[18:34:52] INFO - Files generated :
+[28/02/24]-[18:34:52] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_bmaize.sti
+[28/02/24]-[18:34:52] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\modhistory.sti
+[28/02/24]-[18:34:53] INFO - Files generated :
+[28/02/24]-[18:34:53] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_bsoybean.sti
+[28/02/24]-[18:34:53] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\modhistory.sti
+[28/02/24]-[18:34:54] INFO - Files generated :
+[28/02/24]-[18:34:54] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_blettuce.sti
+[28/02/24]-[18:34:54] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\modhistory.sti
+[28/02/24]-[18:34:55] INFO - Files generated :
+[28/02/24]-[18:34:55] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_btomato.sti
+[28/02/24]-[18:34:55] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\modhistory.sti
+[28/02/24]-[18:34:57] INFO - Files generated :
+[28/02/24]-[18:34:57] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_bDurumWheat.sti
+[28/02/24]-[18:34:57] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\modhistory.sti
+[28/02/24]-[18:34:58] INFO - Files generated :
+[28/02/24]-[18:34:58] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_brapeseed.sti
+[28/02/24]-[18:34:58] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\modhistory.sti
+[28/02/24]-[18:35:00] INFO - Files generated :
+[28/02/24]-[18:35:00] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_bsunflower.sti
+[28/02/24]-[18:35:00] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\modhistory.sti
+[28/02/24]-[18:35:01] INFO - Files generated :
+[28/02/24]-[18:35:01] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_bgrass.sti
+[28/02/24]-[18:35:01] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\modhistory.sti
+[28/02/24]-[18:35:03] INFO - Files generated :
+[28/02/24]-[18:35:03] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_bBareSoil.sti
+[28/02/24]-[18:35:03] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\modhistory.sti
+[28/02/24]-[18:35:04] INFO - Files generated :
+[28/02/24]-[18:35:04] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_bdemo_Wheat1.sti
+[28/02/24]-[18:35:04] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\modhistory.sti
+[28/02/24]-[18:35:05] INFO - Files generated :
+[28/02/24]-[18:35:05] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_bdemo_BareSoil2.sti
+[28/02/24]-[18:35:05] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\modhistory.sti
+[28/02/24]-[18:35:07] INFO - Files generated :
+[28/02/24]-[18:35:07] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_bdemo_maize3.sti
+[28/02/24]-[18:35:07] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\modhistory.sti
+[28/02/24]-[18:35:10] INFO - Files generated :
+[28/02/24]-[18:35:10] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_bDurumWheat_4years.sti
+[28/02/24]-[18:35:10] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\modhistory.sti
+[28/02/24]-[18:35:13] INFO - Files generated :
+[28/02/24]-[18:35:13] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_bmaize_4years.sti
+[28/02/24]-[18:35:13] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\modhistory.sti
+[28/02/24]-[18:35:14] INFO - Files generated :
+[28/02/24]-[18:35:14] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_bstrawberry.sti
+[28/02/24]-[18:35:14] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\modhistory.sti
+[28/02/24]-[18:35:16] INFO - Files generated :
+[28/02/24]-[18:35:16] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_bvine.sti
+[28/02/24]-[18:35:16] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\modhistory.sti
+[28/02/24]-[18:35:17] INFO - Files generated :
+[28/02/24]-[18:35:17] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_bfescue.sti
+[28/02/24]-[18:35:17] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\modhistory.sti
+[28/02/24]-[18:35:19] INFO - Files generated :
+[28/02/24]-[18:35:19] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_bflax.sti
+[28/02/24]-[18:35:19] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\modhistory.sti
+[28/02/24]-[18:35:21] INFO - Files generated :
+[28/02/24]-[18:35:21] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_bpintercrop_pea_barley.sti
+[28/02/24]-[18:35:21] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_baintercrop_pea_barley.sti
+[28/02/24]-[18:35:21] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\modhistory.sti
+[28/02/24]-[18:35:22] INFO - Files generated :
+[28/02/24]-[18:35:22] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_btimothy.sti
+[28/02/24]-[18:35:22] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\modhistory.sti
+[28/02/24]-[18:35:24] INFO - Files generated :
+[28/02/24]-[18:35:24] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_bTurmeric.sti
+[28/02/24]-[18:35:24] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\modhistory.sti
+[28/02/24]-[18:35:25] INFO - Files generated :
+[28/02/24]-[18:35:25] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_bcc_BristleOat.sti
+[28/02/24]-[18:35:25] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\modhistory.sti
+[28/02/24]-[18:35:26] INFO - Files generated :
+[28/02/24]-[18:35:26] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_bcc_mustard.sti
+[28/02/24]-[18:35:26] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\modhistory.sti
+[28/02/24]-[18:35:28] INFO - Files generated :
+[28/02/24]-[18:35:28] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_bcc_ItalianRyegrass.sti
+[28/02/24]-[18:35:28] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\modhistory.sti
+[28/02/24]-[18:35:29] INFO - Files generated :
+[28/02/24]-[18:35:29] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_bcc_vetch.sti
+[28/02/24]-[18:35:29] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\modhistory.sti
+[28/02/24]-[18:35:30] INFO - Files generated :
+[28/02/24]-[18:35:30] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_bcc_CrimsonClover.sti
+[28/02/24]-[18:35:30] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\modhistory.sti
+[28/02/24]-[18:35:32] INFO - Files generated :
+[28/02/24]-[18:35:32] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_bproto_rice.sti
+[28/02/24]-[18:35:32] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\modhistory.sti
+[28/02/24]-[18:35:33] INFO - Files generated :
+[28/02/24]-[18:35:33] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_bMiscanthus_2006.sti
+[28/02/24]-[18:35:33] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\modhistory.sti
+[28/02/24]-[18:35:35] INFO - Files generated :
+[28/02/24]-[18:35:35] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_bMiscanthus_2007.sti
+[28/02/24]-[18:35:35] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\modhistory.sti
+[28/02/24]-[18:35:37] INFO - Files generated :
+[28/02/24]-[18:35:37] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_bMiscanthus_2008.sti
+[28/02/24]-[18:35:37] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\modhistory.sti
+[28/02/24]-[18:35:38] INFO - Files generated :
+[28/02/24]-[18:35:38] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_bMiscanthus_2009.sti
+[28/02/24]-[18:35:38] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\modhistory.sti
+[28/02/24]-[18:35:40] INFO - Files generated :
+[28/02/24]-[18:35:40] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_bMiscanthus_2010.sti
+[28/02/24]-[18:35:40] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\modhistory.sti
+[28/02/24]-[18:35:42] INFO - Files generated :
+[28/02/24]-[18:35:42] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_bMiscanthus_2011.sti
+[28/02/24]-[18:35:42] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\modhistory.sti
+[28/02/24]-[18:35:43] INFO - Files generated :
+[28/02/24]-[18:35:43] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_bMiscanthus_2012.sti
+[28/02/24]-[18:35:43] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\modhistory.sti
+[28/02/24]-[18:35:45] INFO - Files generated :
+[28/02/24]-[18:35:45] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_bMiscanthus_2013.sti
+[28/02/24]-[18:35:45] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\modhistory.sti
+[28/02/24]-[18:35:46] INFO - Files generated :
+[28/02/24]-[18:35:46] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_bMiscanthus_2014.sti
+[28/02/24]-[18:35:46] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\modhistory.sti
+[28/02/24]-[18:35:48] INFO - Files generated :
+[28/02/24]-[18:35:48] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_bMiscanthus_2015.sti
+[28/02/24]-[18:35:48] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\modhistory.sti
+[28/02/24]-[18:35:49] INFO - 
+                          -- JAVASTICS HELP --                            
+ABSTRACT
+
+       JavaStics - The JavaStics Java application provides either a graphical
+       user interface or a command line interface for the Stics Soil-Crop model;
+       depending on the used launch method (see details below).
+       
+       JavaSticsCmd.exe can be used like any .jar in an Unix environment. 
+       But it requires a version of Java virtual machine at least equal to 11. 
+
+       Under Windows, JavaSticsCmd.exe use does not need to meet any requirement,
+       because the Java virtual machine 11 is embedded in the .exe archive.
+
+       See JavaStics documentation included in the JavaStics distribution
+       doc/JavaStics_documentation.html
+
+SYNOPSIS
+
+              [WINDOWS]
+       JavaSticsCmd.exe
+       JavaSticsCmd.exe [OPTIONS]
+
+              [UNIX]
+       java -jar JavaSticsCmd.exe
+       java -jar JavaSticsCmd.exe [OPTIONS]
+	   
+DESCRIPTION
+
+       This help mainly relates how to use JavaStics from the 
+       command line using options and arguments, for launching
+       specific JavaStics actions with shell. JavaSticsCmd.exe must
+       be launched from the JavaStics root directory.
+
+       JavaSticsCmd.exe runs JavaStics Gui
+
+       [WORKSPACE] is always expected : it may be either a 
+       JavaStics workspace directory name or relative path inside 
+       the JavaStics directory or a full absolute path to a 
+       workspace directory
+
+       [USM] is expected as the name of one USM; may be optional
+
+OPTIONS
+ 
+       -h, --help
+            displays this help
+
+       -v, --verbose
+            put this anywhere in the command to run stics with full logs
+            
+       -d, --debug
+            put this anywhere in the command to run stics with debug 
+            logs
+
+       -V, --version
+            displays javastics and stics versions
+            
+       -r, --run [WORKSPACE]
+            run stics, WORKSPACE is used as JavaStics workspace,
+            all USMs are executed in that workspace
+            
+       -r, --run [WORKSPACE] [USM1] [USM2] ...
+            run stics, WORKSPACE is used as JavaStics workspace,
+            and each USM name (one or a list of) is executed
+            individually in that workspace
+
+       --run-successive [WORKSPACE] [USM1] [USM2] ...
+            run stics, WORKSPACE is used as JavaStics workspace,
+            and a list of USM name (at least 2) is expected for
+            executing them successively
+            
+       --generate-txt [WORKSPACE] [USM]
+            generate Stics Fortran binary input files (text) from
+            JavaStics files (XML), WORKSPACE is used as JavaStics
+            workspace. This command only works using one USM name.
+            
+EXAMPLES
+
+     All use case examples below are for using JavaStics command
+     line under Windows and the "example" workspace included in
+     the JavaStics distribution archive.
+     They can be used "as is" from the command line inside
+     the JavaStics folder.
+
+     * Running all USMs
+
+            JavaSticsCmd.exe --run example
+
+     * Running a single USM or a list of
+   
+            JavaSticsCmd.exe --run example soybean
+            
+            JavaSticsCmd.exe --run example wheat maize
+
+     * Running successive USMs
+
+            JavaSticsCmd.exe --run-successive example demo_Wheat1
+            demo_BareSoil2 demo_maize3
+
+     * Generating text files for Stics
+
+            JavaSticsCmd.exe --generate-txt example wheat
+[28/02/24]-[18:35:51] INFO - Files generated :
+[28/02/24]-[18:35:51] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_bbanana.sti
+[28/02/24]-[18:35:51] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\modhistory.sti
+[28/02/24]-[18:35:52] INFO - Files generated :
+[28/02/24]-[18:35:52] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_bTurmeric.sti
+[28/02/24]-[18:35:52] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\modhistory.sti
+[28/02/24]-[18:42:58] INFO - 
+                          -- JAVASTICS HELP --                            
+ABSTRACT
+
+       JavaStics - The JavaStics Java application provides either a graphical
+       user interface or a command line interface for the Stics Soil-Crop model;
+       depending on the used launch method (see details below).
+       
+       JavaSticsCmd.exe can be used like any .jar in an Unix environment. 
+       But it requires a version of Java virtual machine at least equal to 11. 
+
+       Under Windows, JavaSticsCmd.exe use does not need to meet any requirement,
+       because the Java virtual machine 11 is embedded in the .exe archive.
+
+       See JavaStics documentation included in the JavaStics distribution
+       doc/JavaStics_documentation.html
+
+SYNOPSIS
+
+              [WINDOWS]
+       JavaSticsCmd.exe
+       JavaSticsCmd.exe [OPTIONS]
+
+              [UNIX]
+       java -jar JavaSticsCmd.exe
+       java -jar JavaSticsCmd.exe [OPTIONS]
+	   
+DESCRIPTION
+
+       This help mainly relates how to use JavaStics from the 
+       command line using options and arguments, for launching
+       specific JavaStics actions with shell. JavaSticsCmd.exe must
+       be launched from the JavaStics root directory.
+
+       JavaSticsCmd.exe runs JavaStics Gui
+
+       [WORKSPACE] is always expected : it may be either a 
+       JavaStics workspace directory name or relative path inside 
+       the JavaStics directory or a full absolute path to a 
+       workspace directory
+
+       [USM] is expected as the name of one USM; may be optional
+
+OPTIONS
+ 
+       -h, --help
+            displays this help
+
+       -v, --verbose
+            put this anywhere in the command to run stics with full logs
+            
+       -d, --debug
+            put this anywhere in the command to run stics with debug 
+            logs
+
+       -V, --version
+            displays javastics and stics versions
+            
+       -r, --run [WORKSPACE]
+            run stics, WORKSPACE is used as JavaStics workspace,
+            all USMs are executed in that workspace
+            
+       -r, --run [WORKSPACE] [USM1] [USM2] ...
+            run stics, WORKSPACE is used as JavaStics workspace,
+            and each USM name (one or a list of) is executed
+            individually in that workspace
+
+       --run-successive [WORKSPACE] [USM1] [USM2] ...
+            run stics, WORKSPACE is used as JavaStics workspace,
+            and a list of USM name (at least 2) is expected for
+            executing them successively
+            
+       --generate-txt [WORKSPACE] [USM]
+            generate Stics Fortran binary input files (text) from
+            JavaStics files (XML), WORKSPACE is used as JavaStics
+            workspace. This command only works using one USM name.
+            
+EXAMPLES
+
+     All use case examples below are for using JavaStics command
+     line under Windows and the "example" workspace included in
+     the JavaStics distribution archive.
+     They can be used "as is" from the command line inside
+     the JavaStics folder.
+
+     * Running all USMs
+
+            JavaSticsCmd.exe --run example
+
+     * Running a single USM or a list of
+   
+            JavaSticsCmd.exe --run example soybean
+            
+            JavaSticsCmd.exe --run example wheat maize
+
+     * Running successive USMs
+
+            JavaSticsCmd.exe --run-successive example demo_Wheat1
+            demo_BareSoil2 demo_maize3
+
+     * Generating text files for Stics
+
+            JavaSticsCmd.exe --generate-txt example wheat
+[28/02/24]-[18:42:59] INFO - Files generated :
+[28/02/24]-[18:42:59] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_bpintercrop_pea_barley.sti
+[28/02/24]-[18:42:59] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\mod_baintercrop_pea_barley.sti
+[28/02/24]-[18:42:59] INFO - 	D:\Home\sbuis\Documents\OUTILS-INFORMATIQUE\STICS\JavaSTICS-1.5.2-STICS-10.1.0\example\modhistory.sti
