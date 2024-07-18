@@ -176,3 +176,25 @@ test_that("Test rotation", {
 
 })
 
+
+
+# Test intercrops
+
+javastics_workspace_path=file.path(javastics_path,"example")
+
+## Generate Stics input files from JavaStics input files
+stics_inputs_path= normalizePath(file.path(tempdir(),"IntercropTests"), winslash = "/", mustWork = FALSE)
+dir.create(stics_inputs_path, showWarnings = FALSE)
+
+SticsRFiles::gen_usms_xml2txt(javastics = javastics_path, workspace = javastics_workspace_path,
+                              out_dir = stics_inputs_path,
+                              usm = c("intercrop_pea_barley"), verbose = TRUE)
+
+# Set options for Stics wrapper
+model_options=SticsOnR::stics_wrapper_options(javastics=javastics_path,workspace = stics_inputs_path, parallel = FALSE)
+sim_intercrop <- SticsOnR::stics_wrapper(model_options=model_options, situation=c("intercrop_pea_barley"))
+
+test_that("Test rotation", {
+  expect_true(length(unique(sim_intercrop$sim_list$intercrop_pea_barley$Plant))>1)
+  expect_true(length(unique(sim_intercrop$sim_list$intercrop_pea_barley$Dominance))>1)
+})
