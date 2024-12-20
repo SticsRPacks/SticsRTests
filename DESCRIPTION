@@ -27,7 +27,8 @@ Imports:
 	xfun,
 	knitr,
 	testthat,
-  SticsRPacks
+  SticsRPacks,
+  import
 Remotes: 
   github::SticsRPacks/CroPlotR@main,
   github::SticsRPacks/CroptimizR@main,
