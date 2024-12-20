@@ -1,0 +1,250 @@
+name;definition;unit;name in code;english name;who
+A_LAI;shapes of the senescence curve;SD;;;DR
+absodrp;variable relecting the nitrogen status of the crop from the starting date of filling of harvested organs;SD;absodrp;;FF
+absz;actual N uptake in each elementary soil layer;kg N ha-1 day-1;absz;;FF
+albsol;albedo of the soil;SD;albsol;;ML
+alloresp;daily coeffiscient of allocation of remobilised biomass between structural and reserves pools of perennial organs;SD;alloresp;;LS
+amplsurf;daily thermal amplitude at the surface;degreesC;amplsurf;;JL
+amplz;daily thermal amplitude;degreesC;amplz;;JL
+azorac;amount of mineral nitrogen in the rooting zone;kg N ha-1;azorac;;FF
+B_LAI;shapes of the growth curve;SD;;;DR
+bpsisol;retention curve parameter 2;SD;bpsisol;;JL
+CCper;carbon concentration in perennial organs;g C kg-1 DM;CCper;;FF
+CCrac;carbon concentration in roots;g C kg-1 DM;CCRac;;FF
+coeflev;ratio between the emerged and the germinated density depending on non-optimal water content and temperature conditions;SD;coeflev (l.268 de Stics_levee.f90);;DR
+coeflevb;ratio between the emerged and the germinated density depending on the crust layer;SD;coeflev (l.270 de Stics_levee.f90);;ML
+concN;mean nitrate concentration in each elementary soil layer;kg N ha-1 mm-1 water;concN;;FF
+conv;daily convection flow of N in each elementary soil layer;kg N ha-1 day-1;conv;;FF
+crust;indicator of crust conditions at the soil surface;0/1;null;;DR
+CsurNper;C/N ratio of the storage organs;SD;;;DR
+CsurNresid;C/N ratio of falling leaves;SD;CsurNresid;CN_ratio_falling_leaves;DR
+CsurNressuite;C/N ratio of calculated crop residue for the next crop;SD;CsurNressuite;CN_ratio_residu_returning_in_soil;DR
+CsurNsol;C to N ratio of soil throughout time;SD;CsurNsol;;FF
+cuh;chilling hourly units;degrees C;cuh;;DR
+cumoffrN;sum of nitrogen soil supply over the profile;kg N ha-1;cumoffrN;sum_soil_N_supply;DR
+da;bulk soil density;g cm-3;daz??;bulk_soil_density;AM
+DELTABSO;nitrogen dependant biomass growth;t ha-1 day-1;?;;AM variable
+deltai_1;daily increase of the green leaf index for determinate crops;m2 leaf m-2 soil;?;;AM
+deltai_2;daily increase of the green leaf index for indeterminate crops;m2 leaf m-2 soil;?;;AM
+deltai_dens; density component of deltai; plant m-2; ??; density_component_deltai;AM
+deltai_dev;phasic development component of deltai;m2 plant-1 degree.day-1;;deltai_dev;AM
+deltai_stress;stress component of deltai;SD;;deltai_stress;AM
+deltai_T;thermal component of deltai;degree.days;;deltai_T;AM
+deltaimax;maximum increase in leaf expansion;m2 leaf m-2 soil;?;;AM
+DELTAMSRESEN;senescence rate of residual dry matter after forage crop cutting;t DM ha-1 day-1;?;;AM
+deltat;gradient of the relationship between saturation pressure and temperature;mbars;deltat;saturation_deficit;DR
+deltatemp;difference in mean daily temperature inside and outside a greenhouse;degrees C;deltatemp;;ML
+deltaz_stress;Stress component of deltaz;SD;??;stress_component_deltaz;AM
+deltaz_T;Thermal component of deltaz;cm day-1;??;thermal_component_deltaz;AM
+densiteger;density of germinated plants;plants.m-2;densiteger;;ML
+densitelev;density of emerged plants;plants.m-2;densitelev;;ML
+diff;diffusion flow of N in each elementary soil layer;kg N ha-1 day-1;diff;;FF
+difNe;effective diffusion coefficient of nitrate in soil;cm2 day-1;diff;;FF
+dltafv;daily biomass partitioning to the structural part of green leaves;t DM ha-1;dltafv;;LS
+dltamsrac;daily root gowth;t DM ha-1 day-1;dltamsrac;;FF
+dltamsracmort;daily dead root biomass on the root depth;t DM ha-1 day-1;dltamsracmort;dailydeadrootbiomass?;DR
+dltaQCracmort; Cumulative amount of C lost by dead roots over the soil profile;kg N ha-1 day-1;;;DR
+dltaQNracmort; Cumulative amount of N lost by dead roots over the soil profile;kg N ha-1 day-1;;;DR
+dltaremobsen;daily biomass remobilised during leaves senescence;t DM ha-1;dltaremobsen;;LS
+dltares;daily biomass partitioning to the temporary reserves;t DM ha-1;deltares;;LS
+dltaresper;daily biomass remobilised from temporary reserves allocated to perennial organs reserves;t DM ha-1;dltaresper;;LS
+dltarestemp;daily biomass remobilised from temporary reserves to perennial organs;t DM ha-1;dltarestemp;;LS
+dltarestemp2;daily biomass remobilised from temporary reserves to perennial organs;t DM ha-1;dltarestemp;;LS
+dltat;daily biomass partitioning to the structural part of stems;t DM ha-1;dltat;;LS
+dos;saturation deficit within the canopy;mbars;dos;;ML
+dpHvol;increase of soil pH after manure application;SD;dpHvol;;FF
+dpHvolm;maximum pH increase following the application of slurry (taking into account the amount of inorganic N applied) ;SD;dpHvolm;;FF
+drlsenf;length of dead fine roots in layer iz on day n;cm cm-2 soil;;;DR
+drlseng;length of dead coarse roots in layer iz on day n;cm cm-2 soil;;;DR
+dsat;air saturation deficit;mbars;dsat;air_saturation_deficit;DR
+DURAGE;natural lifespan of leaves;Q10;?;;AM
+DURVIEFv;maximal lifespan of an adult leaf;Q10;?;;AM
+DURVIEIp;lifespan of a young leal (at the AMF stage) expressed as a proportion of DURVIEF;SD;?;;AM
+E;snow compaction parameter;mm mm-1 day-1;E;E_snow_compaction;DR
+Edirectm;maximum value of Edirect;mm day-1;Edirectm;;ML
+effN;Nitrogen use efficiency;SD;effN;NUE;DR
+elong;elongation of the coleoptile;cm;elong;;DR
+emissa;emissivity of the atmosphere;0-1;emissa;;ML
+epz;daily transpiration flow in each elementary soil layer;mm day-1;epz;;FF
+ePT(t);potential evapotranspiration according to Priestley-Taylor formula;mm day-1;pas dans le code;;ML
+estimet;evapotranspiration estimated from the water balance for the previous day and the climatic demand of the day in case of greenhouse;mm day-1;estimet;;ML
+esz;evaporation soil profile;mm day-1 cm-1;esz;;ML
+etmax;maximum value of daily evaporation flux;W m-2;etmax;;ML
+etmin;minimum value of daily evaporation flux;W m-2;etmin;;ML
+FGELJUV;frost index acting on LAI during the juvenile phase;SD;?;;AM
+fgellev;frost index acting on plant density during the plantlet phase;SD;fgellev;;DR
+FGELVEG;frost index acting on LAI during the vegetative phase;SD;?;;AM
+fh;moisture factor on humus and residue decomposition rates;SD;fh;;FF
+fluxrac;potential N uptake rate in each elementary soil layer;kg N ha-1 day-1;fluxrac;;FF
+fluxsol;daily soil N supply in each elementary soil layer;kg N ha-1 day-1;fluxsol;;FF
+FPH;soil pH effect on the volatilisation;pH;volmax;volatilisation_pH_reduction;DR
+Fr;ratio of rain in repartition between rain and snow rain;0-1;?;;DR
+fracinsol;insolation fraction;0-1;fracinsol;;ML
+fruis;proportion of run-off water above the activation threshold (pminruis);SD;fruis;;ML
+Fs;ratio of snow in repartition between rain and snow rain;0-1;fs;;DR
+ftempremp;thermal stress index as a function of temperature using cardinal temperatures (tminremp et tmaxremp);0-1;ftempremp;;PL
+FsNH3;potential ammonia volatilization rate;microgram m-2 day-1;FsNH3;;FF
+fth;temperature factor on humus mineralisation rate;SD;fth;;FF
+ftr;temperature factor on residue decomposition rate;SD;ftr;;FF
+gamma;psychrometrc constant;mb degreeC-1;gamma;gamma_psychometric_constant;DR
+gmax;maximum value of daily soil heat flux;W m-2;GMAX;;ML
+gmin;minimum value of daily soil heat flux;W m-2;GMIN;;ML
+grainsnb;number of grains per square meter;grains m-2;??;grainsnb;BD
+ha;residual soil water content  in the sed bed;mm water cm soil-1;ha;;ML
+HB;soil layer between the seedbe and the root front;cm;null;;DR
+hn;wilting point mean in the seed bed;mm water cm soil-1;hn;;DR
+hucc;elementary layer soil water content at field capacity;mm water cm soil-1;hucc;;JL
+HCUM;available water over the rooting zone;mm water g soil-1 x 100;pas dans le code;;ML
+humin;elementary layer soil water content at wilting point;mm water cm soil-1;humin;;JL
+humirac;influence of soil water content on germination and root growth;SD;humirac;soil_water_content_germination_roor;AM
+humsol;soil moisture;mm water cm soil-1;humsol;;DR
+hur;microporosity elementary layer soil water content;mm water cm soil-1;hur;;JL
+hx;mean water content at field capacity in the sed bed;mm water cm soil-1;hx;;DR
+ilets;date of the plantlet stage;days;ilets;;DR
+IMB;date of the beginning of seed moistening;days;null;;DR
+INNI;instantaneous nitrogen index;SD;?;;AM variable
+jvi;vernalizing contribution of a given day;nb days;;;ML
+K;melting rate;mm degrees C-1 day-1;K;K_snow;DR
+K_LAI;maximal LAI produced;m2 m-2;;;DR
+K2;actual mineralisation rate of humus;day-1;K2;;FF
+K2hum;potential mineralisation rate of humus;day-1;K2hum;;FF
+kgdiffus;proportion of diffusive radiation reaching the soil;SD;?;;AM
+kgdirect;proportion of direct radiation reaching the soil;SD;?;;AM
+kh;coefficient of heat transfer in the cold shelter;W m-2 K-1;kh;;ML
+ks;coefficient of energy losses between the outside and inside of the shelter;W m-2 K-1;ks;;ML
+L;latent heat of vaporization;MJ kg-1;L;latent_heat;DR
+laieffcum;LAI removed;SD;laieffcum;LAI_removed;DR
+lairognecum;sum of topped leaf area index ;m2 m-2;lairognecum;sum_lai_topped;DR
+longsperacf;specific fine root length;cm g-1;;;DR + AM Variable calculated in chap root
+longsperacg;specific coarse root length;cm g-1;;;DR + AM Variable calculated in chap root
+lracsentot; total length of senescent roots;cm root cm-2 soil; lracsentot; total_death_root;AM devrait etre dans variable
+lracsenz; death root length density at depth z;cm root cm-3 soil; lracsenz; death_root_length_density_z;AM unite a verifier
+lracz;efficient root length density;cm root cm-3 soil;??;efficient_root_length_density;AM
+M;snow in the process of melting;mm day-1;M;M_melting_snow;DR
+MASECABSO;biomass accounting for nitrogen absorption;t DM ha-1;?;;AM variable
+mouill;water retained on the foliage;mm;mouill;water_retained_by_foliage;DR
+mouillmulch;water retained by the vegetal mulch;mm;mouillmulch;;ML
+Mrf;liquid water in the snow cover in the process of refreezing;mm day-1;Mrf;M_liquid_snow;DR
+msracmort;dead root biomass on the root depth;t ha-1;deadrootbiomass?;;DR
+nbgraingel; number of frozen grains per square meter;grains m-2;nbgraingel;;PL
+nbgrains; number of grains per square meter;grains m-2;nbgrains;;PL
+nbjgrauto;days of autotrophy for a moistened seed;days;nbjgrauto;;ML
+nbjhumec;maximal period that seedcan be in a moist status without seed death occurs ;days;nbjhumec;;DR
+NH3g;ammonia concentration in the gaseous soil phase;mol l-1;NH3g;;FF
+NH3surf;ammonia concentration at the soil surface;microgram N m-3;NH3surf;;FF
+nit;amount of NO3-N in an elementary layer; kg N ha-1;nit;;JL
+nodn;coefficient used to take into account the effect of the soil mineral N content on the potential N fixation;SD;nodn;;FF
+Nvolatorg;volatilizable NH4;kg N ha-1;Nvolatorg;;FF
+Nvolorg;actual ammonia volatilization rate;kg N ha-1 day-1;Nvolorg;;FF devrait etre ds variables de sortie
+offrN;mineral N available for root uptake in each elementary soil layer;kg N ha-1;offrN;;FF
+pgraingel; weight of frozen grains per square meter;g m-2;pgraingel;;PL
+pgrain; weight of grains per square meter;g m-2;pgrain;;PL
+pHvol;soil surface pH varying after organic residue application (such as slurry);SD;pHvol;;FF
+propfixpot;phenology-dependent coefficient used to calculate potential N fixation;SD;propfixpot;;FF
+propvolat;proportion of the volatilizable N fraction of the residue;SD;propvolat;;FF
+ps;density of the snow cover;kg m-3;ps_in;ps_snow_density;DR
+psisol;soil potential of the elementary layer;Mpa;psisol;;JL
+psisols;retention curve parameter 1;MPa;psisols;;JL
+QNplantule;amount of nitrogen in the plantlet;kg N ha-1;null;;DR
+QNplmax;maximal amount of N possible in the crop;kg N ha-1;QNplmax;maximal_N_in_plant;DR
+raa;aerodynamic resistance between the canopy and the reference height of weather measurements;s m-1;raa;;FF
+raamax;maximum daily value of the aerodynamic resistance between the cover et the reference level zr;W m-2;raamax;;ML
+raamin;minimum daily value of the aerodynamic resistance between the cover et the reference level zr;W m-2;raamin;;ML
+racinepsi;efficient root length density participating in predawn potential, located in the moist layers (PSISOL < -1.5 Mpa), else =0.;cm root cm-3 soil;racinepsi;root_psi;JL un moment racinepsi=lracz comprend pas
+rac;resistance of the canopy boundary layer;s m-1;rac;;ML
+Ratm;atmospheric component of the long wave radiation;MJ m-2 day-1;Ratm;;ML
+rc;resistance of canopy;s m-1;?;;ML
+rdiffus;diffusive radiation;MJ m-2 day-1;?;;AM
+rdirect;direct radiation;MJ m-2 day-1;?;;AM
+rdroit;radiation not intercepted by the crop;MJ m-2 day-1;rdroit;;AM
+reprac;underground/total biomass partitioning coefficient;SD; reprac; root_over_total_biomass_partitioning_coefficient;AM
+rgex;extraterrestrial radiation;MJ m-2 day-1;rgex;;ML
+Rglo;long wave radiation;MJ m-2 day-1;RGLO;;ML
+rgmax;maximum daily value of the global radiation;W m-2;rgmax;;ML
+rgmin;minimum daily value of the global radiation;W m-2;rgmin;;ML
+rl;root length density at depth z;cm root cm-3 soil; rl; root_length_density_z;AM devrait etre dans variable
+rlf;length of fine roots in layer iz on day n;cm cm-2 soil;;;DR
+rlg;length of coarse roots in layer iz on day n;cm cm-2 soil;;;DR
+rlj_dens; plant density component of rlj;plant m-2; ??; plant_density_component_rlj;AM
+rlj_dev; plant density component of rlj;m root plant-1 degree-day-1; ??; plant_density_component_rlj;AM
+rlj_stress; stress component of root length growth rlj;SD; ??; stress_component_rlj;AM
+rlj_T; thermal component of root length growth rlj;degreeC day-1; ??; thermal_component_of_rlj;AM
+rljfront; root length growth at the root front; m root m-2 day-1; ??; rlj_at_root_front;AM
+rnet_PE;Net radiation for Brunt formula;MJ m-2;rnet;net_radiation;DR
+rnet_PT;Net radiation for Priestley-Taylor evapotranspiration calculation;MJ m-2;rnet dans calceeq;net_radiation;DR
+rnetmax;maximum value of daily net radiation;W m-2;rnetmax dans caltcult.f90;;ML
+rnetmin;minimum value of daily net radiation;W m-2;rnetmin dans caltcult.f90;;ML
+rnetP;net radiation affecting the crop;MJ m-2;;;ML
+Rsol;surface comopnent of the long wave radiation;MJ m-2 day-1;Rsolglo;;ML
+RsRso;total to extraterrestrial radiation ratio;SD;RsRso;;AM
+rtransmis;radiation transmistted through the crop;MJ m-2 day-1;rtransmis;;AM
+Sdry;water in solid state in the snow cover;mm;Sdry;;PL
+S_WE;ratio between the snow water equivalent;mm;;;DR
+Swet;water in liquid state in the snow cover;mm;Swet;;PL
+sat;macroporosity elementary layer soil water content;mm water cm soil-1;sat;;JL
+SB;seed bed;cm;null;;DR
+sbv;specific surface area of biomass;cm2 g-1;sbvmax;specific_surface_area_biomass;DR
+sbvmax;leaf expansion allowed per unit of biomass accumulated;cm2 g-1;?;;AM
+sla;maximum SLA (specific leaf area) of green leaves;cm2 g-1;slamax;maximum_specific_leaf_area;DR
+somger;growing degree-days from planting in the seed bed;degrees C;somger;;DR
+SOMSEN;current thermal time for senescence;Q10;?;;AM
+ST_LAI;growing degree-days since emergence;degreesC;;;DR
+stdebsenrac_p; life span of roots;degreeC day-1; ??; life_span_root; AM devrait etre dans parameters
+SURFAO;fraction of surface in the shade;SD;?;;AM
+SURFAS;fraction of surface in the sun;SD;?;;AM
+surfouvre;proportion of vents related to the total surface area of the greenhouse;0-1;surfouvre;;ML
+tair;mean air temperature (measured );degreesC;tairveille;mean_air_temperature;DR
+TDEW;dewpoint temperature;degreesC;TDEW;;ML
+teta;available water content in the root zone;cm3 water cm-3 soil;?;;AM variable
+tetsen;threshold soil water content accelering senescence;cm3 water cm-3 soil;?;;AM parameter? tetstomate and teturg designed as variable? or parameter?
+TF_LAI;growing degree-days for the point of inflexion of the complete senescence;degrees C;;;DR
+TI_LAI;growing degree-days for the point of inflexion of the growth curve ;degrees C;;;DR
+tmin;minimum temperature ;degreesC;tmin(n);min_air_temperature;DR
+tnh;normalized time (day) for humus mineralization;SD;tnh;;FF
+tpm;vapour pressure in air;mbars;tpm;;ML
+TRECOUVMAXp;proportion of the soil covered by isolated plant;SD;?;;AM
+tsol;soil temperature ;degrees C;tsol;Soil_temp;DR
+TURSAL;mean water stress TURFAC experienced since emergence;SD;?;;AM
+TVAR;saturating vapour pressure as a function of temperature;mbars;TVAR;;ML
+Vabs;specific N absorption capacity of the roots;micromole N h-1 cm-1 root;Vabs;;FF
+vabsmoy;Nitrogen uptake rate;Kg N ha-1 day-1;vabsmoy;Nitrogen_uptake_rate;DR
+VABSN;nitrogen accumulation rate in the plant (uptake and fixation);kg N ha-1 day-1;?;;AM variable
+wfps;water filled pore space;SD;wfps;;BM
+wfpscc;water filled pore space at fied capacity;SD;wfpscc;;BM
+wsat;total porosity;SD;wsat;;JL
+XMULCH;thickness of mulch created by evaporation from the soil;cm;pas dans le code;;ML
+z0;crop roughness;m;z0;;ML
+z0s;soil or understorey crop roughness;m;z0solnu;;ML
+zdemi;root depth that ensures at least an extraction near the soil surface of 20% of the water available;cm; zdemi; threshold_extraction_20%_water_available;AM
+znonli;root depth if no obstacle;cm; znonli; root_depth_without_obstacle;AM
+code_diff_rac;1 two types of roots (fine and coarse roots or 2 a single mean type of root;SD;codediffroot;;AM voir si cela est bien ce nom parameter
+codeinstal;Technical code to describe either seedling or already installed crop;SD;codeinstal;;AM parameter
+nhet;number of days of heterotrophy during germination;day;nhet;;AM calcule dans chap root
+newrac;root length growth thanks to seed reserve remobilization during germination;m day-1;newrac;;AM variable calculee dans chap root
+dis;A voir avec Nicolas;?;dis;;AM variable calculee dans chap root
+debsenracf;thermal time units defining the begining of root senescence for fine roots;degreeC day-1;debsenracf;;AM parameter chap root
+debsenracg;thermal time units defining the begining of root senescence for coarse roots;degreeC day-1;debsenracg;;AM parameter chap root
+drliz;daily root length emission per elementary layer;cm root cm-3 soil;drliz;;AM variable calculee dans chap root
+Wi;index of soil water availability (0-1);SD;;;DR
+aevap;soil evaporation parameter combining climatic and soils aspects;mm;;;DR
+EVAP0;accumulation of evaporative fluxes (esol, Emd, emulch);mm;;;DR
+RNETP1;net radiation affecting the crop (use for direct evaporation);MJ m-2 day-1;;;DR
+RNETP2;net radiation affecting the crop (use for transpiration);MJ m-2 day-1;;;DR
+dh;displacement height;m;;;DR
+hmin;water content at permanent wilting point of macro layer;%weight;;;DR
+vnit;nitrification rate;mg N kg-1 day-1;vnit;;FF
+vnitpot;potential nitrification rate;mg N kg-1 day-1;vnitpot;;FF
+theta_sat;volumic soil water content at saturation;cm3 cm-3;theta_sat;;FF
+devjour;daily development rate;ND;devjourfr;;PL
+k;growth compartment;ND;i;;PL
+croifruit;fruit growth;g m-2;croifruit;;PL
+teaugrain;Water content of (harvested) organs;g g-1;teaugrain;;PL
+dltazo;daily increase of grain nitrogen content;kgN.ha-1.day-1;dltazo;;PL-BD
+potcroifruit;potential growth of a fruit;g.fruit-1.day-1;potcroifruit;;BD
+dfr;fruit development stage of each age class;SD;dfr;;BD
+mafraisfeuille;leaf fresh matter;t.ha-1;mafraisfeuille;;BD
+mafraistige;structural stem fresh matter;t.ha-1;mafraistige;;BD
+mafraisres;reserve fresh matter;t.ha-1;mafraisres;;BD
+resperenne0;initial biomass reserve;t.ha-1;resperenne0;;BD
+sum_eos;sum of daily maximum evaporation flux;mm;;;DR
+z;soil elementary layer  of 1 cm;cm;z;;DR
