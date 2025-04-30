@@ -157,14 +157,14 @@ sim_with_successive=SticsOnR::stics_wrapper(model_options=model_options)
 model_options= SticsOnR::stics_wrapper_options(javastics=javastics_path, workspace = stics_inputs_path, successive = list(c("demo_Wheat1","demo_BareSoil2","demo_maize3")), parallel = TRUE, cores = cores)
 sim_with_successive_restricted_results=SticsOnR::stics_wrapper(model_options=model_options, situation=c("banana","demo_maize3"))
 
-maize_succ_res <- file(file.path(stics_inputs_path,"demo_maize3","mod_bdemo_maize3.sti"), "rb")
+maize_succ_res <- file.path(stics_inputs_path,"demo_maize3","mod_bdemo_maize3.sti")
 nb_grep_maize <- grep("rotation",readLines(maize_succ_res))
-baresoil_succ_res <- file(file.path(stics_inputs_path,"demo_BareSoil2","mod_bdemo_BareSoil2.sti"), "rb")
+baresoil_succ_res <- file.path(stics_inputs_path,"demo_BareSoil2","mod_bdemo_BareSoil2.sti")
 nb_grep_baresoil <- grep("rotation",readLines(baresoil_succ_res))
 
 test_that("Test rotation", {
-  expect_true(any(grepl("rotation",readLines(file(file.path(stics_inputs_path,"demo_BareSoil2","mod_bdemo_BareSoil2.sti"), "rb")))))
-  expect_true(any(grepl("rotation",readLines(file(file.path(stics_inputs_path,"demo_maize3","mod_bdemo_maize3.sti"), "rb")))))
+  expect_true(any(grepl("rotation",readLines(file.path(stics_inputs_path,"demo_BareSoil2","mod_bdemo_BareSoil2.sti")))))
+  expect_true(any(grepl("rotation",readLines(file.path(stics_inputs_path,"demo_maize3","mod_bdemo_maize3.sti")))))
   expect_identical(sim_with_successive$sim_list$banana,sim_without_successive$sim_list$banana)
   expect_identical(sim_with_successive$sim_list$demo_Wheat1,sim_without_successive$sim_list$demo_Wheat1)
   expect_false(identical(sim_with_successive$sim_list$demo_BareSoil2,sim_without_successive$sim_list$demo_BareSoil2))
