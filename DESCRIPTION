@@ -18,16 +18,14 @@ License: file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.1
-Imports: 
-  SticsRFiles,
+Imports:
   SticsOnR,
   CroptimizR,
   CroPlotR,
   dplyr,
-	xfun,
-	knitr,
-	testthat,
-  SticsRPacks
+  xfun,
+  knitr,
+  testthat
 Remotes: 
   github::SticsRPacks/CroPlotR@main,
   github::SticsRPacks/CroptimizR@main,
@@ -37,12 +35,12 @@ Remotes:
 Roxygen: list(markdown = TRUE)
 SystemRequirements: Java 8
 BinaryFiles:
-	inst/stics/V90/bin/JavaSticsCmd.exe,
-	inst/stics/V90/bin/JavaStics.exe,
-	inst/stics/V90/bin/stics_modulo,
-	inst/stics/V90/bin/stics_modulo.exe,
-	inst/stics/V90/bin/stics_modulo_mac,
-	inst/stics/V90/bin/jre7/bin/JAWTAccessBridge-32.dll,
+  inst/stics/V90/bin/JavaSticsCmd.exe,
+  inst/stics/V90/bin/JavaStics.exe,
+  inst/stics/V90/bin/stics_modulo,
+  inst/stics/V90/bin/stics_modulo.exe,
+  inst/stics/V90/bin/stics_modulo_mac,
+  inst/stics/V90/bin/jre7/bin/JAWTAccessBridge-32.dll,
   inst/stics/V90/bin/jre7/bin/JavaAccessBridge-32.dll,
   inst/stics/V90/bin/jre7/bin/JdbcOdbc.dll,
   inst/stics/V90/bin/jre7/bin/WindowsAccessBridge-32.dll,
