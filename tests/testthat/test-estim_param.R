@@ -108,7 +108,7 @@ xfun::gsub_file(
 source(simple_case_r_tmp)
 
 ## load the results
-load(file.path(out_dir, "optim_results.Rdata"))
+load(file.path(data_dir, "optim_results.Rdata"))
 nlo_new <- lapply(res$nlo, function(x) {
   x$call <- NULL
   x
@@ -124,9 +124,9 @@ test_that("Test Vignette simple_case", {
   expect_equal(nlo_new[[2]]$x0, c(0.0008777006, 290.9086), tolerance = 1e-7)
   expect_equal(sapply(nlo_new, "[[", "solution"), sapply(nlo, "[[", "solution"), tolerance = 1e-4)
   expect_equal(sapply(nlo_new, "[[", "objective"), sapply(nlo, "[[", "objective"), tolerance = 1e-4)
-  expect_true(file.exists(file.path(out_dir, "EstimatedVSinit.pdf")))
-  expect_true(file.exists(file.path(out_dir, "ValuesVSit.pdf")))
-  expect_true(file.exists(file.path(out_dir, "ValuesVSit_2D.pdf")))
+  expect_true(file.exists(file.path(data_dir, "EstimatedVSinit.pdf")))
+  expect_true(file.exists(file.path(data_dir, "ValuesVSit.pdf")))
+  expect_true(file.exists(file.path(data_dir, "ValuesVSit_2D.pdf")))
 })
 
 
@@ -225,7 +225,7 @@ knitr::purl(
 source(file.path(tmpdir, "Parameter_estimation_Specific_and_Varietal.R"))
 
 ## load the results
-load(file.path(out_dir, "optim_results.Rdata"))
+load(file.path(data_dir, "optim_results.Rdata"))
 nlo_new <- lapply(res$nlo, function(x) {
   x$call <- NULL
   x
@@ -241,9 +241,9 @@ test_that("Test Vignette specific and varietal", {
   expect_equal(nlo_new[[2]]$x0, c(0.001877701, 115.9086, 162.9456), tolerance = 1e-7)
   expect_equal(sapply(nlo_new, "[[", "solution"), sapply(nlo, "[[", "solution"), tolerance = 1e-4)
   expect_equal(sapply(nlo_new, "[[", "objective"), sapply(nlo, "[[", "objective"), tolerance = 1e-4)
-  expect_true(file.exists(file.path(out_dir, "EstimatedVSinit.pdf")))
-  expect_true(file.exists(file.path(out_dir, "ValuesVSit.pdf")))
-  expect_true(file.exists(file.path(out_dir, "ValuesVSit_2D.pdf")))
+  expect_true(file.exists(file.path(data_dir, "EstimatedVSinit.pdf")))
+  expect_true(file.exists(file.path(data_dir, "ValuesVSit.pdf")))
+  expect_true(file.exists(file.path(data_dir, "ValuesVSit_2D.pdf")))
 })
 
 
