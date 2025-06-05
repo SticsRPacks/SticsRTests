@@ -315,7 +315,7 @@ SticsRFiles::gen_usms_xml2txt(
 ## Create synthetic observations
 model_options <- SticsOnR::stics_wrapper_options(javastics = javastics_path, workspace = stics_inputs_path, parallel = FALSE)
 tmp <- SticsOnR::stics_wrapper(model_options = model_options, param_values = c(dlaimax = 0.0012), var = "lai_n", situation = "bo96iN+")
-obs_synth <- tmp$sim_list
+obs_synth <<- tmp$sim_list
 obs_synth[["bo96iN+"]] <- obs_synth[["bo96iN+"]] %>%
   dplyr::mutate(laiX2 = lai_n * 2) %>%
   dplyr::select(-lai_n) %>%
