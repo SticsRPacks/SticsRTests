@@ -409,7 +409,7 @@ tmp <- SticsOnR::stics_wrapper(
   model_options = model_options, param_values = c(dlaimax = 0.0012, durvieF = 100),
   var = c("lai_n", "masec_n"), situation = "bo96iN+"
 )
-obs_synth <- tmp$sim_list
+obs_synth <<- tmp$sim_list
 
 ## Try to retrieve dlaimax value
 param_info <- list(
@@ -450,7 +450,7 @@ test_that("Test forced_param_values argument", {
 
 model_options <- SticsOnR::stics_wrapper_options(javastics = javastics_path, workspace = stics_inputs_path, parallel = FALSE)
 tmp <- SticsOnR::stics_wrapper(model_options = model_options, param_values = c(dlaimax = 0.0012), var = "lai_n", situation = "bo96iN+")
-obs_synth <- tmp$sim_list
+obs_synth <<- tmp$sim_list
 
 param_info <- list(
   lb = c(dlaimax = 0.0005),
@@ -502,7 +502,7 @@ sim_with_successive <- SticsOnR::stics_wrapper(
 )
 
 ## Create synthetic observations
-obs_synth <- sim_with_successive$sim_list["demo_maize3"]
+obs_synth <<- sim_with_successive$sim_list["demo_maize3"]
 
 ## Try to retrieve dlaimax value with the standard method
 param_info <- list()
@@ -717,7 +717,7 @@ tmp <- SticsOnR::stics_wrapper(
   model_options = model_options, param_values = c(dlaimax = 0.0012),
   var = c("lai_n"), situation = "bo96iN+"
 )
-obs_synth <- tmp$sim_list
+obs_synth <<- tmp$sim_list
 param_info <- list(
   lb = c(dlaimax = 0.0005),
   ub = c(dlaimax = 0.0020), init_values = c(dlaimax = c(0.001, 0.0011, 0.0013))
@@ -786,7 +786,7 @@ test_that("Test use of WLS, weight equal to Inf", {
   )
   expect_gt(
     optim_results_wls1$final_values[["dlaimax"]] - optim_results_wls2$final_values[["dlaimax"]],
-    1e-4
+    1e-3
   )
 })
 ## test incorrect format for weight function
