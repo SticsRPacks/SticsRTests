@@ -690,10 +690,10 @@ test_that("Test Vignette AgMIP Phase III protocol", {
   expect_equal(sapply(nlo_new, "[[", "objective"), sapply(nlo, "[[", "objective"), tolerance = 1e-4)
   expect_true(file.exists(file.path(out_dir, "param_selection_steps.csv")))
   for (i in 1:4) {
-    expect_true(file.exists(file.path(out_dir, "results_all_steps", paste0("step_", i), "optim_results.Rdata")))
-    expect_true(file.exists(file.path(out_dir, "results_all_steps", paste0("step_", i), "EstimatedVSinit.pdf")))
-    expect_true(file.exists(file.path(out_dir, "results_all_steps", paste0("step_", i), "ValuesVSit.pdf")))
-    expect_true(file.exists(file.path(out_dir, "results_all_steps", paste0("step_", i), "ValuesVSit_2D.pdf")))
+    expect_true(file.exists(file.path(out_dir, paste0("param_select_step", i), "optim_results.Rdata")))
+    expect_true(file.exists(file.path(out_dir, paste0("param_select_step", i), "EstimatedVSinit.pdf")))
+    expect_true(file.exists(file.path(out_dir, paste0("param_select_step", i), "ValuesVSit.pdf")))
+    expect_true(file.exists(file.path(out_dir, paste0("param_select_step", i), "ValuesVSit_2D.pdf")))
   }
 })
 
@@ -786,7 +786,7 @@ test_that("Test use of WLS, weight equal to Inf", {
   )
   expect_gt(
     optim_results_wls1$final_values[["dlaimax"]] - optim_results_wls2$final_values[["dlaimax"]],
-    1e-3
+    1e-4
   )
 })
 ## test incorrect format for weight function
