@@ -98,8 +98,8 @@ jobs:
 
       - name: Remove unwanted directories from check artifacts
         run: |
-        rm -rf check/*/SticsRTests
-        rm -rf check/*/00_pkg_src
+          rm -rf check/*/SticsRTests
+          rm -rf check/*/00_pkg_src
 
       - name: Upload check results
         if: failure()
