@@ -342,7 +342,7 @@ optim_results <- estim_param(
   param_info = param_info, transform_sim = transform_sim,
   var_to_simulate = "lai_n",
   info_level = 4, info_crit_func = NULL,
-  out_dir = data_dir
+  out_dir = file.path(getwd(), "Test_var_and_init")
 )
 
 test_that("Test var and transform_sim arguments with nloptr", {
@@ -374,7 +374,7 @@ optim_results <- estim_param(
   optim_options = optim_options,
   param_info = param_info, transform_sim = transform_sim,
   var_to_simulate = "lai_n",
-  out_dir = data_dir
+  out_dir = file.path(getwd(), "Test_var_and_init_optim")
 )
 
 test_that("Test var and transform_sim arguments with optim", {
@@ -424,7 +424,7 @@ optim_results1 <- estim_param(
   model_options = model_options,
   optim_options = optim_options,
   param_info = param_info, forced_param_values = c(durvieF = 100),
-  out_dir = data_dir
+  out_dir = file.path(getwd(), "Test_forced_param_values_1")
 )
 optim_results2 <- estim_param(
   obs_list = obs_synth,
@@ -433,7 +433,7 @@ optim_results2 <- estim_param(
   model_options = model_options,
   optim_options = optim_options,
   param_info = param_info, forced_param_values = c(durvieF = 300),
-  out_dir = data_dir
+  out_dir = file.path(getwd(), "Test_forced_param_values_2")
 )
 
 test_that("Test forced_param_values argument", {
@@ -460,7 +460,6 @@ param_info <- list(
 optim_options <- list()
 optim_options$iterations <- 10
 optim_options$startValue <- 3 # Number of markov chains
-out_dir <- data_dir # path where to store the results (graph and Rdata)
 optim_options$ranseed <- 1234 # seed for random numbers
 
 optim_results <- estim_param(
@@ -470,7 +469,8 @@ optim_results <- estim_param(
   model_options = model_options,
   optim_options = optim_options,
   param_info = param_info,
-  optim_method = "BayesianTools.dreamzs"
+  optim_method = "BayesianTools.dreamzs",
+  out_dir = file.path(getwd(), "Test_Dreamzs")
 )
 
 test_that("Test DREAM-ZS takes into account initial values", {
@@ -507,14 +507,15 @@ obs_synth <<- sim_with_successive$sim_list["demo_maize3"]
 ## Try to retrieve dlaimax value with the standard method
 param_info <- list()
 param_info$durvieF <- list(lb = 50, ub = 500, sit_list = list("demo_Wheat1"))
-optim_options <- list(nb_rep = 3, maxeval = 15, xtol_rel = 1e-01, out_dir = stics_inputs_path, ranseed = 1234)
+optim_options <- list(nb_rep = 3, maxeval = 15, xtol_rel = 1e-01, ranseed = 1234)
 optim_results <- estim_param(
   obs_list = obs_synth,
   crit_function = crit_ols,
   model_function = SticsOnR::stics_wrapper,
   model_options = model_options,
   optim_options = optim_options,
-  param_info = param_info
+  param_info = param_info,
+  out_dir = file.path(getwd(), "Test_rotations")
 )
 
 test_that("Test rotation", {
@@ -722,7 +723,7 @@ param_info <- list(
   lb = c(dlaimax = 0.0005),
   ub = c(dlaimax = 0.0020), init_values = c(dlaimax = c(0.001, 0.0011, 0.0013))
 )
-optim_options <- list(nb_rep = 3, maxeval = 15, xtol_rel = 1e-01, out_dir = data_dir, ranseed = 1234)
+optim_options <- list(nb_rep = 3, maxeval = 15, xtol_rel = 1e-01, ranseed = 1234)
 
 ## Try to retrieve dlaimax value using OLS
 optim_results_ols <- estim_param(
@@ -731,7 +732,8 @@ optim_results_ols <- estim_param(
   model_function = SticsOnR::stics_wrapper,
   model_options = model_options,
   optim_options = optim_options,
-  param_info = param_info
+  param_info = param_info,
+  out_dir = file.path(getwd(), "Test_wls_crit_1")
 )
 ## Same but with wls, using a weight=1
 weight <- function(...) {
@@ -744,7 +746,8 @@ optim_results_wls <- estim_param(
   model_options = model_options,
   optim_options = optim_options,
   param_info = param_info,
-  weight = weight
+  weight = weight,
+  out_dir = file.path(getwd(), "Test_wls_crit_2")
 )
 test_that("Test use of WLS, weight equal to 1", {
   expect_equal(optim_results_ols$final_values[["dlaimax"]],
@@ -763,7 +766,8 @@ optim_results_wls1 <- estim_param(
   model_options = model_options,
   optim_options = optim_options,
   param_info = param_info,
-  weight = weight
+  weight = weight,
+  out_dir = file.path(getwd(), "Test_wls_crit_3")
 )
 weight <- function(obs, ...) {
   w <- rep(1, length(obs))
@@ -777,7 +781,8 @@ optim_results_wls2 <- estim_param(
   model_options = model_options,
   optim_options = optim_options,
   param_info = param_info,
-  weight = weight
+  weight = weight,
+  out_dir = file.path(getwd(), "Test_wls_crit_4")
 )
 test_that("Test use of WLS, weight equal to Inf", {
   expect_equal(optim_results_ols$final_values[["dlaimax"]],
@@ -799,6 +804,7 @@ test_that("Test use of wls: error is caught for incorrect format of weight", {
     model_options = model_options,
     optim_options = optim_options,
     param_info = param_info,
-    weight = w0
+    weight = w0,
+    out_dir = file.path(getwd(), "Test_wls_crit_5")
   ))
 })

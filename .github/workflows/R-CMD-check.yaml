@@ -96,6 +96,11 @@ jobs:
         if:  env.has_testthat == 'true'
         run: find . -name testthat.Rout -exec cat '{}' ';'
 
+      - name: Remove unwanted directories from check artifacts
+        run: |
+        rm -rf check/*/SticsRTests
+        rm -rf check/*/00_pkg_src
+
       - name: Upload check results
         if: failure()
         uses: actions/upload-artifact@main
