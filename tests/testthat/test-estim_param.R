@@ -654,14 +654,16 @@ knitr::purl(
 )
 
 ## Seems that optim_options and optim_results.Rdata are not overwritten => try to remove them before run
-file.remove(file.path(out_dir, "optim_results.Rdata"))
+if (file.exists(file.path(data_dir, "optim_results.Rdata"))) {
+  file.remove(file.path(data_dir, "optim_results.Rdata"))
+}
 rm(optim_options, param_info)
 
 ## run it
 source(file.path(tmpdir, "AgMIP_Calibration_Phenology_protocol.R"))
 
 ## load the results
-load(file.path(out_dir, "optim_results.Rdata"))
+load(file.path(data_dir, "optim_results.Rdata"))
 nlo_new <- lapply(res$nlo, function(x) {
   x$call <- NULL
   x
@@ -689,12 +691,12 @@ test_that("Test Vignette AgMIP Phase III protocol", {
   expect_equal(nlo_new[[2]]$x0, c(446.0060, 639.4217), tolerance = 1e-4)
   expect_equal(sapply(nlo_new, "[[", "solution"), sapply(nlo, "[[", "solution"), tolerance = 1e-4)
   expect_equal(sapply(nlo_new, "[[", "objective"), sapply(nlo, "[[", "objective"), tolerance = 1e-4)
-  expect_true(file.exists(file.path(out_dir, "param_selection_steps.csv")))
+  expect_true(file.exists(file.path(data_dir, "param_selection_steps.csv")))
   for (i in 1:4) {
-    expect_true(file.exists(file.path(out_dir, paste0("param_select_step", i), "optim_results.Rdata")))
-    expect_true(file.exists(file.path(out_dir, paste0("param_select_step", i), "EstimatedVSinit.pdf")))
-    expect_true(file.exists(file.path(out_dir, paste0("param_select_step", i), "ValuesVSit.pdf")))
-    expect_true(file.exists(file.path(out_dir, paste0("param_select_step", i), "ValuesVSit_2D.pdf")))
+    expect_true(file.exists(file.path(data_dir, paste0("param_select_step", i), "optim_results.Rdata")))
+    expect_true(file.exists(file.path(data_dir, paste0("param_select_step", i), "EstimatedVSinit.pdf")))
+    expect_true(file.exists(file.path(data_dir, paste0("param_select_step", i), "ValuesVSit.pdf")))
+    expect_true(file.exists(file.path(data_dir, paste0("param_select_step", i), "ValuesVSit_2D.pdf")))
   }
 })
 
