@@ -759,10 +759,11 @@ test_that("Test use of WLS, weight equal to 1", {
 })
 ## Now bias large values of LAI and take them into account or not using the weight
 ## check that estimated value of dlaimax is correct when weight of large values is set to Inf
-obs_synth$`bo96iN+`$lai_n[obs_synth$`bo96iN+`$lai_n > 5] <-
-  obs_synth$`bo96iN+`$lai_n[obs_synth$`bo96iN+`$lai_n > 5] + 3
+obs_synth_new <- obs_synth
+obs_synth_new$`bo96iN+`$lai_n[obs_synth_new$`bo96iN+`$lai_n > 5] <-
+  obs_synth_new$`bo96iN+`$lai_n[obs_synth_new$`bo96iN+`$lai_n > 5] + 3
 optim_results_wls1 <- estim_param(
-  obs_list = obs_synth,
+  obs_list = obs_synth_new,
   crit_function = crit_wls,
   model_function = SticsOnR::stics_wrapper,
   model_options = model_options,
@@ -777,7 +778,7 @@ weight <- function(obs, ...) {
   return(w)
 }
 optim_results_wls2 <- estim_param(
-  obs_list = obs_synth,
+  obs_list = obs_synth_new,
   crit_function = crit_wls,
   model_function = SticsOnR::stics_wrapper,
   model_options = model_options,
