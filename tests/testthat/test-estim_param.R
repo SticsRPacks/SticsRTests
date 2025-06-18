@@ -714,80 +714,83 @@ SticsRFiles::gen_usms_xml2txt(
   out_dir = stics_inputs_path, verbose = TRUE
 )
 
-## Create synthetic observations
-model_options <- SticsOnR::stics_wrapper_options(javastics = javastics_path, workspace = stics_inputs_path, parallel = FALSE)
-tmp <- SticsOnR::stics_wrapper(
-  model_options = model_options, param_values = c(dlaimax = 0.0012),
-  var = c("lai_n"), situation = "bo96iN+"
-)
-obs_synth <<- tmp$sim_list
-param_info <- list(
-  lb = c(dlaimax = 0.0005),
-  ub = c(dlaimax = 0.0020), init_values = c(dlaimax = c(0.001, 0.0011, 0.0013))
-)
-optim_options <- list(nb_rep = 3, maxeval = 15, xtol_rel = 1e-01, ranseed = 1234)
+test_that("Test use of WLS", {
+  ## Create synthetic observations
+  model_options <- SticsOnR::stics_wrapper_options(javastics = javastics_path, workspace = stics_inputs_path, parallel = FALSE)
+  tmp <- SticsOnR::stics_wrapper(
+    model_options = model_options, param_values = c(dlaimax = 0.0012),
+    var = c("lai_n"), situation = "bo96iN+"
+  )
+  obs_synth <<- tmp$sim_list
+  param_info <- list(
+    lb = c(dlaimax = 0.0005),
+    ub = c(dlaimax = 0.0020), init_values = c(dlaimax = c(0.001, 0.0011, 0.0013))
+  )
+  optim_options <- list(nb_rep = 3, maxeval = 15, xtol_rel = 1e-01, ranseed = 1234)
 
-## Try to retrieve dlaimax value using OLS
-optim_results_ols <- estim_param(
-  obs_list = obs_synth,
-  crit_function = crit_ols,
-  model_function = SticsOnR::stics_wrapper,
-  model_options = model_options,
-  optim_options = optim_options,
-  param_info = param_info,
-  out_dir = file.path(getwd(), "Test_wls_crit_1")
-)
-## Same but with wls, using a weight=1
-weight <- function(...) {
-  return(1)
-}
-optim_results_wls <- estim_param(
-  obs_list = obs_synth,
-  crit_function = crit_wls,
-  model_function = SticsOnR::stics_wrapper,
-  model_options = model_options,
-  optim_options = optim_options,
-  param_info = param_info,
-  weight = weight,
-  out_dir = file.path(getwd(), "Test_wls_crit_2")
-)
-test_that("Test use of WLS, weight equal to 1", {
+  ## Try to retrieve dlaimax value using OLS
+  optim_results_ols <- estim_param(
+    obs_list = obs_synth,
+    crit_function = crit_ols,
+    model_function = SticsOnR::stics_wrapper,
+    model_options = model_options,
+    optim_options = optim_options,
+    param_info = param_info,
+    out_dir = file.path(getwd(), "Test_wls_crit_1")
+  )
+  ## Same but with wls, using a weight=1
+  weight <- function(...) {
+    return(1)
+  }
+  optim_results_wls <- estim_param(
+    obs_list = obs_synth,
+    crit_function = crit_wls,
+    model_function = SticsOnR::stics_wrapper,
+    model_options = model_options,
+    optim_options = optim_options,
+    param_info = param_info,
+    weight = weight,
+    out_dir = file.path(getwd(), "Test_wls_crit_2"),
+    info_level = 3
+  )
   expect_equal(optim_results_ols$final_values[["dlaimax"]],
     optim_results_wls$final_values[["dlaimax"]],
     tolerance = 1e-5
   )
-})
-## Now bias large values of LAI and take them into account or not using the weight
-## check that estimated value of dlaimax is correct when weight of large values is set to Inf
-obs_synth_new <- obs_synth
-obs_synth_new$`bo96iN+`$lai_n[obs_synth_new$`bo96iN+`$lai_n > 5] <-
-  obs_synth_new$`bo96iN+`$lai_n[obs_synth_new$`bo96iN+`$lai_n > 5] + 3
-optim_results_wls1 <- estim_param(
-  obs_list = obs_synth_new,
-  crit_function = crit_wls,
-  model_function = SticsOnR::stics_wrapper,
-  model_options = model_options,
-  optim_options = optim_options,
-  param_info = param_info,
-  weight = weight,
-  out_dir = file.path(getwd(), "Test_wls_crit_3")
-)
-weight <- function(obs, ...) {
-  w <- rep(1, length(obs))
-  w[obs > 8] <- Inf
-  return(w)
-}
-optim_results_wls2 <- estim_param(
-  obs_list = obs_synth_new,
-  crit_function = crit_wls,
-  model_function = SticsOnR::stics_wrapper,
-  model_options = model_options,
-  optim_options = optim_options,
-  param_info = param_info,
-  weight = weight,
-  out_dir = file.path(getwd(), "Test_wls_crit_4")
-)
-test_that("Test use of WLS, weight equal to Inf", {
+
+  ## Now bias large values of LAI and take them into account or not using the weight
+  ## check that estimated value of dlaimax is correct when weight of large values is set to Inf
+  tmp$sim_list[["bo96iN+"]]["lai_n"][tmp$sim_list[["bo96iN+"]][["lai_n"]] > 5, ] <-
+    tmp$sim_list[["bo96iN+"]]["lai_n"][tmp$sim_list[["bo96iN+"]][["lai_n"]] > 5, ] + 3
+  obs_synth_new <<- tmp$sim_list
+
+  optim_results_wls1 <- estim_param(
+    obs_list = obs_synth_new,
+    crit_function = crit_wls,
+    model_function = SticsOnR::stics_wrapper,
+    model_options = model_options,
+    optim_options = optim_options,
+    param_info = param_info,
+    weight = weight,
+    out_dir = file.path(getwd(), "Test_wls_crit_3"),
+    info_level = 3
+  )
+  weight <- function(obs, ...) {
+    w <- rep(1, length(obs))
+    w[obs > 8] <- Inf
+    return(w)
+  }
+  optim_results_wls2 <- estim_param(
+    obs_list = obs_synth_new,
+    crit_function = crit_wls,
+    model_function = SticsOnR::stics_wrapper,
+    model_options = model_options,
+    optim_options = optim_options,
+    param_info = param_info,
+    weight = weight,
+    out_dir = file.path(getwd(), "Test_wls_crit_4"),
+    info_level = 3
+  )
   expect_equal(optim_results_ols$final_values[["dlaimax"]],
     optim_results_wls2$final_values[["dlaimax"]],
     tolerance = 1e-5
@@ -797,11 +800,24 @@ test_that("Test use of WLS, weight equal to Inf", {
     1e-4
   )
 })
+
 ## test incorrect format for weight function
-w0 <- 1
 test_that("Test use of wls: error is caught for incorrect format of weight", {
-  expect_error(estim_param(
-    obs_list = obs_synth,
+  ## Create synthetic observations
+  model_options <- SticsOnR::stics_wrapper_options(javastics = javastics_path, workspace = stics_inputs_path, parallel = FALSE)
+  tmp <- SticsOnR::stics_wrapper(
+    model_options = model_options, param_values = c(dlaimax = 0.0012),
+    var = c("lai_n"), situation = "bo96iN+"
+  )
+  obs_synth <<- tmp$sim_list
+  w0 <- 1
+  param_info <- list(
+    lb = c(dlaimax = 0.0005),
+    ub = c(dlaimax = 0.0020), init_values = c(dlaimax = c(0.001, 0.0011, 0.0013))
+  )
+  optim_options <- list(nb_rep = 3, maxeval = 15, xtol_rel = 1e-01, ranseed = 1234)
+  expect_error(suppressWarnings(estim_param(
+    obs_list = obs_synth_new,
     crit_function = crit_wls,
     model_function = SticsOnR::stics_wrapper,
     model_options = model_options,
@@ -809,5 +825,5 @@ test_that("Test use of wls: error is caught for incorrect format of weight", {
     param_info = param_info,
     weight = w0,
     out_dir = file.path(getwd(), "Test_wls_crit_5")
-  ))
+  )))
 })
