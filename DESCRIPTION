@@ -1,5 +1,5 @@
 Package: SticsRTests
-Title: A Package for Automatic Tests of Integration
+Title: Automatic Tests of Integration
 Version: 0.0.0.9000
 Authors@R: 
     c(person(given = "Rémi",
@@ -12,22 +12,19 @@ Authors@R:
            role = c("aut"),
            email = "patrice.lecharpentier@inra.fr"),
        person("Michel", "Giner", email = "michel.giner@cirad.fr", role = c("aut")))
-Description: The package uses testthat to run all tests that cannot be made directly from the SticsRPacks packages 
-  because they have to use external programs such as STICS or JavaSTICS (not yet automatically downloadable on the web).
+Description: Run all tests, using testhat, that cannot be made directly from the SticsRPacks packages 
+  because they have to use external programs such as STICS or JavaSTICS 
+  (not yet automatically downloadable on the web).
 License: file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.1
 Imports:
-  SticsRPacks,
-  SticsRFiles,
-  SticsOnR,
-  CroptimizR,
-  CroPlotR,
   dplyr,
   xfun,
   knitr,
-  testthat
+  testthat,
+  remotes
 Remotes: 
   github::SticsRPacks/SticsRFiles@main,
   github::SticsRPacks/CroPlotR@main,
