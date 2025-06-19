@@ -781,7 +781,7 @@ test_that("Test use of WLS", {
     return(w)
   }
   optim_results_wls2 <- estim_param(
-    obs_list = obs_synth_new,
+    obs_list = obs_list,
     crit_function = crit_wls,
     model_function = SticsOnR::stics_wrapper,
     model_options = model_options,
@@ -809,7 +809,7 @@ test_that("Test use of wls: error is caught for incorrect format of weight", {
     model_options = model_options, param_values = c(dlaimax = 0.0012),
     var = c("lai_n"), situation = "bo96iN+"
   )
-  obs_synth <<- tmp$sim_list
+  obs_list <- tmp$sim_list
   w0 <- 1
   param_info <- list(
     lb = c(dlaimax = 0.0005),
@@ -817,7 +817,7 @@ test_that("Test use of wls: error is caught for incorrect format of weight", {
   )
   optim_options <- list(nb_rep = 3, maxeval = 15, xtol_rel = 1e-01, ranseed = 1234)
   expect_error(suppressWarnings(estim_param(
-    obs_list = obs_synth_new,
+    obs_list = obs_list,
     crit_function = crit_wls,
     model_function = SticsOnR::stics_wrapper,
     model_options = model_options,
