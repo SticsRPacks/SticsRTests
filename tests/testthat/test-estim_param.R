@@ -721,7 +721,7 @@ test_that("Test use of WLS", {
     model_options = model_options, param_values = c(dlaimax = 0.0012),
     var = c("lai_n"), situation = "bo96iN+"
   )
-  obs_synth <<- tmp$sim_list
+  obs_list <- tmp$sim_list
   param_info <- list(
     lb = c(dlaimax = 0.0005),
     ub = c(dlaimax = 0.0020), init_values = c(dlaimax = c(0.001, 0.0011, 0.0013))
@@ -730,7 +730,7 @@ test_that("Test use of WLS", {
 
   ## Try to retrieve dlaimax value using OLS
   optim_results_ols <- estim_param(
-    obs_list = obs_synth,
+    obs_list = obs_list,
     crit_function = crit_ols,
     model_function = SticsOnR::stics_wrapper,
     model_options = model_options,
@@ -743,7 +743,7 @@ test_that("Test use of WLS", {
     return(1)
   }
   optim_results_wls <- estim_param(
-    obs_list = obs_synth,
+    obs_list = obs_list,
     crit_function = crit_wls,
     model_function = SticsOnR::stics_wrapper,
     model_options = model_options,
@@ -762,10 +762,10 @@ test_that("Test use of WLS", {
   ## check that estimated value of dlaimax is correct when weight of large values is set to Inf
   tmp$sim_list[["bo96iN+"]]["lai_n"][tmp$sim_list[["bo96iN+"]][["lai_n"]] > 5, ] <-
     tmp$sim_list[["bo96iN+"]]["lai_n"][tmp$sim_list[["bo96iN+"]][["lai_n"]] > 5, ] + 3
-  obs_synth_new <<- tmp$sim_list
+  obs_list <- tmp$sim_list
 
   optim_results_wls1 <- estim_param(
-    obs_list = obs_synth_new,
+    obs_list = obs_list,
     crit_function = crit_wls,
     model_function = SticsOnR::stics_wrapper,
     model_options = model_options,
