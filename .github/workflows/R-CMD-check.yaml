@@ -44,6 +44,9 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
+      - name: install libicu
+        if: runner.os != 'Windows'
+        run: apt install libicu-dev
       - uses: actions/checkout@v4
 
       - uses: actions/setup-java@v4
