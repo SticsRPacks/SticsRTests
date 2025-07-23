@@ -58,6 +58,18 @@ jobs:
           extra-packages: any::rcmdcheck
           needs: check
 
+      - name: Install dependencies
+        run: |
+          install.packages("stringi")
+          remotes::install_deps(dependencies = TRUE)
+          remotes::install_cran("rcmdcheck")
+          remotes::install_github("SticsRPacks/SticsRPacks@main", dependencies = FALSE, upgrade = "never")
+          remotes::install_github("SticsRPacks/CroPlotR@main", dependencies = FALSE, upgrade = "never")
+          remotes::install_github("SticsRPacks/CroptimizR@main", dependencies = FALSE, upgrade = "never")
+          remotes::install_github("SticsRPacks/SticsOnR@main", dependencies = FALSE, upgrade = "never")
+          remotes::install_github("SticsRPacks/SticsRFiles@main", dependencies = FALSE, upgrade = "never")
+        shell: Rscript {0}
+
       - uses: r-lib/actions/check-r-package@v2
         env:
           _R_CHECK_FORCE_SUGGESTS_: false
