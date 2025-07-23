@@ -36,12 +36,14 @@ jobs:
       matrix:
         config:
           - {os: windows-latest, r: 'release'}
-          - {os: ubuntu-latest, r: "release", rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"}
-
+          #- {os: ubuntu-latest, r: "release", rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"}
+          - {os: ubuntu-latest, r: "release"}
     env:
-      R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
-      RSPM: ${{ matrix.config.rspm }}
+      #R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
+      #RSPM: ${{ matrix.config.rspm }}
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      R_KEEP_PKG_SOURCE: yes
+
 
     steps:
       - uses: actions/checkout@v4
@@ -59,12 +61,7 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          pak-version: rc
-          # about pak-version:
-          # Ubuntu doesn't install the proper version of XML see https://github.com/r-lib/actions/issues/559. Remove when fixed.
-          # see also: https://stackoverflow.com/questions/73243945/pkgdown-action-failing-at-build-xml
-          extra-packages: |
-            any::rcmdcheck
+          extra-packages: any::rcmdcheck
           needs: check
 
       # - name: Query dependencies
@@ -120,6 +117,7 @@ jobs:
       - uses: r-lib/actions/check-r-package@v2
         with:
           upload-snapshots: true
+          build_args: 'c("--no-manual","--as-cran"), error_on = "error", check_dir = "check")'
 
       - name: Upload check results
         if: failure()
