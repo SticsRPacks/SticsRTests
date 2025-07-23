@@ -18,7 +18,12 @@ Imports:
     knitr,
     remotes,
     testthat,
-    xfun
+    xfun,
+    SticsRFiles,
+    SticsOnR,
+    CroPlotR,
+    CroptimizR,
+    SticsRPacks
 Remotes: 
     github::SticsRPacks/CroPlotR@main,
     github::SticsRPacks/CroptimizR@main,
