@@ -302,56 +302,53 @@ test_that("Test Vignette specific and varietal", {
 # and try to retrieve the parameter value used to create the synthetic observation.
 # level_info is also tested here ...
 
-javastics_path <- file.path(system.file("stics", package = "SticsRTests"), stics_version)
-data_dir <- file.path(SticsRFiles::download_data(example_dirs = "study_case_1", stics_version = stics_version))
-javastics_workspace_path <- file.path(data_dir, "XmlFiles")
-stics_inputs_path <- file.path(data_dir, "TxtFiles")
-dir.create(stics_inputs_path, showWarnings = FALSE)
-SticsRFiles::gen_usms_xml2txt(
-  javastics = javastics_path, workspace = javastics_workspace_path,
-  out_dir = stics_inputs_path, verbose = TRUE
-)
 
-## Create synthetic observations
-model_options <- SticsOnR::stics_wrapper_options(javastics = javastics_path, workspace = stics_inputs_path, parallel = FALSE)
-tmp <- SticsOnR::stics_wrapper(model_options = model_options, param_values = c(dlaimax = 0.0012), var = "lai_n", situation = "bo96iN+")
-obs_synth <<- tmp$sim_list
-obs_synth[["bo96iN+"]] <- obs_synth[["bo96iN+"]] %>%
-  dplyr::mutate(laiX2 = lai_n * 2) %>%
-  dplyr::select(-lai_n) %>%
-  dplyr::slice(seq(1, nrow(.), by = 2))
+test_that("Test var argument and init values are taken into account", {
+  javastics_path <- file.path(system.file("stics", package = "SticsRTests"), stics_version)
+  data_dir <- file.path(SticsRFiles::download_data(example_dirs = "study_case_1", stics_version = stics_version))
+  javastics_workspace_path <- file.path(data_dir, "XmlFiles")
+  stics_inputs_path <- file.path(data_dir, "TxtFiles")
+  dir.create(stics_inputs_path, showWarnings = FALSE)
+  SticsRFiles::gen_usms_xml2txt(
+    javastics = javastics_path, workspace = javastics_workspace_path,
+    out_dir = stics_inputs_path, verbose = TRUE
+  )
 
-transform_sim <- function(model_results, ...) {
-  model_results$sim_list$`bo96iN+` <- dplyr::mutate(model_results$sim_list$`bo96iN+`, laiX2 = lai_n * 2)
-  return(model_results)
-}
+  ## Create synthetic observations
+  model_options <- SticsOnR::stics_wrapper_options(javastics = javastics_path, workspace = stics_inputs_path, parallel = FALSE)
+  tmp <- SticsOnR::stics_wrapper(model_options = model_options, param_values = c(dlaimax = 0.0012), var = "lai_n", situation = "bo96iN+")
+  obs_synth <<- tmp$sim_list
+  obs_synth[["bo96iN+"]] <- obs_synth[["bo96iN+"]] %>%
+    dplyr::mutate(laiX2 = lai_n * 2) %>%
+    dplyr::select(-lai_n) %>%
+    dplyr::slice(seq(1, nrow(.), by = 2))
 
-## Try to retrieve dlaimax value with the standard method
-param_info <- list(
-  lb = c(dlaimax = 0.0005),
-  ub = c(dlaimax = 0.0020),
-  init_values = data.frame(dlaimax = c(0.0005, 0.0017))
-)
-optim_options <- list(nb_rep = 3, maxeval = 15, xtol_rel = 1e-01, ranseed = 1234)
-optim_results <- estim_param(
-  obs_list = obs_synth,
-  crit_function = crit_ols,
-  model_function = SticsOnR::stics_wrapper,
-  model_options = model_options,
-  optim_options = optim_options,
-  param_info = param_info, transform_sim = transform_sim,
-  var_to_simulate = "lai_n",
-  info_level = 4, info_crit_func = NULL,
-  out_dir = file.path(getwd(), "Test_var_and_init")
-)
+  transform_sim <- function(model_results, ...) {
+    model_results$sim_list$`bo96iN+` <- dplyr::mutate(model_results$sim_list$`bo96iN+`, laiX2 = lai_n * 2)
+    return(model_results)
+  }
 
-test_that("Test var and transform_sim arguments with nloptr", {
+  ## Try to retrieve dlaimax value with the standard method
+  param_info <- list(
+    lb = c(dlaimax = 0.0005),
+    ub = c(dlaimax = 0.0020),
+    init_values = data.frame(dlaimax = c(0.0005, 0.0017))
+  )
+  optim_options <- list(nb_rep = 3, maxeval = 15, xtol_rel = 1e-01, ranseed = 1234)
+  optim_results <- estim_param(
+    obs_list = obs_synth,
+    crit_function = crit_ols,
+    model_function = SticsOnR::stics_wrapper,
+    model_options = model_options,
+    optim_options = optim_options,
+    param_info = param_info, transform_sim = transform_sim,
+    var_to_simulate = "lai_n",
+    info_level = 4, info_crit_func = NULL,
+    out_dir = file.path(getwd(), "Test_var_and_init")
+  )
+
   expect_equal(optim_results$final_values[["dlaimax"]], 0.0012, tolerance = 1e-4)
-})
-test_that("Test init_values are taken into account in nloptr", {
   expect_equal(optim_results$init_values[1:2, ], as.numeric(param_info$init_values[1:2, ]))
-})
-test_that("level_info is working as expected", {
   expect_false(identical(optim_results$sim_intersect, optim_results$sim))
   expect_false(identical(optim_results$sim_transformed, optim_results$sim))
   expect_false(identical(optim_results$sim_transformed, optim_results$sim_intersect))
@@ -364,23 +361,51 @@ test_that("level_info is working as expected", {
 
 
 ## Same but with optim package
-optim_options <- list(nb_rep = 3, control = list(maxit = 7), ranseed = 1234)
-optim_results <- estim_param(
-  obs_list = obs_synth,
-  crit_function = crit_ols,
-  optim_method = "optim",
-  model_function = SticsOnR::stics_wrapper,
-  model_options = model_options,
-  optim_options = optim_options,
-  param_info = param_info, transform_sim = transform_sim,
-  var_to_simulate = "lai_n",
-  out_dir = file.path(getwd(), "Test_var_and_init_optim")
-)
 
 test_that("Test var and transform_sim arguments with optim", {
+  javastics_path <- file.path(system.file("stics", package = "SticsRTests"), stics_version)
+  data_dir <- file.path(SticsRFiles::download_data(example_dirs = "study_case_1", stics_version = stics_version))
+  javastics_workspace_path <- file.path(data_dir, "XmlFiles")
+  stics_inputs_path <- file.path(data_dir, "TxtFiles")
+  dir.create(stics_inputs_path, showWarnings = FALSE)
+  SticsRFiles::gen_usms_xml2txt(
+    javastics = javastics_path, workspace = javastics_workspace_path,
+    out_dir = stics_inputs_path, verbose = TRUE
+  )
+
+  ## Create synthetic observations
+  model_options <- SticsOnR::stics_wrapper_options(javastics = javastics_path, workspace = stics_inputs_path, parallel = FALSE)
+  tmp <- SticsOnR::stics_wrapper(model_options = model_options, param_values = c(dlaimax = 0.0012), var = "lai_n", situation = "bo96iN+")
+  obs_synth <<- tmp$sim_list
+  obs_synth[["bo96iN+"]] <- obs_synth[["bo96iN+"]] %>%
+    dplyr::mutate(laiX2 = lai_n * 2) %>%
+    dplyr::select(-lai_n) %>%
+    dplyr::slice(seq(1, nrow(.), by = 2))
+
+  transform_sim <- function(model_results, ...) {
+    model_results$sim_list$`bo96iN+` <- dplyr::mutate(model_results$sim_list$`bo96iN+`, laiX2 = lai_n * 2)
+    return(model_results)
+  }
+
+  ## Try to retrieve dlaimax value with the standard method
+  param_info <- list(
+    lb = c(dlaimax = 0.0005),
+    ub = c(dlaimax = 0.0020),
+    init_values = data.frame(dlaimax = c(0.0005, 0.0017))
+  )
+  optim_options <- list(nb_rep = 3, control = list(maxit = 7), ranseed = 1234)
+  optim_results <- estim_param(
+    obs_list = obs_synth,
+    crit_function = crit_ols,
+    optim_method = "optim",
+    model_function = SticsOnR::stics_wrapper,
+    model_options = model_options,
+    optim_options = optim_options,
+    param_info = param_info, transform_sim = transform_sim,
+    var_to_simulate = "lai_n",
+    out_dir = file.path(getwd(), "Test_var_and_init_optim")
+  )
   expect_equal(optim_results$final_values[["dlaimax"]], 0.0012, tolerance = 1e-4)
-})
-test_that("Test init_values are taken into account in optim", {
   expect_equal(optim_results$init_values[1:2, ], as.numeric(param_info$init_values[1:2, ]))
 })
 
@@ -393,50 +418,51 @@ test_that("Test init_values are taken into account in optim", {
 # value of dlaimax + estimated values of dlaimax from same starting points but with 2 different
 # forced values of durvieF should give quite different results).
 
-javastics_path <- file.path(system.file("stics", package = "SticsRTests"), stics_version)
-data_dir <- file.path(SticsRFiles::download_data(example_dirs = "study_case_1", stics_version = stics_version))
-javastics_workspace_path <- file.path(data_dir, "XmlFiles")
-stics_inputs_path <- file.path(data_dir, "TxtFiles")
-dir.create(stics_inputs_path, showWarnings = FALSE)
-SticsRFiles::gen_usms_xml2txt(
-  javastics = javastics_path, workspace = javastics_workspace_path,
-  out_dir = stics_inputs_path, verbose = TRUE
-)
-
-## Create synthetic observations
-model_options <- SticsOnR::stics_wrapper_options(javastics = javastics_path, workspace = stics_inputs_path, parallel = FALSE)
-tmp <- SticsOnR::stics_wrapper(
-  model_options = model_options, param_values = c(dlaimax = 0.0012, durvieF = 100),
-  var = c("lai_n", "masec_n"), situation = "bo96iN+"
-)
-obs_synth <<- tmp$sim_list
-
-## Try to retrieve dlaimax value
-param_info <- list(
-  lb = c(dlaimax = 0.0005),
-  ub = c(dlaimax = 0.0020), init_values = c(dlaimax = c(0.001, 0.0011, 0.0013))
-)
-optim_options <- list(nb_rep = 3, maxeval = 15, xtol_rel = 1e-01, ranseed = 1234)
-optim_results1 <- estim_param(
-  obs_list = obs_synth,
-  crit_function = crit_ols,
-  model_function = SticsOnR::stics_wrapper,
-  model_options = model_options,
-  optim_options = optim_options,
-  param_info = param_info, forced_param_values = c(durvieF = 100),
-  out_dir = file.path(getwd(), "Test_forced_param_values_1")
-)
-optim_results2 <- estim_param(
-  obs_list = obs_synth,
-  crit_function = crit_ols,
-  model_function = SticsOnR::stics_wrapper,
-  model_options = model_options,
-  optim_options = optim_options,
-  param_info = param_info, forced_param_values = c(durvieF = 300),
-  out_dir = file.path(getwd(), "Test_forced_param_values_2")
-)
 
 test_that("Test forced_param_values argument", {
+  javastics_path <- file.path(system.file("stics", package = "SticsRTests"), stics_version)
+  data_dir <- file.path(SticsRFiles::download_data(example_dirs = "study_case_1", stics_version = stics_version))
+  javastics_workspace_path <- file.path(data_dir, "XmlFiles")
+  stics_inputs_path <- file.path(data_dir, "TxtFiles")
+  dir.create(stics_inputs_path, showWarnings = FALSE)
+  SticsRFiles::gen_usms_xml2txt(
+    javastics = javastics_path, workspace = javastics_workspace_path,
+    out_dir = stics_inputs_path, verbose = TRUE
+  )
+
+  ## Create synthetic observations
+  model_options <- SticsOnR::stics_wrapper_options(javastics = javastics_path, workspace = stics_inputs_path, parallel = FALSE)
+  tmp <- SticsOnR::stics_wrapper(
+    model_options = model_options, param_values = c(dlaimax = 0.0012, durvieF = 100),
+    var = c("lai_n", "masec_n"), situation = "bo96iN+"
+  )
+  obs_synth <<- tmp$sim_list
+
+  ## Try to retrieve dlaimax value
+  param_info <- list(
+    lb = c(dlaimax = 0.0005),
+    ub = c(dlaimax = 0.0020), init_values = c(dlaimax = c(0.001, 0.0011, 0.0013))
+  )
+  optim_options <- list(nb_rep = 3, maxeval = 15, xtol_rel = 1e-01, ranseed = 1234)
+  optim_results1 <- estim_param(
+    obs_list = obs_synth,
+    crit_function = crit_ols,
+    model_function = SticsOnR::stics_wrapper,
+    model_options = model_options,
+    optim_options = optim_options,
+    param_info = param_info, forced_param_values = c(durvieF = 100),
+    out_dir = file.path(getwd(), "Test_forced_param_values_1")
+  )
+  optim_results2 <- estim_param(
+    obs_list = obs_synth,
+    crit_function = crit_ols,
+    model_function = SticsOnR::stics_wrapper,
+    model_options = model_options,
+    optim_options = optim_options,
+    param_info = param_info, forced_param_values = c(durvieF = 300),
+    out_dir = file.path(getwd(), "Test_forced_param_values_2")
+  )
+
   expect_equal(optim_results1$final_values[["dlaimax"]], 0.0012, tolerance = 1e-5)
   expect_gt(
     optim_results1$final_values[["dlaimax"]] - optim_results2$final_values[["dlaimax"]],
@@ -448,32 +474,32 @@ test_that("Test forced_param_values argument", {
 # Test DREAM-ZS takes into account initial values
 # -----------------------------------------------
 
-model_options <- SticsOnR::stics_wrapper_options(javastics = javastics_path, workspace = stics_inputs_path, parallel = FALSE)
-tmp <- SticsOnR::stics_wrapper(model_options = model_options, param_values = c(dlaimax = 0.0012), var = "lai_n", situation = "bo96iN+")
-obs_synth <<- tmp$sim_list
-
-param_info <- list(
-  lb = c(dlaimax = 0.0005),
-  ub = c(dlaimax = 0.0020), init_values = data.frame(dlaimax = c(0.001, 0.0011, 0.0013))
-)
-
-optim_options <- list()
-optim_options$iterations <- 10
-optim_options$startValue <- 3 # Number of markov chains
-optim_options$ranseed <- 1234 # seed for random numbers
-
-optim_results <- estim_param(
-  obs_list = obs_synth,
-  crit_function = likelihood_log_ciidn,
-  model_function = SticsOnR::stics_wrapper,
-  model_options = model_options,
-  optim_options = optim_options,
-  param_info = param_info,
-  optim_method = "BayesianTools.dreamzs",
-  out_dir = file.path(getwd(), "Test_Dreamzs")
-)
 
 test_that("Test DREAM-ZS takes into account initial values", {
+  model_options <- SticsOnR::stics_wrapper_options(javastics = javastics_path, workspace = stics_inputs_path, parallel = FALSE)
+  tmp <- SticsOnR::stics_wrapper(model_options = model_options, param_values = c(dlaimax = 0.0012), var = "lai_n", situation = "bo96iN+")
+  obs_synth <<- tmp$sim_list
+
+  param_info <- list(
+    lb = c(dlaimax = 0.0005),
+    ub = c(dlaimax = 0.0020), init_values = data.frame(dlaimax = c(0.001, 0.0011, 0.0013))
+  )
+
+  optim_options <- list()
+  optim_options$iterations <- 10
+  optim_options$startValue <- 3 # Number of markov chains
+  optim_options$ranseed <- 1234 # seed for random numbers
+
+  optim_results <- estim_param(
+    obs_list = obs_synth,
+    crit_function = likelihood_log_ciidn,
+    model_function = SticsOnR::stics_wrapper,
+    model_options = model_options,
+    optim_options = optim_options,
+    param_info = param_info,
+    optim_method = "BayesianTools.dreamzs",
+    out_dir = file.path(getwd(), "Test_Dreamzs")
+  )
   expect_equal(optim_results$post_sample[1:2], as.numeric(param_info$init_values[1:2, ]))
 })
 
@@ -484,41 +510,41 @@ test_that("Test DREAM-ZS takes into account initial values", {
 # Here we use observations for a given USM (demo_maize3) and try to estimate parameters for another non-observed USM (demo_Wheat1)
 # which in run before the observed one in a rotation
 
-javastics_workspace_path <- file.path(javastics_path, "example")
-
-## Generate Stics input files from JavaStics input files
-stics_inputs_path <- file.path(tempdir(), "RotationTests")
-dir.create(stics_inputs_path, showWarnings = FALSE)
-
-SticsRFiles::gen_usms_xml2txt(
-  javastics = javastics_path, workspace = javastics_workspace_path,
-  out_dir = stics_inputs_path, usm = c("demo_BareSoil2", "demo_Wheat1", "demo_maize3"), verbose = TRUE
-)
-
-model_options <- SticsOnR::stics_wrapper_options(javastics = javastics_path, workspace = stics_inputs_path, successive = list(c("demo_Wheat1", "demo_BareSoil2", "demo_maize3")), parallel = TRUE)
-sim_with_successive <- SticsOnR::stics_wrapper(
-  model_options = model_options, situation = c("demo_Wheat1", "demo_BareSoil2", "demo_maize3"), var = c("AZnit_1"),
-  param_values = data.frame(situation = c("demo_Wheat1"), durvieF = 350)
-)
-
-## Create synthetic observations
-obs_synth <<- sim_with_successive$sim_list["demo_maize3"]
-
-## Try to retrieve dlaimax value with the standard method
-param_info <- list()
-param_info$durvieF <- list(lb = 50, ub = 500, sit_list = list("demo_Wheat1"))
-optim_options <- list(nb_rep = 3, maxeval = 15, xtol_rel = 1e-01, ranseed = 1234)
-optim_results <- estim_param(
-  obs_list = obs_synth,
-  crit_function = crit_ols,
-  model_function = SticsOnR::stics_wrapper,
-  model_options = model_options,
-  optim_options = optim_options,
-  param_info = param_info,
-  out_dir = file.path(getwd(), "Test_rotations")
-)
-
 test_that("Test rotation", {
+  javastics_workspace_path <- file.path(javastics_path, "example")
+
+  ## Generate Stics input files from JavaStics input files
+  stics_inputs_path <- file.path(tempdir(), "RotationTests")
+  dir.create(stics_inputs_path, showWarnings = FALSE)
+
+  SticsRFiles::gen_usms_xml2txt(
+    javastics = javastics_path, workspace = javastics_workspace_path,
+    out_dir = stics_inputs_path, usm = c("demo_BareSoil2", "demo_Wheat1", "demo_maize3"), verbose = TRUE
+  )
+
+  model_options <- SticsOnR::stics_wrapper_options(javastics = javastics_path, workspace = stics_inputs_path, successive = list(c("demo_Wheat1", "demo_BareSoil2", "demo_maize3")), parallel = TRUE)
+  sim_with_successive <- SticsOnR::stics_wrapper(
+    model_options = model_options, situation = c("demo_Wheat1", "demo_BareSoil2", "demo_maize3"), var = c("AZnit_1"),
+    param_values = data.frame(situation = c("demo_Wheat1"), durvieF = 350)
+  )
+
+  ## Create synthetic observations
+  obs_synth <<- sim_with_successive$sim_list["demo_maize3"]
+
+  ## Try to retrieve dlaimax value with the standard method
+  param_info <- list()
+  param_info$durvieF <- list(lb = 50, ub = 500, sit_list = list("demo_Wheat1"))
+  optim_options <- list(nb_rep = 3, maxeval = 15, xtol_rel = 1e-01, ranseed = 1234)
+  optim_results <- estim_param(
+    obs_list = obs_synth,
+    crit_function = crit_ols,
+    model_function = SticsOnR::stics_wrapper,
+    model_options = model_options,
+    optim_options = optim_options,
+    param_info = param_info,
+    out_dir = file.path(getwd(), "Test_rotations")
+  )
+
   expect_equal(optim_results$final_values[["durvieF"]], 350, tolerance = 1)
 })
 
