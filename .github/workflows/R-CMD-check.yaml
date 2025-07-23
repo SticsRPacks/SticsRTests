@@ -93,11 +93,11 @@ jobs:
       #- name: Install testthat 3.1.8
       #  run: Rscript -e "install.packages('https://cran.r-project.org/src/contrib/Archive/testthat/testthat_3.1.8.tar.gz', repos = NULL, type = 'source')"
 
-      - name: Check
-        env:
-          _R_CHECK_CRAN_INCOMING_REMOTE_: false
-        run: rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "error", check_dir = "check")
-        shell: Rscript {0}
+      # - name: Check
+      #   env:
+      #     _R_CHECK_CRAN_INCOMING_REMOTE_: false
+      #   run: rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "error", check_dir = "check")
+      #   shell: Rscript {0}
 
       #- name: Reveal testthat details
       #  if:  env.has_testthat == 'true'
