@@ -55,7 +55,7 @@ jobs:
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           cache: false
-          pak-version: stable
+          #pak-version: stable
           extra-packages: any::rcmdcheck
           needs: check
 
