@@ -19,6 +19,7 @@ Imports:
     remotes,
     testthat,
     xfun,
+    stringi,
     SticsRFiles,
     SticsOnR,
     CroPlotR,
