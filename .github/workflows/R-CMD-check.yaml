@@ -45,7 +45,11 @@ jobs:
 
     steps:
       - name: install libicu
-        run: sudo apt-get install -y libicu-dev
+        run: |
+           if [ "$RUNNER_OS" == "Linux" ]; then
+              sudo apt-get install -y libicu-dev
+           fi
+
       - uses: actions/checkout@v4
 
       - uses: actions/setup-java@v4
@@ -76,6 +80,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          install.packages("stringi", configure.args="--disable-pkg-config")
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("rcmdcheck")
           remotes::install_github("SticsRPacks/SticsRPacks@main", dependencies = FALSE, upgrade = "never")
