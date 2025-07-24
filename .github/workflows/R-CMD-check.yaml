@@ -54,6 +54,12 @@ jobs:
 
       - uses: r-lib/actions/setup-pandoc@v2
 
+      - name: trying to remove lock file
+        run: |
+           if [ -e .github/pkg.lock ]; then
+            sudo rm -fR .github/pkg.lock
+           fi
+
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           dependencies: '"hard"'
