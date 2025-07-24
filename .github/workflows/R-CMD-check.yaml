@@ -54,11 +54,26 @@ jobs:
           distribution: 'zulu' # openjdk
           java-version: '17'
 
+      - name: forcing stringi install from sources
+        run: |
+          if [ "$RUNNER_OS" == "Linux" ]; then
+            Rscript -e "install.packages('https://cran.r-project.org/src/contrib/stringi_1.8.7.tar.gz', repos = NULL, type = 'source')"
+          fi
+        #shell: Rscript {0}
+        # install.packages("stringi", type = "source", configure.args="--disable-pkg-config")
+
       - uses: r-lib/actions/setup-r@v2
         with:
           r-version: ${{ matrix.config.r }}
 
-      - uses: r-lib/actions/setup-pandoc@v1
+      - uses: r-lib/actions/setup-pandoc@v2
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          cache: false
+          pak-version: stable
+          extra-packages: any::rcmdcheck
+          needs: check
 
       - name: Query dependencies
         run: |
@@ -75,13 +90,6 @@ jobs:
           # key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
           # restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
 
-      - name: forcing stringi install from sources
-        run: |
-          if [ "$RUNNER_OS" == "Linux" ]; then
-            Rscript -e "install.packages('https://cran.r-project.org/src/contrib/stringi_1.8.7.tar.gz', repos = NULL, type = 'source')"
-          fi
-        #shell: Rscript {0}
-        # install.packages("stringi", type = "source", configure.args="--disable-pkg-config")
       - name: Install dependencies
         run: |
           remotes::install_deps(dependencies = TRUE)
@@ -94,11 +102,6 @@ jobs:
 
       - name: Install testthat 3.1.8
         run: Rscript -e "install.packages('https://cran.r-project.org/src/contrib/Archive/testthat/testthat_3.1.8.tar.gz', repos = NULL, type = 'source')"
-
-      - uses: r-lib/actions/setup-r-dependencies@v2
-        with:
-          extra-packages: any::rcmdcheck
-          needs: check
 
       - name: Check
         env:
