@@ -54,14 +54,6 @@ jobs:
           distribution: 'zulu' # openjdk
           java-version: '17'
 
-      - name: forcing stringi install from sources
-        run: |
-          if [ "$RUNNER_OS" == "Linux" ]; then
-            Rscript -e "install.packages('https://cran.r-project.org/src/contrib/stringi_1.8.7.tar.gz', repos = NULL, type = 'source')"
-          fi
-        #shell: Rscript {0}
-        # install.packages("stringi", type = "source", configure.args="--disable-pkg-config")
-
       - uses: r-lib/actions/setup-r@v2
         with:
           r-version: ${{ matrix.config.r }}
@@ -74,6 +66,15 @@ jobs:
           pak-version: stable
           extra-packages: any::rcmdcheck
           needs: check
+
+       - name: forcing stringi install from sources
+        run: |
+          if [ "$RUNNER_OS" == "Linux" ]; then
+            Rscript -e "install.packages('https://cran.r-project.org/src/contrib/stringi_1.8.7.tar.gz', repos = NULL, type = 'source')"
+          fi
+        #shell: Rscript {0}
+        # install.packages("stringi", type = "source", configure.args="--disable-pkg-config")
+
 
       - name: Query dependencies
         run: |
