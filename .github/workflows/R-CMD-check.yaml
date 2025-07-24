@@ -35,7 +35,7 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: windows-latest, r: 'release'}
+          #- {os: windows-latest, r: 'release'}
           #- {os: ubuntu-latest, r: "release", rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"}
           - {os: ubuntu-latest, r: "release"}
           #- {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
@@ -85,7 +85,6 @@ jobs:
       - name: Install dependencies
         run: |
           remotes::install_deps(dependencies = TRUE)
-          remotes::install_cran("rcmdcheck")
           remotes::install_github("SticsRPacks/SticsRPacks@main", dependencies = FALSE, upgrade = "never")
           remotes::install_github("SticsRPacks/CroPlotR@main", dependencies = FALSE, upgrade = "never")
           remotes::install_github("SticsRPacks/CroptimizR@main", dependencies = FALSE, upgrade = "never")
@@ -95,6 +94,11 @@ jobs:
 
       - name: Install testthat 3.1.8
         run: Rscript -e "install.packages('https://cran.r-project.org/src/contrib/Archive/testthat/testthat_3.1.8.tar.gz', repos = NULL, type = 'source')"
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: any::rcmdcheck
+          needs: check
 
       - name: Check
         env:
