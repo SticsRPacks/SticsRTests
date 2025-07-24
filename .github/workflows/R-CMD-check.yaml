@@ -80,7 +80,6 @@ jobs:
 
       - name: Install dependencies
         run: |
-          install.packages("stringi", configure.args="--disable-pkg-config")
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("rcmdcheck")
           remotes::install_github("SticsRPacks/SticsRPacks@main", dependencies = FALSE, upgrade = "never")
@@ -88,6 +87,10 @@ jobs:
           remotes::install_github("SticsRPacks/CroptimizR@main", dependencies = FALSE, upgrade = "never")
           remotes::install_github("SticsRPacks/SticsOnR@main", dependencies = FALSE, upgrade = "never")
           remotes::install_github("SticsRPacks/SticsRFiles@main", dependencies = FALSE, upgrade = "never")
+
+      - name: forcing stringi install from sources
+        run: |
+          install.packages("stringi", configure.args="--disable-pkg-config", , type = "source")
         shell: Rscript {0}
 
       - name: Install testthat 3.1.8
