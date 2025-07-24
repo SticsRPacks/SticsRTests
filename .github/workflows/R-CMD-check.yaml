@@ -18,14 +18,6 @@ env:
   has_testthat: 'true'
 
 jobs:
-  # specific install for macOS stics executable dependency
-  build:
-    runs-on: macOS-latest
-    steps:
-    - uses: maxim-lobanov/setup-xcode@v1
-      with:
-        xcode-version: latest-stable
-
   R-CMD-check:
     runs-on: ${{ matrix.config.os }}
 
@@ -67,14 +59,11 @@ jobs:
           extra-packages: any::rcmdcheck
           needs: check
 
-       - name: forcing stringi install from sources
+      - name: forcing stringi install from sources
         run: |
-          if [ "$RUNNER_OS" == "Linux" ]; then
-            Rscript -e "install.packages('https://cran.r-project.org/src/contrib/stringi_1.8.7.tar.gz', repos = NULL, type = 'source')"
-          fi
-        #shell: Rscript {0}
-        # install.packages("stringi", type = "source", configure.args="--disable-pkg-config")
-
+            if [ "$RUNNER_OS" == "Linux" ]; then
+              Rscript -e "install.packages('https://cran.r-project.org/src/contrib/stringi_1.8.7.tar.gz', repos = NULL, type = 'source')"
+            fi
 
       - name: Query dependencies
         run: |
