@@ -59,17 +59,12 @@ jobs:
           use-public-rspm: true
 
       - uses: r-lib/actions/setup-pandoc@v2
-
-      - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          dependencies: '"hard"'
-          cache: false
-          #pak-version: stable
-          extra-packages: |
-            any::rcmdcheck
-            any::testthat
-            any::knitr
-            any::rmarkdown
+          pak-version: rc
+          # about pak-version:
+          # Ubuntu doesn't install the proper version of XML see https://github.com/r-lib/actions/issues/559. Remove when fixed.
+          # see also: https://stackoverflow.com/questions/73243945/pkgdown-action-failing-at-build-xml
+          extra-packages: any::rcmdcheck
           needs: check
 
       #- name: forcing stringi install from system
