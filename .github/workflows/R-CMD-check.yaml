@@ -45,9 +45,11 @@ jobs:
     steps:
       - name : install libicu
         run: |
-           curl -O http://security.ubuntu.com/ubuntu/pool/main/i/icu/libicu66_66.1-2ubuntu2_amd64.deb && \
-           sudo dpkg -i libicu66_66.1-2ubuntu2_amd64.deb && \
-           rm libicu66_66.1-2ubuntu2_amd64.deb
+            if [ "$RUNNER_OS" == "Linux" ]; then
+               curl -O http://security.ubuntu.com/ubuntu/pool/main/i/icu/libicu66_66.1-2ubuntu2_amd64.deb && \
+               sudo dpkg -i libicu66_66.1-2ubuntu2_amd64.deb && \
+               rm libicu66_66.1-2ubuntu2_amd64.deb
+            fi
         
       - uses: actions/checkout@v4
 
