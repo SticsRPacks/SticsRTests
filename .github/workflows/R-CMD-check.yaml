@@ -55,9 +55,6 @@ jobs:
         run: |
             run: sudo apt-get update && sudo apt-get install -y libssl1.1 || sudo apt-get install -y libssl-dev
 
-      - name: Ensure latest curl package for R
-        run: Rscript -e "install.packages('curl')"
-
       - uses: actions/checkout@v4
 
       - uses: actions/setup-java@v4
@@ -118,6 +115,9 @@ jobs:
 
       - name: Install testthat 3.1.8
         run: Rscript -e "install.packages('https://cran.r-project.org/src/contrib/Archive/testthat/testthat_3.1.8.tar.gz', repos = NULL, type = 'source')"
+
+      - name: Ensure latest curl package for R
+        run: Rscript -e "install.packages('curl')"
 
       - name: Check
         env:
