@@ -51,7 +51,7 @@ jobs:
             rm libicu66_66.1-2ubuntu2_amd64.deb
 
       - name: Install libssl1.1
-          run: |
+        run: |
             sudo apt-get update
             sudo apt-get install -y libssl1.1 || echo "libssl1.1 not available, skipping"
 
