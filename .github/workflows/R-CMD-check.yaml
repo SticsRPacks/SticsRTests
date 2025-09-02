@@ -53,7 +53,11 @@ jobs:
       - name: Install libssl1.1
         if: runner.os != 'Windows'
         run: |
-            run: sudo apt-get update && sudo apt-get install -y libssl1.1 || sudo apt-get install -y libssl-dev
+            sudo apt-get update && sudo apt-get install -y libssl1.1 || sudo apt-get install -y libssl-dev
+
+      - name: libldap for curl
+        run: |
+            sudo apt-get install libldap2-dev
 
       - uses: actions/checkout@v4
 
