@@ -16,6 +16,7 @@ License: file LICENSE
 Imports:
     dplyr,
     knitr,
+    curl,
     remotes,
     testthat,
     xfun,
