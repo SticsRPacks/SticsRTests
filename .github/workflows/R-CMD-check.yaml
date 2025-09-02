@@ -53,8 +53,10 @@ jobs:
       - name: Install libssl1.1
         if: runner.os != 'Windows'
         run: |
-            sudo apt-get update
-            sudo apt-get install libssl-dev || echo "libssl-dev not available, skipping"
+            run: sudo apt-get update && sudo apt-get install -y libssl1.1 || sudo apt-get install -y libssl-dev
+
+      - name: Ensure latest curl package for R
+        run: Rscript -e "install.packages('curl')"
 
       - uses: actions/checkout@v4
 
