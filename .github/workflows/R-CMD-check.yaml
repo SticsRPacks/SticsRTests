@@ -43,13 +43,18 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
-      - name : install libicu
+      - name: install libicu
         if: runner.os != 'Windows'
         run: |
             curl -O http://security.ubuntu.com/ubuntu/pool/main/i/icu/libicu66_66.1-2ubuntu2_amd64.deb && \
             sudo dpkg -i libicu66_66.1-2ubuntu2_amd64.deb && \
             rm libicu66_66.1-2ubuntu2_amd64.deb
-        
+
+      - name: Install libssl1.1
+          run: |
+            sudo apt-get update
+            sudo apt-get install -y libssl1.1 || echo "libssl1.1 not available, skipping"
+
       - uses: actions/checkout@v4
 
       - uses: actions/setup-java@v4
@@ -73,7 +78,7 @@ jobs:
           # see also: https://stackoverflow.com/questions/73243945/pkgdown-action-failing-at-build-xml
        #   extra-packages: any::rcmdcheck
        #   needs: check
-          
+
       #- name: forcing stringi install from system
       #  run: |
       #      if [ "$RUNNER_OS" == "Linux" ]; then
