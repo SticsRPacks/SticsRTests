@@ -72,10 +72,15 @@ jobs:
           # key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
           # restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
 
-      - name: Install dependencies
+      - name: Install dependencies (force ggplot2 v3.5.2 first)
         run: |
-          remotes::install_deps(dependencies = TRUE)
-          remotes::install_cran("rcmdcheck")
+          install.packages('remotes')
+          # Instal ggplot2 3.5.2 first
+          remotes::install_version("ggplot2", version = "3.5.2", upgrade = "never")
+
+          # Instal dependencies without upgrade
+          remotes::install_deps(dependencies = TRUE, upgrade = "never")
+          remotes::install_cran("rcmdcheck", upgrade = "never")
           remotes::install_github("SticsRPacks/SticsRPacks@main", dependencies = FALSE, upgrade = "never")
           remotes::install_github("SticsRPacks/CroPlotR@main", dependencies = FALSE, upgrade = "never")
           remotes::install_github("SticsRPacks/CroptimizR@main", dependencies = FALSE, upgrade = "never")
