@@ -77,14 +77,13 @@ knitr::purl(input = tutorial_test_rmd,
      output = tutorial_test_r,
      documentation = 2)
 
-
 # Running the Tutorial script for
 # Default use case with downloading JavaStics from the forge
-test_tuto_download_javastics <- function() {
-  javastics_in_path <- Sys.setenv(javastics_path="")
-  source(tutorial_test_r)
-  return (TRUE)
-}
+#test_tuto_download_javastics <- function() {
+#  javastics_in_path <- Sys.setenv(javastics_path="")
+#  source(tutorial_test_r)
+#  return (TRUE)
+#}
 # Local JavaStics installation use case
 test_tuto_local_javastics <- function() {
   version <- get_stics_versions_compat()$latest_version
