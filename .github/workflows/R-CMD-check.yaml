@@ -19,12 +19,12 @@ env:
 
 jobs:
   # specific install for macOS stics executable dependency
-  build:
-    runs-on: macOS-latest
-    steps:
-    - uses: maxim-lobanov/setup-xcode@v1
-      with:
-        xcode-version: latest-stable
+  #build:
+  #  runs-on: macOS-latest
+  #  steps:
+  #  - uses: maxim-lobanov/setup-xcode@v1
+  #    with:
+  #      xcode-version: latest-stable
 
   R-CMD-check:
     runs-on: ${{ matrix.config.os }}
@@ -55,7 +55,7 @@ jobs:
         with:
           r-version: ${{ matrix.config.r }}
 
-      - uses: r-lib/actions/setup-pandoc@v1
+      - uses: r-lib/actions/setup-pandoc@v2
 
       - name: Query dependencies
         run: |
@@ -72,13 +72,13 @@ jobs:
           # key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
           # restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
 
-      - name: Install dependencies (force ggplot2 v3.5.2 first)
+      - name: Install dependencies #(force ggplot2 v3.5.2 first)
         run: |
           install.packages('remotes')
           # Instal ggplot2 3.5.2 first
-          remotes::install_version("ggplot2", version = "3.5.2", upgrade = "never")
+          #remotes::install_version("ggplot2", version = "3.5.2", upgrade = "never")
 
-          # Instal dependencies without upgrade
+          # Install dependencies without upgrade
           remotes::install_deps(dependencies = TRUE, upgrade = "never")
           remotes::install_cran("rcmdcheck", upgrade = "never")
           remotes::install_github("SticsRPacks/SticsRPacks@main", dependencies = FALSE, upgrade = "never")
