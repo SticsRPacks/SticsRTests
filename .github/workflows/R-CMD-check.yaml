@@ -56,7 +56,8 @@ jobs:
       - name: libssl for curl
         run: |
             #ln -s /opt/openssl/lib/libssl.so.1.1 /usr/lib/x86_64-linux-gnu/libssl.so.1.1
-            ls /home/runner/work/_temp/Library/
+            echo $LD_LIBRARY_PATH
+            ls /opt
   
       - uses: actions/checkout@v4
 
