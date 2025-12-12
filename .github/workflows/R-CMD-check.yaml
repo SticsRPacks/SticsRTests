@@ -54,10 +54,10 @@ jobs:
             sudo apt-get update && sudo apt-get install -y libcurl4-openssl-dev
 
       - name: libssl for curl
-        run: |
-            #ln -s /opt/openssl/lib/libssl.so.1.1 /usr/lib/x86_64-linux-gnu/libssl.so.1.1
-            echo $LD_LIBRARY_PATH
-            ls /opt
+        run: |     
+          wget http://nz2.archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2_amd64.deb
+          sudo dpkg -i libssl1.1_1.1.1f-1ubuntu2_amd64.deb
+
   
       - uses: actions/checkout@v4
 
