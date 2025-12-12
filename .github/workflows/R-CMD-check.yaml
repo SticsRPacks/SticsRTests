@@ -88,8 +88,8 @@ jobs:
           remotes::install_github("SticsRPacks/SticsRFiles@main", dependencies = FALSE, upgrade = "never")
         shell: Rscript {0}
 
-      - name: Install testthat 3.1.8
-        run: Rscript -e "install.packages('https://cran.r-project.org/src/contrib/Archive/testthat/testthat_3.1.8.tar.gz', repos = NULL, type = 'source')"
+      - name: Install testthat
+        run: Rscript -e "install.packages('testhat')"
 
       - name: Check
         env:
