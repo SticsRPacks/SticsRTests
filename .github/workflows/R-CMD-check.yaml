@@ -53,9 +53,10 @@ jobs:
         run: |
             sudo apt-get update && sudo apt-get install -y libcurl4-openssl-dev
 
-      #- name: libldap for curl
-      #  run: |
-      #      sudo apt-get install libldap2-dev
+      - name: libssl for curl
+        run: |
+            #ln -s /opt/openssl/lib/libssl.so.1.1 /usr/lib/x86_64-linux-gnu/libssl.so.1.1
+            ls /home/runner/work/_temp/Library/
   
       - uses: actions/checkout@v4
 
