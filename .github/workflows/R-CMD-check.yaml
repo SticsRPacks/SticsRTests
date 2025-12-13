@@ -60,8 +60,8 @@ jobs:
           sudo dpkg -i libssl1.1_1.1.1f-1ubuntu2_amd64.deb
           wget http://http.us.debian.org/debian/pool/main/o/openldap/libldap-2.4-2_2.4.57+dfsg-3+deb11u1_amd64.deb 
           sudo apt install ./libldap-2.4-2_2.4.57+dfsg-3+deb11u1_amd64.deb
-          sudo apt-get update
-          sudo apt-get install --reinstall libicu66
+          wget http://archive.ubuntu.com/ubuntu/pool/main/i/icu/libicu66_66.1-2ubuntu2_amd64.deb
+          sudo dpkg -i libicu66_66.1-2ubuntu2_amd64.deb
       - uses: actions/checkout@v4
 
       - uses: actions/setup-java@v4
