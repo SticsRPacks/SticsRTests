@@ -59,7 +59,7 @@ jobs:
         if: ${{ env.SOURCE_REPO == 'SticsRPacks' }}
         run: echo "Triggering repository $SOURCE_REPOS"
         env:
-          ${{ env.STICSRPACKS_BRANCH }}: ${{ SOURCE_REF }}
+          ${{ env.STICSRPACKS_BRANCH }}: ${{ env.SOURCE_REF }}
           
       - name: install libxslt
         if: runner.os  != 'Windows'
