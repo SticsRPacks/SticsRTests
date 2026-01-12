@@ -158,14 +158,27 @@ SticsRFiles::gen_usms_xml2txt(
   usm = c("demo_BareSoil2", "demo_Wheat1", "banana", "demo_maize3"), verbose = TRUE
 )
 
-model_options <- SticsOnR::stics_wrapper_options(javastics = javastics_path, workspace = stics_inputs_path, parallel = TRUE, cores = cores)
-sim_without_successive <- SticsOnR::stics_wrapper(model_options = model_options)
+model_options <- SticsOnR::stics_wrapper_options(
+  javastics = javastics_path, workspace = stics_inputs_path, parallel = TRUE, cores = cores
+)
+sim_without_successive <- SticsOnR::stics_wrapper(
+  model_options = model_options,
+  var = c("lai_n", "masec_n", "azomes", "resmes")
+)
+
+model_options <- SticsOnR::stics_wrapper_options(
+  javastics = javastics_path, workspace = stics_inputs_path, successive = list(c("demo_Wheat1", "demo_BareSoil2", "demo_maize3")), parallel = TRUE, cores = cores
+)
+sim_with_successive <- SticsOnR::stics_wrapper(
+  model_options = model_options,
+  var = c("lai_n", "masec_n", "azomes", "resmes")
+)
 
 model_options <- SticsOnR::stics_wrapper_options(javastics = javastics_path, workspace = stics_inputs_path, successive = list(c("demo_Wheat1", "demo_BareSoil2", "demo_maize3")), parallel = TRUE, cores = cores)
-sim_with_successive <- SticsOnR::stics_wrapper(model_options = model_options)
-
-model_options <- SticsOnR::stics_wrapper_options(javastics = javastics_path, workspace = stics_inputs_path, successive = list(c("demo_Wheat1", "demo_BareSoil2", "demo_maize3")), parallel = TRUE, cores = cores)
-sim_with_successive_restricted_results <- SticsOnR::stics_wrapper(model_options = model_options, situation = c("banana", "demo_maize3"))
+sim_with_successive_restricted_results <- SticsOnR::stics_wrapper(
+  model_options = model_options, situation = c("banana", "demo_maize3"),
+  var = c("lai_n", "masec_n", "azomes", "resmes")
+)
 
 maize_succ_res <- file(file.path(stics_inputs_path, "demo_maize3", "mod_bdemo_maize3.sti"), "rb")
 nb_grep_maize <- grep("rotation", readLines(maize_succ_res))
