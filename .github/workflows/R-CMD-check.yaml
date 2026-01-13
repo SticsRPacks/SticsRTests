@@ -93,7 +93,7 @@ jobs:
       - name: Install dependencies (force ggplot2 v3.5.2 first)
         run: |
           install.packages('remotes')
-          # Instal ggplot2 3.5.2 first
+          # Install ggplot2 3.5.2 first (was done due to temporary incompatibility of CroPlotR with ggplot 4.0.0, to remove when CroPlotR 1.0.0 will be released)
           remotes::install_version("ggplot2", version = "3.5.2", upgrade = "never")
 
           # Instal dependencies without upgrade
@@ -106,10 +106,10 @@ jobs:
           remotes::install_github("SticsRPacks/SticsRFiles@main", dependencies = FALSE, upgrade = "never")
         shell: Rscript {0}
 
-      #- name: Install testthat 3.1.8
-      #  run: Rscript -e "install.packages('https://cran.r-project.org/src/contrib/Archive/testthat/testthat_3.1.8.tar.gz', repos = NULL, type = 'source')"
-      - name: Install testthat
-        run: Rscript -e "install.packages('testthat')"
+      - name: Install testthat 3.1.8 # there is a problem with testthat >= 3.1.8, tests crash at the end for an unknown reason although they all pass
+        run: Rscript -e "install.packages('https://cran.r-project.org/src/contrib/Archive/testthat/testthat_3.1.8.tar.gz', repos = NULL, type = 'source')"
+      #- name: Install testthat
+      #  run: Rscript -e "install.packages('testthat')"
         
       - name: Check
         env:
