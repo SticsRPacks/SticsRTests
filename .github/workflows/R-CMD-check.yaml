@@ -107,7 +107,10 @@ jobs:
         shell: Rscript {0}
 
       - name: Install testthat 3.1.8 # there is a problem with testthat >= 3.1.8, tests crash at the end for an unknown reason although they all pass
-        run: Rscript -e "install.packages('https://cran.r-project.org/src/contrib/Archive/testthat/testthat_3.1.8.tar.gz', repos = NULL, type = 'source')"
+        run: |
+          Rscript -e 'install.packages("ellipsis")'
+          Rscript -e 'remotes::install_version("testthat", version = "3.1.8")'
+      # Rscript -e "install.packages('https://cran.r-project.org/src/contrib/Archive/testthat/testthat_3.1.8.tar.gz', repos = NULL, type = 'source')"
       #- name: Install testthat
       #  run: Rscript -e "install.packages('testthat')"
         
