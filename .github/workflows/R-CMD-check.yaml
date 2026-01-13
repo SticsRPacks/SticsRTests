@@ -42,8 +42,27 @@ jobs:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
       RSPM: ${{ matrix.config.rspm }}
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      # set environment variables from the client payload for convenience
+      SOURCE_REPO: ${{ github.event.client_payload.repo }}
+      SOURCE_REF: ${{ github.event.client_payload.ref }}
+      SOURCE_SHA: ${{ github.event.client_payload.sha }}
+      # get trigerring info
+      STICSRPACKS_BRANCH: main
+      CROPLOTR_BRANCH: main
+      CROPTIMIZR_BRANCH: main
+      STICSONR_BRANCH: main
+      STICSRFILES_BRANCH: main
+      
 
     steps:
+      - name: fix branches names
+        if: ${{ env.SOURCE_REPO == 'SticsRPacks' }}
+        run: |
+          echo "Triggering repository $SOURCE_REPOS"
+          echo "Branch ref $SOURCE_REF"
+        env:
+          ${{ env.STICSRPACKS_BRANCH }}: ${{ env.SOURCE_REF }}
+          
       - name: install libxslt
         if: runner.os  != 'Windows'
         run: |
@@ -99,7 +118,7 @@ jobs:
           # Instal dependencies without upgrade
           remotes::install_deps(dependencies = TRUE, upgrade = "never")
           remotes::install_cran("rcmdcheck", upgrade = "never")
-          remotes::install_github("SticsRPacks/SticsRPacks@main", dependencies = FALSE, upgrade = "never")
+          remotes::install_github("SticsRPacks/SticsRPacks", ref = "$env.STICSRPACKS_BRANCH", dependencies = FALSE, upgrade = "never")
           remotes::install_github("SticsRPacks/CroPlotR@main", dependencies = FALSE, upgrade = "never")
           remotes::install_github("SticsRPacks/CroptimizR@main", dependencies = FALSE, upgrade = "never")
           remotes::install_github("SticsRPacks/SticsOnR@main", dependencies = FALSE, upgrade = "never")
