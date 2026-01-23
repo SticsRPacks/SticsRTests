@@ -62,7 +62,6 @@ jobs:
           sudo apt install ./libldap-2.4-2_2.4.57+dfsg-3+deb11u1_amd64.deb
           wget http://archive.ubuntu.com/ubuntu/pool/main/i/icu/libicu66_66.1-2ubuntu2_amd64.deb
           sudo dpkg -i libicu66_66.1-2ubuntu2_amd64.deb
-          sudo apt-get install r-cran-testthat
       - uses: actions/checkout@v4
 
       - uses: actions/setup-java@v4
@@ -107,10 +106,10 @@ jobs:
           remotes::install_github("SticsRPacks/SticsRFiles@main", dependencies = FALSE, upgrade = "never")
         shell: Rscript {0}
 
-      #- name: Install testthat 3.1.8
-      #  run: Rscript -e "install.packages('https://cran.r-project.org/src/contrib/Archive/testthat/testthat_3.1.8.tar.gz', repos = NULL, type = 'source')"
-      - name: Install testthat
-        run: Rscript -e "install.packages('testthat')"
+      - name: Install testthat 3.1.8
+        run: Rscript -e "install.packages('https://cran.r-project.org/src/contrib/Archive/testthat/testthat_3.1.8.tar.gz', repos = NULL, type = 'source')"
+      #- name: Install testthat
+      #  run: Rscript -e "install.packages('testthat')"
         
       - name: Check
         env:
