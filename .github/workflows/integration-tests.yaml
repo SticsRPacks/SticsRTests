@@ -189,5 +189,5 @@ jobs:
         shell: Rscript {0}
 
       - name: Run integration tests
-        run: testthat::test_package("SticsRTests")
+        run: testthat::test_local(stop_on_failure = TRUE)
         shell: Rscript {0}
