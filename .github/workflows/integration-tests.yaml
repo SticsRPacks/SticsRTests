@@ -1,0 +1,199 @@
+name: integration-tests
+
+on:
+  workflow_call:
+    inputs:
+      repo:
+        description: Repository under test
+        required: true
+        type: string
+      ref:
+        description: Branch or tag for the repository under test
+        required: false
+        default: ""
+        type: string
+      sha:
+        description: Exact commit SHA for the repository under test
+        required: false
+        default: ""
+        type: string
+      dependency_mode:
+        description: Ref selection mode for the other SticsRPacks packages
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  integration-tests:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ github.token }}
+
+    steps:
+      - name: Checkout SticsRTests
+        uses: actions/checkout@v4
+        with:
+          repository: SticsRPacks/SticsRTests
+          ref: main
+          path: SticsRTests
+          fetch-depth: 0
+
+      - name: Resolve package refs
+        env:
+          PACKAGE_UNDER_TEST: ${{ inputs.repo }}
+          PACKAGE_REF: ${{ inputs.ref }}
+          PACKAGE_SHA: ${{ inputs.sha }}
+          DEPENDENCY_MODE: ${{ inputs.dependency_mode }}
+        run: |
+          set -euo pipefail
+
+          resolve_release_ref() {
+            local pkg="$1"
+            local ref
+
+            ref="$(git ls-remote --refs --tags "https://github.com/SticsRPacks/${pkg}.git" \
+              | awk -F/ '
+                  {
+                    tag = $NF
+                    if (tag ~ /^v?[0-9]+([.][0-9]+)+([.-][0-9A-Za-z]+)*$/) {
+                      key = tag
+                      sub(/^v/, "", key)
+                      print key "\t" tag
+                    }
+                  }
+                ' \
+              | sort -V \
+              | tail -n 1 \
+              | cut -f2)"
+
+            if [ -z "${ref}" ]; then
+              echo "No release tag found for ${pkg}" >&2
+              exit 1
+            fi
+
+            printf '%s\n' "${ref}"
+          }
+
+          resolve_ref() {
+            local pkg="$1"
+
+            if [ "${pkg}" = "${PACKAGE_UNDER_TEST}" ]; then
+              if [ -n "${PACKAGE_SHA}" ]; then
+                printf '%s\n' "${PACKAGE_SHA}"
+                return
+              fi
+
+              if [ -n "${PACKAGE_REF}" ]; then
+                printf '%s\n' "${PACKAGE_REF}"
+                return
+              fi
+
+              printf 'main\n'
+              return
+            fi
+
+            if [ "${DEPENDENCY_MODE}" = "main" ]; then
+              printf 'main\n'
+              return
+            fi
+
+            if [ "${DEPENDENCY_MODE}" = "release" ]; then
+              resolve_release_ref "${pkg}"
+              return
+            fi
+
+            echo "Unsupported dependency mode: ${DEPENDENCY_MODE}" >&2
+            exit 1
+          }
+
+          {
+            printf 'repo,ref\n'
+
+            for pkg in SticsRPacks CroPlotR CroptimizR SticsRFiles SticsOnR; do
+              printf '%s,%s\n' "${pkg}" "$(resolve_ref "${pkg}")"
+            done
+          } > package-refs.csv
+
+          cat package-refs.csv
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: zulu
+          java-version: "17"
+
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+
+      - name: Set up Pandoc
+        uses: r-lib/actions/setup-pandoc@v2
+
+      - name: Install system libraries
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libxslt1-dev libcurl4-openssl-dev
+          wget http://nz2.archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2_amd64.deb
+          sudo dpkg -i libssl1.1_1.1.1f-1ubuntu2_amd64.deb
+          wget http://http.us.debian.org/debian/pool/main/o/openldap/libldap-2.4-2_2.4.57+dfsg-3+deb11u1_amd64.deb
+          sudo apt-get install -y ./libldap-2.4-2_2.4.57+dfsg-3+deb11u1_amd64.deb
+          wget http://archive.ubuntu.com/ubuntu/pool/main/i/icu/libicu66_66.1-2ubuntu2_amd64.deb
+          sudo dpkg -i libicu66_66.1-2ubuntu2_amd64.deb
+
+      - name: Install R dependencies and package refs
+        env:
+          PACKAGE_UNDER_TEST: ${{ inputs.repo }}
+          PACKAGE_REF: ${{ inputs.ref }}
+          PACKAGE_SHA: ${{ inputs.sha }}
+        run: |
+          install_remote <- function(repo, ref) {
+            remotes::install_github(
+              sprintf("SticsRPacks/%s@%s", repo, ref),
+              dependencies = FALSE,
+              upgrade = "never"
+            )
+          }
+
+          install.packages(c("remotes", "testthat", "dplyr", "xfun", "knitr"), dependencies = TRUE)
+          remotes::install_version("ggplot2", version = "3.5.2", upgrade = "never")
+
+          refs <- read.csv("package-refs.csv", stringsAsFactors = FALSE)
+          caller_repo <- Sys.getenv("PACKAGE_UNDER_TEST")
+          caller_ref <- Sys.getenv("PACKAGE_REF")
+          caller_sha <- Sys.getenv("PACKAGE_SHA")
+
+          for (i in seq_len(nrow(refs))) {
+            repo <- refs$repo[[i]]
+            ref <- refs$ref[[i]]
+
+            if (repo == caller_repo && nzchar(caller_sha)) {
+              tryCatch(
+                install_remote(repo, caller_sha),
+                error = function(err) {
+                  if (!nzchar(caller_ref)) {
+                    stop(err)
+                  }
+
+                  message(
+                    sprintf(
+                      "Falling back to ref '%s' for %s because SHA install failed.",
+                      caller_ref,
+                      repo
+                    )
+                  )
+                  install_remote(repo, caller_ref)
+                }
+              )
+              next
+            }
+
+            install_remote(repo, ref)
+          }
+
+          remotes::install_local("SticsRTests", dependencies = FALSE, upgrade = "never")
+        shell: Rscript {0}
+
+      - name: Run integration tests
+        run: testthat::test_package("SticsRTests")
+        shell: Rscript {0}
