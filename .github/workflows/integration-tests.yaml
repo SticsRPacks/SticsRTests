@@ -126,6 +126,8 @@ jobs:
           {
             echo 'extra_packages<<EOF'
             tail -n +2 package-refs.csv | while IFS=, read -r repo ref; do
+              # Install the caller package and SticsRPacks later, in a fixed order,
+              # so SticsRPacks does not pull a different ref of the caller package.
               if [ "${repo}" = "${PACKAGE_UNDER_TEST}" ] || [ "${repo}" = "SticsRPacks" ]; then
                 continue
               fi
@@ -162,7 +164,8 @@ jobs:
       - name: Set up R dependencies
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          dependencies: "FALSE"
+          packages: any::sessioninfo
+          dependencies: '"all"'
           pak-version: rc
           extra-packages: |
             any::testthat
@@ -192,6 +195,9 @@ jobs:
         env:
           STICSRPACKS_REF: ${{ steps.package-refs.outputs.sticsrpacks_ref }}
         run: |
+          # By this point the selected SticsRFiles/CroPlotR/CroptimizR/SticsOnR refs
+          # are already installed, so install the umbrella package without resolving
+          # dependencies again.
           remotes::install_github(
             sprintf("SticsRPacks/SticsRPacks@%s", Sys.getenv("STICSRPACKS_REF")),
             dependencies = FALSE,
