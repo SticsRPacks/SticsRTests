@@ -123,21 +123,6 @@ jobs:
 
           cat package-refs.csv
 
-          {
-            echo 'extra_packages<<EOF'
-            tail -n +2 package-refs.csv | while IFS=, read -r repo ref; do
-              # Install the caller package and SticsRPacks later, in a fixed order,
-              # so SticsRPacks does not pull a different ref of the caller package.
-              if [ "${repo}" = "${PACKAGE_UNDER_TEST}" ] || [ "${repo}" = "SticsRPacks" ]; then
-                continue
-              fi
-              printf 'SticsRPacks/%s@%s\n' "${repo}" "${ref}"
-            done
-            echo 'EOF'
-            echo "caller_ref=$(awk -F, -v repo=\"${PACKAGE_UNDER_TEST}\" '$1 == repo { print $2 }' package-refs.csv)"
-            echo "sticsrpacks_ref=$(awk -F, '$1 == \"SticsRPacks\" { print $2 }' package-refs.csv)"
-          } >> "${GITHUB_OUTPUT}"
-
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
@@ -149,6 +134,37 @@ jobs:
 
       - name: Set up Pandoc
         uses: r-lib/actions/setup-pandoc@v2
+
+      - name: Build dependency manifest
+        run: |
+          dir.create(".github/integration-deps", recursive = TRUE, showWarnings = FALSE)
+
+          desc <- read.dcf("DESCRIPTION")
+          imports <- trimws(unlist(strsplit(gsub("[\r\n]", " ", desc[1, "Imports"]), ",")))
+          imports <- imports[nzchar(imports)]
+
+          refs <- read.csv("package-refs.csv", stringsAsFactors = FALSE)
+          remotes <- sprintf("    github::SticsRPacks/%s@%s", refs$repo, refs$ref)
+
+          writeLines(
+            c(
+              "Package: SticsRTestsDeps",
+              "Type: Package",
+              "Title: Temporary Dependency Manifest for SticsRTests Integration",
+              "Version: 0.0.0.9000",
+              "Description: Temporary package manifest generated during CI.",
+              "License: MIT",
+              "Encoding: UTF-8",
+              "Imports:",
+              sprintf("    %s", paste(imports, collapse = ",\n    ")),
+              "Remotes:",
+              paste(remotes, collapse = ",\n")
+            ),
+            ".github/integration-deps/DESCRIPTION"
+          )
+
+          cat(readLines(".github/integration-deps/DESCRIPTION"), sep = "\n")
+        shell: Rscript {0}
 
       - name: Install system libraries
         run: |
@@ -164,51 +180,10 @@ jobs:
       - name: Set up R dependencies
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          packages: any::sessioninfo
+          working-directory: .github/integration-deps
+          packages: deps::., any::sessioninfo
           dependencies: '"all"'
           pak-version: rc
-          extra-packages: |
-            any::testthat
-            any::remotes
-            any::dplyr
-            any::xfun
-            any::knitr
-            any::learnr
-            any::nloptr
-            any::lhs
-            any::tictoc
-            ${{ steps.package-refs.outputs.extra_packages }}
-
-      - name: Install caller package
-        env:
-          PACKAGE_UNDER_TEST: ${{ inputs.repo }}
-          PACKAGE_REF: ${{ steps.package-refs.outputs.caller_ref }}
-        run: |
-          remotes::install_github(
-            sprintf("SticsRPacks/%s@%s", Sys.getenv("PACKAGE_UNDER_TEST"), Sys.getenv("PACKAGE_REF")),
-            dependencies = FALSE,
-            upgrade = "never"
-          )
-        shell: Rscript {0}
-
-      - name: Install SticsRPacks
-        env:
-          STICSRPACKS_REF: ${{ steps.package-refs.outputs.sticsrpacks_ref }}
-        run: |
-          # By this point the selected SticsRFiles/CroPlotR/CroptimizR/SticsOnR refs
-          # are already installed, so install the umbrella package without resolving
-          # dependencies again.
-          remotes::install_github(
-            sprintf("SticsRPacks/SticsRPacks@%s", Sys.getenv("STICSRPACKS_REF")),
-            dependencies = FALSE,
-            upgrade = "never"
-          )
-        shell: Rscript {0}
-
-      - name: Install local package
-        run: |
-          remotes::install_local(".", dependencies = FALSE, upgrade = "never")
-        shell: Rscript {0}
 
       - name: Run integration tests
         run: testthat::test_local(stop_on_failure = TRUE)
