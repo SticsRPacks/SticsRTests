@@ -37,10 +37,10 @@ jobs:
         with:
           repository: SticsRPacks/SticsRTests
           ref: main
-          path: SticsRTests
           fetch-depth: 0
 
       - name: Resolve package refs
+        id: package-refs
         env:
           PACKAGE_UNDER_TEST: ${{ inputs.repo }}
           PACKAGE_REF: ${{ inputs.ref }}
@@ -118,6 +118,18 @@ jobs:
 
           cat package-refs.csv
 
+          {
+            echo 'extra_packages<<EOF'
+            tail -n +2 package-refs.csv | while IFS=, read -r repo ref; do
+              if [ "${repo}" = "${PACKAGE_UNDER_TEST}" ]; then
+                continue
+              fi
+              printf 'SticsRPacks/%s@%s\n' "${repo}" "${ref}"
+            done
+            echo 'EOF'
+            echo "caller_ref=$(awk -F, -v repo=\"${PACKAGE_UNDER_TEST}\" '$1 == repo { print $2 }' package-refs.csv)"
+          } >> "${GITHUB_OUTPUT}"
+
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
@@ -141,57 +153,34 @@ jobs:
           wget http://archive.ubuntu.com/ubuntu/pool/main/i/icu/libicu66_66.1-2ubuntu2_amd64.deb
           sudo dpkg -i libicu66_66.1-2ubuntu2_amd64.deb
 
-      - name: Install R dependencies and package refs
+      - name: Set up R dependencies
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          dependencies: FALSE
+          pak-version: rc
+          extra-packages: |
+            any::testthat
+            any::remotes
+            any::dplyr
+            any::xfun
+            any::knitr
+            ${{ steps.package-refs.outputs.extra_packages }}
+
+      - name: Install caller package
         env:
           PACKAGE_UNDER_TEST: ${{ inputs.repo }}
-          PACKAGE_REF: ${{ inputs.ref }}
-          PACKAGE_SHA: ${{ inputs.sha }}
+          PACKAGE_REF: ${{ steps.package-refs.outputs.caller_ref }}
         run: |
-          install_remote <- function(repo, ref) {
-            remotes::install_github(
-              sprintf("SticsRPacks/%s@%s", repo, ref),
-              dependencies = FALSE,
-              upgrade = "never"
-            )
-          }
+          remotes::install_github(
+            sprintf("SticsRPacks/%s@%s", Sys.getenv("PACKAGE_UNDER_TEST"), Sys.getenv("PACKAGE_REF")),
+            dependencies = FALSE,
+            upgrade = "never"
+          )
+        shell: Rscript {0}
 
-          install.packages(c("remotes", "testthat", "dplyr", "xfun", "knitr"), dependencies = TRUE)
-          remotes::install_version("ggplot2", version = "3.5.2", upgrade = "never")
-
-          refs <- read.csv("package-refs.csv", stringsAsFactors = FALSE)
-          caller_repo <- Sys.getenv("PACKAGE_UNDER_TEST")
-          caller_ref <- Sys.getenv("PACKAGE_REF")
-          caller_sha <- Sys.getenv("PACKAGE_SHA")
-
-          for (i in seq_len(nrow(refs))) {
-            repo <- refs$repo[[i]]
-            ref <- refs$ref[[i]]
-
-            if (repo == caller_repo && nzchar(caller_sha)) {
-              tryCatch(
-                install_remote(repo, caller_sha),
-                error = function(err) {
-                  if (!nzchar(caller_ref)) {
-                    stop(err)
-                  }
-
-                  message(
-                    sprintf(
-                      "Falling back to ref '%s' for %s because SHA install failed.",
-                      caller_ref,
-                      repo
-                    )
-                  )
-                  install_remote(repo, caller_ref)
-                }
-              )
-              next
-            }
-
-            install_remote(repo, ref)
-          }
-
-          remotes::install_local("SticsRTests", dependencies = FALSE, upgrade = "never")
+      - name: Install local package
+        run: |
+          remotes::install_local(".", dependencies = FALSE, upgrade = "never")
         shell: Rscript {0}
 
       - name: Run integration tests
