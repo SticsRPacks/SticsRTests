@@ -126,13 +126,14 @@ jobs:
           {
             echo 'extra_packages<<EOF'
             tail -n +2 package-refs.csv | while IFS=, read -r repo ref; do
-              if [ "${repo}" = "${PACKAGE_UNDER_TEST}" ]; then
+              if [ "${repo}" = "${PACKAGE_UNDER_TEST}" ] || [ "${repo}" = "SticsRPacks" ]; then
                 continue
               fi
               printf 'SticsRPacks/%s@%s\n' "${repo}" "${ref}"
             done
             echo 'EOF'
             echo "caller_ref=$(awk -F, -v repo=\"${PACKAGE_UNDER_TEST}\" '$1 == repo { print $2 }' package-refs.csv)"
+            echo "sticsrpacks_ref=$(awk -F, '$1 == \"SticsRPacks\" { print $2 }' package-refs.csv)"
           } >> "${GITHUB_OUTPUT}"
 
       - name: Set up Java
@@ -169,6 +170,10 @@ jobs:
             any::dplyr
             any::xfun
             any::knitr
+            any::learnr
+            any::nloptr
+            any::lhs
+            any::tictoc
             ${{ steps.package-refs.outputs.extra_packages }}
 
       - name: Install caller package
@@ -178,6 +183,17 @@ jobs:
         run: |
           remotes::install_github(
             sprintf("SticsRPacks/%s@%s", Sys.getenv("PACKAGE_UNDER_TEST"), Sys.getenv("PACKAGE_REF")),
+            dependencies = FALSE,
+            upgrade = "never"
+          )
+        shell: Rscript {0}
+
+      - name: Install SticsRPacks
+        env:
+          STICSRPACKS_REF: ${{ steps.package-refs.outputs.sticsrpacks_ref }}
+        run: |
+          remotes::install_github(
+            sprintf("SticsRPacks/SticsRPacks@%s", Sys.getenv("STICSRPACKS_REF")),
             dependencies = FALSE,
             upgrade = "never"
           )
