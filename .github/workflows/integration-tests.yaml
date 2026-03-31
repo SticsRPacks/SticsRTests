@@ -123,22 +123,33 @@ jobs:
 
           cat package-refs.csv
 
-          echo "sticsrpacks_ref=$(awk -F, '$1 == \"SticsRPacks\" { print $2 }' package-refs.csv)" >> "${GITHUB_OUTPUT}"
-
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
           distribution: zulu
           java-version: "17"
 
-      - name: Checkout SticsRPacks metadata
-        uses: actions/checkout@v4
-        with:
-          repository: SticsRPacks/SticsRPacks
-          ref: ${{ steps.package-refs.outputs.sticsrpacks_ref }}
-          path: .github/sticsrpacks-selected
-          sparse-checkout: |
-            DESCRIPTION
+      - name: Download package metadata
+        env:
+          GITHUB_PAT: ${{ github.token }}
+        run: |
+          set -euo pipefail
+
+          mkdir -p .github/package-metadata
+
+          auth_args=()
+          if [ -n "${GITHUB_PAT:-}" ]; then
+            auth_args=(-H "Authorization: Bearer ${GITHUB_PAT}")
+          fi
+
+          tail -n +2 package-refs.csv | while IFS=, read -r repo ref; do
+            mkdir -p ".github/package-metadata/${repo}"
+            curl -fsSL \
+              "${auth_args[@]}" \
+              -H "Accept: application/vnd.github.raw" \
+              "https://api.github.com/repos/SticsRPacks/${repo}/contents/DESCRIPTION?ref=${ref}" \
+              -o ".github/package-metadata/${repo}/DESCRIPTION"
+          done
 
       - name: Set up R
         uses: r-lib/actions/setup-r@v2
@@ -161,19 +172,21 @@ jobs:
           base_pkgs <- rownames(installed.packages(priority = c("base", "recommended")))
           stics_pkgs <- c("SticsRPacks", "SticsRFiles", "SticsOnR", "CroptimizR", "CroPlotR")
 
-          cran_pkgs <- unique(c(
-            parse_imports("DESCRIPTION"),
-            parse_imports(".github/sticsrpacks-selected/DESCRIPTION"),
-            "sessioninfo"
-          ))
+          metadata_paths <- list.files(
+            ".github/package-metadata",
+            pattern = "DESCRIPTION$",
+            recursive = TRUE,
+            full.names = TRUE
+          )
+
+          cran_pkgs <- unique(c("sessioninfo", parse_imports("DESCRIPTION")))
+          for (path in metadata_paths) {
+            cran_pkgs <- unique(c(cran_pkgs, parse_imports(path)))
+          }
           cran_pkgs <- setdiff(cran_pkgs, c(base_pkgs, stics_pkgs))
 
-          refs <- read.csv("package-refs.csv", stringsAsFactors = FALSE)
-          selected_components <- refs[refs$repo != "SticsRPacks", , drop = FALSE]
-
           lines <- c(
-            sprintf("any::%s", sort(cran_pkgs)),
-            sprintf("SticsRPacks/%s@%s", selected_components$repo, selected_components$ref)
+            sprintf("any::%s", sort(cran_pkgs))
           )
 
           cat("Resolved dependency list:\n", paste(lines, collapse = "\n"), "\n", sep = "")
@@ -203,15 +216,19 @@ jobs:
           pak-version: rc
           extra-packages: ${{ steps.dependency-list.outputs.extra_packages }}
 
-      - name: Install SticsRPacks
-        env:
-          STICSRPACKS_REF: ${{ steps.package-refs.outputs.sticsrpacks_ref }}
+      - name: Install selected SticsRPacks packages
         run: |
-          remotes::install_github(
-            sprintf("SticsRPacks/SticsRPacks@%s", Sys.getenv("STICSRPACKS_REF")),
-            dependencies = FALSE,
-            upgrade = "never"
-          )
+          refs <- read.csv("package-refs.csv", stringsAsFactors = FALSE, row.names = 1)
+          install_order <- c("SticsRFiles", "CroPlotR", "CroptimizR", "SticsOnR", "SticsRPacks")
+
+          for (pkg in install_order) {
+            ref <- refs[pkg, "ref"]
+            remotes::install_github(
+              sprintf("SticsRPacks/%s@%s", pkg, ref),
+              dependencies = FALSE,
+              upgrade = "never"
+            )
+          }
         shell: Rscript {0}
 
       - name: Report selected package refs
