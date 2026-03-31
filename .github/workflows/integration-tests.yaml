@@ -44,8 +44,31 @@ jobs:
           ref: ${{ inputs.sticsrtests_ref }}
           fetch-depth: 0
 
-      - name: Resolve package refs
-        id: package-refs
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: zulu
+          java-version: "17"
+
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+
+      - name: Set up Pandoc
+        uses: r-lib/actions/setup-pandoc@v2
+
+      - name: Install system libraries
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libxslt1-dev libcurl4-openssl-dev
+          wget http://nz2.archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2_amd64.deb
+          sudo dpkg -i libssl1.1_1.1.1f-1ubuntu2_amd64.deb
+          wget http://http.us.debian.org/debian/pool/main/o/openldap/libldap-2.4-2_2.4.57+dfsg-3+deb11u1_amd64.deb
+          sudo apt-get install -y ./libldap-2.4-2_2.4.57+dfsg-3+deb11u1_amd64.deb
+          wget http://archive.ubuntu.com/ubuntu/pool/main/i/icu/libicu66_66.1-2ubuntu2_amd64.deb
+          sudo dpkg -i libicu66_66.1-2ubuntu2_amd64.deb
+
+      - name: Prepare package installation inputs
+        id: package-inputs
         env:
           PACKAGE_UNDER_TEST: ${{ inputs.repo }}
           PACKAGE_REF: ${{ inputs.ref }}
@@ -123,90 +146,15 @@ jobs:
 
           cat package-refs.csv
 
-      - name: Set up Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: zulu
-          java-version: "17"
-
-      - name: Download package metadata
-        env:
-          GITHUB_PAT: ${{ github.token }}
-        run: |
-          set -euo pipefail
-
-          mkdir -p .github/package-metadata
-
-          auth_args=()
-          if [ -n "${GITHUB_PAT:-}" ]; then
-            auth_args=(-H "Authorization: Bearer ${GITHUB_PAT}")
-          fi
-
-          tail -n +2 package-refs.csv | while IFS=, read -r repo ref; do
-            mkdir -p ".github/package-metadata/${repo}"
-            curl -fsSL \
-              "${auth_args[@]}" \
-              -H "Accept: application/vnd.github.raw" \
-              "https://api.github.com/repos/SticsRPacks/${repo}/contents/DESCRIPTION?ref=${ref}" \
-              -o ".github/package-metadata/${repo}/DESCRIPTION"
-          done
-
-      - name: Set up R
-        uses: r-lib/actions/setup-r@v2
-
-      - name: Set up Pandoc
-        uses: r-lib/actions/setup-pandoc@v2
-
-      - name: Build dependency list
-        id: dependency-list
-        run: |
-          parse_imports <- function(path) {
-            desc <- read.dcf(path)
-            if (!"Imports" %in% colnames(desc)) {
-              return(character())
-            }
-            imports <- trimws(unlist(strsplit(gsub("[\r\n]", " ", desc[1, "Imports"]), ",")))
-            imports[nzchar(imports)]
-          }
-
-          base_pkgs <- rownames(installed.packages(priority = c("base", "recommended")))
-          stics_pkgs <- c("SticsRPacks", "SticsRFiles", "SticsOnR", "CroptimizR", "CroPlotR")
-
-          metadata_paths <- list.files(
-            ".github/package-metadata",
-            pattern = "DESCRIPTION$",
-            recursive = TRUE,
-            full.names = TRUE
-          )
-
-          cran_pkgs <- unique(c("sessioninfo", parse_imports("DESCRIPTION")))
-          for (path in metadata_paths) {
-            cran_pkgs <- unique(c(cran_pkgs, parse_imports(path)))
-          }
-          cran_pkgs <- setdiff(cran_pkgs, c(base_pkgs, stics_pkgs))
-
-          lines <- c(
-            sprintf("any::%s", sort(cran_pkgs))
-          )
-
-          cat("Resolved dependency list:\n", paste(lines, collapse = "\n"), "\n", sep = "")
-
-          writeLines(
-            c("extra_packages<<EOF", lines, "EOF"),
-            Sys.getenv("GITHUB_OUTPUT")
-          )
-        shell: Rscript {0}
-
-      - name: Install system libraries
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libxslt1-dev libcurl4-openssl-dev
-          wget http://nz2.archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2_amd64.deb
-          sudo dpkg -i libssl1.1_1.1.1f-1ubuntu2_amd64.deb
-          wget http://http.us.debian.org/debian/pool/main/o/openldap/libldap-2.4-2_2.4.57+dfsg-3+deb11u1_amd64.deb
-          sudo apt-get install -y ./libldap-2.4-2_2.4.57+dfsg-3+deb11u1_amd64.deb
-          wget http://archive.ubuntu.com/ubuntu/pool/main/i/icu/libicu66_66.1-2ubuntu2_amd64.deb
-          sudo dpkg -i libicu66_66.1-2ubuntu2_amd64.deb
+          {
+            echo 'safe_extra_packages<<EOF'
+            awk -F, '
+              NR > 1 && $1 != "CroptimizR" && $1 != "SticsRPacks" {
+                printf "SticsRPacks/%s@%s\n", $1, $2
+              }
+            ' package-refs.csv
+            echo 'EOF'
+          } >> "${GITHUB_OUTPUT}"
 
       - name: Set up R dependencies
         uses: r-lib/actions/setup-r-dependencies@v2
@@ -214,17 +162,55 @@ jobs:
           packages: any::sessioninfo
           dependencies: '"all"'
           pak-version: rc
-          extra-packages: ${{ steps.dependency-list.outputs.extra_packages }}
+          extra-packages: |
+            any::BayesianTools
+            any::cli
+            any::crayon
+            any::curl
+            any::data.table
+            any::doParallel
+            any::dplyr
+            any::foreach
+            any::ggh4x
+            any::ggplot2
+            any::ggrepel
+            any::gridExtra
+            any::knitr
+            any::learnr
+            any::lhs
+            any::lifecycle
+            any::lubridate
+            any::magrittr
+            any::Matrix
+            any::nloptr
+            any::plyr
+            any::purrr
+            any::readxl
+            any::remotes
+            any::reshape2
+            any::rlang
+            any::rstudioapi
+            any::semver
+            any::sessioninfo
+            any::testthat
+            any::tibble
+            any::tictoc
+            any::tidyr
+            any::tidyselect
+            any::xfun
+            any::XML
+            any::xml2
+            any::xslt
+            ${{ steps.package-inputs.outputs.safe_extra_packages }}
 
       - name: Install selected SticsRPacks packages
         run: |
           refs <- read.csv("package-refs.csv", stringsAsFactors = FALSE, row.names = 1)
-          install_order <- c("SticsRFiles", "CroPlotR", "CroptimizR", "SticsOnR", "SticsRPacks")
+          install_order <- c("CroptimizR", "SticsRPacks")
 
           for (pkg in install_order) {
-            ref <- refs[pkg, "ref"]
             remotes::install_github(
-              sprintf("SticsRPacks/%s@%s", pkg, ref),
+              sprintf("SticsRPacks/%s@%s", pkg, refs[pkg, "ref"]),
               dependencies = FALSE,
               upgrade = "never"
             )
