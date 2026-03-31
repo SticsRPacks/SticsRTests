@@ -216,12 +216,18 @@ jobs:
               upgrade = "never"
             )
           }
-          # Install testthat by hand because pkgdepends doesn't consider the right version apparently
-          remotes::install_github(
-            "r-lib/testthat@3.1.8",
-            dependencies = FALSE,
-            upgrade = "never"
-          )
+          # Ensure testthat is exactly 3.1.8
+          required_testthat <- package_version("3.1.8")
+          testthat_ok <- requireNamespace("testthat", quietly = TRUE) &&
+            packageVersion("testthat") == required_testthat
+
+          if (!testthat_ok) {
+            remotes::install_github(
+              "r-lib/testthat@3.1.8",
+              dependencies = FALSE,
+              upgrade = "never"
+            )
+          }
 
         shell: Rscript {0}
 
