@@ -168,7 +168,7 @@ jobs:
             any::crayon
             any::curl
             any::data.table
-            any::ellipsis # Needed for testthat 3.1.8, we don't know why we need a manual install for this package
+            any::ellipsis
             any::doParallel
             any::dplyr
             any::foreach
@@ -193,7 +193,7 @@ jobs:
             any::rstudioapi
             any::semver
             any::sessioninfo
-            any::testthat@3.1.8  # there is a problem with testthat >= 3.1.8, tests crash at the end for an unknown reason although they all pass
+            any::testthat@3.1.8
             any::tibble
             any::tictoc
             any::tidyr
