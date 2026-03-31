@@ -123,11 +123,22 @@ jobs:
 
           cat package-refs.csv
 
+          echo "sticsrpacks_ref=$(awk -F, '$1 == \"SticsRPacks\" { print $2 }' package-refs.csv)" >> "${GITHUB_OUTPUT}"
+
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
           distribution: zulu
           java-version: "17"
+
+      - name: Checkout SticsRPacks metadata
+        uses: actions/checkout@v4
+        with:
+          repository: SticsRPacks/SticsRPacks
+          ref: ${{ steps.package-refs.outputs.sticsrpacks_ref }}
+          path: .github/sticsrpacks-selected
+          sparse-checkout: |
+            DESCRIPTION
 
       - name: Set up R
         uses: r-lib/actions/setup-r@v2
@@ -135,35 +146,42 @@ jobs:
       - name: Set up Pandoc
         uses: r-lib/actions/setup-pandoc@v2
 
-      - name: Build dependency manifest
+      - name: Build dependency list
+        id: dependency-list
         run: |
-          dir.create(".github/integration-deps", recursive = TRUE, showWarnings = FALSE)
+          parse_imports <- function(path) {
+            desc <- read.dcf(path)
+            if (!"Imports" %in% colnames(desc)) {
+              return(character())
+            }
+            imports <- trimws(unlist(strsplit(gsub("[\r\n]", " ", desc[1, "Imports"]), ",")))
+            imports[nzchar(imports)]
+          }
 
-          desc <- read.dcf("DESCRIPTION")
-          imports <- trimws(unlist(strsplit(gsub("[\r\n]", " ", desc[1, "Imports"]), ",")))
-          imports <- imports[nzchar(imports)]
+          base_pkgs <- rownames(installed.packages(priority = c("base", "recommended")))
+          stics_pkgs <- c("SticsRPacks", "SticsRFiles", "SticsOnR", "CroptimizR", "CroPlotR")
+
+          cran_pkgs <- unique(c(
+            parse_imports("DESCRIPTION"),
+            parse_imports(".github/sticsrpacks-selected/DESCRIPTION"),
+            "sessioninfo"
+          ))
+          cran_pkgs <- setdiff(cran_pkgs, c(base_pkgs, stics_pkgs))
 
           refs <- read.csv("package-refs.csv", stringsAsFactors = FALSE)
-          remotes <- sprintf("    github::SticsRPacks/%s@%s", refs$repo, refs$ref)
+          selected_components <- refs[refs$repo != "SticsRPacks", , drop = FALSE]
 
-          writeLines(
-            c(
-              "Package: SticsRTestsDeps",
-              "Type: Package",
-              "Title: Temporary Dependency Manifest for SticsRTests Integration",
-              "Version: 0.0.0.9000",
-              "Description: Temporary package manifest generated during CI.",
-              "License: MIT",
-              "Encoding: UTF-8",
-              "Imports:",
-              sprintf("    %s", paste(imports, collapse = ",\n    ")),
-              "Remotes:",
-              paste(remotes, collapse = ",\n")
-            ),
-            ".github/integration-deps/DESCRIPTION"
+          lines <- c(
+            sprintf("any::%s", sort(cran_pkgs)),
+            sprintf("SticsRPacks/%s@%s", selected_components$repo, selected_components$ref)
           )
 
-          cat(readLines(".github/integration-deps/DESCRIPTION"), sep = "\n")
+          cat("Resolved dependency list:\n", paste(lines, collapse = "\n"), "\n", sep = "")
+
+          writeLines(
+            c("extra_packages<<EOF", lines, "EOF"),
+            Sys.getenv("GITHUB_OUTPUT")
+          )
         shell: Rscript {0}
 
       - name: Install system libraries
@@ -180,10 +198,43 @@ jobs:
       - name: Set up R dependencies
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          working-directory: .github/integration-deps
-          packages: deps::., any::sessioninfo
+          packages: any::sessioninfo
           dependencies: '"all"'
           pak-version: rc
+          extra-packages: ${{ steps.dependency-list.outputs.extra_packages }}
+
+      - name: Install SticsRPacks
+        env:
+          STICSRPACKS_REF: ${{ steps.package-refs.outputs.sticsrpacks_ref }}
+        run: |
+          remotes::install_github(
+            sprintf("SticsRPacks/SticsRPacks@%s", Sys.getenv("STICSRPACKS_REF")),
+            dependencies = FALSE,
+            upgrade = "never"
+          )
+        shell: Rscript {0}
+
+      - name: Report selected package refs
+        env:
+          STICSRTESTS_REF: ${{ inputs.sticsrtests_ref }}
+        run: |
+          refs <- read.csv("package-refs.csv", stringsAsFactors = FALSE)
+          installed <- as.data.frame(installed.packages(), stringsAsFactors = FALSE)
+
+          report_pkg <- function(pkg, ref, version = NA_character_) {
+            cat(sprintf("- %s: ref=%s, version=%s\n", pkg, ref, version))
+          }
+
+          sticsrtests_version <- read.dcf("DESCRIPTION")[1, "Version"]
+          report_pkg("SticsRTests", Sys.getenv("STICSRTESTS_REF"), sticsrtests_version)
+
+          for (i in seq_len(nrow(refs))) {
+            pkg <- refs$repo[[i]]
+            ref <- refs$ref[[i]]
+            version <- installed[pkg, "Version"]
+            report_pkg(pkg, ref, version)
+          }
+        shell: Rscript {0}
 
       - name: Run integration tests
         run: testthat::test_local(stop_on_failure = TRUE)
