@@ -216,6 +216,13 @@ jobs:
               upgrade = "never"
             )
           }
+          # Install testthat by hand because pkgdepends doesn't consider the right version apparently
+          remotes::install_github(
+            "r-lib/testthat@3.1.8",
+            dependencies = FALSE,
+            upgrade = "never"
+          )
+
         shell: Rscript {0}
 
       - name: Report selected package refs
