@@ -65,6 +65,14 @@ jobs:
           wget http://archive.ubuntu.com/ubuntu/pool/main/i/icu/libicu66_66.1-2ubuntu2_amd64.deb
           sudo dpkg -i libicu66_66.1-2ubuntu2_amd64.deb
       - uses: actions/checkout@v4
+      - name: Checkout SticsRPacks metadata
+        uses: actions/checkout@v4
+        with:
+          repository: SticsRPacks/SticsRPacks
+          ref: main
+          path: .github/sticsrpacks-main
+          sparse-checkout: |
+            DESCRIPTION
       - uses: actions/setup-java@v4
         with:
           distribution: "zulu" # openjdk
@@ -76,20 +84,61 @@ jobs:
 
       - uses: r-lib/actions/setup-pandoc@v2
 
+      - name: Build dependency list
+        id: dependency-list
+        run: |
+          parse_imports <- function(path) {
+            desc <- read.dcf(path)
+            if (!"Imports" %in% colnames(desc)) {
+              return(character())
+            }
+            imports <- trimws(unlist(strsplit(gsub("[\r\n]", " ", desc[1, "Imports"]), ",")))
+            imports[nzchar(imports)]
+          }
+
+          base_pkgs <- rownames(installed.packages(priority = c("base", "recommended")))
+          stics_pkgs <- c("SticsRPacks", "SticsRFiles", "SticsOnR", "CroptimizR", "CroPlotR")
+
+          cran_pkgs <- unique(c(
+            parse_imports("DESCRIPTION"),
+            parse_imports(".github/sticsrpacks-main/DESCRIPTION"),
+            "rcmdcheck",
+            "sessioninfo"
+          ))
+          cran_pkgs <- setdiff(cran_pkgs, c(base_pkgs, stics_pkgs))
+
+          lines <- c(
+            sprintf("any::%s", sort(cran_pkgs)),
+            "SticsRPacks/SticsRFiles@main",
+            "SticsRPacks/CroPlotR@main",
+            "SticsRPacks/CroptimizR@main",
+            "SticsRPacks/SticsOnR@main"
+          )
+
+          cat("Resolved dependency list:\n", paste(lines, collapse = "\n"), "\n", sep = "")
+
+          writeLines(
+            c("extra_packages<<EOF", lines, "EOF"),
+            Sys.getenv("GITHUB_OUTPUT")
+          )
+        shell: Rscript {0}
+
       - name: Set up R dependencies
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
           packages: any::sessioninfo
           dependencies: '"all"'
           pak-version: rc
-          extra-packages: |
-            any::rcmdcheck
-            any::testthat
-            SticsRPacks/SticsRPacks@main
-            SticsRPacks/CroPlotR@main
-            SticsRPacks/CroptimizR@main
-            SticsRPacks/SticsOnR@main
-            SticsRPacks/SticsRFiles@main
+          extra-packages: ${{ steps.dependency-list.outputs.extra_packages }}
+
+      - name: Install SticsRPacks
+        run: |
+          remotes::install_github(
+            "SticsRPacks/SticsRPacks@main",
+            dependencies = FALSE,
+            upgrade = "never"
+          )
+        shell: Rscript {0}
 
       - name: Check
         env:
