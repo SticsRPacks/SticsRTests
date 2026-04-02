@@ -16,17 +16,8 @@ env:
   has_testthat: "true"
 
 jobs:
-  # specific install for macOS stics executable dependency
-  build:
-    runs-on: macOS-latest
-    steps:
-      - uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: latest-stable
-
   R-CMD-check:
     runs-on: ${{ matrix.config.os }}
-
     name: ${{ matrix.config.os }} (${{ matrix.config.r }})
 
     strategy:
