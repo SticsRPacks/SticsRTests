@@ -1,0 +1,18 @@
+[13/03/26]-[12:25:40] - Launching Javastics
+[13/03/26]-[12:25:52] - File plant found in workspace, it will be used instead of default file.
+[13/03/26]-[12:25:52] - File plant found in workspace, it will be used instead of default file.
+[13/03/26]-[12:25:52] - File plant found in workspace, it will be used instead of default file.
+[13/03/26]-[12:25:56] - Selection of the following USM 02NT18SorgV2D1
+[13/03/26]-[12:25:56] - File plant found in workspace, it will be used instead of default file.
+[13/03/26]-[12:25:56] - File param_gen.xml hasn't been found in workspace, default file will be used (/Users/rvezy/Downloads/JavaSTICS-10.5.0-STICS-10.5.0/config).
+[13/03/26]-[12:25:56] - File param_newform.xml hasn't been found in workspace, default file will be used (/Users/rvezy/Downloads/JavaSTICS-10.5.0-STICS-10.5.0/config).
+[13/03/26]-[12:28:56] - File plant found in workspace, it will be used instead of default file.
+[13/03/26]-[12:28:56] - File plant found in workspace, it will be used instead of default file.
+[13/03/26]-[12:28:56] - File plant found in workspace, it will be used instead of default file.
+[13/03/26]-[12:29:00] - Selection of the following USM 02NT18SorgV2D1
+[13/03/26]-[12:29:00] - File plant found in workspace, it will be used instead of default file.
+[13/03/26]-[12:29:00] - File param_gen.xml hasn't been found in workspace, default file will be used (/Users/rvezy/Downloads/JavaSTICS-10.5.0-STICS-10.5.0/config).
+[13/03/26]-[12:29:00] - File param_newform.xml hasn't been found in workspace, default file will be used (/Users/rvezy/Downloads/JavaSTICS-10.5.0-STICS-10.5.0/config).
+[13/03/26]-[12:30:12] - File plant found in workspace, it will be used instead of default file.
+[13/03/26]-[12:30:12] - File plant found in workspace, it will be used instead of default file.
+[13/03/26]-[12:30:12] - File plant found in workspace, it will be used instead of default file.
