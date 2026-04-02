@@ -195,7 +195,7 @@ jobs:
             any::rstudioapi
             any::semver
             any::sessioninfo
-            github::r-lib/testthat@3.1.8
+            any::testthat@3.1.8
             any::tibble
             any::tictoc
             any::tidyr
@@ -224,11 +224,8 @@ jobs:
             packageVersion("testthat") == required_testthat
 
           if (!testthat_ok) {
-            remotes::install_github(
-              "r-lib/testthat@3.1.8",
-              dependencies = FALSE,
-              upgrade = "never",
-              force = TRUE
+            #remotes::install_version("testthat", version = "3.1.8", upgrade = "never", force = TRUE)
+            install.packages('https://cran.r-project.org/src/contrib/Archive/testthat/testthat_3.1.8.tar.gz', repos = NULL, type = 'source')
             )
           }
 
