@@ -120,10 +120,10 @@ nlo <- lapply(nlo, function(x) {
 })
 
 test_that("Test Vignette simple_case", {
-  expect_equal(nlo_new[[1]]$x0, c(0.0023862966, 118.3769), tolerance = 1e-7)
-  expect_equal(nlo_new[[2]]$x0, c(0.0008777006, 290.9086), tolerance = 1e-7)
-  expect_equal(sapply(nlo_new, "[[", "solution"), sapply(nlo, "[[", "solution"), tolerance = 1e-4)
-  expect_equal(sapply(nlo_new, "[[", "objective"), sapply(nlo, "[[", "objective"), tolerance = 1e-4)
+  expect_equal(as.numeric(res$init_values[1,]), c(0.0023862966, 118.3769), tolerance = 1e-7)
+  expect_equal(as.numeric(res$init_values[2,]), c(0.0008777006, 290.9086), tolerance = 1e-7)
+  expect_equivalent(t(res$est_values), sapply(nlo, "[[", "solution"), tolerance = 1e-4)
+  expect_equal(res$crit_values, sapply(nlo, "[[", "objective"), tolerance = 1e-4)
   expect_true(file.exists(file.path(data_dir, "EstimatedVSinit.pdf")))
   expect_true(file.exists(file.path(data_dir, "ValuesVSit.pdf")))
   expect_true(file.exists(file.path(data_dir, "ValuesVSit_2D.pdf")))
@@ -226,21 +226,16 @@ source(file.path(tmpdir, "Parameter_estimation_Specific_and_Varietal.R"))
 
 ## load the results
 load(file.path(data_dir, "optim_results.Rdata"))
-nlo_new <- lapply(res$nlo, function(x) {
-  x$call <- NULL
-  x
-}) # remove "call" since it may change between code versions ...
+res_new <- res
+rm(res)
 load(system.file(file.path("extdata", "ResSpecVar_2rep4it", stics_version), "optim_results.Rdata", package = "CroptimizR"))
-nlo <- lapply(res$nlo, function(x) {
-  x$call <- NULL
-  x
-}) # remove "call" since it may change between code versions ...
+res_ref <- res
 
 test_that("Test Vignette specific and varietal", {
-  expect_equal(nlo_new[[1]]$x0, c(0.001386297, 293.3769, 299.3398), tolerance = 1e-7)
-  expect_equal(nlo_new[[2]]$x0, c(0.001877701, 115.9086, 162.9456), tolerance = 1e-7)
-  expect_equal(sapply(nlo_new, "[[", "solution"), sapply(nlo, "[[", "solution"), tolerance = 1e-4)
-  expect_equal(sapply(nlo_new, "[[", "objective"), sapply(nlo, "[[", "objective"), tolerance = 1e-4)
+  expect_equal(as.numeric(res_new$init_values[1,]), c(0.001386297, 293.3769, 299.3398), tolerance = 1e-7)
+  expect_equal(as.numeric(res_new$init_values[2,]), c(0.001877701, 115.9086, 162.9456), tolerance = 1e-7)
+  expect_equal(res_new$est_values, res$est_values, tolerance = 1e-4)
+  expect_equal(res_new$crit_values, res$crit_values, tolerance = 1e-4)
   expect_true(file.exists(file.path(data_dir, "EstimatedVSinit.pdf")))
   expect_true(file.exists(file.path(data_dir, "ValuesVSit.pdf")))
   expect_true(file.exists(file.path(data_dir, "ValuesVSit_2D.pdf")))
@@ -610,13 +605,13 @@ test_that("Test rotation", {
 
 
 
-# Test Vignette AgMIP phase III protocol
-# --------------------------------------
+# Test Vignette Parameter selection
+# ---------------------------------
 
 tmpdir <- normalizePath(tempdir(), winslash = "/", mustWork = FALSE)
 vignette_rmd <- file.path(tmpdir, "AgMIP_Calibration_Phenology_protocol.Rmd")
 download.file(
-  "https://raw.github.com/SticsRPacks/CroptimizR/main/vignettes/AgMIP_Calibration_Phenology_protocol.Rmd",
+  "https://raw.github.com/SticsRPacks/CroptimizR/main/vignettes/Parameter_selection.Rmd",
   vignette_rmd
 )
 
@@ -676,7 +671,7 @@ if (Sys.getenv("CI") != "") {
 ## generate the R script
 knitr::purl(
   input = vignette_rmd,
-  output = file.path(tmpdir, "AgMIP_Calibration_Phenology_protocol.R"), documentation = 2
+  output = file.path(tmpdir, "Parameter_selection.R"), documentation = 2
 )
 
 ## Seems that optim_options and optim_results.Rdata are not overwritten => try to remove them before run
@@ -686,19 +681,14 @@ if (file.exists(file.path(data_dir, "optim_results.Rdata"))) {
 rm(optim_options, param_info)
 
 ## run it
-source(file.path(tmpdir, "AgMIP_Calibration_Phenology_protocol.R"))
+source(file.path(tmpdir, "Parameter_selection.R"))
 
 ## load the results
 load(file.path(data_dir, "optim_results.Rdata"))
-nlo_new <- lapply(res$nlo, function(x) {
-  x$call <- NULL
-  x
-}) # remove "call" since it may change between code versions ...
+res_new <- res
+rm(res)
 load(system.file(file.path("extdata", "ResAgmipPheno_2rep4it", stics_version), "optim_results.Rdata", package = "CroptimizR"))
-nlo <- lapply(res$nlo, function(x) {
-  x$call <- NULL
-  x
-}) # remove "call" since it may change between code versions ...
+res_ref <- res
 
 test_that("Test Vignette AgMIP Phase III protocol", {
   expect_equal(optim_options$nb_rep, 2)
@@ -713,10 +703,10 @@ test_that("Test Vignette AgMIP Phase III protocol", {
       tdmax = c(30.67603, 27.26267)
     )
   )
-  expect_equal(nlo_new[[1]]$x0, c(138.2656, 506.3340), tolerance = 1e-4)
-  expect_equal(nlo_new[[2]]$x0, c(446.0060, 639.4217), tolerance = 1e-4)
-  expect_equal(sapply(nlo_new, "[[", "solution"), sapply(nlo, "[[", "solution"), tolerance = 1e-4)
-  expect_equal(sapply(nlo_new, "[[", "objective"), sapply(nlo, "[[", "objective"), tolerance = 1e-4)
+  expect_equal(as.numeric(res_new$init_values[1,]), c(138.2656, 506.3340), tolerance = 1e-4)
+  expect_equal(as.numeric(res_new$init_values[2,]), c(446.0060, 639.4217), tolerance = 1e-4)
+  expect_equal(res_new$est_values, res$est_values, tolerance = 1e-4)
+  expect_equal(res_new$crit_values, res$crit_values, tolerance = 1e-4)
   expect_true(file.exists(file.path(data_dir, "param_selection_steps.csv")))
   for (i in 1:4) {
     expect_true(file.exists(file.path(data_dir, paste0("param_select_step", i), "optim_results.Rdata")))
