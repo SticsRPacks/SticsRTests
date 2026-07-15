@@ -4,11 +4,16 @@ library(SticsRFiles)
 library(CroptimizR)
 library(dplyr)
 
-stics_version <- SticsRFiles::get_stics_versions_compat()$latest_version
+# stics_version <- SticsRFiles::get_stics_versions_compat()$latest_version
+stics_version <- "V9.0"
 javastics_path <- file.path(
   system.file("stics", package = "SticsRTests"),
   stics_version
 )
+
+if (!Sys.info()[['sysname']] == 'Windows')
+  system(paste("chmod +x", file.path(javastics_path, "bin", "stics_modulo")))
+
 data_dir <- file.path(SticsRFiles::download_data(
   example_dirs = "study_case_1",
   stics_version = stics_version
@@ -74,6 +79,13 @@ xfun::gsub_file(
   file = simple_case_rmd,
   pattern = "params$path_to_JavaStics",
   replacement = paste0("\"", javastics_path, "\""),
+  fixed = TRUE
+)
+
+xfun::gsub_file(
+  file = simple_case_rmd,
+  pattern = 'stics_version = "V9.0"',
+  replacement = paste0("stics_version = \"", stics_version, "\""),
   fixed = TRUE
 )
 
