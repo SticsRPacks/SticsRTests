@@ -4,8 +4,8 @@ library(SticsRFiles)
 library(CroptimizR)
 library(dplyr)
 
-# stics_version <- SticsRFiles::get_stics_versions_compat()$latest_version
-stics_version <- "V9.0"
+stics_version <- SticsRFiles::get_stics_versions_compat()$latest_version
+
 javastics_path <- file.path(
   system.file("stics", package = "SticsRTests"),
   stics_version
