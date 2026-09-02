@@ -15,6 +15,15 @@ file.copy(from = tutorial_rmd, to = tutorial_test_rmd)
 
 # gsub some parts of the tutorial for activating chunks evaluation
 # and masking some functions return objects
+
+# substitute the dowload url of the latest version of JavaStics
+xfun::gsub_file(
+  file = tutorial_test_rmd,
+  "download_url <-.*",
+  "download_url <- \"https://w3.avignon.inrae.fr/forge/attachments/download/3709/JavaSTICS-latest.zip\"",
+  fixed = FALSE
+)
+
 xfun::gsub_file(
   file = tutorial_test_rmd,
   "eval=FALSE",
