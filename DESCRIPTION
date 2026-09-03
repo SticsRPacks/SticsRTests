@@ -17,7 +17,6 @@ Description: The package uses testthat to run all tests that cannot be made dire
 License: file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.2.1
 Imports:
   SticsRPacks,
   SticsRFiles,
@@ -115,3 +114,4 @@ BinaryFiles:
   inst/stics/V90/bin/jre7/bin/w2k_lsa_auth.dll,
   inst/stics/V90/bin/jre7/bin/wsdetect.dll,
   inst/stics/V90/bin/jre7/bin/zip.dll
+Config/roxygen2/version: 8.0.0
