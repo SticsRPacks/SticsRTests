@@ -97,9 +97,9 @@ test_tuto_download_javastics <- function() {
 }
 # Local JavaStics installation use case
 test_tuto_local_javastics <- function() {
-  version <- get_stics_versions_compat()$latest_version
+  stics_version <- get_stics_versions_compat()$latest_version
   javastics_path <- system.file(
-    paste0("stics/", version),
+    paste0("stics/", stics_version),
     package = "SticsRTests"
   )
   Sys.setenv(javastics_path = javastics_path)
