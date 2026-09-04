@@ -20,7 +20,7 @@ file.copy(from = tutorial_rmd, to = tutorial_test_rmd)
 xfun::gsub_file(
   file = tutorial_test_rmd,
   "download_url <-.*",
-  "download_url <- \"https://w3.avignon.inrae.fr/forge/attachments/download/3709/JavaSTICS-latest.zip\"",
+  "download_url <- \"https://w3.avignon.inrae.fr/forge/attachments/download/3711/JavaSTICS-latest.zip\"",
   fixed = FALSE
 )
 
@@ -97,9 +97,9 @@ test_tuto_download_javastics <- function() {
 }
 # Local JavaStics installation use case
 test_tuto_local_javastics <- function() {
-  version <- get_stics_versions_compat()$latest_version
+  stics_version <- get_stics_versions_compat()$latest_version
   javastics_path <- system.file(
-    paste0("stics/", version),
+    paste0("stics/", stics_version),
     package = "SticsRTests"
   )
   Sys.setenv(javastics_path = javastics_path)
