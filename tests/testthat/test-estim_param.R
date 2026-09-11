@@ -812,9 +812,9 @@ test_that("Test rotation", {
 # --------------------------------------
 
 tmpdir <- normalizePath(tempdir(), winslash = "/", mustWork = FALSE)
-vignette_rmd <- file.path(tmpdir, "AgMIP_Calibration_Phenology_protocol.Rmd")
+vignette_rmd <- file.path(tmpdir, "AgMIP_Calibration_Protocol.Rmd")
 download.file(
-  "https://raw.github.com/SticsRPacks/CroptimizR/main/vignettes/AgMIP_Calibration_Phenology_protocol.Rmd",
+  "https://raw.github.com/SticsRPacks/CroptimizR/main/vignettes/AgMIP_Calibration_Protocol.Rmd",
   vignette_rmd
 )
 
@@ -886,8 +886,7 @@ if (Sys.getenv("CI") != "") {
 ## generate the R script
 knitr::purl(
   input = vignette_rmd,
-  output = file.path(tmpdir, "AgMIP_Calibration_Phenology_protocol.R"),
-  documentation = 2
+  output = file.path(tmpdir, "AgMIP_Calibration_Protocol.R"), documentation = 2
 )
 
 ## Seems that optim_options and optim_results.Rdata are not overwritten => try to remove them before run
@@ -897,7 +896,7 @@ if (file.exists(file.path(data_dir, "optim_results.Rdata"))) {
 rm(optim_options, param_info)
 
 ## run it
-source(file.path(tmpdir, "AgMIP_Calibration_Phenology_protocol.R"))
+source(file.path(tmpdir, "AgMIP_Calibration_Protocol.R"))
 
 ## load the results
 load(file.path(data_dir, "optim_results.Rdata"))
