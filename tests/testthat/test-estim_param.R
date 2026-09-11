@@ -4,17 +4,11 @@ library(SticsRFiles)
 library(CroptimizR)
 library(dplyr)
 
-#stics_version <- SticsRFiles::get_stics_versions_compat()$latest_version
-# Testing parameter estimation with a fixed version for vignettes
 stics_version <- "V10.0"
 javastics_path <- file.path(
   system.file("stics", package = "SticsRTests"),
   stics_version
 )
-
-if (!Sys.info()[['sysname']] == 'Windows')
-  system(paste("chmod +x", file.path(javastics_path, "bin", "stics_modulo")))
-
 data_dir <- file.path(SticsRFiles::download_data(
   example_dirs = "study_case_1",
   stics_version = stics_version
@@ -80,13 +74,6 @@ xfun::gsub_file(
   file = simple_case_rmd,
   pattern = "params$path_to_JavaStics",
   replacement = paste0("\"", javastics_path, "\""),
-  fixed = TRUE
-)
-
-xfun::gsub_file(
-  file = simple_case_rmd,
-  pattern = 'stics_version = "V9.0"',
-  replacement = paste0("stics_version = \"", stics_version, "\""),
   fixed = TRUE
 )
 
@@ -182,7 +169,7 @@ test_that("Test Vignette simple_case", {
 
 # Test Vignette specific and varietal
 # -----------------------------------
-stics_version <- "V10.0"
+
 tmpdir <- normalizePath(tempdir(), winslash = "/", mustWork = FALSE)
 vignette_rmd <- file.path(
   tmpdir,
@@ -282,11 +269,6 @@ knitr::purl(
   documentation = 2
 )
 
-# Just in case if not overwritten!
-if (file.exists(file.path(data_dir, "optim_results.Rdata"))) {
-  file.remove(file.path(data_dir, "optim_results.Rdata"))
-}
-
 ## run it
 source(file.path(tmpdir, "Parameter_estimation_Specific_and_Varietal.R"))
 
@@ -377,391 +359,6 @@ test_that("Test Vignette specific and varietal", {
 #                "Error")
 # })
 
-# # Test Vignette DREAM
-# # -------------------
-# TO update when the way of defining initial values will be uniformized in CroptimizR
-#
-#
-# tmpdir <- normalizePath(tempdir(), winslash = "/", mustWork = FALSE)
-# vignette_rmd <-file.path(tmpdir,"Parameter_estimation_DREAM.Rmd")
-# download.file("https://raw.github.com/SticsRPacks/CroptimizR/main/vignettes/Parameter_estimation_DREAM.Rmd",
-#               vignette_rmd)
-#
-# ## set the parameters for a run in auto_test mode
-# xfun::gsub_file(file=vignette_rmd,
-#                 pattern="params$eval_auto_test",replacement="TRUE",fixed=TRUE)
-# xfun::gsub_file(file=vignette_rmd,
-#                 pattern="params$eval_auto_vignette",replacement="FALSE",fixed=TRUE)
-# xfun::gsub_file(file=vignette_rmd,
-#                 pattern="params$eval_manual_vignette",replacement="FALSE",fixed=TRUE)
-# javastics_path=file.path(system.file("stics", package = "SticsRTests"),stics_version)
-# xfun::gsub_file(file=vignette_rmd,
-#                 pattern="params$path_to_JavaStics",
-#                 replacement=paste0("\"",javastics_path,"\""),
-#                 fixed=TRUE)
-#
-# ## Change the name of the executable (will be included i nthe vignette when SticsRFiles functions will be stabilized)
-# xfun::gsub_file(file=vignette_rmd,
-#                 pattern="stics_path=file.path(javastics_path,\"bin/stics_modulo.exe\")",
-#                 replacement="SticsOnR::init_javastics_pref(javastics_path,overwrite = TRUE); stics_path=file.path(javastics_path,\"bin\",SticsOnR::list_stics_exe(javastics_path)$current[[1]])",
-#                 fixed=TRUE)
-#
-# ## change the options of the parameter estimation method
-# xfun::gsub_file(file=vignette_rmd,
-#                 pattern="optim_options$iterations <- 10000 # Total number of iterations",
-#                 replacement="optim_options$iterations <- 4 # Total number of iterations",fixed=TRUE)
-# xfun::gsub_file(file=vignette_rmd,
-#                 pattern="optim_options$iterations <- 1000 # Total number of new iterations",
-#                 replacement="optim_options$iterations <- 4 # Total number of new iterations",fixed=TRUE)
-#
-# ## generate the R script
-# knitr::purl(input=vignette_rmd,
-#             output=file.path(tmpdir,"Parameter_estimation_DREAM.R"), documentation = 2)
-#
-# ## run it
-# source(file.path(tmpdir,"Parameter_estimation_DREAM.R"))
-#
-# ## load the results
-# load(file.path(out_dir,"optim_results.Rdata"))
-# res$out=NULL
-# res_new=res
-# load(system.file(file.path("extdata","ResSpecVarDREAM_4it"), "optim_results.Rdata", package = "CroptimizR"))
-# res$out=NULL
-#
-# test_that("Test Vignette DREAM", {
-#   expect_equal(res_new,res)
-#   expect_true(file.exists(file.path(out_dir,"correlationPlots.pdf")))
-#   expect_true(file.exists(file.path(out_dir,"iterAndDensityPlots.pdf")))
-#   expect_true(file.exists(file.path(out_dir,"marginalPlots.pdf")))
-# })
-
-# Test Vignette AgMIP phase III protocol
-# --------------------------------------
-
-tmpdir <- normalizePath(tempdir(), winslash = "/", mustWork = FALSE)
-vignette_rmd <- file.path(tmpdir, "AgMIP_Calibration_Protocol.Rmd")
-download.file(
-  "https://raw.github.com/SticsRPacks/CroptimizR/main/vignettes/AgMIP_Calibration_Protocol.Rmd",
-  vignette_rmd
-)
-
-## set the parameters for a run in auto_test mode
-xfun::gsub_file(
-  file = vignette_rmd,
-  pattern = "params$eval_auto_test",
-  replacement = "TRUE",
-  fixed = TRUE
-)
-xfun::gsub_file(
-  file = vignette_rmd,
-  pattern = "params$eval_auto_vignette",
-  replacement = "FALSE",
-  fixed = TRUE
-)
-xfun::gsub_file(
-  file = vignette_rmd,
-  pattern = "params$eval_manual_vignette",
-  replacement = "FALSE",
-  fixed = TRUE
-)
-javastics_path <- file.path(
-  system.file("stics", package = "SticsRTests"),
-  stics_version
-)
-xfun::gsub_file(
-  file = vignette_rmd,
-  pattern = "params$path_to_JavaStics",
-  replacement = paste0("\"", javastics_path, "\""),
-  fixed = TRUE
-)
-
-## Define initial values as those used for computing the reference results
-## (random sampling may lead to different values on different platforms even with the same seed)
-xfun::gsub_file(
-  file = vignette_rmd,
-  pattern = "ub = c(stlevamf = 500, stamflax = 800, tdmin = 8, stressdev = 1, tdmax = 32)",
-  replacement = "ub = c(stlevamf = 500, stamflax = 800, tdmin = 8, stressdev = 1, tdmax = 32), init_values=data.frame(stlevamf = c(138.2656, 446.0060), stamflax = c(506.3340, 639.4217), tdmin = c(4.841205, 6.351278), stressdev = c(0.003672681, 0.547923659), tdmax = c(30.67603, 27.26267))",
-  fixed = TRUE
-)
-
-## change the options of the parameter estimation method
-xfun::gsub_file(
-  file = vignette_rmd,
-  pattern = "list(nb_rep = c(10, 5))",
-  replacement = "list(nb_rep = 2, maxeval=4)",
-  fixed = TRUE
-)
-
-## adapt the version of the Stics input files to the Stics version used
-xfun::gsub_file(
-  file = vignette_rmd,
-  pattern = "stics_version = \"V9.0\"",
-  replacement = paste0("stics_version = \"", stics_version, "\""),
-  fixed = TRUE
-)
-
-## Fixing cores number for CI context on Github
-if (Sys.getenv("CI") != "") {
-  xfun::gsub_file(
-    file = vignette_rmd,
-    "parallel = TRUE, cores = 4",
-    "parallel = TRUE, cores = 2",
-    fixed = TRUE
-  )
-}
-
-## generate the R script
-knitr::purl(
-  input = vignette_rmd,
-  output = file.path(tmpdir, "AgMIP_Calibration_Protocol.R"),
-  documentation = 2
-)
-
-## Seems that optim_options and optim_results.Rdata are not overwritten => try to remove them before run
-if (file.exists(file.path(data_dir, "optim_results.Rdata"))) {
-  file.remove(file.path(data_dir, "optim_results.Rdata"))
-}
-#rm(optim_options, param_info)
-
-## run it
-source(file.path(tmpdir, "AgMIP_Calibration_Protocol.R"))
-
-## load the results
-load(file.path(data_dir, "optim_results.Rdata"))
-nlo_new <- lapply(res$nlo, function(x) {
-  x$call <- NULL
-  x
-}) # remove "call" since it may change between code versions ...
-load(system.file(
-  file.path("extdata", "ResAgmipPheno_2rep4it", stics_version),
-  "optim_results.Rdata",
-  package = "CroptimizR"
-))
-nlo <- lapply(res$nlo, function(x) {
-  x$call <- NULL
-  x
-}) # remove "call" since it may change between code versions ...
-
-test_that("Test Vignette AgMIP Phase III protocol", {
-  expect_equal(optim_options$nb_rep, 2)
-  expect_equal(optim_options$maxeval, 4)
-  expect_equal(
-    param_info$init_values,
-    data.frame(
-      stlevamf = c(138.2656, 446.0060),
-      stamflax = c(506.3340, 639.4217),
-      tdmin = c(4.841205, 6.351278),
-      stressdev = c(0.003672681, 0.547923659),
-      tdmax = c(30.67603, 27.26267)
-    )
-  )
-  expect_equal(nlo_new[[1]]$x0, c(138.2656, 506.3340), tolerance = 1e-4)
-  expect_equal(nlo_new[[2]]$x0, c(446.0060, 639.4217), tolerance = 1e-4)
-  expect_equal(
-    sapply(nlo_new, "[[", "solution"),
-    sapply(nlo, "[[", "solution"),
-    tolerance = 1e-4
-  )
-  expect_equal(
-    sapply(nlo_new, "[[", "objective"),
-    sapply(nlo, "[[", "objective"),
-    tolerance = 1e-4
-  )
-  expect_true(file.exists(file.path(data_dir, "param_selection_steps.csv")))
-  for (i in 1:4) {
-    expect_true(file.exists(file.path(
-      data_dir,
-      paste0("param_select_step", i),
-      "optim_results.Rdata"
-    )))
-    expect_true(file.exists(file.path(
-      data_dir,
-      paste0("param_select_step", i),
-      "EstimatedVSinit.pdf"
-    )))
-    expect_true(file.exists(file.path(
-      data_dir,
-      paste0("param_select_step", i),
-      "ValuesVSit.pdf"
-    )))
-    expect_true(file.exists(file.path(
-      data_dir,
-      paste0("param_select_step", i),
-      "ValuesVSit_2D.pdf"
-    )))
-  }
-})
-
-
-# Test use of wls criterion
-# -------------------------
-stics_version <- SticsRFiles::get_stics_versions_compat()$latest_version
-
-javastics_path <- file.path(
-  system.file("stics", package = "SticsRTests"),
-  stics_version
-)
-data_dir <- file.path(SticsRFiles::download_data(
-  example_dirs = "study_case_1",
-  stics_version = stics_version
-))
-javastics_workspace_path <- file.path(data_dir, "XmlFiles")
-stics_inputs_path <- file.path(data_dir, "TxtFiles")
-dir.create(stics_inputs_path, showWarnings = FALSE)
-SticsRFiles::gen_usms_xml2txt(
-  javastics = javastics_path,
-  workspace = javastics_workspace_path,
-  out_dir = stics_inputs_path,
-  verbose = TRUE
-)
-
-test_that("Test use of WLS", {
-  ## Create synthetic observations
-  model_options <- SticsOnR::stics_wrapper_options(
-    javastics = javastics_path,
-    workspace = stics_inputs_path,
-    parallel = FALSE
-  )
-  tmp <- SticsOnR::stics_wrapper(
-    model_options = model_options,
-    param_values = c(dlaimax = 0.0012),
-    var = c("lai_n"),
-    situation = "bo96iN+"
-  )
-  obs_list <- tmp$sim_list
-  param_info <- list(
-    lb = c(dlaimax = 0.0005),
-    ub = c(dlaimax = 0.0020),
-    init_values = c(dlaimax = c(0.001, 0.0011, 0.0013))
-  )
-  optim_options <- list(
-    nb_rep = 3,
-    maxeval = 15,
-    xtol_rel = 1e-01,
-    ranseed = 1234
-  )
-
-  ## Try to retrieve dlaimax value using OLS
-  optim_results_ols <- estim_param(
-    obs_list = obs_list,
-    crit_function = crit_ols,
-    model_function = SticsOnR::stics_wrapper,
-    model_options = model_options,
-    optim_options = optim_options,
-    param_info = param_info,
-    out_dir = file.path(getwd(), "Test_wls_crit_1")
-  )
-  ## Same but with wls, using a weight=1
-  weight <- function(...) {
-    return(1)
-  }
-  optim_results_wls <- estim_param(
-    obs_list = obs_list,
-    crit_function = crit_wls,
-    model_function = SticsOnR::stics_wrapper,
-    model_options = model_options,
-    optim_options = optim_options,
-    param_info = param_info,
-    weight = weight,
-    out_dir = file.path(getwd(), "Test_wls_crit_2"),
-    info_level = 3
-  )
-  expect_equal(
-    optim_results_ols$final_values[["dlaimax"]],
-    optim_results_wls$final_values[["dlaimax"]],
-    tolerance = 1e-5
-  )
-
-  ## Now bias large values of LAI and take them into account or not using the weight
-  ## check that estimated value of dlaimax is correct when weight of large values is set to Inf
-  tmp$sim_list[["bo96iN+"]]["lai_n"][
-    tmp$sim_list[["bo96iN+"]][["lai_n"]] > 5,
-  ] <-
-    tmp$sim_list[["bo96iN+"]]["lai_n"][
-      tmp$sim_list[["bo96iN+"]][["lai_n"]] > 5,
-    ] +
-    3
-  obs_list <- tmp$sim_list
-
-  optim_results_wls1 <- estim_param(
-    obs_list = obs_list,
-    crit_function = crit_wls,
-    model_function = SticsOnR::stics_wrapper,
-    model_options = model_options,
-    optim_options = optim_options,
-    param_info = param_info,
-    weight = weight,
-    out_dir = file.path(getwd(), "Test_wls_crit_3"),
-    info_level = 3
-  )
-  weight <- function(obs, ...) {
-    w <- rep(1, length(obs))
-    w[obs > 8] <- Inf
-    return(w)
-  }
-  optim_results_wls2 <- estim_param(
-    obs_list = obs_list,
-    crit_function = crit_wls,
-    model_function = SticsOnR::stics_wrapper,
-    model_options = model_options,
-    optim_options = optim_options,
-    param_info = param_info,
-    weight = weight,
-    out_dir = file.path(getwd(), "Test_wls_crit_4"),
-    info_level = 3
-  )
-  expect_equal(
-    optim_results_ols$final_values[["dlaimax"]],
-    optim_results_wls2$final_values[["dlaimax"]],
-    tolerance = 1e-5
-  )
-  expect_gt(
-    optim_results_wls1$final_values[["dlaimax"]] -
-      optim_results_wls2$final_values[["dlaimax"]],
-    1e-4
-  )
-})
-
-## test incorrect format for weight function
-test_that("Test use of wls: error is caught for incorrect format of weight", {
-  ## Create synthetic observations
-  model_options <- SticsOnR::stics_wrapper_options(
-    javastics = javastics_path,
-    workspace = stics_inputs_path,
-    parallel = FALSE
-  )
-  tmp <- SticsOnR::stics_wrapper(
-    model_options = model_options,
-    param_values = c(dlaimax = 0.0012),
-    var = c("lai_n"),
-    situation = "bo96iN+"
-  )
-  obs_list <- tmp$sim_list
-  w0 <- 1
-  param_info <- list(
-    lb = c(dlaimax = 0.0005),
-    ub = c(dlaimax = 0.0020),
-    init_values = c(dlaimax = c(0.001, 0.0011, 0.0013))
-  )
-  optim_options <- list(
-    nb_rep = 3,
-    maxeval = 15,
-    xtol_rel = 1e-01,
-    ranseed = 1234
-  )
-  expect_error(suppressWarnings(estim_param(
-    obs_list = obs_list,
-    crit_function = crit_wls,
-    model_function = SticsOnR::stics_wrapper,
-    model_options = model_options,
-    optim_options = optim_options,
-    param_info = param_info,
-    weight = w0,
-    out_dir = file.path(getwd(), "Test_wls_crit_5")
-  )))
-})
-
-
 # Test var argument and init values are taken into account
 # --------------------------------------------------------------
 
@@ -769,9 +366,6 @@ test_that("Test use of wls: error is caught for incorrect format of weight", {
 # set var=lai_n to get the simulated lai, use transform_sim to dynamically compute laiX2
 # and try to retrieve the parameter value used to create the synthetic observation.
 # level_info is also tested here ...
-
-# Tests for against the latest STICS version
-stics_version <- SticsRFiles::get_stics_versions_compat()$latest_version
 
 test_that("Test var argument and init values are taken into account", {
   javastics_path <- file.path(
@@ -961,43 +555,24 @@ test_that("Test var and transform_sim arguments with optim", {
 # value of dlaimax + estimated values of dlaimax from same starting points but with 2 different
 # forced values of durvieF should give quite different results).
 
-stics_version <- "V11.0"
-javastics_path <- file.path(
-  system.file("stics", package = "SticsRTests"),
-  stics_version
-)
-data_dir <- file.path(SticsRFiles::download_data(
-  example_dirs = "study_case_1",
-  stics_version = stics_version
-))
-javastics_workspace_path <- file.path(data_dir, "XmlFiles")
-stics_inputs_path <- file.path(data_dir, "TxtFiles")
-dir.create(stics_inputs_path, showWarnings = FALSE)
-SticsRFiles::gen_usms_xml2txt(
-  javastics = javastics_path,
-  workspace = javastics_workspace_path,
-  out_dir = stics_inputs_path,
-  verbose = TRUE
-)
-
 test_that("Test forced_param_values argument", {
-  # javastics_path <- file.path(
-  #   system.file("stics", package = "SticsRTests"),
-  #   stics_version
-  # )
-  # data_dir <- file.path(SticsRFiles::download_data(
-  #   example_dirs = "study_case_1",
-  #   stics_version = stics_version
-  # ))
-  # javastics_workspace_path <- file.path(data_dir, "XmlFiles")
-  # stics_inputs_path <- file.path(data_dir, "TxtFiles")
-  # dir.create(stics_inputs_path, showWarnings = FALSE)
-  # SticsRFiles::gen_usms_xml2txt(
-  #   javastics = javastics_path,
-  #   workspace = javastics_workspace_path,
-  #   out_dir = stics_inputs_path,
-  #   verbose = TRUE
-  # )
+  javastics_path <- file.path(
+    system.file("stics", package = "SticsRTests"),
+    stics_version
+  )
+  data_dir <- file.path(SticsRFiles::download_data(
+    example_dirs = "study_case_1",
+    stics_version = stics_version
+  ))
+  javastics_workspace_path <- file.path(data_dir, "XmlFiles")
+  stics_inputs_path <- file.path(data_dir, "TxtFiles")
+  dir.create(stics_inputs_path, showWarnings = FALSE)
+  SticsRFiles::gen_usms_xml2txt(
+    javastics = javastics_path,
+    workspace = javastics_workspace_path,
+    out_dir = stics_inputs_path,
+    verbose = TRUE
+  )
 
   ## Create synthetic observations
   model_options <- SticsOnR::stics_wrapper_options(
@@ -1063,11 +638,6 @@ test_that("Test forced_param_values argument", {
 # -----------------------------------------------
 
 test_that("Test DREAM-ZS takes into account initial values", {
-  # javastics_path <- file.path(
-  #   system.file("stics", package = "SticsRTests"),
-  #   stics_version
-  # )
-
   model_options <- SticsOnR::stics_wrapper_options(
     javastics = javastics_path,
     workspace = stics_inputs_path,
@@ -1165,4 +735,388 @@ test_that("Test rotation", {
   )
 
   expect_equal(optim_results$final_values[["durvieF"]], 350, tolerance = 1)
+})
+
+
+# # Test Vignette DREAM
+# # -------------------
+# TO update when the way of defining initial values will be uniformized in CroptimizR
+#
+#
+# tmpdir <- normalizePath(tempdir(), winslash = "/", mustWork = FALSE)
+# vignette_rmd <-file.path(tmpdir,"Parameter_estimation_DREAM.Rmd")
+# download.file("https://raw.github.com/SticsRPacks/CroptimizR/main/vignettes/Parameter_estimation_DREAM.Rmd",
+#               vignette_rmd)
+#
+# ## set the parameters for a run in auto_test mode
+# xfun::gsub_file(file=vignette_rmd,
+#                 pattern="params$eval_auto_test",replacement="TRUE",fixed=TRUE)
+# xfun::gsub_file(file=vignette_rmd,
+#                 pattern="params$eval_auto_vignette",replacement="FALSE",fixed=TRUE)
+# xfun::gsub_file(file=vignette_rmd,
+#                 pattern="params$eval_manual_vignette",replacement="FALSE",fixed=TRUE)
+# javastics_path=file.path(system.file("stics", package = "SticsRTests"),stics_version)
+# xfun::gsub_file(file=vignette_rmd,
+#                 pattern="params$path_to_JavaStics",
+#                 replacement=paste0("\"",javastics_path,"\""),
+#                 fixed=TRUE)
+#
+# ## Change the name of the executable (will be included i nthe vignette when SticsRFiles functions will be stabilized)
+# xfun::gsub_file(file=vignette_rmd,
+#                 pattern="stics_path=file.path(javastics_path,\"bin/stics_modulo.exe\")",
+#                 replacement="SticsOnR::init_javastics_pref(javastics_path,overwrite = TRUE); stics_path=file.path(javastics_path,\"bin\",SticsOnR::list_stics_exe(javastics_path)$current[[1]])",
+#                 fixed=TRUE)
+#
+# ## change the options of the parameter estimation method
+# xfun::gsub_file(file=vignette_rmd,
+#                 pattern="optim_options$iterations <- 10000 # Total number of iterations",
+#                 replacement="optim_options$iterations <- 4 # Total number of iterations",fixed=TRUE)
+# xfun::gsub_file(file=vignette_rmd,
+#                 pattern="optim_options$iterations <- 1000 # Total number of new iterations",
+#                 replacement="optim_options$iterations <- 4 # Total number of new iterations",fixed=TRUE)
+#
+# ## generate the R script
+# knitr::purl(input=vignette_rmd,
+#             output=file.path(tmpdir,"Parameter_estimation_DREAM.R"), documentation = 2)
+#
+# ## run it
+# source(file.path(tmpdir,"Parameter_estimation_DREAM.R"))
+#
+# ## load the results
+# load(file.path(out_dir,"optim_results.Rdata"))
+# res$out=NULL
+# res_new=res
+# load(system.file(file.path("extdata","ResSpecVarDREAM_4it"), "optim_results.Rdata", package = "CroptimizR"))
+# res$out=NULL
+#
+# test_that("Test Vignette DREAM", {
+#   expect_equal(res_new,res)
+#   expect_true(file.exists(file.path(out_dir,"correlationPlots.pdf")))
+#   expect_true(file.exists(file.path(out_dir,"iterAndDensityPlots.pdf")))
+#   expect_true(file.exists(file.path(out_dir,"marginalPlots.pdf")))
+# })
+
+# Test Vignette AgMIP phase III protocol
+# --------------------------------------
+
+tmpdir <- normalizePath(tempdir(), winslash = "/", mustWork = FALSE)
+vignette_rmd <- file.path(tmpdir, "AgMIP_Calibration_Phenology_protocol.Rmd")
+download.file(
+  "https://raw.github.com/SticsRPacks/CroptimizR/main/vignettes/AgMIP_Calibration_Phenology_protocol.Rmd",
+  vignette_rmd
+)
+
+## set the parameters for a run in auto_test mode
+xfun::gsub_file(
+  file = vignette_rmd,
+  pattern = "params$eval_auto_test",
+  replacement = "TRUE",
+  fixed = TRUE
+)
+xfun::gsub_file(
+  file = vignette_rmd,
+  pattern = "params$eval_auto_vignette",
+  replacement = "FALSE",
+  fixed = TRUE
+)
+xfun::gsub_file(
+  file = vignette_rmd,
+  pattern = "params$eval_manual_vignette",
+  replacement = "FALSE",
+  fixed = TRUE
+)
+javastics_path <- file.path(
+  system.file("stics", package = "SticsRTests"),
+  stics_version
+)
+xfun::gsub_file(
+  file = vignette_rmd,
+  pattern = "params$path_to_JavaStics",
+  replacement = paste0("\"", javastics_path, "\""),
+  fixed = TRUE
+)
+
+## Define initial values as those used for computing the reference results
+## (random sampling may lead to different values on different platforms even with the same seed)
+xfun::gsub_file(
+  file = vignette_rmd,
+  pattern = "ub = c(stlevamf = 500, stamflax = 800, tdmin = 8, stressdev = 1, tdmax = 32)",
+  replacement = "ub = c(stlevamf = 500, stamflax = 800, tdmin = 8, stressdev = 1, tdmax = 32), init_values=data.frame(stlevamf = c(138.2656, 446.0060), stamflax = c(506.3340, 639.4217), tdmin = c(4.841205, 6.351278), stressdev = c(0.003672681, 0.547923659), tdmax = c(30.67603, 27.26267))",
+  fixed = TRUE
+)
+
+## change the options of the parameter estimation method
+xfun::gsub_file(
+  file = vignette_rmd,
+  pattern = "list(nb_rep = c(10, 5))",
+  replacement = "list(nb_rep = 2, maxeval=4)",
+  fixed = TRUE
+)
+
+## adapt the version of the Stics input files to the Stics version used
+xfun::gsub_file(
+  file = vignette_rmd,
+  pattern = "stics_version = \"V9.0\"",
+  replacement = paste0("stics_version = \"", stics_version, "\""),
+  fixed = TRUE
+)
+
+## Fixing cores number for CI context on Github
+if (Sys.getenv("CI") != "") {
+  xfun::gsub_file(
+    file = vignette_rmd,
+    "parallel = TRUE, cores = 4",
+    "parallel = TRUE, cores = 2",
+    fixed = TRUE
+  )
+}
+
+## generate the R script
+knitr::purl(
+  input = vignette_rmd,
+  output = file.path(tmpdir, "AgMIP_Calibration_Phenology_protocol.R"),
+  documentation = 2
+)
+
+## Seems that optim_options and optim_results.Rdata are not overwritten => try to remove them before run
+if (file.exists(file.path(data_dir, "optim_results.Rdata"))) {
+  file.remove(file.path(data_dir, "optim_results.Rdata"))
+}
+rm(optim_options, param_info)
+
+## run it
+source(file.path(tmpdir, "AgMIP_Calibration_Phenology_protocol.R"))
+
+## load the results
+load(file.path(data_dir, "optim_results.Rdata"))
+nlo_new <- lapply(res$nlo, function(x) {
+  x$call <- NULL
+  x
+}) # remove "call" since it may change between code versions ...
+load(system.file(
+  file.path("extdata", "ResAgmipPheno_2rep4it", stics_version),
+  "optim_results.Rdata",
+  package = "CroptimizR"
+))
+nlo <- lapply(res$nlo, function(x) {
+  x$call <- NULL
+  x
+}) # remove "call" since it may change between code versions ...
+
+test_that("Test Vignette AgMIP Phase III protocol", {
+  expect_equal(optim_options$nb_rep, 2)
+  expect_equal(optim_options$maxeval, 4)
+  expect_equal(
+    param_info$init_values,
+    data.frame(
+      stlevamf = c(138.2656, 446.0060),
+      stamflax = c(506.3340, 639.4217),
+      tdmin = c(4.841205, 6.351278),
+      stressdev = c(0.003672681, 0.547923659),
+      tdmax = c(30.67603, 27.26267)
+    )
+  )
+  expect_equal(nlo_new[[1]]$x0, c(138.2656, 506.3340), tolerance = 1e-4)
+  expect_equal(nlo_new[[2]]$x0, c(446.0060, 639.4217), tolerance = 1e-4)
+  expect_equal(
+    sapply(nlo_new, "[[", "solution"),
+    sapply(nlo, "[[", "solution"),
+    tolerance = 1e-4
+  )
+  expect_equal(
+    sapply(nlo_new, "[[", "objective"),
+    sapply(nlo, "[[", "objective"),
+    tolerance = 1e-4
+  )
+  expect_true(file.exists(file.path(data_dir, "param_selection_steps.csv")))
+  for (i in 1:4) {
+    expect_true(file.exists(file.path(
+      data_dir,
+      paste0("param_select_step", i),
+      "optim_results.Rdata"
+    )))
+    expect_true(file.exists(file.path(
+      data_dir,
+      paste0("param_select_step", i),
+      "EstimatedVSinit.pdf"
+    )))
+    expect_true(file.exists(file.path(
+      data_dir,
+      paste0("param_select_step", i),
+      "ValuesVSit.pdf"
+    )))
+    expect_true(file.exists(file.path(
+      data_dir,
+      paste0("param_select_step", i),
+      "ValuesVSit_2D.pdf"
+    )))
+  }
+})
+
+
+# Test use of wls criterion
+# -------------------------
+
+javastics_path <- file.path(
+  system.file("stics", package = "SticsRTests"),
+  stics_version
+)
+data_dir <- file.path(SticsRFiles::download_data(
+  example_dirs = "study_case_1",
+  stics_version = stics_version
+))
+javastics_workspace_path <- file.path(data_dir, "XmlFiles")
+stics_inputs_path <- file.path(data_dir, "TxtFiles")
+dir.create(stics_inputs_path, showWarnings = FALSE)
+SticsRFiles::gen_usms_xml2txt(
+  javastics = javastics_path,
+  workspace = javastics_workspace_path,
+  out_dir = stics_inputs_path,
+  verbose = TRUE
+)
+
+test_that("Test use of WLS", {
+  ## Create synthetic observations
+  model_options <- SticsOnR::stics_wrapper_options(
+    javastics = javastics_path,
+    workspace = stics_inputs_path,
+    parallel = FALSE
+  )
+  tmp <- SticsOnR::stics_wrapper(
+    model_options = model_options,
+    param_values = c(dlaimax = 0.0012),
+    var = c("lai_n"),
+    situation = "bo96iN+"
+  )
+  obs_list <- tmp$sim_list
+  param_info <- list(
+    lb = c(dlaimax = 0.0005),
+    ub = c(dlaimax = 0.0020),
+    init_values = c(dlaimax = c(0.001, 0.0011, 0.0013))
+  )
+  optim_options <- list(
+    nb_rep = 3,
+    maxeval = 15,
+    xtol_rel = 1e-01,
+    ranseed = 1234
+  )
+
+  ## Try to retrieve dlaimax value using OLS
+  optim_results_ols <- estim_param(
+    obs_list = obs_list,
+    crit_function = crit_ols,
+    model_function = SticsOnR::stics_wrapper,
+    model_options = model_options,
+    optim_options = optim_options,
+    param_info = param_info,
+    out_dir = file.path(getwd(), "Test_wls_crit_1")
+  )
+  ## Same but with wls, using a weight=1
+  weight <- function(...) {
+    return(1)
+  }
+  optim_results_wls <- estim_param(
+    obs_list = obs_list,
+    crit_function = crit_wls,
+    model_function = SticsOnR::stics_wrapper,
+    model_options = model_options,
+    optim_options = optim_options,
+    param_info = param_info,
+    weight = weight,
+    out_dir = file.path(getwd(), "Test_wls_crit_2"),
+    info_level = 3
+  )
+  expect_equal(
+    optim_results_ols$final_values[["dlaimax"]],
+    optim_results_wls$final_values[["dlaimax"]],
+    tolerance = 1e-5
+  )
+
+  ## Now bias large values of LAI and take them into account or not using the weight
+  ## check that estimated value of dlaimax is correct when weight of large values is set to Inf
+  tmp$sim_list[["bo96iN+"]]["lai_n"][
+    tmp$sim_list[["bo96iN+"]][["lai_n"]] > 5,
+  ] <-
+    tmp$sim_list[["bo96iN+"]]["lai_n"][
+      tmp$sim_list[["bo96iN+"]][["lai_n"]] > 5,
+    ] +
+    3
+  obs_list <- tmp$sim_list
+
+  optim_results_wls1 <- estim_param(
+    obs_list = obs_list,
+    crit_function = crit_wls,
+    model_function = SticsOnR::stics_wrapper,
+    model_options = model_options,
+    optim_options = optim_options,
+    param_info = param_info,
+    weight = weight,
+    out_dir = file.path(getwd(), "Test_wls_crit_3"),
+    info_level = 3
+  )
+  weight <- function(obs, ...) {
+    w <- rep(1, length(obs))
+    w[obs > 8] <- Inf
+    return(w)
+  }
+  optim_results_wls2 <- estim_param(
+    obs_list = obs_list,
+    crit_function = crit_wls,
+    model_function = SticsOnR::stics_wrapper,
+    model_options = model_options,
+    optim_options = optim_options,
+    param_info = param_info,
+    weight = weight,
+    out_dir = file.path(getwd(), "Test_wls_crit_4"),
+    info_level = 3
+  )
+  expect_equal(
+    optim_results_ols$final_values[["dlaimax"]],
+    optim_results_wls2$final_values[["dlaimax"]],
+    tolerance = 1e-5
+  )
+  expect_gt(
+    optim_results_wls1$final_values[["dlaimax"]] -
+      optim_results_wls2$final_values[["dlaimax"]],
+    1e-4
+  )
+})
+
+## test incorrect format for weight function
+test_that("Test use of wls: error is caught for incorrect format of weight", {
+  ## Create synthetic observations
+  model_options <- SticsOnR::stics_wrapper_options(
+    javastics = javastics_path,
+    workspace = stics_inputs_path,
+    parallel = FALSE
+  )
+  tmp <- SticsOnR::stics_wrapper(
+    model_options = model_options,
+    param_values = c(dlaimax = 0.0012),
+    var = c("lai_n"),
+    situation = "bo96iN+"
+  )
+  obs_list <- tmp$sim_list
+  w0 <- 1
+  param_info <- list(
+    lb = c(dlaimax = 0.0005),
+    ub = c(dlaimax = 0.0020),
+    init_values = c(dlaimax = c(0.001, 0.0011, 0.0013))
+  )
+  optim_options <- list(
+    nb_rep = 3,
+    maxeval = 15,
+    xtol_rel = 1e-01,
+    ranseed = 1234
+  )
+  expect_error(suppressWarnings(estim_param(
+    obs_list = obs_list,
+    crit_function = crit_wls,
+    model_function = SticsOnR::stics_wrapper,
+    model_options = model_options,
+    optim_options = optim_options,
+    param_info = param_info,
+    weight = w0,
+    out_dir = file.path(getwd(), "Test_wls_crit_5")
+  )))
 })
