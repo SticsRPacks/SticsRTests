@@ -20,7 +20,7 @@ file.copy(from = tutorial_rmd, to = tutorial_test_rmd)
 xfun::gsub_file(
   file = tutorial_test_rmd,
   "download_url <-.*",
-  "download_url <- \"https://w3.avignon.inrae.fr/forge/attachments/download/3711/JavaSTICS-latest.zip\"",
+  "download_url <- \"https://w3.avignon.inrae.fr/forge/attachments/download/3713/JavaSTICS-latest.zip\"",
   fixed = FALSE
 )
 
