@@ -800,9 +800,9 @@ test_that("Test rotation", {
 # --------------------------------------
 
 tmpdir <- normalizePath(tempdir(), winslash = "/", mustWork = FALSE)
-vignette_rmd <- file.path(tmpdir, "AgMIP_Calibration_Phenology_protocol.Rmd")
+vignette_rmd <- file.path(tmpdir, "AgMIP_Calibration_protocol.Rmd")
 download.file(
-  "https://raw.github.com/SticsRPacks/CroptimizR/main/vignettes/AgMIP_Calibration_Phenology_protocol.Rmd",
+  "https://raw.github.com/SticsRPacks/CroptimizR/main/vignettes/AgMIP_Calibration_protocol.Rmd",
   vignette_rmd
 )
 
@@ -874,7 +874,7 @@ if (Sys.getenv("CI") != "") {
 ## generate the R script
 knitr::purl(
   input = vignette_rmd,
-  output = file.path(tmpdir, "AgMIP_Calibration_Phenology_protocol.R"),
+  output = file.path(tmpdir, "AgMIP_Calibration_protocol.R"),
   documentation = 2
 )
 
@@ -885,7 +885,7 @@ if (file.exists(file.path(data_dir, "optim_results.Rdata"))) {
 rm(optim_options, param_info)
 
 ## run it
-source(file.path(tmpdir, "AgMIP_Calibration_Phenology_protocol.R"))
+source(file.path(tmpdir, "AgMIP_Calibration_protocol.R"))
 
 ## load the results
 load(file.path(data_dir, "optim_results.Rdata"))
