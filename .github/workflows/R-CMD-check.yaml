@@ -104,7 +104,6 @@ jobs:
             any::rstudioapi
             any::semver
             any::sessioninfo
-            #any::testthat
             any::tibble
             any::tictoc
             any::tidyr
