@@ -136,7 +136,8 @@ jobs:
 
           if (!testthat_ok) {
             install.packages('ellipsis')
-            install.packages('https://cran.r-project.org/src/contrib/Archive/testthat/testthat_3.1.8.tar.gz', repos = NULL, type = 'source')
+            #install.packages('https://cran.r-project.org/src/contrib/Archive/testthat/testthat_3.1.8.tar.gz', repos = NULL, type = 'source')
+            remotes::install_version("testthat", version = "3.1.8", upgrade = "never")
           }
         shell: Rscript {0}
 
