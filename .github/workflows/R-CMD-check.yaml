@@ -67,26 +67,38 @@ jobs:
 
       - uses: r-lib/actions/setup-pandoc@v2
 
-      - name: Set up R dependencies
-        uses: r-lib/actions/setup-r-dependencies@v2
+      - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::rcmdcheck
-          needs: check
+          dependencies: '"hard"'
+          extra-packages: |
+            any::rcmdcheck
+            any::sessioninfo
+            any::remotes
+            any::BayesianTools
+            any::ggplot2
+            any::lubridate
+            any::readxl
+            any::tidyr
+            any::nloptr
+            any::lhs
+            any::tictoc
+            any::learnr
+            any::purrr
+            any::cli
+            any::crayon
+            any::tibble
+            any::rlang
+            any::magrittr
+            any::rstudioapi
+            any::lifecycle
 
-
-#      - name: Install CroptimizR and SticsRPacks
-#        run: |
-#          remotes::install_github(
-#            "SticsRPacks/CroptimizR@main",
-#            dependencies = FALSE,
-#            upgrade = "never"
-#          )
-#          remotes::install_github(
-#            "SticsRPacks/SticsRPacks@main",
-#            dependencies = FALSE,
-#            upgrade = "never"
-#          )
-#        shell: Rscript {0}
+      - name: Install CroptimizR et SticsRPacks (@main, sans dépendances)
+        run: |
+          remotes::install_github("SticsRPacks/CroptimizR@main", dependencies = FALSE, upgrade = "never")
+          remotes::install_github("SticsRPacks/SticsRPacks@main", dependencies = FALSE, upgrade = "never")
+        shell: Rscript {0}
+        env:
+          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Check
         env:

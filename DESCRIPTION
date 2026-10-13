@@ -18,21 +18,20 @@ License: file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports:
-  SticsRPacks,
   SticsRFiles,
   SticsOnR,
-  CroptimizR,
   CroPlotR,
   dplyr,
   xfun,
   knitr,
   testthat
-Remotes: 
+Suggests:
+  SticsRPacks,
+  CroptimizR
+Remotes:
   github::SticsRPacks/SticsRFiles@main,
   github::SticsRPacks/CroPlotR@main,
-  github::SticsRPacks/CroptimizR@main,
-  github::SticsRPacks/SticsOnR@main,
-  github::SticsRPacks/SticsRPacks@main,
+  github::SticsRPacks/SticsOnR@main
 Roxygen: list(markdown = TRUE)
 SystemRequirements: Java 8
 BinaryFiles:
