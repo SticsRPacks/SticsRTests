@@ -30,8 +30,8 @@ Suggests:
   CroptimizR
 Remotes:
   github::SticsRPacks/SticsRFiles@main,
-  github::SticsRPacks/CroPlotR@vrahier/fix-next,
-  github::SticsRPacks/SticsOnR@vrahier/fix-next
+  github::SticsRPacks/CroPlotR@main,
+  github::SticsRPacks/SticsOnR@main
 Roxygen: list(markdown = TRUE)
 SystemRequirements: Java 8
 BinaryFiles:
