@@ -115,9 +115,10 @@ jobs:
         run: find . -name testthat.Rout -exec cat '{}' ';'
 
       - name: Remove unwanted directories from check artifacts
+        shell: bash
         run: |
-          Remove-Item -Recurse -Force check/*/SticsRTests
-          Remove-Item -Recurse -Force check/*/00_pkg_src
+          rm -rf check/*/SticsRTests
+          rm -rf check/*/00_pkg_src
 
       - name: Upload check results
         if: failure()
