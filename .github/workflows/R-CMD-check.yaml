@@ -70,66 +70,23 @@ jobs:
       - name: Set up R dependencies
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          packages: any::sessioninfo
-          dependencies: '"all"'
-          pak-version: rc
-          extra-packages: |
-            any::BayesianTools
-            any::cli
-            any::crayon
-            any::curl
-            any::data.table
-            any::doParallel
-            any::dplyr
-            any::foreach
-            any::ggh4x
-            any::ggplot2
-            any::ggrepel
-            any::gridExtra
-            any::knitr
-            any::learnr
-            any::lhs
-            any::lifecycle
-            any::lubridate
-            any::magrittr
-            any::Matrix
-            any::nloptr
-            any::plyr
-            any::purrr
-            any::rcmdcheck
-            any::readxl
-            any::remotes
-            any::reshape2
-            any::rlang
-            any::rstudioapi
-            any::semver
-            any::sessioninfo
-            any::testthat
-            any::tibble
-            any::tictoc
-            any::tidyr
-            any::tidyselect
-            any::xfun
-            any::XML
-            any::xml2
-            any::xslt
-            SticsRPacks/SticsRFiles@main
-            SticsRPacks/CroPlotR@main
-            SticsRPacks/SticsOnR@main
+          extra-packages: any::rcmdcheck
+          needs: check
 
-      - name: Install CroptimizR and SticsRPacks
-        run: |
-          remotes::install_github(
-            "SticsRPacks/CroptimizR@main",
-            dependencies = FALSE,
-            upgrade = "never"
-          )
-          remotes::install_github(
-            "SticsRPacks/SticsRPacks@main",
-            dependencies = FALSE,
-            upgrade = "never"
-          )
-        shell: Rscript {0}
+
+#      - name: Install CroptimizR and SticsRPacks
+#        run: |
+#          remotes::install_github(
+#            "SticsRPacks/CroptimizR@main",
+#            dependencies = FALSE,
+#            upgrade = "never"
+#          )
+#          remotes::install_github(
+#            "SticsRPacks/SticsRPacks@main",
+#            dependencies = FALSE,
+#            upgrade = "never"
+#          )
+#        shell: Rscript {0}
 
       - name: Check
         env:
