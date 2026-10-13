@@ -92,7 +92,11 @@ jobs:
             any::rstudioapi
             any::lifecycle
 
-      - name: Install CroptimizR et SticsRPacks (@main, sans dépendances)
+      - name: Install CroptimizR and SticsRPacks
+        # Installed outside pak: their Remotes pin SticsRPacks deps to @*release,
+        # which conflicts with the @main versions tested here. Their CRAN deps are
+        # listed manually in `extra-packages`.
+
         run: |
           remotes::install_github("SticsRPacks/CroptimizR@main", dependencies = FALSE, upgrade = "never")
           remotes::install_github("SticsRPacks/SticsRPacks@main", dependencies = FALSE, upgrade = "never")
