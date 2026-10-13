@@ -24,7 +24,7 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          #- {os: windows-latest, r: 'release'}
+          - { os: windows-latest, r: 'release' }
           - {
               os: ubuntu-latest,
               r: "release",
@@ -67,78 +67,42 @@ jobs:
 
       - uses: r-lib/actions/setup-pandoc@v2
 
-      - name: Set up R dependencies
-        uses: r-lib/actions/setup-r-dependencies@v2
+      - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          packages: any::sessioninfo
-          dependencies: '"all"'
-          pak-version: rc
+          dependencies: '"hard"'
           extra-packages: |
+            any::rcmdcheck
+            any::sessioninfo
+            any::remotes
             any::BayesianTools
+            any::ggplot2
+            any::lubridate
+            any::readxl
+            any::tidyr
+            any::nloptr
+            any::lhs
+            any::tictoc
+            any::learnr
+            any::purrr
             any::cli
             any::crayon
-            any::curl
-            any::data.table
-            any::doParallel
-            any::dplyr
-            any::foreach
-            any::ggh4x
-            any::ggplot2
-            any::ggrepel
-            any::gridExtra
-            any::knitr
-            any::learnr
-            any::lhs
-            any::lifecycle
-            any::lubridate
-            any::magrittr
-            any::Matrix
-            any::nloptr
-            any::plyr
-            any::purrr
-            any::rcmdcheck
-            any::readxl
-            any::remotes
-            any::reshape2
-            any::rlang
-            any::rstudioapi
-            any::semver
-            any::sessioninfo
-            any::testthat
             any::tibble
-            any::tictoc
-            any::tidyr
-            any::tidyselect
-            any::xfun
-            any::XML
-            any::xml2
-            any::xslt
-            SticsRPacks/SticsRFiles@main
-            SticsRPacks/CroPlotR@main
-            SticsRPacks/SticsOnR@main
+            any::rlang
+            any::magrittr
+            any::rstudioapi
+            any::lifecycle
 
       - name: Install CroptimizR and SticsRPacks
-        run: |
-          remotes::install_github(
-            "SticsRPacks/CroptimizR@main",
-            dependencies = FALSE,
-            upgrade = "never"
-          )
-          remotes::install_github(
-            "SticsRPacks/SticsRPacks@main",
-            dependencies = FALSE,
-            upgrade = "never"
-          )
-          # Ensure testthat is exactly 3.1.8
-          required_testthat <- package_version("3.1.8")
-          testthat_ok <- requireNamespace("testthat", quietly = TRUE) &&
-            packageVersion("testthat") == required_testthat
+        # Installed outside pak: their Remotes pin SticsRPacks deps to @*release,
+        # which conflicts with the @main versions tested here. Their CRAN deps are
+        # listed manually in `extra-packages`.
 
-          if (!testthat_ok) {
-            install.packages('ellipsis')
-            install.packages('https://cran.r-project.org/src/contrib/Archive/testthat/testthat_3.1.8.tar.gz', repos = NULL, type = 'source')
-          }
+        run: |
+          remotes::install_github("SticsRPacks/CroptimizR@main", dependencies = FALSE, upgrade = "never")
+          remotes::install_github("SticsRPacks/SticsRPacks@main", dependencies = FALSE, upgrade = "never")
         shell: Rscript {0}
+        env:
+          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Check
         env:
@@ -151,13 +115,14 @@ jobs:
         run: find . -name testthat.Rout -exec cat '{}' ';'
 
       - name: Remove unwanted directories from check artifacts
+        shell: bash
         run: |
-          Remove-Item -Recurse -Force check/*/SticsRTests
-          Remove-Item -Recurse -Force check/*/00_pkg_src
+          rm -rf check/*/SticsRTests
+          rm -rf check/*/00_pkg_src
 
       - name: Upload check results
         if: failure()
         uses: actions/upload-artifact@main
         with:
-          name: ${{ runner.os }}-r${{ matrix.config.r }}-results
+          name: ${{ runner.os }}-${{ matrix.config.r }}-results
           path: check
