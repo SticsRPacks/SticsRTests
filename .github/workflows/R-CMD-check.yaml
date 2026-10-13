@@ -129,15 +129,6 @@ jobs:
             dependencies = FALSE,
             upgrade = "never"
           )
-          # Ensure testthat is exactly 3.1.8
-          required_testthat <- package_version("3.1.8")
-          testthat_ok <- requireNamespace("testthat", quietly = TRUE) &&
-            packageVersion("testthat") == required_testthat
-
-          if (!testthat_ok) {
-            install.packages('ellipsis')
-            install.packages('https://cran.r-project.org/src/contrib/Archive/testthat/testthat_3.1.8.tar.gz', repos = NULL, type = 'source')
-          }
         shell: Rscript {0}
 
       - name: Check
@@ -159,5 +150,5 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@main
         with:
-          name: ${{ runner.os }}-r${{ matrix.config.r }}-results
+          name: ${{ runner.os }}-${{ matrix.config.r }}-results
           path: check
