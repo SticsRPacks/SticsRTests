@@ -175,7 +175,7 @@
     <option choix="1" nom="radiation interception" nomParam="codetransrad">
       <choix code="1" nom="Beer's law"/>
       <choix code="2" nom="radiation transfers">
-        <param format="integer" max="3" min="1" nom="forme">-999</param>
+        <param format="integer" max="2" min="1" nom="forme">-999</param>
         <param format="real" max="5.0" min="-5.0" nom="rapforme">-999</param>
         <param format="real" max="10.0" min="-10.0" nom="adfol">-999</param>
         <param format="real" max="10.0" min="1.0" nom="dfolbas">-999</param>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<fichiertec version="10.0">
+<fichiertec version="11.0">
   <formalisme nom="supply of organic residues">
     <ta nb_interventions="1" nom="interventions">
       <ta_entete nb_colonnes="7">
@@ -52,6 +52,12 @@
       <choix code="1" nom="yes">
         <param format="real" max="10.0" min="0.0" nom="interrang">2.00000</param>
         <param format="real" max="6.28" min="0.0" nom="orientrang">0.00000</param>
+        <option choix="2" nom="Is the crop sown in a strip design?" nomParam="code_strip">
+          <choix code="1" nom="yes">
+            <param format="integer" max="100" min="1" nom="nrow">1</param>
+          </choix>
+          <choix code="2" nom="no"/>
+        </option>
       </choix>
       <choix code="2" nom="no"/>
     </option>

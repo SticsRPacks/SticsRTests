@@ -145,10 +145,26 @@ nlo <- lapply(nlo, function(x) {
 })
 
 test_that("Test Vignette simple_case", {
-  expect_equal(as.numeric(res$init_values[1,]), c(0.0023862966, 118.3769), tolerance = 1e-7)
-  expect_equal(as.numeric(res$init_values[2,]), c(0.0008777006, 290.9086), tolerance = 1e-7)
-  expect_equivalent(t(res$est_values), sapply(nlo, "[[", "solution"), tolerance = 1e-4)
-  expect_equal(res$crit_values, sapply(nlo, "[[", "objective"), tolerance = 1e-4)
+  expect_equal(
+    as.numeric(res$init_values[1, ]),
+    c(0.0023862966, 118.3769),
+    tolerance = 1e-7
+  )
+  expect_equal(
+    as.numeric(res$init_values[2, ]),
+    c(0.0008777006, 290.9086),
+    tolerance = 1e-7
+  )
+  expect_equivalent(
+    t(res$est_values),
+    sapply(nlo, "[[", "solution"),
+    tolerance = 1e-4
+  )
+  expect_equal(
+    res$crit_values,
+    sapply(nlo, "[[", "objective"),
+    tolerance = 1e-4
+  )
   expect_true(file.exists(file.path(data_dir, "EstimatedVSinit.pdf")))
   expect_true(file.exists(file.path(data_dir, "ValuesVSit.pdf")))
   expect_true(file.exists(file.path(data_dir, "ValuesVSit_2D.pdf")))
@@ -268,12 +284,24 @@ source(file.path(tmpdir, "Parameter_estimation_Specific_and_Varietal.R"))
 load(file.path(data_dir, "optim_results.Rdata"))
 res_new <- res
 rm(res)
-load(system.file(file.path("extdata", "ResSpecVar_2rep4it", stics_version), "optim_results.Rdata", package = "CroptimizR"))
+load(system.file(
+  file.path("extdata", "ResSpecVar_2rep4it", stics_version),
+  "optim_results.Rdata",
+  package = "CroptimizR"
+))
 res_ref <- res
 
 test_that("Test Vignette specific and varietal", {
-  expect_equal(as.numeric(res_new$init_values[1,]), c(0.001386297, 293.3769, 299.3398), tolerance = 1e-7)
-  expect_equal(as.numeric(res_new$init_values[2,]), c(0.001877701, 115.9086, 162.9456), tolerance = 1e-7)
+  expect_equal(
+    as.numeric(res_new$init_values[1, ]),
+    c(0.001386297, 293.3769, 299.3398),
+    tolerance = 1e-7
+  )
+  expect_equal(
+    as.numeric(res_new$init_values[2, ]),
+    c(0.001877701, 115.9086, 162.9456),
+    tolerance = 1e-7
+  )
   expect_equal(res_new$est_values, res$est_values, tolerance = 1e-4)
   expect_equal(res_new$crit_values, res$crit_values, tolerance = 1e-4)
   expect_true(file.exists(file.path(data_dir, "EstimatedVSinit.pdf")))
@@ -763,11 +791,11 @@ test_that("Test rotation", {
 #   expect_true(file.exists(file.path(out_dir,"marginalPlots.pdf")))
 # })
 
-
 # Test Vignette Parameter selection
 # ---------------------------------
 
 tmpdir <- normalizePath(tempdir(), winslash = "/", mustWork = FALSE)
+
 vignette_rmd <- file.path(tmpdir, "AgMIP_Calibration_protocol.Rmd")
 download.file(
   "https://raw.github.com/SticsRPacks/CroptimizR/main/vignettes/Parameter_selection.Rmd",
@@ -842,7 +870,8 @@ if (Sys.getenv("CI") != "") {
 ## generate the R script
 knitr::purl(
   input = vignette_rmd,
-  output = file.path(tmpdir, "Parameter_selection.R"), documentation = 2
+  output = file.path(tmpdir, "Parameter_selection.R"),
+  documentation = 2
 )
 
 ## Seems that optim_options and optim_results.Rdata are not overwritten => try to remove them before run
@@ -858,7 +887,11 @@ source(file.path(tmpdir, "Parameter_selection.R"))
 load(file.path(data_dir, "optim_results.Rdata"))
 res_new <- res
 rm(res)
-load(system.file(file.path("extdata", "ResAgmipPheno_2rep4it", stics_version), "optim_results.Rdata", package = "CroptimizR"))
+load(system.file(
+  file.path("extdata", "ResAgmipPheno_2rep4it", stics_version),
+  "optim_results.Rdata",
+  package = "CroptimizR"
+))
 res_ref <- res
 
 test_that("Test Vignette AgMIP Phase III protocol", {
@@ -874,8 +907,16 @@ test_that("Test Vignette AgMIP Phase III protocol", {
       tdmax = c(30.67603, 27.26267)
     )
   )
-  expect_equal(as.numeric(res_new$init_values[1,]), c(138.2656, 506.3340), tolerance = 1e-4)
-  expect_equal(as.numeric(res_new$init_values[2,]), c(446.0060, 639.4217), tolerance = 1e-4)
+  expect_equal(
+    as.numeric(res_new$init_values[1, ]),
+    c(138.2656, 506.3340),
+    tolerance = 1e-4
+  )
+  expect_equal(
+    as.numeric(res_new$init_values[2, ]),
+    c(446.0060, 639.4217),
+    tolerance = 1e-4
+  )
   expect_equal(res_new$est_values, res$est_values, tolerance = 1e-4)
   expect_equal(res_new$crit_values, res$crit_values, tolerance = 1e-4)
   expect_true(file.exists(file.path(data_dir, "param_selection_steps.csv")))

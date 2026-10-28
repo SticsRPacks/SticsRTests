@@ -102,7 +102,7 @@
         <param format="real" max="10.0" min="1.0" nom="celong">2.04000</param>
         <param format="real" max="40.0" min="2.0" nom="elmax">8.00000</param>
         <param format="integer" max="100" min="1" nom="nlevlim1">50</param>
-        <param format="integer" max="100" min="1" nom="nlevlim2">50</param>
+        <param format="integer" max="100" min="1" nom="nlevlim2">100</param>
         <param format="real" max="1.0" min="1.0E-4" nom="vigueurbat">1.00000</param>
       </choix>
       <choix code="2" nom="planting">
@@ -172,7 +172,7 @@
     <option choix="1" nom="radiation interception" nomParam="codetransrad">
       <choix code="1" nom="Beer's law"/>
       <choix code="2" nom="radiation transfers">
-        <param format="integer" max="3" min="1" nom="forme">-999</param>
+        <param format="integer" max="2" min="1" nom="forme">-999</param>
         <param format="real" max="5.0" min="-5.0" nom="rapforme">-999</param>
         <param format="real" max="10.0" min="-10.0" nom="adfol">-999</param>
         <param format="real" max="10.0" min="1.0" nom="dfolbas">-999</param>
@@ -183,9 +183,9 @@
   <formalisme nom="shoot biomass growth">
     <param format="real" max="40.0" min="15.0" nom="temax">32.00000</param>
     <param format="real" max="30.0" min="10.0" nom="teoptbis">32.00000</param>
-    <param format="real" max="7.0" min="1.0" nom="efcroijuv">1.90000</param>
-    <param format="real" max="10.0" min="1.0" nom="efcroiveg">3.80000</param>
-    <param format="real" max="10.0" min="1.0" nom="efcroirepro">3.80000</param>
+    <param format="real" max="7.0" min="1.0" nom="efcroijuv">2.25</param>
+    <param format="real" max="10.0" min="1.0" nom="efcroiveg">4.50</param>
+    <param format="real" max="10.0" min="1.0" nom="efcroirepro">4.50</param>
     <param format="real" max="0.5" min="0.0" nom="remobres">0.20000</param>
     <param format="real" max="50.0" min="2.0" nom="coefmshaut">0.00000</param>
   </formalisme>
@@ -270,8 +270,8 @@
   </formalisme>
   <formalisme nom="roots">
     <param format="real" max="1.0" min="0.0" nom="sensanox">0.00000</param>
-    <param format="character" nom="stoprac">lax</param>
-    <param format="real" max="1.0" min="0.0" nom="sensrsec">0.00000</param>
+    <param format="character" nom="stoprac">flo</param>
+    <param format="real" max="1.0" min="0.0" nom="sensrsec">1.0</param>
     <param format="real" max="1.0" min="0.0" nom="contrdamax">0.00000</param>
     <param format="real" max="0.07" min="0.005" nom="rayon">0.02</param>
     <option choix="2" nom="driving temperature" nomParam="codetemprac">
@@ -291,14 +291,14 @@
         <param format="real" max="200.0" min="10.0" nom="zprlim">-999</param>
       </choix>
       <choix code="2" nom="true density">
-        <param format="real" max="1000.0" min="1.0" nom="draclong">5000.000</param>
-        <param format="real" max="2000.0" min="0.0" nom="debsenrac">1500.000</param>
-        <param format="real" max="1.0" min="0.02" nom="lvfront">0.05000</param>
-        <param format="real" max="25000.0" min="250.0" nom="longsperac">11000.000</param>
-        <option choix="2" nom="Standard root distribution" nomParam="codedisrac">
+        <param format="real" max="1000.0" min="1.0" nom="draclong">5000</param>
+        <param format="real" max="2000.0" min="0.0" nom="debsenrac">1500</param>
+        <param format="real" max="1.0" min="0.02" nom="lvfront">0.083</param>
+        <param format="real" max="25000.0" min="250.0" nom="longsperac">7900</param>
+        <option choix="1" nom="Standard root distribution" nomParam="codedisrac">
           <choix code="1" nom="yes">
-            <param format="real" max="0.01" min="0.00001" nom="kdisrac">-999</param>
-            <param format="real" max="1.0" min="0.0" nom="alloperirac">-999</param>
+            <param format="real" max="0.01" min="0.00001" nom="kdisrac">0.001</param>
+            <param format="real" max="1.0" min="0.0" nom="alloperirac">0.23</param>
           </choix>
           <choix code="2" nom="no"/>
         </option>
@@ -310,11 +310,11 @@
           </choix>
           <choix code="2" nom="no"/>
         </option>
-        <option choix="3" nom="trophic-linked production" nomParam="codtrophrac">
+        <option choix="1" nom="trophic-linked production" nomParam="codtrophrac">
           <choix code="1" nom="continuous link">
-            <param format="real" max="0.9" min="0.1" nom="repracpermax">-999</param>
-            <param format="real" max="0.9" min="0.1" nom="repracpermin">-999</param>
-            <param format="real" max="1.0" min="1.0E-4" nom="krepracperm">-999</param>
+            <param format="real" max="0.9" min="0.1" nom="repracpermax">0.40</param>
+            <param format="real" max="0.9" min="0.1" nom="repracpermin">0.00</param>
+            <param format="real" max="1.0" min="1.0E-4" nom="krepracperm">0.31</param>
           </choix>
           <choix code="2" nom="threshold">
             <param format="real" max="0.9" min="0.1" nom="repracseumax">-999</param>
@@ -327,9 +327,9 @@
           <choix code="1" nom="yes"/>
           <choix code="2" nom="no"/>
         </option>
-        <option choix="2" nom="rootdeposition activation" nomParam="code_rootdeposition">
+        <option choix="1" nom="rootdeposition activation" nomParam="code_rootdeposition">
           <choix code="1" nom="yes">
-            <param format="real" max="60.0" min="10.0" nom="parazorac">-999</param>
+            <param format="real" max="60.0" min="10.0" nom="parazorac">40</param>
             <option choix="2" nom="simulation of 2 roots classes" nomParam="code_diff_root">
               <choix code="1" nom="yes">
                 <param format="real" max="4.0" min="0.0" nom="lvmax">-999</param>
@@ -547,7 +547,7 @@
           </optionv>
         </formalismev>
         <formalismev nom="roots">
-          <param format="real" max="0.5" min="0.0" nom="croirac">0.15</param>
+          <param format="real" max="0.5" min="0.0" nom="croirac">0.12</param>
         </formalismev>
         <formalismev nom="frost">
           <optionv nom="codgellev">
@@ -639,7 +639,7 @@
           </optionv>
         </formalismev>
         <formalismev nom="roots">
-          <param format="real" max="0.5" min="0.0" nom="croirac">0.15</param>
+          <param format="real" max="0.5" min="0.0" nom="croirac">0.12</param>
         </formalismev>
         <formalismev nom="frost">
           <optionv nom="codgellev">
@@ -731,7 +731,7 @@
           </optionv>
         </formalismev>
         <formalismev nom="roots">
-          <param format="real" max="0.5" min="0.0" nom="croirac">0.15</param>
+          <param format="real" max="0.5" min="0.0" nom="croirac">0.12</param>
         </formalismev>
         <formalismev nom="frost">
           <optionv nom="codgellev">
@@ -823,7 +823,7 @@
           </optionv>
         </formalismev>
         <formalismev nom="roots">
-          <param format="real" max="0.5" min="0.0" nom="croirac">0.15</param>
+          <param format="real" max="0.5" min="0.0" nom="croirac">0.12</param>
         </formalismev>
         <formalismev nom="frost">
           <optionv nom="codgellev">
@@ -915,7 +915,7 @@
           </optionv>
         </formalismev>
         <formalismev nom="roots">
-          <param format="real" max="0.5" min="0.0" nom="croirac">0.15</param>
+          <param format="real" max="0.5" min="0.0" nom="croirac">0.12</param>
         </formalismev>
         <formalismev nom="frost">
           <optionv nom="codgellev">
@@ -1007,7 +1007,7 @@
           </optionv>
         </formalismev>
         <formalismev nom="roots">
-          <param format="real" max="0.5" min="0.0" nom="croirac">0.15</param>
+          <param format="real" max="0.5" min="0.0" nom="croirac">0.12</param>
         </formalismev>
         <formalismev nom="frost">
           <optionv nom="codgellev">
@@ -1099,7 +1099,7 @@
           </optionv>
         </formalismev>
         <formalismev nom="roots">
-          <param format="real" max="0.5" min="0.0" nom="croirac">0.15</param>
+          <param format="real" max="0.5" min="0.0" nom="croirac">0.12</param>
         </formalismev>
         <formalismev nom="frost">
           <optionv nom="codgellev">
@@ -1191,7 +1191,7 @@
           </optionv>
         </formalismev>
         <formalismev nom="roots">
-          <param format="real" max="0.5" min="0.0" nom="croirac">0.15</param>
+          <param format="real" max="0.5" min="0.0" nom="croirac">0.12</param>
         </formalismev>
         <formalismev nom="frost">
           <optionv nom="codgellev">
@@ -1283,7 +1283,7 @@
           </optionv>
         </formalismev>
         <formalismev nom="roots">
-          <param format="real" max="0.5" min="0.0" nom="croirac">0.15</param>
+          <param format="real" max="0.5" min="0.0" nom="croirac">0.12</param>
         </formalismev>
         <formalismev nom="frost">
           <optionv nom="codgellev">
@@ -1375,7 +1375,7 @@
           </optionv>
         </formalismev>
         <formalismev nom="roots">
-          <param format="real" max="0.5" min="0.0" nom="croirac">0.15</param>
+          <param format="real" max="0.5" min="0.0" nom="croirac">0.12</param>
         </formalismev>
         <formalismev nom="frost">
           <optionv nom="codgellev">
@@ -1467,7 +1467,7 @@
           </optionv>
         </formalismev>
         <formalismev nom="roots">
-          <param format="real" max="0.5" min="0.0" nom="croirac">0.15</param>
+          <param format="real" max="0.5" min="0.0" nom="croirac">0.12</param>
         </formalismev>
         <formalismev nom="frost">
           <optionv nom="codgellev">
@@ -1559,7 +1559,7 @@
           </optionv>
         </formalismev>
         <formalismev nom="roots">
-          <param format="real" max="0.5" min="0.0" nom="croirac">0.15</param>
+          <param format="real" max="0.5" min="0.0" nom="croirac">0.12</param>
         </formalismev>
         <formalismev nom="frost">
           <optionv nom="codgellev">
@@ -1651,7 +1651,7 @@
           </optionv>
         </formalismev>
         <formalismev nom="roots">
-          <param format="real" max="0.5" min="0.0" nom="croirac">0.15</param>
+          <param format="real" max="0.5" min="0.0" nom="croirac">0.12</param>
         </formalismev>
         <formalismev nom="frost">
           <optionv nom="codgellev">
@@ -1743,7 +1743,7 @@
           </optionv>
         </formalismev>
         <formalismev nom="roots">
-          <param format="real" max="0.5" min="0.0" nom="croirac">0.15</param>
+          <param format="real" max="0.5" min="0.0" nom="croirac">0.12</param>
         </formalismev>
         <formalismev nom="frost">
           <optionv nom="codgellev">
@@ -1835,7 +1835,7 @@
           </optionv>
         </formalismev>
         <formalismev nom="roots">
-          <param format="real" max="0.5" min="0.0" nom="croirac">0.15</param>
+          <param format="real" max="0.5" min="0.0" nom="croirac">0.12</param>
         </formalismev>
         <formalismev nom="frost">
           <optionv nom="codgellev">
@@ -1927,7 +1927,7 @@
           </optionv>
         </formalismev>
         <formalismev nom="roots">
-          <param format="real" max="0.5" min="0.0" nom="croirac">0.15</param>
+          <param format="real" max="0.5" min="0.0" nom="croirac">0.12</param>
         </formalismev>
         <formalismev nom="frost">
           <optionv nom="codgellev">
@@ -1949,4 +1949,3 @@
     </tv>
   </formalisme>
 </fichierplt>
-

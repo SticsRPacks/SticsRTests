@@ -354,7 +354,7 @@ idor;day of the dormancy entrance;julian_d;java;1;integer;1;999;0;0
 idrp;forced day for DRP stage (999 = not forced);julian_d;PARTEC;1;integer;1;731;0;0
 ifindorm;day of dormancy break;julian_d;PARPLT;1;integer;1;999;0;0
 iflo;forced day for FLO stage (999 = not forced);julian_d;PARTEC;1;integer;1;731;0;0
-ifwater;day of the end of simulation;julian_d;USM;1;integer;1;731;0;0
+ifwater;end of simulation as cumulative julian day (>365 spans into next year);julian_d;USM;1;integer;1;731;0;0
 ilan;forced day for LAN stage (999 = not forced);julian_d;PARTEC;1;integer;1;731;0;0
 ilax;forced day for LAX stage (999 = not forced);julian_d;PARTEC;1;integer;1;731;0;0
 ilev;forced day for LEV stage (999 = not forced);julian_d;PARTEC;1;integer;1;731;0;0

@@ -172,7 +172,7 @@
     <option choix="1" nom="radiation interception" nomParam="codetransrad">
       <choix code="1" nom="Beer's law"/>
       <choix code="2" nom="radiation transfers">
-        <param format="integer" max="3" min="1" nom="forme">-999</param>
+        <param format="integer" max="2" min="1" nom="forme">-999</param>
         <param format="real" max="5.0" min="-5.0" nom="rapforme">-999</param>
         <param format="real" max="10.0" min="-10.0" nom="adfol">-999</param>
         <param format="real" max="10.0" min="1.0" nom="dfolbas">-999</param>
@@ -509,7 +509,7 @@
         </formalismev>
         <formalismev nom="radiation interception">
           <optionv nom="codetransrad">
-            <param code="1" format="real" max="1.5" min="0.1" nom="extin">0.760093030699396</param>
+            <param code="1" format="real" max="1.5" min="0.1" nom="extin">0.5</param>
             <param code="2" format="real" max="2.0" min="0.1" nom="ktrou">1.95</param>
           </optionv>
         </formalismev>
@@ -601,7 +601,7 @@
         </formalismev>
         <formalismev nom="radiation interception">
           <optionv nom="codetransrad">
-            <param code="1" format="real" max="1.5" min="0.1" nom="extin">0.760093030699396</param>
+            <param code="1" format="real" max="1.5" min="0.1" nom="extin">0.5</param>
             <param code="2" format="real" max="2.0" min="0.1" nom="ktrou">1.95</param>
           </optionv>
         </formalismev>
@@ -661,4 +661,3 @@
     </tv>
   </formalisme>
 </fichierplt>
-
