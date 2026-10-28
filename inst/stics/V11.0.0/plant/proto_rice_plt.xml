@@ -2,7 +2,7 @@
 <!-- Crop adaptation: -->
 <!-- Kamran Irfan, 13/07/2013, Irfan K., Adaptation of the generic crop model STICS for rice (Oryza sativa L.) using farm data in Camargue, Université de Marseille, 262 p. + annexes, soutenue le 12 juillet 2013 à Avignon (INRA, domaine Saint Paul) -->
 <!-- Variety adaptation: -->
-<!-- Françoise Ruget Cigalon, Ariete, Thaibonnet, 6. Bregaglio, S., Hossard, L., Cappelli, G., Resmond, R., Bocchi, S., Barbier, J. M., Ruget, F., Delmotte, S. (2017). Identifying trends and associated uncertainties in potential rice production under climate change in Mediterranean areas. Agricultural and Forest Meteorology, 237-238, 219-232. DOI : 10.1016/j.agrformet.2017.02.015 http://prodinra.inra.fr/record/387092-->
+<!-- Françoise Ruget Cigalon, Ariete, Thaibonnet, 6. Bregaglio, S., Hossard, L., Cappelli, G., Resmond, R., Bocchi, S., Barbier, J. M., Ruget, F., Delmotte, S. (2017). Identifying trends and associated uncertainties in potential rice production under climate change in Mediterranean areas. Agricultural and Forest Meteorology, 237-238, 219-232. DOI : 10.1016/j.agrformet.2017.02.015 https://hal.science/hal-01521546v1 -->
 <fichierplt version="11.0">
   <formalisme nom="plant name and group">
     <param format="character" max="0" min="0" nom="codeplante">riz</param>
@@ -757,4 +757,3 @@
     </tv>
   </formalisme>
 </fichierplt>
-

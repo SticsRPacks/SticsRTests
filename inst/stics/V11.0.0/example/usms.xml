@@ -151,7 +151,7 @@
     <nomsol>soil_winterbarley</nomsol>                                                              
     <fstation>winterbarley_sta.xml</fstation>                                                       
     <fclim1>climwinterbarleyj.1997</fclim1>                                                         
-    <fclim2>climwinterbarley.1998</fclim2>                                                          
+    <fclim2>climwinterbarleyj.1998</fclim2>                                                          
     <culturean>2</culturean>                                                                        
     <nbplantes>1</nbplantes>                                                                        
     <codesimul>0</codesimul>                                                                        
